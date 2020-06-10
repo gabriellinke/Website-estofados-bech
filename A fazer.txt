@@ -1,0 +1,27 @@
+Criar cabeçalho / rodapé
+
+Criar banco de dados dos itens a venda
+Criar home-page listando os itens
+Criar uma página para detalhes do itens
+
+Criar banco de dados dos clientes - Fazer validação do cadastro (Ver se tem algo a fazer com o CPF)
+Fazer página de cadastro, colocando CEP pra preencher cidade e estado
+
+Fazer gerenciamento de usuários, com conta adm e conta normal
+Fazer tela de login
+
+Ver como funciona pra realizar o pagamento
+
+	
+
+	Se tudo der certo:
+
+
+Adicionar itens ao carrinho
+Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
+Fazer layouts de Contato, Quem somos, etc.
+
+Melhorar a home page, fazer as imagenzinhas passando
+
+
+https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança

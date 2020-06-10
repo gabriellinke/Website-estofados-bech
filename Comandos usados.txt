@@ -1,0 +1,45 @@
+Aula 1
+
+						Server
+
+	npm init -y
+	npm install express
+	npm install @types/express -D
+	npm install ts-node -D
+	npm install typescript -D
+	npx tsc --init
+	npm install ts-node-dev -D
+
+						Na pasta raiz
+
+	npx create-react-app web --template=typescript
+	Depois disso abre web com o code 
+	npm start
+
+Aula 2
+
+						Server
+						
+	npm install knex
+	npm install sqlite3
+	npm install cors  --> npm install @types/cors -D
+	
+
+scripts do package.json: "scripts": {
+    "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
+  }
+
+
+
+
+Aula 5
+
+						Server
+
+	npm install multer - pra lidar com upload de imagens
+	npm install celebrate - validar entradas
+	npm install @types/hapi__joi -D - instalar junto com o celebrate
+
+
