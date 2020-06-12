@@ -32,6 +32,23 @@ scripts do package.json: "scripts": {
   }
 
 
+Aula 3
+
+						Web
+
+	Deletar: 
+		public: deixar só o index
+		src: App.test, index.css, logo.svg, serviceWorker.ts, setupTest.ts
+		README.md
+		
+	npm install react-icons
+	npm install react-router-dom
+	npm install @types/react-router-dom -D
+	npm install axios
+
+	Para usar mapa:
+	npm install leaflet react-leaflet
+
 
 
 Aula 5

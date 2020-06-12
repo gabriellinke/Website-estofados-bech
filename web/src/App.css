@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
+:root
+{
+    /* define as variáveis de cores */
+    --title-color: #121212;
+    --primary-color: #f06c38;
+    --hover-color: #dd6434;
+    --gray-color: #f0f0f5;
+    --cor-teste:  #394143;
+    --logo-color: #d1c32f;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*
+/* aplica essas características para todo o documento */
+{
+    margin: 0;
+    padding: 0;
+    /* tamanho da caixa é considerado até a borda, e não até o fim do conteúdo */
+    box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html
+{
+    /* define a fonte que foi importada do google.fonts para o arquivo html */
+    font-family: 'Roboto', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+body
+{
+    /* define a cor de backgroud para todo o corpo do html */
+    background:var(--gray-color);
+    -webkit-font-smoothing: antialised;
 }
 
-.App-link {
-  color: #61dafb;
+a
+{
+    /* faz com que as decorações de todos os links sejam retiradas: no caso do link, é retirado o estilo sublinhado*/
+    text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Define uma cor e uma fonte para todos os títulos */
+h1, h2, h3, h4, h5, h6
+{
+    color: var(--title-color);
+    font-family: 'Ubuntu', sans-serif;
 }

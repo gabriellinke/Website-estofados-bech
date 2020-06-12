@@ -1,0 +1,100 @@
+header
+{
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+}
+
+header .top
+{
+    display: grid;
+    grid-template-columns: 60px 110px 70px 150px;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    background-color: var(--cor-teste);
+    padding: 4px 32px;
+}
+
+header .middle
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 4px 32px;
+    background-color: var(--cor-teste);
+}
+
+header .middle .logo-search
+{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+header .middle .logo-search #form2 .search-field
+{
+    display: flex;
+    align-items: center;
+
+    /* ~TAMANHO */
+
+    background-color: var(--gray-color);
+    
+    border-width: 1px;
+    border-color: black;
+}
+
+header .middle .logo-search #form2 .search-field button
+{
+    width: 38.4px;
+    height: 38.4px;
+
+    border-top: 2px solid rgb(148, 148, 148);
+    border-right: 2px solid rgb(148, 148, 148);
+    border-bottom: 2px solid rgb(148, 148, 148);
+    border-left: none;
+
+    cursor: pointer;
+}
+
+
+
+header .middle .logo-search #form2 .search-field input
+{
+    background-color: var(--gray-color);
+
+    border-style: solid;
+    border-color: rgb(148, 148, 148);
+    padding: 8px 16px;
+    width: 380px;
+    border-width: 2px;
+    border-right: none;
+    font-size: 16px;
+}
+
+header .bottom-menu
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 4px 32px;
+    background-color: var(--logo-color);
+}
+
+header p
+{
+    color: white;
+}
+
+header a
+{
+    color: white;
+    font-weight: 300;
+
+    display: flex;
+    align-items: center;
+}

@@ -1,7 +1,8 @@
-Criar cabeçalho / rodapé
+Criar cabeçalho / rodapé 			 OK
 
-Criar banco de dados dos itens a venda
-Criar home-page listando os itens
+Criar banco de dados dos itens a venda 		 ALFA OK
+Criar cadastro de produtos			 ALFA OK
+Criar home-page listando os itens 		 OK
 Criar uma página para detalhes do itens
 
 Criar banco de dados dos clientes - Fazer validação do cadastro (Ver se tem algo a fazer com o CPF)
@@ -22,6 +23,9 @@ Fazer um menu para categorias de itens e também possibilitar a pesquisa de iten
 Fazer layouts de Contato, Quem somos, etc.
 
 Melhorar a home page, fazer as imagenzinhas passando
+Fazer os ajustes de acordo com o tamanho da tela
 
 
 https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
+
+Botão de adicionar ao carrinho Material Design icons
