@@ -32,7 +32,7 @@
 #product-info .content main .grid
 {
     display: grid;
-    grid-template-columns: 590px 590px;
+    grid-template-columns: 574px 574px;
     gap: 20px;
 }
 
@@ -40,6 +40,7 @@
 {
     font-size: 32px;
     padding: 16px;
+    border: 1px solid rgb(204, 203, 203);
 }
 
 #product-info .content main .buy p.price-area
@@ -81,7 +82,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
 }
 
 #product-info .content main .buy .purchase-area p.avaiable
@@ -110,7 +110,7 @@
     line-height: 16px;
 
     border: 0;
-
+    cursor: pointer;
     /* Para deixar o efeito de hover mais suave */
     transition: background-color 400ms;
 }
@@ -129,9 +129,17 @@
     flex-direction: row;
     align-items: center;
 
+    cursor: pointer;
     padding: 0 0 0 8px;
     /* width: 150px; */
     height: 50px;
+
+    transition: background-color 400ms;
+}
+
+#product-info .content main .buy .purchase-area .purchase .add:hover
+{
+    background-color: var(--hover-color);
 }
 
 #product-info .content main .buy .purchase-area .purchase .add .add-text
@@ -188,6 +196,7 @@
 
     border: 0;
 
+    cursor: pointer;
     /* Para deixar o efeito de hover mais suave */
     transition: background-color 400ms;
 }
@@ -240,7 +249,7 @@
 
 #product-info .content main .image 
 {
-    /* border: 1px solid rgb(204, 203, 203); */
+    border: 1px solid rgb(204, 203, 203);
 }
 
 #product-info .content main .image .secondary-image
@@ -267,7 +276,7 @@
 
 #product-info .content main .image .main-image img
 {
-    width: 590px;
+    width: 572px;
 }
 
 
