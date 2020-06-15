@@ -9,15 +9,27 @@ class ProductsController
         const {
             name,       
             images,
-            description,
-            price
+            price,
+            quantity,
+            peso,
+            formato,
+            comprimento,
+            altura,
+            largura,
+            diametro,
         } = request.body;
 
         const product = {
             name,       
             images: 'http://localhost:3333/uploads/' + request.file.filename,
-            description,
-            price
+            price,          
+            quantity,
+            peso,
+            formato,
+            comprimento,
+            altura,
+            largura,
+            diametro,
         };
 
         const insertedProduct = await knex('products').insert(product);
@@ -26,6 +38,27 @@ class ProductsController
         return response.json({
             product_id,
             ...product, 
+        });
+    }
+
+    async createDesciption(request: Request, response: Response)
+    {
+        const {
+            product_id,
+            description,
+        } = request.body;
+
+        const productDescription = {
+            product_id,
+            description,
+        }
+
+        const insertedDescripiton = await knex('descriptions').insert(productDescription);
+        const description_id = insertedDescripiton[0];
+
+        return response.json({
+            description_id,
+            ...productDescription,
         });
     }
 
@@ -66,6 +99,20 @@ class ProductsController
         }
 
         return response.json(product);
+    }
+
+    async showDescriptions(request: Request, response: Response){
+        const { id } = request.params;
+
+        const descriptions = await knex('descriptions').where('product_id', id);
+
+        if(!descriptions)
+        {
+            // Status com começo 4 significa que houve algum erro
+            return response.status(400).json({ message: 'Descriptions not found'});
+        }
+
+        return response.json(descriptions);
     }
 
     async index(request: Request, response: Response){

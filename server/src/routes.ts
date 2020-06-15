@@ -21,6 +21,7 @@ routes.get('/items', /*itemsController.index*/);
 
 routes.get('/products', productsController.index);
 routes.get('/products/:id', productsController.show);
+routes.get('/descriptions/:id', productsController.showDescriptions);
 
 //Upload de mais imagens deveria ser feito com upload.array, mas deu problema com o typescript e precisou de uma nova rota de upload de imagens
 routes.post(
@@ -32,6 +33,8 @@ routes.post(
     productsController.create
     );
 
-routes.post('/image/:id', upload.single('images'), productsController.image)
+routes.post('/description', productsController.createDesciption);
+
+routes.post('/image/:id', upload.single('images'), productsController.image);
 
 export default routes;
