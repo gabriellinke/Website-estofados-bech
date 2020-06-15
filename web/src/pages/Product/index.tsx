@@ -6,6 +6,9 @@ import api from '../../services/api';
 import { useParams } from 'react-router-dom';
 
 import './styles.css';  //Importa o css
+import axios from 'axios';  //Usado para rotas
+import Ajax from '../../services/ajax'
+import { stringify } from 'querystring';
 
 const Product = () =>
 {
@@ -38,6 +41,75 @@ const Product = () =>
         setMainImage(image);
     }
 
+    interface CEPProps{
+        cep: string,
+        logradouro: string,
+        complemento: string,
+        bairro: string,
+        localidade: string,
+        uf: string,
+        unidade: string,
+        ibge: number,
+        gia: number,
+        }
+
+
+    // Tem uma função para consultar o CEP
+    var cep = '80420120';
+    useEffect(() => {
+        axios.get<CEPProps>(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => {
+                const infoCEP:CEPProps = response.data;
+                // console.log(infoCEP);
+            })
+    }, []);
+
+    interface FreteInfo{
+        cdServico: string,
+        CepOrigem: number,
+        CepDestino: number,
+        peso: number,
+        formato: number, 
+        comprimento: number,
+        altura: number,
+        largura: number,
+        diametro: number,
+        cdMaoPropria: string,
+        valorDeclarado: number,
+        avisoRecebimento: string,
+    }
+
+    const frete:FreteInfo = {
+        cdServico: "04510", //SEDEX 04014 -   PAC 04510
+        CepOrigem: 89870000,
+        CepDestino: 80420120,
+        peso: 2,
+        formato: 1, 
+        comprimento: 30,
+        altura: 30,
+        largura: 30,
+        diametro: 30,
+        cdMaoPropria: "N",
+        valorDeclarado: 0,
+        avisoRecebimento: "N",
+    }
+
+
+    const [freteInfo, setFreteInfo] = useState<string>("");
+    useEffect(() => {
+        let ajax = new Ajax();
+        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
+        (status:number, response:string) => {
+            setFreteInfo(JSON.stringify(response));
+        })
+    }, [])
+
+    const [valorFrete, setValorFrete] = useState<string>("");
+    const [prazoFrete, setPrazoFrete] = useState<string>("");
+    useEffect(() => {
+        setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+        setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
+    }, [freteInfo])
 
 
     return(
@@ -98,8 +170,8 @@ const Product = () =>
                                 <div className="delivery-text">Entrega</div>
                                 <div className="delivery-data">
                                     <div className="type">Normal</div>
-                                    <div className="day">15 de Maio</div>
-                                    <div className="cost">R$72.50</div>
+                                    <div className="day">{`Entregue em ${prazoFrete} dias`}</div>
+                                    <div className="cost">{`R$${valorFrete}`}</div>
                                 </div>
                             </div>
                         </div>
