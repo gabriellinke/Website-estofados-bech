@@ -2,6 +2,16 @@ Criar cabeçalho / rodapé 			 OK
 
 Criar banco de dados dos itens a venda 		 ALFA OK
 Criar cadastro de produtos			 ALFA OK
+
+Fazer com que ao cadastrar a imagem fique salvo o endereço + nome	OK
+Carregar as secondary-images						OK
+Fazer a main image ser a image que está clicada				OK
+Utilizar a API de frete e mostrar o custo pro usuário
+Carregar a quantidade de produtos e botar no select
+Calcular parcela com as conditions
+Fazer BD das descrições
+Fazer aparecer as descrições
+
 Criar home-page listando os itens 		 OK
 Criar uma página para detalhes do itens
 

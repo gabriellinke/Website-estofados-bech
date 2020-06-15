@@ -269,10 +269,11 @@
     cursor: pointer;
 }
 
-#product-info .content main .image .main-image
+#product-info .content main .image .secondary-image img.selected
 {
-    
+    border: 3px solid var(--primary-color);
 }
+
 
 #product-info .content main .image .main-image img
 {

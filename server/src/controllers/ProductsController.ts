@@ -15,7 +15,7 @@ class ProductsController
 
         const product = {
             name,       
-            images: request.file.filename,
+            images: 'http://localhost:3333/uploads/' + request.file.filename,
             description,
             price
         };
@@ -39,7 +39,7 @@ class ProductsController
         let imgString = img.substring(11, img.length - 2);
 
         // Atualiza o campo images com o que tinha antes mais o nome da nova imagem
-        const finalImage = imgString + "," + image;
+        const finalImage = imgString + ",http://localhost:3333/uploads/" + image;
         console.log(finalImage);
         await knex('products')
             .where('id', id)

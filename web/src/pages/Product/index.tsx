@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 
 import './styles.css';  //Importa o css
 
-
 const Product = () =>
 {
     interface ProductProps{
@@ -21,25 +20,25 @@ const Product = () =>
     }
 
     const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
+    const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
+    const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
 
     let { id } = useParams();
     useEffect(() => {
         api.get('products/'+id) //id
             .then(response => {
-                setProduct(response.data)
+                setProduct(response.data);
+                setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
+                setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
             });
     }, []);
 
-    let images ="";
-    if(product?.images!=undefined)
+    function handleImageClick(image:string)
     {
-        if(product?.images.indexOf(',') > 0)
-            images = product?.images.substring(0, product?.images.indexOf(','));
-        else
-            images = product?.images.substring(0, product?.images.length);
+        setMainImage(image);
     }
 
-    // product?.price / product?.conditions   Preço da parcela
+
 
     return(
         <div id="product-info">
@@ -50,12 +49,19 @@ const Product = () =>
                     <div className="grid">
                         <div className="image">
                             <div className="main-image">
-                                <img src={`http://localhost:3333/uploads/${images}`} alt=""/>
+                                <img src={mainImage} alt="Imagem do produto"/>
                             </div>
                             <div className="secondary-image">
-                                <img src={`http://localhost:3333/uploads/${product?.images.substring(product?.images.indexOf(',')+1, product?.images.length)}`} alt=""/>
-                                <img src="https://statig1.akamaized.net/bancodeimagens/54/ra/yr/54rayrwzhhotxjugpfy9g0x7n.jpg" alt=""/>
-                                <img src="https://images.noticiasautomotivas.com.br/img/f/NovoKa-BancoCouro.jpg" alt=""/>
+                                {imagesUrl.map(image => {
+                                     return(
+                                        <img src={image}
+                                        className={ (mainImage === image) ? 'selected' : ''}
+                                        alt="Imagem do produto"
+                                        key={image}
+                                        id={image}
+                                        onClick={() => handleImageClick(image)}/>
+                                    );
+                                })}
                             </div>
                         </div>
                         <div className="buy">

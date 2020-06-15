@@ -41,7 +41,7 @@ const Home = () =>
                                 images = prod.images.substring(0, prod.images.length);
                             return(
                                 <Product 
-                                    src={`http://localhost:3333/uploads/${images}`}
+                                    src={images}
                                     width={256}
                                     height={320}
                                     title={prod.name}
