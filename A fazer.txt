@@ -6,7 +6,12 @@ Criar cadastro de produtos			 ALFA OK
 Fazer com que ao cadastrar a imagem fique salvo o endereço + nome	OK
 Carregar as secondary-images						OK
 Fazer a main image ser a image que está clicada				OK
-Utilizar a API de frete e mostrar o custo pro usuário
+Utilizar a API de frete e mostrar o custo pro usuário			OK
+
+Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
+https://viacep.com.br/ - API pra buscar CEP, fácil de usar
+
+Adicionar as dimensões do produto, quantidade de produtos e descrições ao BD
 Carregar a quantidade de produtos e botar no select
 Calcular parcela com as conditions
 Fazer BD das descrições
@@ -37,5 +42,3 @@ Fazer os ajustes de acordo com o tamanho da tela
 
 
 https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
-
-Botão de adicionar ao carrinho Material Design icons

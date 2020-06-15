@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'; 
+import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react'; 
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import { MdAddShoppingCart } from 'react-icons/md';
@@ -9,6 +9,33 @@ import './styles.css';  //Importa o css
 import axios from 'axios';  //Usado para rotas
 import Ajax from '../../services/ajax'
 import { stringify } from 'querystring';
+
+
+
+
+// interface CEPProps{
+//     cep: string,
+//     logradouro: string,
+//     complemento: string,
+//     bairro: string,
+//     localidade: string,
+//     uf: string,
+//     unidade: string,
+//     ibge: number,
+//     gia: number,
+//     }
+
+// // Tem uma função para consultar o CEP
+// var cep = '80420120';
+// useEffect(() => {
+//     axios.get<CEPProps>(`https://viacep.com.br/ws/${cep}/json/`)
+//         .then(response => {
+//             const infoCEP:CEPProps = response.data;
+//             // console.log(infoCEP);
+//         })
+// }, []);
+
+
 
 const Product = () =>
 {
@@ -22,52 +49,11 @@ const Product = () =>
         conditions: number;
     }
 
-    const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
-    const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
-    const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
-
-    let { id } = useParams();
-    useEffect(() => {
-        api.get('products/'+id) //id
-            .then(response => {
-                setProduct(response.data);
-                setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
-                setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
-            });
-    }, []);
-
-    function handleImageClick(image:string)
-    {
-        setMainImage(image);
-    }
-
-    interface CEPProps{
-        cep: string,
-        logradouro: string,
-        complemento: string,
-        bairro: string,
-        localidade: string,
-        uf: string,
-        unidade: string,
-        ibge: number,
-        gia: number,
-        }
-
-
-    // Tem uma função para consultar o CEP
-    var cep = '80420120';
-    useEffect(() => {
-        axios.get<CEPProps>(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => {
-                const infoCEP:CEPProps = response.data;
-                // console.log(infoCEP);
-            })
-    }, []);
-
+    // Informações para o cálculo do frete
     interface FreteInfo{
         cdServico: string,
         CepOrigem: number,
-        CepDestino: number,
+        CepDestino: string,
         peso: number,
         formato: number, 
         comprimento: number,
@@ -79,10 +65,19 @@ const Product = () =>
         avisoRecebimento: string,
     }
 
+    const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
+    const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
+    const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
+    const [cepDestino, setCepDestino] = useState<string>(""); //Vetor que armazena o CEP de destino do produto
+    const [freteInfo, setFreteInfo] = useState<string>(""); //Guarda as informações do frete para o CEP que foi consultado
+    const [valorFrete, setValorFrete] = useState<string>("");   //Armazena o valor do frete
+    const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
+
+    // Precisa configurar para cada tamanho de produto
     const frete:FreteInfo = {
         cdServico: "04510", //SEDEX 04014 -   PAC 04510
         CepOrigem: 89870000,
-        CepDestino: 80420120,
+        CepDestino: cepDestino,
         peso: 2,
         formato: 1, 
         comprimento: 30,
@@ -94,22 +89,53 @@ const Product = () =>
         avisoRecebimento: "N",
     }
 
-
-    const [freteInfo, setFreteInfo] = useState<string>("");
+    // Vê qual é o produto da URL e seta as imagens de acordo com o produto
+    let { id } = useParams();
     useEffect(() => {
+        api.get('products/'+id) //id
+            .then(response => {
+                setProduct(response.data);
+                setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
+                setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
+            });
+    }, []);
+
+    // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete
+    useEffect(() => {
+        setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+        setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
+    }, [freteInfo])
+
+    // Muda a main image quando a secondary-image for clicada
+    function handleImageClick(image:string)
+    {
+        setMainImage(image);
+    }
+
+    // Muda o CEP de destino quando é escrito algo no input
+    function handleCEPInputChange(event: ChangeEvent<HTMLInputElement>) 
+    {
+        const { name, value } = event.target;
+
+        setCepDestino(apenasNumeros(value));
+    }
+
+    // Retira os caracteres que não forem números do CEP
+    function apenasNumeros(string:string) 
+    {
+        return string.replace(/[^0-9]/g,'');
+    }
+
+    // Calcula o frete com os dados informados
+    function calcularFrete(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
         let ajax = new Ajax();
         ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
         (status:number, response:string) => {
             setFreteInfo(JSON.stringify(response));
         })
-    }, [])
-
-    const [valorFrete, setValorFrete] = useState<string>("");
-    const [prazoFrete, setPrazoFrete] = useState<string>("");
-    useEffect(() => {
-        setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
-        setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
-    }, [freteInfo])
+    }
 
 
     return(
@@ -158,8 +184,8 @@ const Product = () =>
                                 <div className="freight-area">
                                     <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
                                     <div className="cep">
-                                        <form action="" id="form2">
-                                            <input type="text" placeholder="CEP"/>
+                                        <form onSubmit={calcularFrete} id="form2">
+                                            <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
                                             <button>OK</button>
                                         </form>
                                         <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
