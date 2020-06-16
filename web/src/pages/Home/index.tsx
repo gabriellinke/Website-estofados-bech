@@ -9,11 +9,11 @@ import api from '../../services/api';
 const Home = () => 
 {
     interface ProductProps{
-        description: string;
         id: number;
         images: string;
         name: string;
-        price: string;
+        price: number;
+        conditions: number;
     }
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
@@ -45,8 +45,8 @@ const Home = () =>
                                     width={256}
                                     height={320}
                                     title={prod.name}
-                                    price={`R$${prod.price}`}
-                                    conditions={`3x R$${prod.price}/3 sem juros`}
+                                    price={`R$${Number(prod.price).toFixed(2)}`}
+                                    conditions={`${prod.conditions}x R$${(Number(prod.price)/Number(prod.conditions)).toFixed(2)} sem juros`}
                                     id={prod.id}
                                     key={prod.id}
                                 />

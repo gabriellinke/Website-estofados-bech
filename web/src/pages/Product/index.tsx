@@ -39,14 +39,20 @@ import { stringify } from 'querystring';
 
 const Product = () =>
 {
+    // Mudar com as novas props
     interface ProductProps{
-        description: string;
         id: number;
         images: string;
         name: string;
         price: string;
         quantity: number;
         conditions: number;
+        peso: number;
+        formato: number;
+        comprimento: number;
+        altura: number;
+        largura: number;
+        diametro: number;
     }
 
     // Informações para o cálculo do frete
@@ -65,6 +71,12 @@ const Product = () =>
         avisoRecebimento: string,
     }
 
+    interface descriptionProps{
+        id: number;
+        description:string;
+        product_id: number;
+    }
+
     const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
     const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
@@ -72,22 +84,8 @@ const Product = () =>
     const [freteInfo, setFreteInfo] = useState<string>(""); //Guarda as informações do frete para o CEP que foi consultado
     const [valorFrete, setValorFrete] = useState<string>("");   //Armazena o valor do frete
     const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
-
-    // Precisa configurar para cada tamanho de produto
-    const frete:FreteInfo = {
-        cdServico: "04510", //SEDEX 04014 -   PAC 04510
-        CepOrigem: 89870000,
-        CepDestino: cepDestino,
-        peso: 2,
-        formato: 1, 
-        comprimento: 30,
-        altura: 30,
-        largura: 30,
-        diametro: 30,
-        cdMaoPropria: "N",
-        valorDeclarado: 0,
-        avisoRecebimento: "N",
-    }
+    const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
+    const [options, setOptions] = useState<number[]>([]); //Armazena as descrições do produto
 
     // Vê qual é o produto da URL e seta as imagens de acordo com o produto
     let { id } = useParams();
@@ -95,16 +93,58 @@ const Product = () =>
         api.get('products/'+id) //id
             .then(response => {
                 setProduct(response.data);
-                setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
-                setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
+                if(response.data.images.indexOf(",") > 0)
+                {
+                    setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
+                    setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
+                }
+                else    //Se tiver apenas uma imagem
+                {
+                    setImagesUrl(response.data.images.split(","));  //Transforma em vetor de imagens. Como n vai ter vírgula, é um vetor de 1 posição
+                    setMainImage(response.data.images); //Seta a main image
+                }
             });
     }, []);
+
+    // Precisa configurar para cada tamanho de produto
+    const frete:FreteInfo = {
+        cdServico: "04510", //SEDEX 04014 -   PAC 04510
+        CepOrigem: 89870000,
+        CepDestino: cepDestino,
+        peso: (product?.peso !== undefined) ? product.peso : 5,
+        formato: (product?.formato !== undefined) ? product.formato : 1,
+        comprimento: (product?.comprimento !== undefined) ? product.comprimento : 16,
+        altura: (product?.altura !== undefined) ? product.altura : 2,
+        largura: (product?.largura !== undefined) ? product.largura : 11,
+        diametro: (product?.diametro !== undefined) ? product.diametro : 5,
+        cdMaoPropria: "N",
+        valorDeclarado: 0,
+        avisoRecebimento: "N",
+    }
+
+    // Carrega as descrições do produto
+    useEffect(() => {
+        api.get('descriptions/'+id)
+            .then(response => {
+                setDescriptions(response.data);
+            })
+    }, [])
 
     // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete
     useEffect(() => {
         setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
         setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
     }, [freteInfo])
+
+    // Disponibiliza a quantidade de unidades que podem ser compradas do produto
+    useEffect(() => {
+        var vetor = [];
+        for(var i = 1; i <= Number(product?.quantity); i++)
+        {
+            vetor[i] = i;
+        }
+        setOptions(vetor);
+    }, [product])
 
     // Muda a main image quando a secondary-image for clicada
     function handleImageClick(image:string)
@@ -164,15 +204,16 @@ const Product = () =>
                         </div>
                         <div className="buy">
                             <form action="" id="form1">
-                                <p className="price-area">{`R$${product?.price}`}</p>
-                                <p className="conditions">{`em até ${product?.conditions}x de R$${100} sem juros`}</p>
+                                <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
+                                <p className="conditions">{`em até ${product?.conditions}x de R$${(Number(product?.price)/Number(product?.conditions)).toFixed(2)} sem juros`}</p>
                                 <div className="purchase-area">
-                                    <p className="avaiable">{`${product?.quantity} unidade disponível`}</p>
+                                    <p className="avaiable">{`${product?.quantity} unidades disponíveis`}</p>
                                     <div className="purchase">
-                                        <select name="qtd" id="" required>
-                                            <option value="">
-                                                Quantidade
-                                            </option>
+                                        <select name="qtd" id="" required placeholder="Quantidade">
+                                            {options.map(number => {
+                                                return <option value={number} key={number}>{number}</option>;
+                                            })
+                                            }
                                         </select>
                                         <button>Comprar</button>
                                         <div className="add">
@@ -206,10 +247,12 @@ const Product = () =>
                 <div className="description">
                     <h1>Descrição</h1>
                     <h2>{product?.name}</h2>
-                    <p>{product?.description}</p>
-                    <p>O Grupo JB mantém em estoque regular grande variedade de carpetes moldados (inteiriços) e carpetes modelados (recortados) para diversos modelos de automóveis nacionais.</p>
-                    <p>São carpetes encorpados, de modelagem e encaixes perfeitos, com alto grau de aderência e acabamento. O verso do carpete moldado e/ou modelado é especialmente desenvolvido para a melhor absorção da cola sintética (verifique qual o tipo de cola indicada), evitando problemas futuros, como soltura ou escorregamento do carpete sobre o assoalho.</p>
-                </div>
+                    {descriptions.map(res => {
+                        return(
+                        <p>{res.description}</p>
+                        );
+                    })}
+                  </div>
             </div>
             <Footer />
         </div>

@@ -9,6 +9,7 @@ class ProductsController
         const {
             name,       
             images,
+            conditions,
             price,
             quantity,
             peso,
@@ -23,6 +24,7 @@ class ProductsController
             name,       
             images: 'http://localhost:3333/uploads/' + request.file.filename,
             price,          
+            conditions,
             quantity,
             peso,
             formato,

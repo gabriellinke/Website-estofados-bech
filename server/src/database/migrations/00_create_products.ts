@@ -6,8 +6,8 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('images').notNullable();
-        // table.string('descriptions').notNullable();  // Descrições vão estar na tabela descriptions com o próprio ID do produto
-        table.string('price').notNullable();
+        table.integer('conditions').notNullable();
+        table.decimal('price').notNullable();
         table.string('quantity').notNullable();
         table.decimal('peso').notNullable();
         table.integer('formato').notNullable();

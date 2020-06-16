@@ -3,25 +3,11 @@ Criar cabeçalho / rodapé 			 OK
 Criar banco de dados dos itens a venda 		 ALFA OK
 Criar cadastro de produtos			 ALFA OK
 
-Fazer com que ao cadastrar a imagem fique salvo o endereço + nome	OK
-Carregar as secondary-images						OK
-Fazer a main image ser a image que está clicada				OK
-Utilizar a API de frete e mostrar o custo pro usuário			OK
-
-Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
-https://viacep.com.br/ - API pra buscar CEP, fácil de usar
-
-Adicionar as dimensões do produto, quantidade de produtos e descrições ao BD
-Carregar a quantidade de produtos e botar no select
-Calcular parcela com as conditions
-Fazer BD das descrições
-Fazer aparecer as descrições
-
 Criar home-page listando os itens 		 OK
-Criar uma página para detalhes do itens
+Criar uma página para detalhes do itens		 OK
 
 Criar banco de dados dos clientes - Fazer validação do cadastro (Ver se tem algo a fazer com o CPF)
-Fazer página de cadastro, colocando CEP pra preencher cidade e estado
+Fazer página de cadastro, colocando CEP pra preencher cidade e estado - https://viacep.com.br/ - API pra buscar CEP, fácil de usar
 
 Fazer gerenciamento de usuários, com conta adm e conta normal
 Fazer tela de login
@@ -33,6 +19,8 @@ Ver como funciona pra realizar o pagamento
 	Se tudo der certo:
 
 
+Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
+Configurar botão de compra e adicionar ao carrinho na página de detalhes
 Adicionar itens ao carrinho
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
 Fazer layouts de Contato, Quem somos, etc.
