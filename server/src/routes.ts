@@ -5,36 +5,45 @@ import express from 'express';
 import multer from 'multer' //Pra fazer o upload de imagens
 import multerConfig from './config/multer';    
 
-import PointsController from './controllers/PointsController';
 import ProductsController from './controllers/ProductsController';
-import ItemsController from './controllers/ItemsController';
+import UsersController from './controllers/UsersController';
 import { celebrate , Joi} from 'celebrate';
 
 const routes = express.Router();
 const upload = multer(multerConfig);
 
-const pointsController = new PointsController();
-const itemsController = new ItemsController();
 const productsController = new ProductsController();
+const usersController = new UsersController();
 
-routes.get('/items', /*itemsController.index*/);
+// Dá pra juntar as rotas de show do products e descriptions
 
-routes.get('/products', productsController.index);
-routes.get('/products/:id', productsController.show);
-routes.get('/descriptions/:id', productsController.showDescriptions);
+routes.get('/products', productsController.index);  // Rota para obter todos os produtos cadastrados
+routes.get('/products/:id', productsController.show);   // Rota para obter um produto específico
+routes.get('/descriptions/:id', productsController.showDescriptions);   // Rota para obter as descrições de um produto específico
 
 //Upload de mais imagens deveria ser feito com upload.array, mas deu problema com o typescript e precisou de uma nova rota de upload de imagens
 routes.post(
     '/products',
     upload.single('images'),
-    // celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
-    //     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
-    //     name: Joi.string().required(),               //O resto ta no outro arquivo
     productsController.create
     );
 
 routes.post('/description', productsController.createDesciption);
 
 routes.post('/image/:id', upload.single('images'), productsController.image);
+
+routes.post('/user',
+celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
+    body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
+    name: Joi.string().required().regex(/^[a-zA-Z][a-zA-Z\s]*$/),
+    surname: Joi.string().required().regex(/^[a-zA-Z][a-zA-Z\s]*$/),
+    email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    password: Joi.string().required().min(6).max(20),
+    repeat_password: Joi.ref('password'),
+    }).with('password', 'repeat_password')
+}, {
+    abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
+}),
+usersController.createUser);
 
 export default routes;

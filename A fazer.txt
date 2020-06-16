@@ -6,11 +6,16 @@ Criar cadastro de produtos			 ALFA OK
 Criar home-page listando os itens 		 OK
 Criar uma página para detalhes do itens		 OK
 
-Criar banco de dados dos clientes - Fazer validação do cadastro (Ver se tem algo a fazer com o CPF)
-Fazer página de cadastro, colocando CEP pra preencher cidade e estado - https://viacep.com.br/ - API pra buscar CEP, fácil de usar
+Criar banco de dados dos clientes - Fazer validação do cadastro	OK
 
 Fazer gerenciamento de usuários, com conta adm e conta normal
 Fazer tela de login
+
+
+Criar banco de dados de endereço e informações do cliente
+Criar interface de cadastros (usuário, endereço, produto...)
+Colocar CEP pra preencher cidade e estado - https://viacep.com.br/ - API pra buscar CEP, fácil de usar
+Validar CPF - Ver para criptografar sem ser hash
 
 Ver como funciona pra realizar o pagamento
 
@@ -30,3 +35,6 @@ Fazer os ajustes de acordo com o tamanho da tela
 
 
 https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
+
+
+nome, sobrenome, email, senha  // CPF, telefone //  CEP, estado, cidade, bairro, rua/avenida, número, complemento
