@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css';
 import { Link } from "react-router-dom";
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
 import logo from '../../assets/Logo.png';
+
+import AuthContext from '../../contexts/auth'
+
 
 interface HeaderProps{
     title?: string,
@@ -12,13 +15,32 @@ interface HeaderProps{
 // Componente escrito em formato de função (React.FC)
 const Header: React.FC<HeaderProps> = (props) =>
 {
+
+    const { signed, user, signIn } = useContext(AuthContext);
+
+    console.log(signed);
+    console.log(user);
+
+    function handleSignIn() //Verifica se o usuário e senha digitados estão cadastrados no banco
+    {
+        signIn();
+    }
+
+
+
+
+
+
+
+
+
     return(
     <header>
         <div className = "top">
             <Link to="">Home</Link>
             <Link to="">Quem somos</Link>
             <Link to="">Contato</Link>
-            <Link to="">Cadastre-se / Login</Link>
+            <Link to="" onClick={handleSignIn}>Cadastre-se / Login</Link>
         </div>
         <div className="middle">
             <div className="logo-search">

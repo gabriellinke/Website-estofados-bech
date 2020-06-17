@@ -1,15 +1,16 @@
-// O app.tsx é como se fosse o arquivo main do NLW starter
 import React from 'react';
 import './App.css';
 
-// JSX: Sintaxe de XML dentro do JavaScript (HTML usa a sintaxe do XML)
+import {AuthProvider} from './contexts/auth'
 
-import Routes from './routes';
+import Routes from './routes/index';
 
 // Renderiza o routes.tsx
-function App() {
+const App:React.FC = () => {
   return (
-    <Routes /> 
+    <AuthProvider>
+        <Routes /> 
+    </AuthProvider>
   );
 }
 

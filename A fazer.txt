@@ -12,6 +12,9 @@ Fazer gerenciamento de usuários, com conta adm e conta normal
 Fazer tela de login
 
 
+Recuperar senha eu mando uma nova senha aleatória para o email.
+Ao entrar com a nova senha, o usuário tem que cadastrar sua nova senha
+
 Criar banco de dados de endereço e informações do cliente
 Criar interface de cadastros (usuário, endereço, produto...)
 Colocar CEP pra preencher cidade e estado - https://viacep.com.br/ - API pra buscar CEP, fácil de usar
@@ -35,6 +38,12 @@ Fazer os ajustes de acordo com o tamanho da tela
 
 
 https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
+https://www.youtube.com/watch?v=gc6jbFj08io	- Token com node e TS
+https://www.youtube.com/watch?v=fBrOtR3pgPU&feature=youtu.be  - Acho q tem algo sobre token
 
 
 nome, sobrenome, email, senha  // CPF, telefone //  CEP, estado, cidade, bairro, rua/avenida, número, complemento
+
+
+
+https://www.youtube.com/watch?v=KISMYYXSIX8 - 47min
