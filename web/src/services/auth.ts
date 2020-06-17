@@ -16,6 +16,6 @@ export function SignIn(): Promise<Response> {
                     email: 'diego@rocketseat.com.br',
                 },
             });
-        }, 2000);
+        }, 200);
     });
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'; //Importa eventos, useState que vai servir para armazenar informações dentro do componente e useEffect que executa uma função quando algo acontece
+import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react'; //Importa eventos, useState que vai servir para armazenar informações dentro do componente e useEffect que executa uma função quando algo acontece
 import { Link, useHistory } from 'react-router-dom';    //Usa o 'Link to' no lugar do 'a href' e useHistory: gives you access to the history instance that you may use to navigate.
 import { FiArrowLeft } from 'react-icons/fi';   //Usa react-icons para importar um ícone
 // import { Map, TileLayer, Marker} from 'react-leaflet';  //Usado para o mapa
@@ -6,6 +6,10 @@ import { FiArrowLeft } from 'react-icons/fi';   //Usa react-icons para importar 
 import api from '../../services/api';   //Usado para as rotas
 import axios from 'axios';  //Usado para rotas
 // import Dropzone from '../../components/dropzone'
+
+
+import { useAuth } from '../../contexts/auth'
+
 
 import './styles.css';  //Importa o css
 
@@ -150,6 +154,12 @@ const CreatePoint = () =>
         history.push('/');  //Volta para a home
     }
 
+    const { signOut } = useAuth();
+    function handleLogOut(){
+        signOut();
+    }
+
+
     return(
         <div id="page-create-point">
             <header>
@@ -250,6 +260,10 @@ const CreatePoint = () =>
 
                 <button type="submit">
                     Cadastrar ponto de coleta
+                </button>
+
+                <button onClick={handleLogOut}>
+                    Logout
                 </button>
             </form>
         </div>

@@ -41,9 +41,7 @@ https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobr
 https://www.youtube.com/watch?v=gc6jbFj08io	- Token com node e TS
 https://www.youtube.com/watch?v=fBrOtR3pgPU&feature=youtu.be  - Acho q tem algo sobre token
 
+https://www.youtube.com/watch?v=P65RJTTqkN4 - Vídeo sobre formulário, bom ver antes de tentar fazer as páginas de cadastro
+
 
 nome, sobrenome, email, senha  // CPF, telefone //  CEP, estado, cidade, bairro, rua/avenida, número, complemento
-
-
-
-https://www.youtube.com/watch?v=KISMYYXSIX8 - 47min

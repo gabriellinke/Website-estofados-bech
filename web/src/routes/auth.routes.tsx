@@ -1,14 +1,18 @@
 import React from 'react'
 import { Route, BrowserRouter } from 'react-router-dom';
 
-import CreatePoint from '../pages/CreatePoint'
+import Home from '../pages/Home'
+import Product from '../pages/Product'
+import Login from '../pages/Login'
 
-// Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
+// Rotas para quem não está autenticado
 const AuthRoutes = () => 
 {
     return(
         <BrowserRouter>
-            <Route component={CreatePoint} path="/create" exact/>
+            <Route component={Login} path="/login" exact/>
+            <Route component={Home} path="/" exact/>
+            <Route component={Product} path="/products/:id" exact/>
         </BrowserRouter>
     );
 }

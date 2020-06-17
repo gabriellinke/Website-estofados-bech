@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Header.css';
 import { Link } from "react-router-dom";
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
+import { FaUserCircle } from 'react-icons/fa'
 import logo from '../../assets/Logo.png';
-
-import AuthContext from '../../contexts/auth'
-
 
 interface HeaderProps{
     title?: string,
@@ -15,32 +13,13 @@ interface HeaderProps{
 // Componente escrito em formato de função (React.FC)
 const Header: React.FC<HeaderProps> = (props) =>
 {
-
-    const { signed, user, signIn } = useContext(AuthContext);
-
-    console.log(signed);
-    console.log(user);
-
-    function handleSignIn() //Verifica se o usuário e senha digitados estão cadastrados no banco
-    {
-        signIn();
-    }
-
-
-
-
-
-
-
-
-
     return(
     <header>
         <div className = "top">
             <Link to="">Home</Link>
             <Link to="">Quem somos</Link>
             <Link to="">Contato</Link>
-            <Link to="" onClick={handleSignIn}>Cadastre-se / Login</Link>
+            <Link to="/login">Cadastre-se / Login</Link>
         </div>
         <div className="middle">
             <div className="logo-search">
@@ -54,10 +33,16 @@ const Header: React.FC<HeaderProps> = (props) =>
                     </div>
                 </form>
             </div>
-            <Link to="" className="carrinho">
-                <span> <GiShoppingCart size="60" /></span>
-                Carrinho
-            </Link>
+            <div className="user-area">
+                <div className="user">
+                    <span><FaUserCircle size="60"/> </span>
+                    Cadastre-se ou faça seu login
+                </div>
+                <Link to="" className="carrinho">
+                    <span> <GiShoppingCart size="60" /></span>
+                    Carrinho
+                </Link>
+            </div>
         </div>
         <div className="bottom-menu">
             <p>Menu para escolher a pesquisa por conteúdo específico</p>
