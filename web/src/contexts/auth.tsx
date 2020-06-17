@@ -5,6 +5,7 @@ import api from '../services/api'
 interface User{
     name: string;
     email: string;
+    admin: boolean;
 }
 
 interface AuthContextData{

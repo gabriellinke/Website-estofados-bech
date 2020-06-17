@@ -98,3 +98,31 @@ header a
     display: flex;
     align-items: center;
 }
+
+.user-area
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.user
+{
+    display: flex;
+    margin-right: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-name
+{
+    color: white;
+    font-weight: 600;
+    margin-bottom: 6px;
+
+}
+
+.user span
+{
+    margin-right: 8px;
+    color:white;
+}

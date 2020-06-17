@@ -2,7 +2,8 @@ interface Response {
     token: string;
     user: {
         name:string;
-        email:string
+        email:string;
+        admin: boolean;
     }
 }
 
@@ -12,8 +13,9 @@ export function SignIn(): Promise<Response> {
             resolve({
                 token: 'esseemeutokendeautenticacao',
                 user: {
-                    name: 'Diego',
-                    email: 'diego@rocketseat.com.br',
+                    name: 'Gabriel Linke',
+                    email: 'gh.linke@hotmail.com',
+                    admin: true,
                 },
             });
         }, 200);

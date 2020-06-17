@@ -10,8 +10,8 @@ const Login = () =>
 
     const { signed, user, signIn } = useAuth();
 
-    console.log(signed);
-    console.log(user);
+    // console.log(signed);
+    // console.log(user);
 
     function handleSignIn() //Verifica se o usuário e senha digitados estão cadastrados no banco
     {
@@ -28,7 +28,7 @@ const Login = () =>
                 <label htmlFor="password">Senha</label>
                 <input type="text" name="password" id="password"/>
             </div>
-            <Link to='/buying' onClick={handleSignIn}>
+            <Link to='/' onClick={handleSignIn}>
                 Login
             </Link>
         </div>

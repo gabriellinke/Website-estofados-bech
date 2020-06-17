@@ -8,21 +8,21 @@ Criar uma página para detalhes do itens		 OK
 
 Criar banco de dados dos clientes - Fazer validação do cadastro	OK
 
-Fazer gerenciamento de usuários, com conta adm e conta normal
+Fazer gerenciamento de usuários, com conta adm e conta normal	ALFA OK
+Fazer o gerenciamento com base nos usuários do banco de dados e com JWT
 Fazer tela de login
 
 
 Recuperar senha eu mando uma nova senha aleatória para o email.
 Ao entrar com a nova senha, o usuário tem que cadastrar sua nova senha
 
-Criar banco de dados de endereço e informações do cliente
-Criar interface de cadastros (usuário, endereço, produto...)
-Colocar CEP pra preencher cidade e estado - https://viacep.com.br/ - API pra buscar CEP, fácil de usar
-Validar CPF - Ver para criptografar sem ser hash
 
 Ver como funciona pra realizar o pagamento
 
 	
+Ao comprar o item, pedir Endereço, Telefone e CPF
+Auto preencher no endereço informações com o CEP e validar CPF do usuário
+Não salvar o cartão em nenhum lugar. Pedir apenas ao realizar a compra
 
 	Se tudo der certo:
 

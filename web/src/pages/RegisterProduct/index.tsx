@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 import './styles.css';  //Importa o css
 
-const Checkout = () => 
+const RegisterProduct = () => 
 {
     return(
-        <div id="page-checkout">
-            <h1>Comprando...</h1>
+        <div id="page-register">
+            <h1>Página para registrar produto. Somente Adm!!</h1>
         </div>
     );
 };
 
-export default Checkout;
+export default RegisterProduct;
