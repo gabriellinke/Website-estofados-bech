@@ -56,7 +56,7 @@ const Product = () =>
     }
 
     // Informações para o cálculo do frete
-    interface FreteInfo{
+    interface FreteInfo{ 
         cdServico: string,
         CepOrigem: number,
         CepDestino: string,

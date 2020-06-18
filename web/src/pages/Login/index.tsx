@@ -28,10 +28,15 @@ const Login = () =>
         setPassword(value);
     }
 
-    function handleSignIn(event: FormEvent<HTMLFormElement>) //Verifica se o usuário e senha digitados estão cadastrados no banco
+    async function handleSignIn(event: FormEvent<HTMLFormElement>) //Verifica se o usuário e senha digitados estão cadastrados no banco
     {
         event.preventDefault();
-        signIn(email, password);
+        var confirm = await signIn(email, password);
+
+        if(!confirm)
+            console.log("Usuário ou senha inválido");
+        else
+            console.log("Voce está logado")
     }
 
     return(

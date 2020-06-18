@@ -22,7 +22,7 @@ interface Response {
 interface AuthContextData{
     signed: boolean;
     user: User | null;
-    signIn(email: string, password:string): void;    //Daqui vai vir o token e daqui vou pegar os dados do usuário
+    signIn(email: string, password:string): Promise<Boolean>;    //Daqui vai vir o token e daqui vou pegar os dados do usuário
     signOut(): void;
 }
 
@@ -49,17 +49,18 @@ export const AuthProvider:React.FC = ({ children }) =>  {
         loadStoragedData();
     }, []);
 
-    async function signIn(email: string, password:string){
+    async function signIn(email: string, password:string): Promise<Boolean>{
         const response:Response = await SignIn(email, password);
 
         setUser(response.user);
-
         // Agora quando estou logado, ele automáticamente vai mandar um token pra API nesse header. 
         // Não vou precisar adicionar o token manualmente a API
         api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
 
         localStorage.setItem('@EB:user', JSON.stringify(response.user));
         localStorage.setItem('@EB:token', response.token);
+
+        return (response.token != null);
     }
 
     function signOut(){

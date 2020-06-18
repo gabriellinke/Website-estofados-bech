@@ -1,5 +1,4 @@
 import api from "./api";
-import { GiTestTubes } from "react-icons/gi";
 
 interface Response {
     token: string;
@@ -12,38 +11,11 @@ interface Response {
     }
 }
 
-export function SignIn(email:string, password:string): Response {
-    api.post('/user/login', {email, password}).then(response => console.log(response));
-    console.log("Estou aqui")
+export async function SignIn(email:string, password:string): Promise<Response> { 
+    const response = await api.post('/user/login', {email, password});
 
     return({
-        token: 'uahsuauhs',
-        user: {
-            id: 1,
-            name: "Gabriel",
-            surname: "teste2",
-            email: "admin@hotmial.com",
-            admin: true
-        }
-
+        token: response.data.meuToken,
+        user: response.data.userOk
     });
 }
-
-
-// api.get('products')
-// .then(response => {
-//     setProducts(response.data)
-// export function SignIn(email:string, password:string): Promise<Response> {
-//     return new Promise(resolve => { //Aqui vou ter minha chamada para a api via axios
-//         setTimeout(()=> {
-//             resolve({
-//                 token: 'esseemeutokendeautenticacao',
-//                 user: {
-//                     name: 'Gabriel Linke',
-//                     email: 'gh.linke@hotmail.com',
-//                     admin: true,
-//                 },
-//             });
-//         }, 2000);
-//     });
-// }

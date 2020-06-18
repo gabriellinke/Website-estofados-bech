@@ -64,13 +64,22 @@ class UsersController
         const HashPassword = shaObj.getHash("HEX");
 
         const userOk:User = await knex('users').where('email', email).where('password', HashPassword).first();
-
-        let meuToken = jwt.sign({ email: userOk.email, id: userOk.id, name: userOk.name, surname: userOk.surname, admin: userOk.admin }, 
-            'CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01') // SECRET hard coded. Devia ta em uma variável do server, mas .env não funcionou
+        let meuToken = null;
+        
+        if(userOk!==undefined)
+        {
+            meuToken = jwt.sign({ email: userOk.email, id: userOk.id, name: userOk.name, surname: userOk.surname, admin: userOk.admin }, 
+                'CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01') // SECRET hard coded. Devia ta em uma variável do server, mas .env não funcionou
+            
+            return response.json({
+                userOk, 
+                meuToken
+            })
+        }
 
         return response.json({
-            userOk, 
-            meuToken
+            userOk: null, 
+            meuToken:null
         })
     }
 

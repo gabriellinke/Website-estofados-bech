@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = (props) =>
                         <span><FaUserCircle size="60"/> </span>
                         <Link to="/login">Cadastre-se ou <br/>faça seu login</Link>
                     </div>
-                    <Link to="#" className="carrinho">
+                    <Link to="/login" className="carrinho">
                         <span> <GiShoppingCart size="60" /></span>
                         Carrinho
                     </Link>
