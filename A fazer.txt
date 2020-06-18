@@ -19,6 +19,8 @@ Ao entrar com a nova senha, o usuário tem que cadastrar sua nova senha
 
 Ver como funciona pra realizar o pagamento
 
+Menu de pesquisa de itens
+
 	
 Ao comprar o item, pedir Endereço, Telefone e CPF
 Auto preencher no endereço informações com o CEP e validar CPF do usuário
@@ -39,9 +41,12 @@ Fazer os ajustes de acordo com o tamanho da tela
 
 https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
 https://www.youtube.com/watch?v=gc6jbFj08io	- Token com node e TS
-https://www.youtube.com/watch?v=fBrOtR3pgPU&feature=youtu.be  - Acho q tem algo sobre token
+
 
 https://www.youtube.com/watch?v=P65RJTTqkN4 - Vídeo sobre formulário, bom ver antes de tentar fazer as páginas de cadastro
 
 
 nome, sobrenome, email, senha  // CPF, telefone //  CEP, estado, cidade, bairro, rua/avenida, número, complemento
+
+
+SECRET: CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01

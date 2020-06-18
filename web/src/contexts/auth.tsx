@@ -8,10 +8,21 @@ interface User{
     admin: boolean;
 }
 
+interface Response {
+    token: string;
+    user: {
+        id: number;
+        name: string;
+        surname: string;
+        email: string;
+        admin: boolean;
+    }
+}
+
 interface AuthContextData{
     signed: boolean;
     user: User | null;
-    signIn(): Promise<void>;    //Daqui vai vir o token e daqui vou pegar os dados do usuário
+    signIn(email: string, password:string): void;    //Daqui vai vir o token e daqui vou pegar os dados do usuário
     signOut(): void;
 }
 
@@ -38,8 +49,8 @@ export const AuthProvider:React.FC = ({ children }) =>  {
         loadStoragedData();
     }, []);
 
-    async function signIn(){
-        const response = await SignIn();
+    async function signIn(email: string, password:string){
+        const response:Response = await SignIn(email, password);
 
         setUser(response.user);
 

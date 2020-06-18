@@ -32,6 +32,8 @@ routes.post('/description', productsController.createDesciption);
 
 routes.post('/image/:id', upload.single('images'), productsController.image);
 
+routes.post('/user/login', usersController.verifyUser);
+
 routes.post('/user',
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
@@ -40,6 +42,7 @@ celebrate({                                     //Dá pra passar essa validaçã
     email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
     password: Joi.string().required().min(6).max(20),
     repeat_password: Joi.ref('password'),
+    admin: Joi.boolean().default(false),
     }).with('password', 'repeat_password')
 }, {
     abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro

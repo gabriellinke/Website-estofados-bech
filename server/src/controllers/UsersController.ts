@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import jsSHA from 'jssha'
+import jwt from 'jsonwebtoken'
 
 class UsersController
 {
@@ -10,7 +11,8 @@ class UsersController
             name,       
             surname,
             email,
-            password
+            password,
+            admin,
         } = request.body;
 
         const user = {
@@ -18,6 +20,7 @@ class UsersController
             surname,
             email,
             password,
+            admin,
         }
 
         // Atualiza a password como sendo o Hash da senha
@@ -39,6 +42,36 @@ class UsersController
             user_id,
             ...user
         });
+    }
+
+    async verifyUser(request: Request, response: Response)
+    {
+        interface User{
+            id: number;
+            name: string;    
+            surname: string;
+            email: string;
+            admin: boolean;
+        }
+
+        const {
+            email,
+            password
+        } = request.body;
+
+        const shaObj = new jsSHA("SHA3-512", "TEXT")
+        shaObj.update(password);
+        const HashPassword = shaObj.getHash("HEX");
+
+        const userOk:User = await knex('users').where('email', email).where('password', HashPassword).first();
+
+        let meuToken = jwt.sign({ email: userOk.email, id: userOk.id, name: userOk.name, surname: userOk.surname, admin: userOk.admin }, 
+            'CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01') // SECRET hard coded. Devia ta em uma variável do server, mas .env não funcionou
+
+        return response.json({
+            userOk, 
+            meuToken
+        })
     }
 
     async addAddress(request: Request, response: Response)
