@@ -3,7 +3,9 @@ import { SignIn } from '../services/auth'
 import api from '../services/api'
 
 interface User{
+    id: number;
     name: string;
+    surname: string;
     email: string;
     admin: boolean;
 }

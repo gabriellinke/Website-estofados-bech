@@ -37,8 +37,8 @@ routes.post('/user/login', usersController.verifyUser);
 routes.post('/user',
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
-    name: Joi.string().required().regex(/^[a-zA-Z][a-zA-Z\s]*$/),
-    surname: Joi.string().required().regex(/^[a-zA-Z][a-zA-Z\s]*$/),
+    name: Joi.string().required(),
+    surname: Joi.string().required(),
     email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
     password: Joi.string().required().min(6).max(20),
     repeat_password: Joi.ref('password'),

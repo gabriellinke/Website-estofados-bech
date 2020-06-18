@@ -6,20 +6,17 @@ Criar cadastro de produtos			 ALFA OK
 Criar home-page listando os itens 		 OK
 Criar uma página para detalhes do itens		 OK
 
-Criar banco de dados dos clientes - Fazer validação do cadastro	OK
+Criar banco de dados dos clientes - Fazer validação do cadastro		OK
 
-Fazer gerenciamento de usuários, com conta adm e conta normal	ALFA OK
-Fazer o gerenciamento com base nos usuários do banco de dados e com JWT
+Fazer gerenciamento de usuários, com conta adm e conta normal	 	OK
+Fazer o gerenciamento com base nos usuários do banco de dados 		OK
+
 Fazer tela de login
-
-
 Recuperar senha eu mando uma nova senha aleatória para o email.
 Ao entrar com a nova senha, o usuário tem que cadastrar sua nova senha
 
 
 Ver como funciona pra realizar o pagamento
-
-Menu de pesquisa de itens
 
 	
 Ao comprar o item, pedir Endereço, Telefone e CPF
@@ -28,6 +25,8 @@ Não salvar o cartão em nenhum lugar. Pedir apenas ao realizar a compra
 
 	Se tudo der certo:
 
+https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
+Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
 
 Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
 Configurar botão de compra e adicionar ao carrinho na página de detalhes
@@ -39,14 +38,7 @@ Melhorar a home page, fazer as imagenzinhas passando
 Fazer os ajustes de acordo com o tamanho da tela
 
 
-https://www.luiztools.com.br/post/autorizacao-em-node-js-com-passport-4/  - Sobre logins e segurança
-https://www.youtube.com/watch?v=gc6jbFj08io	- Token com node e TS
-
 
 https://www.youtube.com/watch?v=P65RJTTqkN4 - Vídeo sobre formulário, bom ver antes de tentar fazer as páginas de cadastro
-
-
-nome, sobrenome, email, senha  // CPF, telefone //  CEP, estado, cidade, bairro, rua/avenida, número, complemento
-
 
 SECRET: CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01

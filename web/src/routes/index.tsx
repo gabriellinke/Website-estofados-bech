@@ -12,7 +12,7 @@ const Routes = () => {
     if(!signed)
         return <AuthRoutes />;
     else
-    {
+    {    
         if(!user?.admin)
             return <UserRoutes />;
         else
