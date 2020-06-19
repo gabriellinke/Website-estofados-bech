@@ -35,9 +35,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                 <div className="user-area">
                     <div className="user">
                         <span><FaUserCircle size="60"/> </span>
-                        <Link to="/login">Cadastre-se ou <br/>faça seu login</Link>
+                        <Link to="/user/login">Cadastre-se ou <br/>faça seu login</Link>
                     </div>
-                    <Link to="/login" className="carrinho">
+                    <Link to="/user/login" className="carrinho">
                         <span> <GiShoppingCart size="60" /></span>
                         Carrinho
                     </Link>

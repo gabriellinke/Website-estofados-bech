@@ -19,16 +19,12 @@ const Login = () =>
 
     function handleEmailInputChange(event: ChangeEvent<HTMLInputElement>) 
     {
-        const { value } = event.target;
-
-        setEmail(value);
+        setEmail(event.target.value);
     }
 
     function handlePasswordInputChange(event: ChangeEvent<HTMLInputElement>) 
     {
-        const { value } = event.target;
-
-        setPassword(value);
+        setPassword(event.target.value);
     }
 
     function handleCloseUserError()
@@ -84,9 +80,9 @@ const Login = () =>
                         <a href="#">Esqueci minha senha</a>
                     </div>
                     <button className="form-button">Login</button>
-                    <a href="">
+                    <Link to="/user/register">
                         <span>Criar conta</span>
-                    </a>
+                    </Link>
                 </form>
                 <Footer />
         </div>

@@ -34,7 +34,7 @@ routes.post('/image/:id', upload.single('images'), productsController.image);
 
 routes.post('/user/login', usersController.verifyUser);
 
-routes.post('/user',
+routes.post('/user/register',
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
     name: Joi.string().required(),
