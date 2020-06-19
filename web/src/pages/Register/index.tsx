@@ -47,10 +47,11 @@ const SignupSchema = Yup.object().shape({
         .required("Obrigatório"),
 });
 
-const RegisterFormik: React.FC = () => {
+const RegisterFormik: React.FC = () => 
+{
   const history = useHistory();
+
   const handleSubmit = (values: FormValues): void => {
-      console.log("entrei")
     api.post('/user/register', values)
         .then(() => {
           setSituation("ok");
@@ -65,35 +66,35 @@ const RegisterFormik: React.FC = () => {
             setSituation("hide");
         }, 2000)
         })
-};
+  };
 
-const [situation, setSituation] = useState<string>("hide");
+  const [situation, setSituation] = useState<string>("hide");
 
-function handleRegister()
-{
-    if(situation == 'error')
-        return(
+  function handleRegister()
+  {
+      if(situation == 'error')
+          return(
+              <div id="modal" className={situation}>
+              <div className="content">
+                <div className="header">
+                    <img src={errIcon} width='50px' alt="Cadastro concluído"></img>
+                    <h1>Email já cadastrado</h1>
+                </div>
+              </div>
+            </div>
+          );
+      else
+          return(
             <div id="modal" className={situation}>
             <div className="content">
               <div className="header">
-                  <img src={errIcon} width='50px' alt="Cadastro concluído"></img>
-                  <h1>Email já cadastrado</h1>
+                  <img src={check} alt="Cadastro concluído"></img>
+                  <h1>Conta cadastrada com sucesso</h1>
               </div>
             </div>
           </div>
-        );
-    else
-        return(
-          <div id="modal" className={situation}>
-          <div className="content">
-            <div className="header">
-                <img src={check} alt="Cadastro concluído"></img>
-                <h1>Conta cadastrada com sucesso</h1>
-            </div>
-          </div>
-        </div>
-        );
-}
+          );
+  }
 
   return (
     <div className="RegisterFormik">
@@ -110,19 +111,19 @@ function handleRegister()
                 <img src={logo} alt="Logomarca" />
             </header>
             <Form className="form">
-              <h1>Cadastre-se</h1>
-              <FormikField name="name" label="Nome"/>
-              <FormikField name="surname" label="Sobrenome"/>
-              <FormikField name="email" label="Email"/>
-              <FormikField name="password" label="Senha " type="password"/>
-              <FormikField name="repeat_password" label="Confirme a senha" type="password" />
+                <h1>Cadastre-se</h1>
+                <FormikField name="name" label="Nome"/>
+                <FormikField name="surname" label="Sobrenome"/>
+                <FormikField name="email" label="Email"/>
+                <FormikField name="password" label="Senha " type="password"/>
+                <FormikField name="repeat_password" label="Confirme a senha" type="password" />
 
-              <button type="submit">
-                Cadastre-se
-              </button>
-              <Link to="/user/login">
-                    <span>Já tenho uma conta</span>
-              </Link>
+                <button type="submit">
+                  Cadastre-se
+                </button>
+                <Link to="/user/login">
+                      <span>Já tenho uma conta</span>
+                </Link>
             </Form>
             <Footer />
 

@@ -1,31 +1,41 @@
-import React, { useState, ChangeEvent, FormEvent} from 'react'; 
+import React, { useState } from 'react'; 
 import { Link } from "react-router-dom";
 import { useAuth } from '../../contexts/auth'
 import { GrFormClose } from 'react-icons/gr'
+
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import FormikField from "../../components/FormikField";
 
 import './styles.css';  //Importa o css
 
 import Footer from '../../partials/Footer/Footer'
 import logo from '../../assets/Logo.png';
 
-const Login = () =>
+interface FormValues {
+    email: string;
+    password: string;
+}
+  
+const initialValues: FormValues = {
+    email: "",
+    password: ""
+};
+
+const SigninSchema = Yup.object().shape({
+    email: Yup.string()
+        .required("Obrigatório"),
+    password: Yup.string()
+        .required("Obrigatório"),
+});
+
+const Login: React.FC = () =>
 {
 
     const { signIn } = useAuth();
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
     const [userError, setUserError] = useState<boolean>(false);
 
-    function handleEmailInputChange(event: ChangeEvent<HTMLInputElement>) 
-    {
-        setEmail(event.target.value);
-    }
-
-    function handlePasswordInputChange(event: ChangeEvent<HTMLInputElement>) 
-    {
-        setPassword(event.target.value);
-    }
 
     function handleCloseUserError()
     {
@@ -47,15 +57,14 @@ const Login = () =>
             );
     }
 
-    async function handleSignIn(event: FormEvent<HTMLFormElement>) //Verifica se o usuário e senha digitados estão cadastrados no banco
+    const handleSignIn = (values: FormValues): void => 
     {
-        event.preventDefault();
-        var confirm = await signIn(email, password);
-
-        if(!confirm)
-            setUserError(true);
-        else
-            console.log("Voce está logado")
+        signIn(values.email, values.password)
+            .then((res) => {
+                console.log(!res)
+                setUserError(!res);
+            })
+            .catch(()=> { setUserError(true); })
     }
 
     return(
@@ -65,25 +74,32 @@ const Login = () =>
                 <header>
                     <img src={logo} alt="Logomarca" />
                 </header>
-                <form onSubmit={handleSignIn}>
-                    <h1>Login</h1>
 
-                    {handleUserError()}
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={handleSignIn}
+                    validationSchema={SigninSchema}
+                >
+                {() => {
+                    return (
+                        <Form className="form">
+                            <h1>Login</h1>
+                            {handleUserError()}
 
-                    <div className="field">
-                        <label htmlFor="email">Email</label>
-                        <input type="text" name="email" id="email" onChange={handleEmailInputChange}/>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="password">Senha</label>
-                        <input type="password" name="password" id="password" onChange={handlePasswordInputChange}/>
-                        <a href="#">Esqueci minha senha</a>
-                    </div>
-                    <button className="form-button">Login</button>
-                    <Link to="/user/register">
-                        <span>Criar conta</span>
-                    </Link>
-                </form>
+                            <FormikField name="email" label="Email"/>
+                            <div className="field">
+                                <FormikField name="password" label="Senha" type="password"/>
+                                <a href="">Esqueci minha senha</a>
+                            </div>
+
+                            <button className="form-button" type="submit">Login</button>
+                            <Link to="/user/register">
+                                <span>Criar conta</span>
+                            </Link>
+                        </Form>
+                    );
+                }}
+                </Formik>
                 <Footer />
         </div>
     );
