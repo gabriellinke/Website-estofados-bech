@@ -39,7 +39,7 @@ celebrate({                                     //Dá pra passar essa validaçã
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
     name: Joi.string().required(),
     surname: Joi.string().required(),
-    email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    email: Joi.string().required().lowercase().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
     password: Joi.string().required().min(6).max(20),
     repeat_password: Joi.ref('password'),
     admin: Joi.boolean().default(false),

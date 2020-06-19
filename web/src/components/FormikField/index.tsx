@@ -1,5 +1,6 @@
 import React from "react";
 import { ErrorMessage, Field } from "formik";
+import TextField from "@material-ui/core/TextField";
 
 import "./FormikField.css";
 
@@ -16,7 +17,7 @@ const FormikField: React.FC<FormikFieldProps> = ({ name, label, type = "text", r
       <Field
         required={required}
         autoComplete="off"
-        as={HTMLInputElement}
+        as={TextField}
         label={label}
         name={name}
         fullWidth
