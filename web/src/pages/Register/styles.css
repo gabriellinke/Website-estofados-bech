@@ -95,3 +95,59 @@
     display: flex;
     align-items: center;
 }
+
+
+#modal
+{
+    /* Para o modal utilizar 100% da tela */
+    height: 100vh;
+    width: 100vw;
+    background-color: #0e0a14ef;
+
+    position: fixed;
+
+    /* Ser fixado no topo da tela */
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Transição pra quando for aberto */
+    transition: 400ms;
+}
+
+/* Caixa que vai ter o conteúdo */
+#modal .content
+{
+    color: white;
+    width: 420px;
+}
+
+#modal .header
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 48px;
+}
+
+#modal .header h1
+{
+    color: white;
+
+    margin-top: 32px;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+/* Quando o modal estiver pertencendo à classe hide ele não vai mostrar nada do seu conteúdo */
+#modal.hide
+{
+    display: none;
+}

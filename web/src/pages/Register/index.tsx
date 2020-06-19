@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import api from '../../services/api'
 
 import Footer from '../../partials/Footer/Footer'
 import logo from '../../assets/Logo.png';
+import check from '../../assets/check.svg';
+import errIcon from '../../assets/xred.svg';
 
 import "./styles.css";
 
@@ -46,26 +48,52 @@ const SignupSchema = Yup.object().shape({
 });
 
 const RegisterFormik: React.FC = () => {
+  const history = useHistory();
   const handleSubmit = (values: FormValues): void => {
       console.log("entrei")
     api.post('/user/register', values)
-        .then(() => alert(JSON.stringify(values)))
-        .catch(() => alert("Email já cadastrado"))
+        .then(() => {
+          setSituation("ok");
+          setTimeout(() => {
+            setSituation("hide");
+            history.push('/user/login')
+        }, 2000)
+        })
+        .catch(() => {
+          setSituation("error");
+          setTimeout(() => {
+            setSituation("hide");
+        }, 2000)
+        })
 };
 
-// alert(JSON.stringify(values));
-//   async function handleSignUp(event: FormEvent<HTMLFormElement>) //Verifica se o usuário e senha digitados estão cadastrados no banco
-//   {
-//       event.preventDefault();
-//       try{
-//           const response = await api.post('/user/register', {name, surname, email, password, repeat_password});
-//           console.log(response);
-//       }
-//       catch(err)
-//       {
-//           alert(err)
-//       }
-//   }
+const [situation, setSituation] = useState<string>("hide");
+
+function handleRegister()
+{
+    if(situation == 'error')
+        return(
+            <div id="modal" className={situation}>
+            <div className="content">
+              <div className="header">
+                  <img src={errIcon} width='50px' alt="Cadastro concluído"></img>
+                  <h1>Email já cadastrado</h1>
+              </div>
+            </div>
+          </div>
+        );
+    else
+        return(
+          <div id="modal" className={situation}>
+          <div className="content">
+            <div className="header">
+                <img src={check} alt="Cadastro concluído"></img>
+                <h1>Conta cadastrada com sucesso</h1>
+            </div>
+          </div>
+        </div>
+        );
+}
 
   return (
     <div className="RegisterFormik">
@@ -97,7 +125,11 @@ const RegisterFormik: React.FC = () => {
               </Link>
             </Form>
             <Footer />
+
+            {handleRegister()}
+
         </div>
+        
           );
         }}
       </Formik>
