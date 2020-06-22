@@ -3,6 +3,8 @@ import knex from '../database/connection';
 import jsSHA from 'jssha'
 import jwt from 'jsonwebtoken'
 
+import nodemailer from 'nodemailer'
+
 class UsersController
 {
     async createUser(request: Request, response: Response)
@@ -80,6 +82,48 @@ class UsersController
         return response.json({
             userOk: null, 
             meuToken:null
+        })
+    }
+
+    async verifyEmail(request: Request, response: Response)
+    {
+        const email = request.body.email;
+
+        const ok = await knex('users').where('email', email).first();
+        const resposta = !!ok
+
+        const usuario = "freestepnewversion@gmail.com";
+        const senha = "soufreestep";
+
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: usuario,
+                pass: senha
+            },
+            tls: { rejectUnauthorized: false }
+        });
+
+        const link = "http://localhost:3000/user/login"
+        const mensagem = `<p>Você está recebendo este email porque utilizou a opção para recuperar a sua senha na Loja Virtual da Estofados Bech.<br/></p>
+                          <p>Clique no link abaixo para alterar a sua senha:<br/></p>
+                          <a href='${link}'>${link}</a>`
+
+        transporter.sendMail({
+            from: "Estofados Bech <freestepnewversion@gmail.com>",
+            to: email,
+            subject: "Altere sua senha na loja Estofados Bech",
+            html: mensagem
+        }).then(message => {
+            console.log(message);
+        }).catch(err => {
+            console.log(err);
+        })
+
+        return response.json({
+            resposta
         })
     }
 

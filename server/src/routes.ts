@@ -33,6 +33,7 @@ routes.post('/description', productsController.createDesciption);
 routes.post('/image/:id', upload.single('images'), productsController.image);
 
 routes.post('/user/login', usersController.verifyUser);
+routes.post('/user/reset', usersController.verifyEmail);
 
 routes.post('/user/register',
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens

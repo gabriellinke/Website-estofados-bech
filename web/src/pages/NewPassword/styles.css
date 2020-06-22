@@ -1,0 +1,178 @@
+#page-reset .form
+{
+    background-color: white;
+    
+    /* Cria uma margem de 80px em cima e embaixo e deixa as margens laterais iguais, sendo ajustadas automaticamente */
+    margin: 20px auto 80px;
+
+    /* preenchimento */
+    /* Distância interna do conteúdo para a margem */
+    padding: 32px 64px;
+
+    border-radius: 8px;
+
+    /* Limitar a largura pra deixar mais bonito */
+    max-width: 500px;
+
+}
+
+#page-reset .form h1
+{
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+#page-reset .form .field a
+{
+
+    justify-content: left;
+    margin-top: 4px;
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+#page-reset .form button.form-button
+{
+    width: 100%;
+    height: 56px;
+
+    background-color: var(--primary-color);
+    border-radius: 8px;
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+
+    border: 0;
+
+    margin-top: 20px;
+
+
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-reset form button.form-button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#page-reset form p
+{
+    font-size: 13px;
+}
+
+#page-reset form a
+{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8px;
+    font-size: 17px;
+    color: #221F1F;
+    font-weight: 700;
+    justify-content: center;
+}
+
+#page-reset form a span
+{
+    height: 56px;
+    width: 100%;
+    transition: background-color 700ms;
+    border-radius: 8px;
+
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-reset form a span:hover
+{
+    background-color:  #fff9c3;
+}
+
+#page-reset body::after
+{
+    content: "";
+    position: absolute ;
+    background: var(--cor-teste);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 18rem;
+    z-index: -1;
+}
+
+#page-reset header img
+{
+
+    background-color: var(--cor-teste);
+}
+
+#page-reset header
+{
+    background-color: var(--cor-teste);
+    margin-top: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.reset-ok
+{
+    background-color: rgb(26, 235, 53);
+    margin-bottom: 8px;
+    /* padding: 6px; */
+    display: flex;
+    font-weight: 500;
+    /* justify-content: space-between; */
+    text-align: center;
+    justify-content: space-between;
+    border-radius: 8px; 
+}
+
+.reset-error
+{
+    background-color: rgb(255, 78, 78);
+    margin-bottom: 8px;
+    /* padding: 6px; */
+    display: flex;
+    font-weight: 500;
+    /* justify-content: space-between; */
+    text-align: center;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.text-error
+{
+    flex: 1;
+    padding: 6px;
+}
+
+button.close-button
+{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    
+    width: 30px;
+    height: 30px;
+    display: flex;
+}
+
+button.close-button span
+{
+    width: 30px;
+    height: 30px;
+}

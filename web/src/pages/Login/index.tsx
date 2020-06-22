@@ -89,7 +89,7 @@ const Login: React.FC = () =>
                             <FormikField name="email" label="Email"/>
                             <div className="field">
                                 <FormikField name="password" label="Senha" type="password"/>
-                                <a href="">Esqueci minha senha</a>
+                                <Link to="/user/reset">Esqueci minha senha</Link>
                             </div>
 
                             <button className="form-button" type="submit">Login</button>
