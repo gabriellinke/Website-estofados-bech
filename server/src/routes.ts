@@ -14,9 +14,11 @@ const upload = multer(multerConfig);
 
 const productsController = new ProductsController();
 const usersController = new UsersController();
+const walletcontroller = require("./controllers/walletController");
+
+routes.post("/checkout", walletcontroller.walletbutton);
 
 // Dá pra juntar as rotas de show do products e descriptions
-
 routes.get('/products', productsController.index);  // Rota para obter todos os produtos cadastrados
 routes.get('/products/:id', productsController.show);   // Rota para obter um produto específico
 routes.get('/descriptions/:id', productsController.showDescriptions);   // Rota para obter as descrições de um produto específico

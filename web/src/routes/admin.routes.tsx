@@ -16,7 +16,7 @@ const AdminRoutes = () =>
                 <Route component={Home} path="/" exact/>
                 <Route component={Product} path="/products/:id" exact/>
                 <Route component={RegisterProduct} path="/register" exact/>
-                <Route component={Home} />  {/* Usa o switch para essa rota com a home ser a rota default caso não encontre nenhuma */}
+                <Route component={Home} />  {/* Usa o switch para que essa rota com a home seja a rota default caso não encontre nenhuma */}
             </Switch>
         </BrowserRouter>
     );
