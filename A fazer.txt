@@ -14,12 +14,12 @@ Fazer o gerenciamento com base nos usuários do banco de dados 		OK
 Fazer tela de login							OK
 Fazer tela de cadastro							OK
 
-Ver como funciona pra realizar o pagamento
 
+Fazer validação dos dados
+Verificar se o id, preço, nome e quantidade batem no banco de dados, pra só depois liberar resposta
+Fazer o CSS
 
-Ao comprar o item, pedir Endereço, Telefone e CPF
-Auto preencher no endereço informações com o CEP e validar CPF do usuário
-Não salvar o cartão em nenhum lugar. Pedir apenas ao realizar a compra
+Depois mandar dados da compra para um email
 
 	Se tudo der certo:
 
@@ -32,6 +32,7 @@ Fazer recuperação de senha através do email - https://www.youtube.com/watch?v
 Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
 Configurar botão de compra e adicionar ao carrinho na página de detalhes
 Adicionar itens ao carrinho
+Fazer a compra através do carrinho
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
 Fazer layouts de Contato, Quem somos, etc.
 

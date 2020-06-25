@@ -3,7 +3,7 @@ import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import { MdAddShoppingCart } from 'react-icons/md';
 import api from '../../services/api';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import './styles.css';  //Importa o css
 import axios from 'axios';  //Usado para rotas
@@ -203,19 +203,22 @@ const Product = () =>
                             </div>
                         </div>
                         <div className="buy">
-                            <form action="" id="form1">
+                            <form action="/buying" method="GET" id="form1">
+                                <input type="hidden" name="id" value={product?.id} />
+                                <input type="hidden" name="price" value={product?.price} />
+                                <input type="hidden" name="name" value={product?.name} />
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x de R$${(Number(product?.price)/Number(product?.conditions)).toFixed(2)} sem juros`}</p>
                                 <div className="purchase-area">
                                     <p className="avaiable">{`${product?.quantity} unidades disponíveis`}</p>
                                     <div className="purchase">
-                                        <select name="qtd" id="" required placeholder="Quantidade">
+                                        <select name="quantity" id="" required placeholder="Quantidade">
                                             {options.map(number => {
                                                 return <option value={number} key={number}>{number}</option>;
                                             })
                                             }
                                         </select>
-                                        <button>Comprar</button>
+                                            <button>Comprar</button>
                                         <div className="add">
                                             <MdAddShoppingCart size="50"/>
                                             <div className="add-text">Adicionar ao carrinho</div>

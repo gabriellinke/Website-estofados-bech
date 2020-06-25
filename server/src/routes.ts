@@ -6,6 +6,7 @@ import multer from 'multer' //Pra fazer o upload de imagens
 import multerConfig from './config/multer';    
 
 import ProductsController from './controllers/ProductsController';
+import CheckoutController from './controllers/CheckoutController';
 import UsersController from './controllers/UsersController';
 import { celebrate , Joi} from 'celebrate';
 
@@ -14,9 +15,11 @@ const upload = multer(multerConfig);
 
 const productsController = new ProductsController();
 const usersController = new UsersController();
+const checkoutController = new CheckoutController();
 const walletcontroller = require("./controllers/walletController");
 
 routes.post("/checkout", walletcontroller.walletbutton);
+routes.post("/checkout/data", checkoutController.create)
 
 // Dá pra juntar as rotas de show do products e descriptions
 routes.get('/products', productsController.index);  // Rota para obter todos os produtos cadastrados

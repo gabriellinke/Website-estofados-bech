@@ -1,6 +1,7 @@
 exports.walletbutton = async (req, res, next) => {
 
-//   // require("dotenv").config();
+  console.log(req.body)
+  // require("dotenv").config();
   const mercadopago = require("mercadopago");
 
   // Configura credenciais
@@ -9,35 +10,49 @@ exports.walletbutton = async (req, res, next) => {
     access_token: "TEST-4283306478544705-062216-3333dd3ca66b6ea28756706260ef82d2-267468177"
   });
 
+  // verifica se esse id bate com o nome e preço do item, e ve se tem a quantidade que foi pedida
+
+  const {
+    id,
+    productName,
+    quantity,
+    price,
+    name,
+    surname,
+    email,
+    area_code,
+    phone,
+    cpf,
+    cep,
+    state,
+    city,
+    neighborhood,
+    street,
+    number,
+    adjunct,
+  } = req.body;
+
   let preference = {
     "items": [
         {
-            "id": "item-ID-1234",
-            "title": "Meu produto",
+            "id": id,
+            "title": productName,
             "currency_id": "BRL",
-            "picture_url": "http://localhost:3333/uploads/1d6ee64eb317-banco9.jpg",
-            "description": "Descrição do Item",
-            // "category_id": "art",
-            "quantity": 45,
-            "unit_price": 32.50
+            "quantity": quantity,
+            "unit_price": price
         }
     ],
     "payer": {
-        "name": "Pedro",
-        "surname": "Silva",
-        "email": "user@email.com",
+        "name": name,
+        "surname": surname,
+        "email": email,
         "phone": {
-            "area_code": "11",
-            "number": 44444444
+            "area_code": area_code,
+            "number": phone
         },
         "identification": {
             "type": "CPF",
-            "number": "19119119100"
-        },
-        "address": {
-            "street_name": "Street",
-            "street_number": 123,
-            "zip_code": "06233200"
+            "number": cpf
         }
     }
   }
@@ -46,11 +61,35 @@ exports.walletbutton = async (req, res, next) => {
     const pref = await mercadopago.preferences.create(preference);
 
     const url = pref.body.init_point;
-    const id = pref.body.id
+    const checkout_id = pref.body.id
+
+    const checkoutInfo = {
+      product_id: id,
+      productName,
+      quantity,
+      price,
+
+      name,
+      surname,
+      email,
+      area_code,
+      phone,
+      cpf,
+
+      cep,
+      state,
+      city,
+      neighborhood,
+      street,
+      number,
+      adjunct,
+
+      url,
+      checkout_id,
+    }
 
     return res.json({
-      url,
-      id
+      checkoutInfo
     });
   }catch(err){
     return res.send(err.message);

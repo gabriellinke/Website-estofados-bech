@@ -4,7 +4,6 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Home from '../pages/Home'
 import Product from '../pages/Product'
 import Login from '../pages/Login'
-import RegisterSalvo from '../pages/RegisterSalvo'
 import Register from '../pages/Register'
 import NewPassword from '../pages/NewPassword'
 
