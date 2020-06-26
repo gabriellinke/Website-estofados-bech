@@ -35,7 +35,7 @@ exports.walletbutton = async (req, res, next) => {
     "items": [
         {
             "id": id,
-            "title": productName + " x" + quantity,
+            "title": productName,
             "currency_id": "BRL",
             "quantity": quantity,
             "unit_price": price
@@ -43,7 +43,7 @@ exports.walletbutton = async (req, res, next) => {
         {
           "title": "Frete",
           "currency_id": "BRL",
-          "quantity": quantity,
+          "quantity": 1,
           "unit_price": freightPrice
         }
     ],

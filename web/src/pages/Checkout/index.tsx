@@ -6,8 +6,10 @@ import { Formik, Form } from "formik";
 import FormikField from "../../components/FormikField";
 import Ajax from '../../services/ajax'
 
+import Header from '../../partials/Header/Header';
+import Footer from '../../partials/Footer/Footer';
+
 import './styles.css';  //Importa o css
-import Product from '../../partials/Product/Product';
 
 interface Data {
     product_id: number;
@@ -138,11 +140,12 @@ const Checkout = () =>
 
     const [link, setLink] = useState<string>("#");
     const [id, setId] = useState<string>("0");
-    const [price, setPrice] = useState<number>(999999);                 //PRECISO
-    const [productName, setProductName] = useState<string>("");             //PRECISO
+    const [price, setPrice] = useState<number>(999999);
+    const [productName, setProductName] = useState<string>("");
     const [quantity, setQuantity] = useState<number>(0);
     const [checkoutData, setCheckoutData] = useState<Data>();
     const [disabled, setDisabled] = useState<boolean>(true);
+    const [image, setImage] = useState<string>("");
 
     const [frete, setFrete] = useState<string>("0");
 
@@ -172,11 +175,16 @@ const Checkout = () =>
                         if((parseInt(parametros[1].split("=")[1])) <= response.data.quantity)
                             setQuantity(parseInt(parametros[1].split("=")[1]))
                         else
-                            setQuantity(1);
+                            setQuantity(response.data.quantity);
                     }
 
                     setPrice(response.data.price)
                     setProductName(response.data.name)
+
+                    if(response.data.images.indexOf(",") > 0)
+                        setImage(response.data.images.substring(0, response.data.images.indexOf(","))); 
+                    else
+                        setImage(response.data.images);
                 })
         }
     }, [])
@@ -286,42 +294,83 @@ const Checkout = () =>
 
     return(
         <div id="page-checkout">
-            <h1>Comprando...</h1>
-            <h2>Frete: {frete}</h2>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validationSchema={CheckoutSchema}
-            >
-                {() => {
-                    return (
-                        <div>
-                            <Form className="form">
-                                <FormikField name="name" label="Nome"/>
-                                <FormikField name="surname" label="Sobrenome"/>
-                                <FormikField name="cpf" label="CPF"/>
-                                <FormikField name="email" label="Email"/>
-                                <FormikField name="area_code" label="DDD"/>
-                                <FormikField name="phone" label="Telefone"/>
+            <Header />
+            <div className="content">
+                <main>
+                    <h1>Finalizando a compra</h1>
+                    <div className="grid">
+                        <div className="user-info">
+                            <Formik
+                                initialValues={initialValues}
+                                onSubmit={handleSubmit}
+                                validationSchema={CheckoutSchema}
+                            >
+                                {() => {
+                                    return (
+                                        <div>
+                                            <Form className="form">
+                                                <div className="contact">
+                                                    <h3>Dados de contato</h3>
+                                                    <FormikField name="email" label="Email"/>
+                                                    <div className="field-group-phone">
+                                                        <FormikField name="area_code" label="DDD"/>
+                                                        <FormikField name="phone" label="Telefone"/>
+                                                    </div>
+                                                </div>
+                                                <div className="personal-info">
+                                                    <h3>Dados do destinatário</h3>
+                                                    <FormikField name="name" label="Nome"/>
+                                                    <FormikField name="surname" label="Sobrenome"/>
+                                                    <FormikField name="cpf" label="CPF"/>
+                                                </div>
+                                                <div className="delivery-info">
+                                                    <h3>Endereço do destinatário</h3>
+                                                    <FormikField name="cep" label="CEP"/>
+                                                    <FormikField name="state" label="Estado"/>
+                                                    <FormikField name="city" label="Cidade"/>
+                                                    <FormikField name="neighborhood" label="Bairro"/>
+                                                    <FormikField name="street" label="Rua"/>
+                                                    <FormikField name="number" label="Número"/>
+                                                    <FormikField name="adjunct" label="Complemento"/>
+                                                </div>
 
-                                <FormikField name="cep" label="CEP"/>
-                                <FormikField name="state" label="Estado"/>
-                                <FormikField name="city" label="Cidade"/>
-                                <FormikField name="neighborhood" label="Bairro"/>
-                                <FormikField name="street" label="Rua"/>
-                                <FormikField name="number" label="Número"/>
-                                <FormikField name="adjunct" label="Complemento"/>
-
-                                <button type="submit">Confirmar dados</button>
-                            </Form>
+                                                <button type="submit">Confirmar dados</button>
+                                            </Form>
+                                        </div>
+                                    );
+                                }}
+                            </Formik>
                         </div>
-                    );
-                }}
-            </Formik>
-            
-            <a href={`${link}`}>
-                {buttonDisabled()}
-            </a>
+                        <div className="product-info">
+                            <div className="general-info">
+                                <img src={image} alt="Imagem do produto"/>
+                                <div className="name-price">
+                                    <div className="name">{product?.name} x{product?.quantity}</div>
+                                    <div className="price">R${(Number)(product?.price)*(Number)(product?.quantity)}</div>
+                                </div>
+                            </div>
+                            <div className="costs">
+                                <div className="subtotal">
+                                    <div className="name">Subtotal</div>
+                                    <div className="price"></div>
+                                </div>
+                                <div className="freight">
+                                    <div className="name">Custo do frete</div>
+                                    <div className="price">{frete}</div>
+                                </div>
+                            </div>
+                            <div className="total-costs">
+                                <div className="name">Total</div>
+                                <div className="price"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href={`${link}`}>
+                        {buttonDisabled()}
+                    </a>
+                </main>
+            </div>    
+            <Footer />
         </div>
     );
 };

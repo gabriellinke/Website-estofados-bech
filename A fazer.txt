@@ -4,7 +4,7 @@ Criar banco de dados dos itens a venda 		 ALFA OK
 Criar cadastro de produtos			 ALFA OK
 
 Criar home-page listando os itens 		 OK
-Criar uma página para detalhes do itens		 OK
+Criar uma página para detalhes do itens		 			OK
 
 Criar banco de dados dos clientes - Fazer validação do cadastro		OK
 
@@ -16,10 +16,10 @@ Fazer tela de cadastro							OK
 
 
 Fazer validação dos dados						OK
-Verificar se o id, preço, nome e quantidade batem no banco de dados	NÃO NECESSÁRIO (IRIA COMPLICAR MUITO)
-Fazer o CSS
-Adicionar preço frete
+Verificar dados								OK
+Adicionar preço frete							OK
 
+Fazer o CSS
 Depois mandar dados da compra para um email
 
 	Se tudo der certo:
