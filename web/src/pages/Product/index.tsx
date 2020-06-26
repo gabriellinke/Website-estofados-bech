@@ -80,10 +80,12 @@ const Product = () =>
     const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
     const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
+
     const [cepDestino, setCepDestino] = useState<string>(""); //Vetor que armazena o CEP de destino do produto
     const [freteInfo, setFreteInfo] = useState<string>(""); //Guarda as informações do frete para o CEP que foi consultado
     const [valorFrete, setValorFrete] = useState<string>("");   //Armazena o valor do frete
     const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
+
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
     const [options, setOptions] = useState<number[]>([]); //Armazena as descrições do produto
 
@@ -205,8 +207,6 @@ const Product = () =>
                         <div className="buy">
                             <form action="/buying" method="GET" id="form1">
                                 <input type="hidden" name="id" value={product?.id} />
-                                <input type="hidden" name="price" value={product?.price} />
-                                <input type="hidden" name="name" value={product?.name} />
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x de R$${(Number(product?.price)/Number(product?.conditions)).toFixed(2)} sem juros`}</p>
                                 <div className="purchase-area">

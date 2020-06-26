@@ -15,9 +15,10 @@ Fazer tela de login							OK
 Fazer tela de cadastro							OK
 
 
-Fazer validação dos dados
-Verificar se o id, preço, nome e quantidade batem no banco de dados, pra só depois liberar resposta
+Fazer validação dos dados						OK
+Verificar se o id, preço, nome e quantidade batem no banco de dados	NÃO NECESSÁRIO (IRIA COMPLICAR MUITO)
 Fazer o CSS
+Adicionar preço frete
 
 Depois mandar dados da compra para um email
 

@@ -12,6 +12,7 @@ export async function up(knex: Knex) {
             .inTable('products');
         table.string('productName').notNullable();
         table.decimal('price').notNullable();
+        table.decimal('freightPrice').notNullable();
         table.integer('quantity').notNullable();
 
         //Dados pessoais

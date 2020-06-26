@@ -10,6 +10,7 @@ class CheckoutController
             productName,
             quantity,
             price,
+            freightPrice,
       
             name,
             surname,
@@ -35,6 +36,7 @@ class CheckoutController
             productName,
             quantity,
             price,
+            freightPrice,
       
             name,
             surname,

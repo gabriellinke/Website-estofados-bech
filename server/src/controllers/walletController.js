@@ -10,13 +10,12 @@ exports.walletbutton = async (req, res, next) => {
     access_token: "TEST-4283306478544705-062216-3333dd3ca66b6ea28756706260ef82d2-267468177"
   });
 
-  // verifica se esse id bate com o nome e preço do item, e ve se tem a quantidade que foi pedida
-
   const {
     id,
     productName,
     quantity,
     price,
+    freightPrice,
     name,
     surname,
     email,
@@ -36,10 +35,16 @@ exports.walletbutton = async (req, res, next) => {
     "items": [
         {
             "id": id,
-            "title": productName,
+            "title": productName + " x" + quantity,
             "currency_id": "BRL",
             "quantity": quantity,
             "unit_price": price
+        },
+        {
+          "title": "Frete",
+          "currency_id": "BRL",
+          "quantity": quantity,
+          "unit_price": freightPrice
         }
     ],
     "payer": {
@@ -68,6 +73,7 @@ exports.walletbutton = async (req, res, next) => {
       productName,
       quantity,
       price,
+      freightPrice,
 
       name,
       surname,
