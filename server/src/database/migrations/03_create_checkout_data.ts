@@ -35,6 +35,11 @@ export async function up(knex: Knex) {
         // Link para compra e ID da compra
         table.string('url').notNullable();
         table.string('checkout_id').notNullable();
+
+        table.integer('userId').notNullable();
+        table.string('userName').notNullable();
+        table.string('userSurname').notNullable();
+        table.string('userEmail').notNullable();
     });
 }
 

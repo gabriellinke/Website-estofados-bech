@@ -9,7 +9,17 @@ import Ajax from '../../services/ajax'
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 
+import { useAuth } from '../../contexts/auth'
+
 import './styles.css';  //Importa o css
+
+interface User{
+    id: number;
+    name: string;
+    surname: string;
+    email: string;
+    admin: boolean;
+}
 
 interface Data {
     product_id: number;
@@ -35,6 +45,11 @@ interface Data {
 
     url: string;
     checkout_id: string;
+
+    userId: number;
+    userName: string;
+    userSurname: string;
+    userEmail: string;
 };
 
 interface ProductProps{
@@ -149,6 +164,8 @@ const Checkout = () =>
 
     const [frete, setFrete] = useState<number>(0);
 
+    const { user } = useAuth();
+
     useEffect(() => {
         api.post('checkout/data', checkoutData)
             .then(response => {
@@ -219,10 +236,21 @@ const Checkout = () =>
             const freightPrice = parseFloat(freight.replace(",", "."));
             setFrete(freightPrice)
 
+            let userNotNull:User = {
+                id: 0,
+                name: "Valor padrão",
+                surname: "Valor padrão",
+                email: "Valor padrão",
+                admin: false,
+            };
+            if(user != null)
+                userNotNull = user;
+
             api.post('checkout', {
                 id, price, freightPrice, productName, quantity,
                 name, surname, email, phone: parseInt(phone), cpf, area_code,
-                cep, state, city, neighborhood, street, number, adjunct, 
+                cep, state, city, neighborhood, street, number, adjunct,
+                userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
             })
                 .then(response => {
                     console.log(response.data);
@@ -253,8 +281,13 @@ const Checkout = () =>
                   
                         url,
                         checkout_id,
+
+                        userId,
+                        userName,
+                        userSurname,
+                        userEmail,
                       } = response.data.checkoutInfo;
-    
+
                       setCheckoutData({
                         product_id: parseInt(product_id),
                         productName,
@@ -279,6 +312,11 @@ const Checkout = () =>
                   
                         url,
                         checkout_id,
+
+                        userId,
+                        userName,
+                        userSurname,
+                        userEmail,
                       })
             })
         })

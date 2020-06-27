@@ -29,6 +29,10 @@ exports.walletbutton = async (req, res, next) => {
     street,
     number,
     adjunct,
+    userId,
+    userName,
+    userSurname,
+    userEmail,
   } = req.body;
 
   let preference = {
@@ -92,6 +96,11 @@ exports.walletbutton = async (req, res, next) => {
 
       url,
       checkout_id,
+
+      userId,
+      userName,
+      userSurname,
+      userEmail,
     }
 
     return res.json({
