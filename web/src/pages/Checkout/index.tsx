@@ -147,7 +147,7 @@ const Checkout = () =>
     const [disabled, setDisabled] = useState<boolean>(true);
     const [image, setImage] = useState<string>("");
 
-    const [frete, setFrete] = useState<string>("0");
+    const [frete, setFrete] = useState<number>(0);
 
     useEffect(() => {
         api.post('checkout/data', checkoutData)
@@ -216,8 +216,8 @@ const Checkout = () =>
             const freteInfo = (JSON.stringify(response));
             const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
 
-            setFrete(freight)
             const freightPrice = parseFloat(freight.replace(",", "."));
+            setFrete(freightPrice)
 
             api.post('checkout', {
                 id, price, freightPrice, productName, quantity,
@@ -287,9 +287,18 @@ const Checkout = () =>
     function buttonDisabled()
     {
         if(disabled)
-            return (<button disabled>Pagar com Mercado Pago</button>);
+            return (
+            <div className="payment-button">
+                <p>Confirme seus dados para habilitar o pagamento</p>
+                <a href={`${link}`}>
+                    <button disabled className="disabled">Pagar com Mercado Pago</button> 
+                </a>
+            </div>
+            );
         else
-            return (<button>Pagar com Mercado Pago</button>);
+            return (<a href={`${link}`}>
+                        <button className="normal">Pagar com Mercado Pago</button> 
+                    </a>);
     }
 
     return(
@@ -334,40 +343,42 @@ const Checkout = () =>
                                                     <FormikField name="adjunct" label="Complemento"/>
                                                 </div>
 
-                                                <button type="submit">Confirmar dados</button>
+                                                <button className="normal" type="submit">Confirmar dados</button>
                                             </Form>
                                         </div>
                                     );
                                 }}
                             </Formik>
                         </div>
-                        <div className="product-info">
-                            <div className="general-info">
-                                <img src={image} alt="Imagem do produto"/>
-                                <div className="name-price">
-                                    <div className="name">{product?.name} x{product?.quantity}</div>
-                                    <div className="price">R${(Number)(product?.price)*(Number)(product?.quantity)}</div>
+                        <div className="product-info-button">
+                            <div className="product-info">
+                                <div className="general-info">
+                                    <img src={image} alt="Imagem do produto"/>
+                                    <div className="name-price">
+                                        <div className="name">{product?.name} x{quantity}</div>
+                                        <div className="price">R${((Number)(product?.price)*(Number)(quantity)).toFixed(2)}</div>
+                                    </div>
+                                </div>
+                                <div className="costs">
+                                    <div className="subtotal">
+                                        <div className="name">Subtotal</div>
+                                        <div className="price">R${((Number)(product?.price)*(Number)(quantity)).toFixed(2)}</div>
+                                    </div>
+                                    <div className="freight">
+                                        <div className="name">Custo do frete</div>
+                                        <div className="price">R${frete.toFixed(2)}</div>
+                                    </div>
+                                </div>
+                                <div className="total-costs">
+                                    <div className="name">Total</div>
+                                    <div className="price">R${(((Number)(product?.price)*(Number)(quantity))+(frete)).toFixed(2)}</div>
                                 </div>
                             </div>
-                            <div className="costs">
-                                <div className="subtotal">
-                                    <div className="name">Subtotal</div>
-                                    <div className="price"></div>
-                                </div>
-                                <div className="freight">
-                                    <div className="name">Custo do frete</div>
-                                    <div className="price">{frete}</div>
-                                </div>
-                            </div>
-                            <div className="total-costs">
-                                <div className="name">Total</div>
-                                <div className="price"></div>
+                            <div className="mercado-pago-button">
+                                {buttonDisabled()}
                             </div>
                         </div>
                     </div>
-                    <a href={`${link}`}>
-                        {buttonDisabled()}
-                    </a>
                 </main>
             </div>    
             <Footer />
