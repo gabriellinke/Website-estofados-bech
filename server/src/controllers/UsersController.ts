@@ -8,6 +8,7 @@ require("dotenv").config();
 
 class UsersController
 {
+    // Cria um usuário com a senha salva após ser convertida em um hash
     async createUser(request: Request, response: Response)
     {
         const {
@@ -47,6 +48,7 @@ class UsersController
         });
     }
 
+    // Verifica se o usuário e senha estão cadastrados no banco de dados
     async verifyUser(request: Request, response: Response)
     {
         interface User{
@@ -90,6 +92,7 @@ class UsersController
         })
     }
 
+    // Se o email estiver cadastrado, envia um email de recuperação de senha para o usuário
     async verifyEmail(request: Request, response: Response)
     {
         const email = request.body.email;
@@ -97,38 +100,40 @@ class UsersController
         const ok = await knex('users').where('email', email).first();
         const resposta = !!ok
 
-        let transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD
-            },
-            tls: { rejectUnauthorized: false }
-        });
-
-        const link = `${process.env.BASE_URL}/user/login`
-        const mensagem = `<p>Você está recebendo este email porque utilizou a opção para recuperar a sua senha na Loja Virtual da Estofados Bech.<br/></p>
-                          <p>Clique no link abaixo para alterar a sua senha:<br/></p>
-                          <a href='${link}'>${link}</a>`
-
-        transporter.sendMail({
-            from: `Estofados Bech <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: "Altere sua senha na loja Estofados Bech",
-            html: mensagem
-        }).then(message => {
-            console.log(message);
-        }).catch(err => {
-            console.log(err);
-        })
+        if(resposta)
+        {
+            let transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASSWORD
+                },
+                tls: { rejectUnauthorized: false }
+            });
+    
+            const link = process.env.RESET_PASSWORD_URL
+            const mensagem = `<p>Você está recebendo este email porque utilizou a opção para recuperar a sua senha na Loja Virtual da Estofados Bech.<br/></p>
+                              <p>Clique no link abaixo para alterar a sua senha:<br/></p>
+                              <a href='${link}'>${link}</a>`
+    
+            transporter.sendMail({
+                from: `Estofados Bech <${process.env.EMAIL_USER}>`,
+                to: email,
+                subject: "Altere sua senha na loja Estofados Bech",
+                html: mensagem
+            }).then(message => {
+                console.log(message);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
 
         return response.json({
             resposta
         })
     }
-
 }
 
 export default UsersController;

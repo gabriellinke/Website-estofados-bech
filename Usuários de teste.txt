@@ -8,6 +8,11 @@ USUÁRIO VENDEDOR
  "email":"test_user_83584393@testuser.com"
 }
 
+CARTÃO DE TESTE
+5031 7557 3453 0604
+123
+11/25
+
 USUÁRIO 1
 
 {
@@ -17,6 +22,8 @@ USUÁRIO 1
  "site_status":"active",
  "email":"test_user_34678906@testuser.com"
 }
+
+
 
 COMANDO PARA CRIAR NOVO USUÁRIO NO TERMINAL DO GIT
 

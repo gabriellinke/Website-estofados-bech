@@ -1,6 +1,5 @@
 // O arquivo routes vai ser utilizado como se fosse um gerenciador de rotas.
 // Ele configura as rotas, tendo o funcionamento de cada uma delas sendo feito em um arquivo diferente, específico para cada rota distinta
-
 import express from 'express';
 import multer from 'multer' //Pra fazer o upload de imagens
 import multerConfig from './config/multer';    

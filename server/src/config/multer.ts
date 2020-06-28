@@ -2,6 +2,7 @@ import multer from 'multer';
 import path from 'path';
 import crypto from  'crypto'; //Cria um hash de dados aleatórios pra salvar os arquivos
 
+// Usado para salvar os arquivos com um hash na frente
 export default 
 {
     storage: multer.diskStorage({ 

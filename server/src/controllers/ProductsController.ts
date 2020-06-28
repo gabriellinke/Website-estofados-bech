@@ -3,6 +3,7 @@ import knex from '../database/connection';
 
 class ProductsController
 {
+    // Adiciona um novo produto a tabela
     async create(request: Request, response: Response)
     {
         const {
@@ -42,6 +43,7 @@ class ProductsController
         });
     }
 
+    // Adiciona as descrições dos produtos
     async createDesciption(request: Request, response: Response)
     {
         const {
@@ -63,6 +65,7 @@ class ProductsController
         });
     }
 
+    // Adiciona as imagens secundárias dos produtos
     async image(request: Request, response: Response)
     {
         const { id } = request.params;
@@ -88,6 +91,7 @@ class ProductsController
         return response.json(product); 
     }
 
+    // Usado para requisição dos dados de algum produto
     async show(request: Request, response: Response) {
         const { id } = request.params;
 
@@ -102,6 +106,7 @@ class ProductsController
         return response.json(product);
     }
 
+    // Mostra as descrições de algum produto
     async showDescriptions(request: Request, response: Response){
         const { id } = request.params;
 
@@ -116,6 +121,7 @@ class ProductsController
         return response.json(descriptions);
     }
 
+    // Mostra todos os produtos
     async index(request: Request, response: Response){
         const products = await knex('products');
 

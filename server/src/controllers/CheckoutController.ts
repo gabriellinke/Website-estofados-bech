@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 
 class CheckoutController
 {
+    // Cria uma tabela com os dados do comprador e envia esses dados por email para ter um controle
     async create(request: Request, response: Response)
     {
         const {

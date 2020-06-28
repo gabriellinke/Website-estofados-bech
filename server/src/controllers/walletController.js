@@ -37,32 +37,37 @@ exports.walletbutton = async (req, res, next) => {
   } = req.body;
 
   let preference = {
-    "items": [
+    items: [
         {
-            "id": id,
-            "title": productName,
-            "currency_id": "BRL",
-            "quantity": quantity,
-            "unit_price": price
+            id: id,
+            title: productName,
+            currency_id: "BRL",
+            quantity: quantity,
+            unit_price: price
         },
         {
-          "title": "Frete",
-          "currency_id": "BRL",
-          "quantity": 1,
-          "unit_price": freightPrice
+          title: "Frete",
+          currency_id: "BRL",
+          quantity: 1,
+          unit_price: freightPrice
         }
     ],
-    "payer": {
-        "name": name,
-        "surname": surname,
-        "email": email,
-        "phone": {
-            "area_code": area_code,
-            "number": phone
+    payer: {
+        name: name,
+        surname: surname,
+        email: email,
+        phone: {
+            area_code: area_code,
+            number: phone
         },
-        "identification": {
-            "type": "CPF",
-            "number": cpf
+        identification: {
+            type: "CPF",
+            number: cpf
+        },
+        address: {
+          street_name: street,
+          street_number: parseInt(number),
+          zip_code: cep
         }
     }
   }

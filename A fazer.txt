@@ -1,9 +1,9 @@
-Criar cabeçalho / rodapé 			 OK
+Criar cabeçalho / rodapé 			 			OK
 
-Criar banco de dados dos itens a venda 		 ALFA OK
-Criar cadastro de produtos			 ALFA OK
+Criar banco de dados dos itens a venda 		 			ALFA OK
+Criar cadastro de produtos			 			ALFA OK
 
-Criar home-page listando os itens 		 OK
+Criar home-page listando os itens 		 			OK
 Criar uma página para detalhes do itens		 			OK
 
 Criar banco de dados dos clientes - Fazer validação do cadastro		OK
@@ -18,11 +18,13 @@ Fazer tela de cadastro							OK
 Fazer validação dos dados						OK
 Verificar dados								OK
 Adicionar preço frete							OK
+Fazer o CSS								OK
+Depois mandar dados da compra para um email				OK
 
-Fazer o CSS
-Depois mandar dados da compra para um email
+Fazer as backURLs
+Fazer página para o admin verificar os dados do comprador do produto
 
-	Se tudo der certo:
+Fixar Footer
 
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
@@ -34,14 +36,13 @@ Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não e
 Configurar botão de compra e adicionar ao carrinho na página de detalhes
 Adicionar itens ao carrinho
 Fazer a compra através do carrinho
+
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
 Fazer layouts de Contato, Quem somos, etc.
 
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 
 Fazer os ajustes de acordo com o tamanho da tela
-
-SECRET: CAF40BA45BD3960E558F41B03B5A509BCC9D78D84FAD89C1C60265BE3CA5DE01
 
 LOJAS:
 https://www.madeiramadeira.com.br/moveis/moveis-para-sala-de-estar/sofas/conjunto-de-sofas?utm_content=52592609005&utm_source=google&utm_medium=cpc&gclid=CjwKCAjwt-L2BRA_EiwAacX32XAN5x1CjJLThiaPj6IJ8mwhToxDn6Hbvetvp4O3NjHBMBFrWgxHdxoCYp8QAvD_BwE
