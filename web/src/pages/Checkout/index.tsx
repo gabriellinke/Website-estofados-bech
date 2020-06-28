@@ -146,7 +146,6 @@ const CheckoutSchema = Yup.object().shape({
 
 });
 
-
 const Checkout = () => 
 {
     const [preference_id, setPreference_id] = useState<string>("vazio");

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import nodemailer from 'nodemailer'
-import { link } from '@hapi/joi';
 
 class CheckoutController
 {
@@ -73,16 +72,13 @@ class CheckoutController
         const data_id = insertedData[0];
 
         //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
-        const usuario = "freestepnewversion@gmail.com";
-        const senha = "soufreestep";
-
         let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
             auth: {
-                user: usuario,
-                pass: senha
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD
             },
             tls: { rejectUnauthorized: false }
         });
@@ -104,8 +100,8 @@ class CheckoutController
                           `
 
         transporter.sendMail({
-            from: "Estofados Bech <freestepnewversion@gmail.com>",
-            to: "freestepnewversion@gmail.com",
+            from: `Estofados Bech <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
             subject: "Possível compra sendo processada",
             html: mensagem
         }).then(message => {

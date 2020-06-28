@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
-import { string } from '@hapi/joi';
 
 class ProductsController
 {
@@ -22,7 +21,7 @@ class ProductsController
 
         const product = {
             name,       
-            images: 'http://localhost:3333/uploads/' + request.file.filename,
+            images: `${process.env.BASE_URL}/uploads/` + request.file.filename,
             price,          
             conditions,
             quantity,
@@ -73,8 +72,8 @@ class ProductsController
         let img = JSON.stringify(await knex.select('images').from('products').where('id', id).first());
         let imgString = img.substring(11, img.length - 2);
 
-        // Atualiza o campo images com o que tinha antes mais o nome da nova imagem
-        const finalImage = imgString + ",http://localhost:3333/uploads/" + image;
+        // Atualiza o campo images com o que tinha antes mais o nome da nova imagem 
+        const finalImage = imgString + `,${process.env.BASE_URL}/uploads/` + image;
         console.log(finalImage);
         await knex('products')
             .where('id', id)

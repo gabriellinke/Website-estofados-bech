@@ -1,13 +1,14 @@
 exports.walletbutton = async (req, res, next) => {
 
   console.log(req.body)
-  // require("dotenv").config();
   const mercadopago = require("mercadopago");
+
+  require("dotenv").config();
 
   // Configura credenciais
   mercadopago.configure({
     //insert your access_token
-    access_token: "TEST-4283306478544705-062216-3333dd3ca66b6ea28756706260ef82d2-267468177"
+    access_token: process.env.ACCESS_TOKEN
   });
 
   const {

@@ -1,0 +1,26 @@
+USUÁRIO VENDEDOR
+
+{
+ "id":593717889,
+ "nickname":"TESTL11T24SD",
+ "password":"qatest4824",
+ "site_status":"active",
+ "email":"test_user_83584393@testuser.com"
+}
+
+USUÁRIO 1
+
+{
+ "id":593718513,
+ "nickname":"TETE5034093",
+ "password":"qatest5548",
+ "site_status":"active",
+ "email":"test_user_34678906@testuser.com"
+}
+
+COMANDO PARA CRIAR NOVO USUÁRIO NO TERMINAL DO GIT
+
+curl -X POST \
+-H "Content-Type: application/json" \
+"https://api.mercadopago.com/users/test_user?access_token=APP_USR-4283306478544705-062216-13d606514d691f53941efea5c0b078cf-267468177" \
+-d '{"site_id":"MLB"}'
