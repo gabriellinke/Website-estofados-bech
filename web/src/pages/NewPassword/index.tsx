@@ -1,17 +1,13 @@
 import React, { useState } from 'react'; 
-import { Link } from "react-router-dom";
-import { useAuth } from '../../contexts/auth'
 import { GrFormClose } from 'react-icons/gr'
 import api from '../../services/api'
-
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
-
-import './styles.css';  //Importa o css
-
 import Footer from '../../partials/Footer/Footer'
 import logo from '../../assets/Logo.png';
+
+import './styles.css';  //Importa o css
 
 interface FormValues {
     email: string;
@@ -21,7 +17,7 @@ const initialValues: FormValues = {
     email: "",
 };
 
-const SigninSchema = Yup.object().shape({
+const VerifyEmailSchema = Yup.object().shape({
     email: Yup.string()
         .required("Obrigatório")
         .email("Insira um email válido"),
@@ -36,6 +32,7 @@ const Login: React.FC = () =>
         setResetError("");
     }
 
+    // Mensagem de erro / sucesso ao enviar o email
     function handleResetError()
     {
         if(resetError === "error")
@@ -62,6 +59,7 @@ const Login: React.FC = () =>
             );
     }
 
+    // Dá um POST para a API, que envia um email pra recuperação de senha se o email estiver cadastrado
     const handleReset = (values: FormValues): void => 
     {
         api.post('/user/reset', { email: values.email})
@@ -71,8 +69,9 @@ const Login: React.FC = () =>
                 else
                     setResetError("error");
             })
-            .catch((res) => {
-                console.log(res)
+            .catch((err) => {
+                // console.log(err)
+                alert(err);
             })
     }
 
@@ -86,7 +85,7 @@ const Login: React.FC = () =>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleReset}
-                    validationSchema={SigninSchema}
+                    validationSchema={VerifyEmailSchema}
                 >
                 {() => {
                     return (

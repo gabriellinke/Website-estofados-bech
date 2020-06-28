@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import check from '../../assets/check.svg';
+import errIcon from '../../assets/xred.svg';
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
 import { Link, useHistory } from "react-router-dom";
 import api from '../../services/api'
-
 import Footer from '../../partials/Footer/Footer'
 import logo from '../../assets/Logo.png';
-import check from '../../assets/check.svg';
-import errIcon from '../../assets/xred.svg';
 
 import "./styles.css";
 
+// Tipagem dos valores
 interface FormValues {
   name: string;
   surname: string;
@@ -20,6 +20,7 @@ interface FormValues {
   repeat_password: string;
 }
 
+// Valores iniciais
 const initialValues: FormValues = {
   name: "",
   surname: "",
@@ -28,6 +29,7 @@ const initialValues: FormValues = {
   repeat_password: ""
 };
 
+// Esquema de validação
 const SignupSchema = Yup.object().shape({
     name: Yup.string()
         .required("Obrigatório"),
@@ -49,8 +51,12 @@ const SignupSchema = Yup.object().shape({
 
 const RegisterFormik: React.FC = () => 
 {
+  // Usado para possibilitar o redirecionamento
   const history = useHistory();
+  const [situation, setSituation] = useState<string>("hide");
 
+  // Se o registro der errado é mostrada uma mensagem de erro.
+  // Se der certo, é mostrada uma mensagem de sucesso e o usuário é redirecionado para a página de login
   const handleSubmit = (values: FormValues): void => {
     api.post('/user/register', values)
         .then(() => {
@@ -68,8 +74,7 @@ const RegisterFormik: React.FC = () =>
         })
   };
 
-  const [situation, setSituation] = useState<string>("hide");
-
+  // Mostra o modal de erro/sucesso
   function handleRegister()
   {
       if(situation == 'error')
@@ -105,32 +110,31 @@ const RegisterFormik: React.FC = () =>
       >
         {() => {
           return (
-        <div>
-            <body></body>
-            <header>
-                <img src={logo} alt="Logomarca" />
-            </header>
-            <Form className="form">
-                <h1>Cadastre-se</h1>
-                <FormikField name="name" label="Nome"/>
-                <FormikField name="surname" label="Sobrenome"/>
-                <FormikField name="email" label="Email"/>
-                <FormikField name="password" label="Senha " type="password"/>
-                <FormikField name="repeat_password" label="Confirme a senha" type="password" />
+            <div>
+                <body></body>
+                <header>
+                    <img src={logo} alt="Logomarca" />
+                </header>
+                <Form className="form">
+                    <h1>Cadastre-se</h1>
+                    <FormikField name="name" label="Nome"/>
+                    <FormikField name="surname" label="Sobrenome"/>
+                    <FormikField name="email" label="Email"/>
+                    <FormikField name="password" label="Senha " type="password"/>
+                    <FormikField name="repeat_password" label="Confirme a senha" type="password" />
 
-                <button type="submit">
-                  Cadastre-se
-                </button>
-                <Link to="/user/login">
-                      <span>Já tenho uma conta</span>
-                </Link>
-            </Form>
-            <Footer />
+                    <button type="submit">
+                      Cadastre-se
+                    </button>
+                    <Link to="/user/login">
+                          <span>Já tenho uma conta</span>
+                    </Link>
+                </Form>
+                <Footer />
 
-            {handleRegister()}
+                {handleRegister()}
 
-        </div>
-        
+            </div>
           );
         }}
       </Formik>

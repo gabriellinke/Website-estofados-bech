@@ -6,6 +6,8 @@ import {AiFillFacebook} from 'react-icons/ai';
 
 import logo from '../../assets/Logo.png';
 
+// É o Footer que é utilizado na maioria das páginas
+
 interface FooterProps{
     title?: string,
 }

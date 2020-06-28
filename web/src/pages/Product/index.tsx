@@ -1,45 +1,15 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react'; 
+import { MdAddShoppingCart } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
+import api from '../../services/api';
+import Ajax from '../../services/ajax'
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
-import { MdAddShoppingCart } from 'react-icons/md';
-import api from '../../services/api';
-import { useParams, Link } from 'react-router-dom';
 
 import './styles.css';  //Importa o css
-import axios from 'axios';  //Usado para rotas
-import Ajax from '../../services/ajax'
-import { stringify } from 'querystring';
-
-
-
-
-// interface CEPProps{
-//     cep: string,
-//     logradouro: string,
-//     complemento: string,
-//     bairro: string,
-//     localidade: string,
-//     uf: string,
-//     unidade: string,
-//     ibge: number,
-//     gia: number,
-//     }
-
-// // Tem uma função para consultar o CEP
-// var cep = '80420120';
-// useEffect(() => {
-//     axios.get<CEPProps>(`https://viacep.com.br/ws/${cep}/json/`)
-//         .then(response => {
-//             const infoCEP:CEPProps = response.data;
-//             // console.log(infoCEP);
-//         })
-// }, []);
-
-
 
 const Product = () =>
 {
-    // Mudar com as novas props
     interface ProductProps{
         id: number;
         images: string;
@@ -157,7 +127,7 @@ const Product = () =>
     // Muda o CEP de destino quando é escrito algo no input
     function handleCEPInputChange(event: ChangeEvent<HTMLInputElement>) 
     {
-        const { name, value } = event.target;
+        const { value } = event.target;
 
         setCepDestino(apenasNumeros(value));
     }

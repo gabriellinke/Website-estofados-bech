@@ -1,9 +1,8 @@
 import React from 'react'
-import { useAuth } from '../../contexts/auth'
-import { Link } from "react-router-dom";
 
 import './styles.css';  //Importa o css
 
+// Página sendo utilizada como teste, pois é uma página só para admin
 const RegisterProduct = () => 
 {
     return(

@@ -4,11 +4,10 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import FormikField from "../../components/FormikField";
 import Ajax from '../../services/ajax'
+import { useAuth } from '../../contexts/auth'
 
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
-
-import { useAuth } from '../../contexts/auth'
 
 import './styles.css';  //Importa o css
 
@@ -51,6 +50,7 @@ interface Data {
     userEmail: string;
 };
 
+// Propriedades que tem no produto
 interface ProductProps{
     id: number;
     images: string;
@@ -66,6 +66,7 @@ interface ProductProps{
     diametro: number;
 }
 
+// Tipos dos valores que os inputs irão receber
 interface FormValues {
     name: string;
     surname: string;
@@ -83,6 +84,7 @@ interface FormValues {
     adjunct: string;
 };
 
+// Valores iniciais dos inputs
 const initialValues: FormValues = {
     name: "",
     surname: "",
@@ -100,6 +102,7 @@ const initialValues: FormValues = {
     adjunct: "", 
 };
 
+// Esquema de validação dos inputs
 const CheckoutSchema = Yup.object().shape({
     name: Yup.string()
         .required("Obrigatório"),
@@ -147,44 +150,47 @@ const CheckoutSchema = Yup.object().shape({
 
 const Checkout = () => 
 {
-    const [preference_id, setPreference_id] = useState<string>("vazio");
-
     const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
 
-    const [link, setLink] = useState<string>("#");
-    const [id, setId] = useState<string>("0");
-    const [price, setPrice] = useState<number>(999999);
-    const [productName, setProductName] = useState<string>("");
-    const [quantity, setQuantity] = useState<number>(0);
-    const [checkoutData, setCheckoutData] = useState<Data>();
-    const [disabled, setDisabled] = useState<boolean>(true);
-    const [image, setImage] = useState<string>("");
+    const [link, setLink] = useState<string>("#"); // Onde fica salvo o link para o redirecionamento para a compra
+    const [id, setId] = useState<string>("0"); // Salva o id do produto
+    const [price, setPrice] = useState<number>(999999); // Salva o preço do produto
+    const [productName, setProductName] = useState<string>(""); // Salva o nome do produto
+    const [quantity, setQuantity] = useState<number>(0); // Salva a quantidade que o usuário quer comprar do produto
+    const [checkoutData, setCheckoutData] = useState<Data>(); //
+    const [disabled, setDisabled] = useState<boolean>(true); // Habilita/desabilita o botão de Pagar com Mercado Pago
+    const [image, setImage] = useState<string>(""); // Mostra a imagem do produto na área de informações
+    const [frete, setFrete] = useState<number>(0);  // Salva o custo do frete
+    const { user } = useAuth(); // Pega os dados do usuário
 
-    const [frete, setFrete] = useState<number>(0);
-
-    const { user } = useAuth();
-
+    // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
     useEffect(() => {
         api.post('checkout/data', checkoutData)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 setDisabled(false);
             })
     }, [checkoutData])
 
+    // Ao entrar na página carrega os dados da URL, o id do produto e a quantidade de produtos que o usuário quer comprar
     useEffect(() => {
         let res = window.location.href.split('?');
         if(res[1])
         {
+            // Pega a parte da url que interessa, que é onde tem os parâmetros
             let parametros = res[1].split('&');
 
+            // O primeiro parâmetro é o id
             if(parametros[0] !== null)
                 setId(parametros[0].split("=")[1])
 
+            // Consulta a api com o id do produto que veio como parâmetro
             api.get('/products/'+parametros[0].split("=")[1])
                 .then(response => {
                     setProduct(response.data);
 
+                    // O segundo parâmetro é a quantidade de produtos que o usuário quer comprar.
+                    // Assim, verifica-se se tem essa quantidade disponível senão, seta a quantidade como a máxima quantidade disponível
                     if(parametros[1])
                     {
                         if((parseInt(parametros[1].split("=")[1])) <= response.data.quantity)
@@ -193,9 +199,11 @@ const Checkout = () =>
                             setQuantity(response.data.quantity);
                     }
 
+                    // Seta o preço e o nome do produto
                     setPrice(response.data.price)
                     setProductName(response.data.name)
 
+                    // Seta a imagem. Se tiver mais que uma imagem, a primeira que aparecer é a que vai ser utilizada
                     if(response.data.images.indexOf(",") > 0)
                         setImage(response.data.images.substring(0, response.data.images.indexOf(","))); 
                     else
@@ -204,6 +212,7 @@ const Checkout = () =>
         }
     }, [])
 
+    // Ação feita ao confirmar os dados
     const handleSubmit = (values: FormValues): void =>
     {
         // Pega os dados dos inputs
@@ -224,16 +233,16 @@ const Checkout = () =>
             adjunct, 
         } = values;
 
-        // Calcula o frete e envia os dados requisitando uma url
         let ajax = new Ajax();
         ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +'&sCepOrigem='+ "89870000" +'&sCepDestino='+ cep +'&nVlPeso='+product?.peso+'&nCdFormato='+product?.formato+'&nVlComprimento='+product?.comprimento+'&nVlAltura='+product?.altura+'&nVlLargura='+product?.largura+'&nVlDiametro='+product?.diametro+'&sCdMaoPropria='+ "N" +'&nVlValorDeclarado='+0+'&sCdAvisoRecebimento='+"N"+'%20HTTP/1.1',
         (status:number, response:string) => {
+            // Calcula o frete e coloca numa variável
             const freteInfo = (JSON.stringify(response));
             const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
-
             const freightPrice = parseFloat(freight.replace(",", "."));
             setFrete(freightPrice)
 
+            // Pega os dados do usuário que está realizando a compra
             let userNotNull:User = {
                 id: 0,
                 name: "Valor padrão",
@@ -244,6 +253,7 @@ const Checkout = () =>
             if(user != null)
                 userNotNull = user;
 
+            // Dá um post para criar uma preference do Mercado Pago
             api.post('checkout', {
                 id, price, freightPrice, productName, quantity,
                 name, surname, email, phone: parseInt(phone), cpf, area_code,
@@ -251,8 +261,8 @@ const Checkout = () =>
                 userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
             })
                 .then(response => {
-                    console.log(response.data);
-                    setPreference_id(response.data.checkout_id);
+                    // console.log(response.data);
+                    // Seta o link do botão e consequentemente libera o seu uso
                     setLink(response.data.checkoutInfo.url);
     
                     const {
@@ -286,41 +296,43 @@ const Checkout = () =>
                         userEmail,
                       } = response.data.checkoutInfo;
 
-                      setCheckoutData({
-                        product_id: parseInt(product_id),
-                        productName,
-                        quantity: parseInt(quantity),
-                        price: parseFloat(price),
-                        freightPrice: parseFloat(freightPrice),
-                  
-                        name,
-                        surname,
-                        email,
-                        area_code,
-                        phone,
-                        cpf,
-                  
-                        cep,
-                        state,
-                        city,
-                        neighborhood,
-                        street,
-                        number,
-                        adjunct,
-                  
-                        url,
-                        checkout_id,
+                    // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
+                    setCheckoutData({
+                    product_id: parseInt(product_id),
+                    productName,
+                    quantity: parseInt(quantity),
+                    price: parseFloat(price),
+                    freightPrice: parseFloat(freightPrice),
+                
+                    name,
+                    surname,
+                    email,
+                    area_code,
+                    phone,
+                    cpf,
+                
+                    cep,
+                    state,
+                    city,
+                    neighborhood,
+                    street,
+                    number,
+                    adjunct,
+                
+                    url,
+                    checkout_id,
 
-                        userId,
-                        userName,
-                        userSurname,
-                        userEmail,
-                      })
+                    userId,
+                    userName,
+                    userSurname,
+                    userEmail,
+                    })
             })
         })
     }
 
-    function buttonDisabled()
+    // Retorna o botão de pagamento, verificando se ele deve estar habilitado ou não
+    function buttonMercadoPago()
     {
         if(disabled)
             return (
@@ -411,7 +423,7 @@ const Checkout = () =>
                                 </div>
                             </div>
                             <div className="mercado-pago-button">
-                                {buttonDisabled()}
+                                {buttonMercadoPago()}
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import './Product.css';
-import api from '../../services/api';
 import { Link } from "react-router-dom";
+
+// É o componente que é utilizado para mostrar os produtos na Home page
 
 interface ProductProps{
     src: string,

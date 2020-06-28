@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useAuth } from '../../contexts/auth'
 import { GrFormClose } from 'react-icons/gr'
-
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
-
-import './styles.css';  //Importa o css
-
 import Footer from '../../partials/Footer/Footer'
 import logo from '../../assets/Logo.png';
+
+import './styles.css';  //Importa o css
 
 interface FormValues {
     email: string;
@@ -31,17 +29,15 @@ const SigninSchema = Yup.object().shape({
 
 const Login: React.FC = () =>
 {
-
     const { signIn } = useAuth();
-
     const [userError, setUserError] = useState<boolean>(false);
-
 
     function handleCloseUserError()
     {
         setUserError(false);
     }
 
+    // Mostra uma mensagem de erro se o usuário ou senha não estiverem corretos
     function handleUserError()
     {
         if(userError)
@@ -57,11 +53,12 @@ const Login: React.FC = () =>
             );
     }
 
+    // Verifica o usuário e senha
     const handleSignIn = (values: FormValues): void => 
     {
         signIn(values.email, values.password)
             .then((res) => {
-                console.log(!res)
+                // console.log(!res)
                 setUserError(!res);
             })
             .catch(()=> { setUserError(true); })

@@ -2,10 +2,10 @@ import React, { useEffect, useState} from 'react';
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import Product from '../../partials/Product/Product';
+import api from '../../services/api';
 
 import './styles.css';
 
-import api from '../../services/api';
 const Home = () => 
 {
     interface ProductProps{
@@ -18,6 +18,7 @@ const Home = () =>
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
 
+    // Consulta a API para pegar a lista de produtos
     useEffect(() => {
         api.get('products')
             .then(response => {

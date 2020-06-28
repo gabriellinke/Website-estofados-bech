@@ -8,6 +8,8 @@ import logo from '../../assets/Logo.png';
 
 import { useAuth } from '../../contexts/auth'
 
+// É o Header que é utilizado na maioria das páginas
+
 interface HeaderProps{
     title?: string,
 }
@@ -29,7 +31,6 @@ const Header: React.FC<HeaderProps> = (props) =>
     
     // Talvez dê para fazer um novo componente com isso
     function userInfo(){
-
         if(!user)
             return (
                 <div className="user-area">

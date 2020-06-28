@@ -1,3 +1,4 @@
+// Está sendo utilizado para fazer requisições GET com resposta em XML, como é por exemplo, a dos correios
 class Ajax{
     //0 Uninitialized, 1 set up but not sent, 2 sent, 3 in flight, 4 complete
     private READY_STATUS_CODE = 4;

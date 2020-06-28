@@ -34,8 +34,8 @@ export const AuthProvider:React.FC = ({ children }) =>  {
 
     const [user, setUser] = useState<User | null>(null);
 
+    // Quando atualiza a página ele verifica no localStorage se tinha algum usuário logado pra continuar a conexão
     useEffect(() => {
-        function loadStoragedData() { //No React Native era necessário essa função, mas aqui poderia ser fora, já q n tem async
             const storagedUSer = localStorage.getItem('@EB:user');
             const storagedToken = localStorage.getItem('@EB:token');
 
@@ -46,11 +46,10 @@ export const AuthProvider:React.FC = ({ children }) =>  {
 
                 setUser(JSON.parse(storagedUSer));
             }
-        }
 
-        loadStoragedData();
     }, []);
 
+    // Com a ajuda do Auth Service verifica na API se o usuário e senha estão cadastrados e loga o usuário se a resposta for positiva
     async function signIn(email: string, password:string): Promise<Boolean>{
         const response:Response = await SignIn(email, password);
 
@@ -65,11 +64,13 @@ export const AuthProvider:React.FC = ({ children }) =>  {
         return (response.token != null);
     }
 
+    // Desloga o usuário limpando o localStorage e setando o usuário como null
     function signOut(){
         localStorage.clear();
         setUser(null);
     }
 
+    // O contexto dá esses values para as rotas. No caso todas rotas recebem esse contexto, devido a configuração do App.tsx
     return (
         <AuthContext.Provider value={{signed: Boolean(user), user, signIn, signOut}}>
             { children }
@@ -77,6 +78,7 @@ export const AuthProvider:React.FC = ({ children }) =>  {
     );
 };
 
+// Exporta essa função para facilitar o uso, não precisando importar o useContext nas outras partes do projeto
 export function useAuth() {
     const context = useContext(AuthContext);
 
