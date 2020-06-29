@@ -30,7 +30,7 @@ const Footer: React.FC<FooterProps> = (props) =>
                 </a>
             </div>
             
-            <p>Copyright © 2020 Gabriel Henrique Linke</p>
+            <p>Copyright &copy; 2020 Gabriel Henrique Linke</p>
             <p>Avenida Belém, Nº 1563, Centro, Pinhalzinho-SC - CEP 89870000</p>
         </div>
         <img src={logo} alt="Logomarca" />

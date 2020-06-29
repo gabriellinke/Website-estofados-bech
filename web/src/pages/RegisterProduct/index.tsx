@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../../partials/Footer/Footer';
 
 import './styles.css';  //Importa o css
 
@@ -6,8 +7,11 @@ import './styles.css';  //Importa o css
 const RegisterProduct = () => 
 {
     return(
-        <div id="page-register">
-            <h1>Página para registrar produto. Somente Adm!!</h1>
+        <div id="page-register-product">
+            <div className="content">
+                <p>Página somente para Admin!</p>
+            </div>
+            <Footer />
         </div>
     );
 };

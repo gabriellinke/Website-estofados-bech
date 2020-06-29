@@ -1,3 +1,11 @@
+.RegisterFormik
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 110px;
+}
+
 .RegisterFormik .form {
     background: white;
     border-radius: 8px;
@@ -93,7 +101,7 @@
 .RegisterFormik header
 {
     background-color: var(--cor-teste);
-    margin-top: 64px;
+    padding-top: 64px;
     display: flex;
     align-items: center;
 }

@@ -1,3 +1,11 @@
+#page-checkout
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 110px;
+}
+
 #page-checkout .content
 {
     width: 90%;
