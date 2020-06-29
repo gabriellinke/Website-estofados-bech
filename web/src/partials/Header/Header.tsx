@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = (props) =>
                             <Link to="" onClick={handleLogOut}>Logout</Link>
                         </div>
                     </div>
-                    <Link to="/buying" className="carrinho">
+                    <Link to="/user/cart" className="carrinho">
                         <span> <GiShoppingCart size="60" /></span>
                         Carrinho
                     </Link>

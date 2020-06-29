@@ -33,12 +33,10 @@ routes.post(
     );
 
 routes.post('/description', productsController.createDesciption);
-
 routes.post('/image/:id', upload.single('images'), productsController.image);
 
 routes.post('/user/login', usersController.verifyUser);
 routes.post('/user/reset', usersController.verifyEmail);
-
 routes.post('/user/register',
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
@@ -49,9 +47,11 @@ celebrate({                                     //Dá pra passar essa validaçã
     repeat_password: Joi.ref('password'),
     admin: Joi.boolean().default(false),
     }).with('password', 'repeat_password')
-}, {
-    abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
+    }, {
+        abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
 }),
 usersController.createUser);
+routes.post('/user/cart/add', usersController.addToCart);
+routes.post('/user/cart/remove', usersController.removeFromCart);
 
 export default routes;

@@ -194,7 +194,7 @@ const Product = () =>
             else
             {
                 return(
-                    <div className="error-delivery">Erro ao calcular o frete</div>
+                    <div className="error-delivery">CEP não encontrado, tente outro!</div>
                 );
             }
 

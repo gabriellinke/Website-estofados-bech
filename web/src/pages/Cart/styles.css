@@ -1,0 +1,11 @@
+#page-cart
+{
+    height: 100%;
+    position: relative;
+
+}
+
+#page-cart .content{
+    padding-bottom: 110px;
+    min-height: 100vh;
+}

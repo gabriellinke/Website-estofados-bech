@@ -8,6 +8,7 @@ export async function up(knex: Knex) {
         table.string('surname').notNullable();
         table.string('email').notNullable();
         table.string('password').notNullable();
+        table.string('cart').notNullable();
         table.boolean('admin').notNullable();
     });
 }

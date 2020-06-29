@@ -24,8 +24,11 @@ Fixar Footer								OK
 Fazer alguma animação quando estiver carregando o CEP			OK
 Mostrar mensagem de CEP não encontrado					OK
 
-Fazer as backURLs
-Fazer página para o admin verificar os dados do comprador do produto
+Adicionar itens ao carrinho
+Configurar botão adicionar ao carrinho na página de detalhes
+Fazer a compra através do carrinho
+
+Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
 
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
@@ -33,14 +36,14 @@ Tem algo sobre JWT no video da rocketseat - https://www.youtube.com/watch?v=KKTX
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
-Configurar botão adicionar ao carrinho na página de detalhes
-Adicionar itens ao carrinho
-Fazer a compra através do carrinho
+Fazer as backURLs
+Fazer página para o admin verificar os dados do comprador do produto
+Fazer outras páginas que faltam
 
-Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
-Fazer layouts de Contato, Quem somos, etc.
+Fazer o deploy
 
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
+Fazer layouts de Contato, Quem somos, etc.
 
 Fazer os ajustes de acordo com o tamanho da tela
 
