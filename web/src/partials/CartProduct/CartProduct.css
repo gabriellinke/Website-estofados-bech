@@ -1,0 +1,42 @@
+.product
+{  
+    /* Deixar cor de fundo e tirar o pontinho de lista*/
+    background-color: white;
+    list-style: none;
+
+    /* Configurar o tamanho dos itens */
+    height: 480px;
+
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+
+    border-radius: 0 0 6px 6px;
+}
+
+.product .image
+{
+    border-bottom: 1px solid rgb(204, 203, 203);
+}
+
+.product .info
+{
+    padding: 16px;
+}
+
+
+.product .title
+{
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.product .price strong
+{
+    font-size: 24px;
+}
+
+.product a
+{
+    color: black;
+}

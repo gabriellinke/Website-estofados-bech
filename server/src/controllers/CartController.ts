@@ -128,7 +128,7 @@ class CartController
     // Retorna a lista de produtos no carrinho do usuário
     async index(request: Request, response: Response)
     {
-        const id = request.body.id
+        const { id } = request.params;
         const productsInCart = await knex('cart').where('user_id', id);
 
         // Pega os ids dos produtos que estão no carrinho

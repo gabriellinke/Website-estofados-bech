@@ -55,6 +55,6 @@ routes.post("/checkout/data", checkoutController.create)
 
 routes.post('/user/cart/add', cartController.add);
 routes.post('/user/cart/remove', cartController.remove);
-routes.get('/user/cart', cartController.index);
+routes.get('/user/cart/:id', cartController.index);
 
 export default routes;

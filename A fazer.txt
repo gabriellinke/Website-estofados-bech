@@ -24,8 +24,13 @@ Fixar Footer								OK
 Fazer alguma animação quando estiver carregando o CEP			OK
 Mostrar mensagem de CEP não encontrado					OK
 
-Adicionar itens ao carrinho
-Configurar botão adicionar ao carrinho na página de detalhes
+Adicionar itens ao carrinho						OK
+
+Configurar botão adicionar ao carrinho na página de detalhes		OK
+Mostrar itens no carrinho						OK
+Fazer CSS do carrinho
+Permitir adicionar/remover pelo carrinho
+Calcular frete pelo carrinho
 Fazer a compra através do carrinho
 
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
