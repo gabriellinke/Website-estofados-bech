@@ -6,12 +6,16 @@ import Ajax from '../../services/ajax'
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
-
+import { useAuth } from '../../contexts/auth'
+import { useHistory } from "react-router-dom";
 
 import './styles.css';  //Importa o css
 
 const Product = () =>
 {
+    const { user } = useAuth();
+    const history = useHistory();
+
     interface ProductProps{
         id: number;
         images: string;
@@ -58,10 +62,12 @@ const Product = () =>
     const [valorFrete, setValorFrete] = useState<string>("");   //Armazena o valor do frete
     const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
     const [mostrarFrete, setMostrarFrete] = useState<string>("");   //Diz se é preciso mostrar o frete
-    const [loadingFrete, setLoadingFrete] = useState<boolean>(false);   //Diz se é preciso mostrar o frete
+    const [loadingFrete, setLoadingFrete] = useState<boolean>(false);   //  Loading do frete
 
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
-    const [options, setOptions] = useState<number[]>([]); //Armazena as descrições do produto
+    const [options, setOptions] = useState<number[]>([]); // Armazena a quantidade de options disponíveis
+    const [quantity, setQuantity] = useState<number>(1); // Armazena a quantidade de produtos que vão ser adicionados ao carrinho
+    const [loadingCart, setLoadingCart] = useState<boolean>(false);   // Loading do adicionar ao carrinho
 
     // Vê qual é o produto da URL e seta as imagens de acordo com o produto
     let { id } = useParams();
@@ -161,7 +167,7 @@ const Product = () =>
     }
 
     // Mostra animação de carregamento
-    function loading()
+    function loadingAnimationFrete()
     {
         if(loadingFrete)
         return(
@@ -200,6 +206,50 @@ const Product = () =>
 
     }
 
+    // Altera a quantity quando há alguma mudança no select
+    function handleQuantitySelectChange(event: ChangeEvent<HTMLSelectElement>) 
+    {
+        const { value } = event.target;
+        setQuantity(parseInt(value));
+        console.log(value)
+    }
+
+    // Faz a requisição para a API para adicionar o produto ao carrinho do usuário
+    function addToCart(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+        setLoadingCart(true)
+        api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
+            .then(response => {
+                setLoadingCart(false);
+                console.log(response.data);
+                history.push('/user/cart')
+            })
+            .catch(err =>{
+                console.log(err);
+                setLoadingCart(false);
+            })
+    }
+
+    // Mostra o botão do carrinho e mostra a animação de carregamento
+    function buttonCart()
+    {
+        if(!loadingCart)
+            return(
+                <div className="add">
+                    <MdAddShoppingCart size="50"/>
+                    <div className="add-text">Adicionar ao carrinho</div>
+                </div>
+            );
+        else
+            return(
+                <div className="add">
+                    <img src={load} alt="Carregando" width="50" height="50"/>
+                    <div className="add-text">Adicionar ao carrinho</div>
+                </div>
+            );
+    }
+
     return(
         <div id="product-info">
             <Header />
@@ -232,17 +282,19 @@ const Product = () =>
                                 <div className="purchase-area">
                                     <p className="avaiable">{`${product?.quantity} unidades disponíveis`}</p>
                                     <div className="purchase">
-                                        <select name="quantity" id="" required placeholder="Quantidade">
+                                        <select name="quantity" id="quantity" required placeholder="Quantidade" onChange={handleQuantitySelectChange}>
                                             {options.map(number => {
                                                 return <option value={number} key={number}>{number}</option>;
                                             })
                                             }
                                         </select>
-                                            <button>Comprar</button>
-                                        <div className="add">
-                                            <MdAddShoppingCart size="50"/>
-                                            <div className="add-text">Adicionar ao carrinho</div>
-                                        </div>
+                                            <button type="submit">Comprar</button>
+                                        
+                                            <form onSubmit={addToCart} id="form3">
+                                                <button>
+                                                    {buttonCart()}
+                                                </button>
+                                            </form>
                                     </div>
                                 </div>
                                 <div className="freight-area">
@@ -251,7 +303,7 @@ const Product = () =>
                                         <form onSubmit={calcularFrete} id="form2">
                                             <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
                                             <button>OK</button>
-                                            {loading()}
+                                            {loadingAnimationFrete()}
                                         </form>
                                         <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
                                     </div>

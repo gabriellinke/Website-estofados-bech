@@ -7,6 +7,7 @@ import multerConfig from './config/multer';
 import ProductsController from './controllers/ProductsController';
 import CheckoutController from './controllers/CheckoutController';
 import UsersController from './controllers/UsersController';
+import CartController from './controllers/CartController';
 import { celebrate , Joi} from 'celebrate';
 
 const routes = express.Router();
@@ -15,10 +16,8 @@ const upload = multer(multerConfig);
 const productsController = new ProductsController();
 const usersController = new UsersController();
 const checkoutController = new CheckoutController();
+const cartController = new CartController();
 const walletcontroller = require("./controllers/walletController");
-
-routes.post("/checkout", walletcontroller.walletbutton);
-routes.post("/checkout/data", checkoutController.create)
 
 // Dá pra juntar as rotas de show do products e descriptions
 routes.get('/products', productsController.index);  // Rota para obter todos os produtos cadastrados
@@ -30,8 +29,7 @@ routes.post(
     '/products',
     upload.single('images'),
     productsController.create
-    );
-
+);
 routes.post('/description', productsController.createDesciption);
 routes.post('/image/:id', upload.single('images'), productsController.image);
 
@@ -51,7 +49,12 @@ celebrate({                                     //Dá pra passar essa validaçã
         abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
 }),
 usersController.createUser);
-routes.post('/user/cart/add', usersController.addToCart);
-routes.post('/user/cart/remove', usersController.removeFromCart);
+
+routes.post("/checkout", walletcontroller.walletbutton);
+routes.post("/checkout/data", checkoutController.create)
+
+routes.post('/user/cart/add', cartController.add);
+routes.post('/user/cart/remove', cartController.remove);
+routes.get('/user/cart', cartController.index);
 
 export default routes;
