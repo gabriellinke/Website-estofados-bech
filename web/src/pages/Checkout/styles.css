@@ -77,6 +77,12 @@
     margin-bottom: 48px;
 }
 
+#page-checkout .content main .grid .user-info .form .confirm
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 
 
@@ -167,6 +173,15 @@
     /* align-items: center;
     justify-content: center; */
 }
+
+#page-checkout .content main .grid .product-info-button .mercado-pago-button .payment-button .confirm
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 
 #page-checkout .content main .grid .product-info-button .mercado-pago-button p
 {

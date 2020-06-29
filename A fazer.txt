@@ -21,6 +21,8 @@ Fazer o CSS								OK
 Depois mandar dados da compra para um email				OK
 
 Fixar Footer								OK
+Fazer alguma animação quando estiver carregando o CEP			OK
+Mostrar mensagem de CEP não encontrado					OK
 
 Fazer as backURLs
 Fazer página para o admin verificar os dados do comprador do produto
@@ -31,7 +33,6 @@ Tem algo sobre JWT no video da rocketseat - https://www.youtube.com/watch?v=KKTX
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
-Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado		ALFA OK
 Configurar botão adicionar ao carrinho na página de detalhes
 Adicionar itens ao carrinho
 Fazer a compra através do carrinho

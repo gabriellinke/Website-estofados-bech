@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts/auth'
 
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
+import load from '../../assets/load2.gif';
 
 import './styles.css';  //Importa o css
 
@@ -161,6 +162,7 @@ const Checkout = () =>
     const [disabled, setDisabled] = useState<boolean>(true); // Habilita/desabilita o botão de Pagar com Mercado Pago
     const [image, setImage] = useState<string>(""); // Mostra a imagem do produto na área de informações
     const [frete, setFrete] = useState<number>(0);  // Salva o custo do frete
+    const [loadingConfirm, setLoadingConfirm] = useState<boolean>(false); // Diz se precisa ou não mostrar animação de carregamento
     const { user } = useAuth(); // Pega os dados do usuário
 
     // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
@@ -168,6 +170,7 @@ const Checkout = () =>
         api.post('checkout/data', checkoutData)
             .then(response => {
                 // console.log(response);
+                setLoadingConfirm(false);
                 setDisabled(false);
             })
     }, [checkoutData])
@@ -215,6 +218,7 @@ const Checkout = () =>
     // Ação feita ao confirmar os dados
     const handleSubmit = (values: FormValues): void =>
     {
+        setLoadingConfirm(true);    // Desativo o loading no momento que vou liberar o botão
         // Pega os dados dos inputs
         let {   
             name,
@@ -338,15 +342,34 @@ const Checkout = () =>
             return (
             <div className="payment-button">
                 <p>Confirme seus dados para habilitar o pagamento</p>
-                <a href={`${link}`}>
-                    <button disabled className="disabled">Pagar com Mercado Pago</button> 
-                </a>
+                <div className="confirm">
+                    <a href={`${link}`}>
+                        <button disabled className="disabled">Pagar com Mercado Pago</button>
+                    </a>
+                    {loading()}
+                </div>
             </div>
             );
         else
-            return (<a href={`${link}`}>
-                        <button className="normal">Pagar com Mercado Pago</button> 
-                    </a>);
+            return (
+                    <div className="payment-button">
+                        <div className="confirm">
+                            <a href={`${link}`}>
+                                <button className="normal">Pagar com Mercado Pago</button>
+                            </a>
+                            {loading()}
+                        </div>
+                    </div>
+                    );
+    }
+
+    // Mostra as animações de loading
+    function loading()
+    {
+        if(loadingConfirm)
+        return(
+            <img src={load} alt="Carregando" width="52.4" height="52.4"/>
+        );
     }
 
     return(
@@ -391,7 +414,10 @@ const Checkout = () =>
                                                     <FormikField name="adjunct" label="Complemento"/>
                                                 </div>
 
-                                                <button className="normal" type="submit">Confirmar dados</button>
+                                                <div className="confirm">
+                                                    <button className="normal" type="submit">Confirmar dados</button>
+                                                    {loading()}
+                                                </div>
                                             </Form>
                                         </div>
                                     );
