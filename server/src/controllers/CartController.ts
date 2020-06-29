@@ -128,7 +128,34 @@ class CartController
     // Retorna a lista de produtos no carrinho do usuário
     async index(request: Request, response: Response)
     {
+        const id = request.body.id
+        const productsInCart = await knex('cart').where('user_id', id);
 
+        // Pega os ids dos produtos que estão no carrinho
+        const productsIds = productsInCart.map(product => {
+            return product.product_id;
+        })
+
+        // Pega os ids e as quantidades no carrinho de cada produto
+        const quantity = productsInCart.map(product => {
+            return { product_id: product.product_id, quantity: product.quantity }
+        })
+
+        // Consulta cada produto no banco de dados. Armazena as promisses na variável productsPromisses
+        const productsPromisses = productsIds.map(async productId => {
+            const product = await knex('products').where('id', productId).first()
+            return product;
+        });
+
+        // A variável products vai ser um vetor de promisses. A variável resultado recebe o valor de retorno dessas promisses
+        (async () => {
+            const products = await Promise.all(productsPromisses);
+
+            return response.json({
+                products,
+                quantity
+            });
+          })();
     }
 }
 
