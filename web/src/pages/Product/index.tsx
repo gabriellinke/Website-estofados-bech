@@ -5,6 +5,8 @@ import api from '../../services/api';
 import Ajax from '../../services/ajax'
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
+import load from '../../assets/load2.gif';
+
 
 import './styles.css';  //Importa o css
 
@@ -55,6 +57,8 @@ const Product = () =>
     const [freteInfo, setFreteInfo] = useState<string>(""); //Guarda as informações do frete para o CEP que foi consultado
     const [valorFrete, setValorFrete] = useState<string>("");   //Armazena o valor do frete
     const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
+    const [mostrarFrete, setMostrarFrete] = useState<string>("");   //Diz se é preciso mostrar o frete
+    const [loadingFrete, setLoadingFrete] = useState<boolean>(false);   //Diz se é preciso mostrar o frete
 
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
     const [options, setOptions] = useState<number[]>([]); //Armazena as descrições do produto
@@ -102,11 +106,16 @@ const Product = () =>
             })
     }, [])
 
-    // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete
+    // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete e mostra eles
     useEffect(() => {
         setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
         setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
-    }, [freteInfo])
+
+        if(parseInt(prazoFrete) > 0)
+            setMostrarFrete("show")
+        else if(parseInt(prazoFrete) === 0)
+            setMostrarFrete("error")
+    }, [calcularFrete])
 
     // Disponibiliza a quantidade de unidades que podem ser compradas do produto
     useEffect(() => {
@@ -138,17 +147,58 @@ const Product = () =>
         return string.replace(/[^0-9]/g,'');
     }
 
-    // Calcula o frete com os dados informados
+    // Calcula o frete com os dados informados e mostra o frete
     function calcularFrete(event: FormEvent<HTMLFormElement>)
     {
+        setLoadingFrete(true)
         event.preventDefault();
         let ajax = new Ajax();
         ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
         (status:number, response:string) => {
             setFreteInfo(JSON.stringify(response));
+            setLoadingFrete(false);
         })
     }
 
+    // Mostra animação de carregamento
+    function loading()
+    {
+        if(loadingFrete)
+        return(
+            <img src={load} alt="Carregando" width="52.4" height="52.4"/>
+        );
+    }
+
+    // Mostra o frete ou a mensagem de erro ao carregar o frete
+    function showFrete()
+    {
+            if(mostrarFrete === "show")
+            {
+                return(
+                    <div className="delivery">
+                        <div className="delivery-text">Entrega</div>
+                        <div className="delivery-data">
+                            <div className="type">Normal</div>
+                            <div className="day">{`Entregue em ${prazoFrete} dias`}</div>
+                            <div className="cost">{`R$${valorFrete}`}</div>
+                        </div>
+                    </div>
+                );
+            }
+            else if(mostrarFrete === "")
+            {
+                return(
+                    <div></div>
+                );
+            }
+            else
+            {
+                return(
+                    <div className="error-delivery">Erro ao calcular o frete</div>
+                );
+            }
+
+    }
 
     return(
         <div id="product-info">
@@ -201,19 +251,13 @@ const Product = () =>
                                         <form onSubmit={calcularFrete} id="form2">
                                             <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
                                             <button>OK</button>
+                                            {loading()}
                                         </form>
                                         <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
                                     </div>
                                 </div>
                             </form>
-                            <div className="delivery">
-                                <div className="delivery-text">Entrega</div>
-                                <div className="delivery-data">
-                                    <div className="type">Normal</div>
-                                    <div className="day">{`Entregue em ${prazoFrete} dias`}</div>
-                                    <div className="cost">{`R$${valorFrete}`}</div>
-                                </div>
-                            </div>
+                            {showFrete()}
                         </div>
                     </div>
                 </main>

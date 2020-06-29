@@ -14,17 +14,16 @@ Fazer o gerenciamento com base nos usuários do banco de dados 		OK
 Fazer tela de login							OK
 Fazer tela de cadastro							OK
 
-
 Fazer validação dos dados						OK
 Verificar dados								OK
 Adicionar preço frete							OK
 Fazer o CSS								OK
 Depois mandar dados da compra para um email				OK
 
+Fixar Footer								OK
+
 Fazer as backURLs
 Fazer página para o admin verificar os dados do comprador do produto
-
-Fixar Footer
 
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
@@ -32,8 +31,8 @@ Tem algo sobre JWT no video da rocketseat - https://www.youtube.com/watch?v=KKTX
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
-Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado
-Configurar botão de compra e adicionar ao carrinho na página de detalhes
+Fazer alguma animação quando estiver carregando o CEP e mensagem de CEP não encontrado		ALFA OK
+Configurar botão adicionar ao carrinho na página de detalhes
 Adicionar itens ao carrinho
 Fazer a compra através do carrinho
 
