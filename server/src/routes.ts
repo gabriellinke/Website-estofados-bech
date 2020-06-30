@@ -54,6 +54,7 @@ routes.post("/checkout", walletcontroller.walletbutton);
 routes.post("/checkout/data", checkoutController.create)
 
 routes.post('/user/cart/add', cartController.add);
+routes.post('/user/cart/change', cartController.change);
 routes.post('/user/cart/remove', cartController.remove);
 routes.get('/user/cart/:id', cartController.index);
 

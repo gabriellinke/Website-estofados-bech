@@ -66,6 +66,71 @@ class CartController
         });
     }
 
+    // Atualiza a quantidade de um item para uma determinada quantidade
+    async change(request: Request, response: Response)
+    {
+        const {
+            user_id,
+            product_id,
+            quantity,
+        } = request.body;
+
+        
+        const cartProduct = {
+            user_id,
+            product_id,
+            quantity,
+        }
+        
+        const productInCart = await knex('cart').where('user_id', cartProduct.user_id).where('product_id', cartProduct.product_id).first();
+
+        if(!productInCart)
+        {
+            return response.json({
+                404: "Produto não encontrado"
+            });
+        }
+
+        const product = await knex('products').where('id', cartProduct.product_id).first();
+        
+        let modifiedProductInCart;
+        // Muda o valor para o que foi passado. Se for maior que o estoque, muda para o máximo possível
+        if(cartProduct.quantity > product.quantity)
+        {
+            modifiedProductInCart = {
+                user_id: productInCart.user_id,
+                product_id: productInCart.product_id,
+                quantity: parseInt(product.quantity),
+            }
+        }
+        else if(cartProduct.quantity < 1)
+        {
+            modifiedProductInCart = {
+                user_id: productInCart.user_id,
+                product_id: productInCart.product_id,
+                quantity: 1,
+            }
+        }
+        else
+        {
+            modifiedProductInCart = {
+                user_id: productInCart.user_id,
+                product_id: productInCart.product_id,
+                quantity: cartProduct.quantity,
+            }
+        }
+
+        const modifiedProduct = await knex('cart')
+            .where('id', productInCart.id)
+            .update(modifiedProductInCart)
+        const insertion_id = modifiedProduct;
+
+        return response.json({
+            insertion_id,
+            ...modifiedProductInCart
+        });
+    }
+
     // Remove itens do carrinho
     async remove(request: Request, response: Response)
     {
