@@ -2,7 +2,6 @@
 {
     height: 100%;
     position: relative;
-
 }
 
 #page-cart .content{
@@ -32,6 +31,12 @@
     padding: 32px;
 }
 
+#page-cart .content main h1
+{
+    margin-left: 16px;
+    margin-top: 32px;
+}   
+
 #page-cart .content main .products-grid
 {
     margin-top: 48px;
@@ -53,7 +58,6 @@
     align-items: center;
 
     border-top: 1px solid rgb(204, 203, 203);
-    /* border-bottom: 1px solid rgb(204, 203, 203); */
 
     margin-bottom: 32px;
     padding-top: 32px;
@@ -153,4 +157,230 @@
 #page-cart .content main .products-grid .cart-product a
 {
     color: black;
+}
+
+
+
+#page-cart .content main .freight-area-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 32px 0;
+    margin-bottom: 48px;
+    border-bottom: 1px solid rgb(204, 203, 203);
+    height: 200px;
+
+}
+
+#page-cart .content main .freight-area-price .freight-area
+{
+    flex: 1;
+}
+
+#page-cart .content main .freight-area-price .checkout-price
+{
+    width: 300px;
+    font-size: 21px;
+    color: rgb(85, 83, 83);
+}
+
+#page-cart .content main .freight-area-price .checkout-price .products-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .products-price .products-price-number
+{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .freight-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .freight-price .freight-price-number
+{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .total-price
+{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #333333;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .total-price .total-price-text
+{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#page-cart .content main .freight-area-price .checkout-price .total-price .total-price-number
+{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#page-cart .content main #form1
+{
+    margin-bottom: 32px;
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+#page-cart .content main #form1 button
+{
+    width: 220px;
+    height: 60px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 16px;
+    border-radius: 6px;
+
+    border: 0;
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-cart .content main #form1 button:hover
+{
+    background-color: var(--hover-color);
+}
+
+
+
+#page-cart .content main .freight-area-price .freight-area
+{
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+#page-cart .content main .freight-area-price .freight-area #form2
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#page-cart .content main .freight-area-price .freight-area #form2 input
+{
+    background-color: white;
+    border: 1px solid rgb(204, 203, 203);
+
+    /* Aumenta o tamanho dos campos para input/select */
+    margin-left: 32px;
+    padding: 16px 16px;
+    line-height: 16px;
+    font-size: 16px;
+
+    /* quando seleciona o campo ficava uma linha ao redor */
+    outline: none;
+
+    /* resetar a aparência padrão - usa os 3 pra aplicar em mais tipos de navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
+#page-cart .content main .freight-area-price .freight-area #form2 button
+{
+    width:  52.4px;
+    height: 52.4px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+
+    border: 0;
+
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#page-cart .content main .freight-area-price .freight-area #form2 button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#page-cart .content main .freight-area-price .freight-area a
+{
+    margin-left: 32px;
+    font-size: 14px;
+}
+
+
+#page-cart .content main .delivery
+{
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+#page-cart .content main .error-delivery
+{
+    margin-top: 8px;
+    font-size: 18px;
+    color: rgb(207, 72, 72);
+}
+
+#page-cart .content main .delivery .delivery-text
+{
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+#page-cart .content main .delivery .delivery-data
+{
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+#page-cart .content main .delivery .delivery-data .day
+{
+    margin-right: 48px;
+}
+
+#page-cart .content main .delivery .delivery-data .type
+{
+    margin-right: 48px;
+}
+
+#page-cart .content main .freight-area-column
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#page-cart .content main .freight-area-row
+{
+    display: flex;
+    flex-direction: row;
 }

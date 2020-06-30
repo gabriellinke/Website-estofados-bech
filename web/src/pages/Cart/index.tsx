@@ -1,8 +1,9 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import Footer from '../../partials/Footer/Footer';
 import Header from '../../partials/Header/Header';
 import { useAuth } from '../../contexts/auth'
 import api from '../../services/api';
+import Ajax from '../../services/ajax'
 import { Link } from "react-router-dom";
 import load from '../../assets/load2.gif';
 
@@ -26,6 +27,22 @@ interface ProductProps{
 interface QuantityProps{
     product_id: number;
     quantity: number;
+}
+
+// Informações para o cálculo do frete
+interface FreteInfo{ 
+    cdServico: string,
+    CepOrigem: number,
+    CepDestino: string,
+    peso: number,
+    formato: number, 
+    comprimento: number,
+    altura: number,
+    largura: number,
+    diametro: number,
+    cdMaoPropria: string,
+    valorDeclarado: number,
+    avisoRecebimento: string,
 }
 
 const Cart = () => 
@@ -136,11 +153,126 @@ const Cart = () =>
             );
     }
 
+    // Parte referente ao cálculo do frete
+
+    const [cepDestino, setCepDestino] = useState<string>(""); //Vetor que armazena o CEP de destino do produto
+    const [freteInfo, setFreteInfo] = useState<string>(""); //Guarda as informações do frete para o CEP que foi consultado
+    const [valorFrete, setValorFrete] = useState<number>(0);   //Armazena o valor do frete
+    const [prazoFrete, setPrazoFrete] = useState<string>("");   //Armazena o prazo de entrega dos correios
+    const [mostrarFrete, setMostrarFrete] = useState<string>("");   //Diz se é preciso mostrar o frete
+    const [loadingFrete, setLoadingFrete] = useState<boolean>(false);   //  Loading do frete
+
+    // Precisa configurar para cada tamanho de produto
+    const frete:FreteInfo = {
+        cdServico: "04510", //SEDEX 04014 -   PAC 04510
+        CepOrigem: 89870000,
+        CepDestino: cepDestino,
+        // peso: (product?.peso !== undefined) ? product.peso : 5,
+        // formato: (product?.formato !== undefined) ? product.formato : 1,
+        // comprimento: (product?.comprimento !== undefined) ? product.comprimento : 16,
+        // altura: (product?.altura !== undefined) ? product.altura : 2,
+        // largura: (product?.largura !== undefined) ? product.largura : 11,
+        // diametro: (product?.diametro !== undefined) ? product.diametro : 5,
+        peso: 2,
+        formato: 1,
+        comprimento: 16,
+        altura: 2,
+        largura: 11,
+        diametro:  5,
+        cdMaoPropria: "N",
+        valorDeclarado: 0,
+        avisoRecebimento: "N",
+    }
+
+    // Quando as informações do frete são atualizadas, armazena o novo valor prazo do frete e mostra o preço e prazo
+    useEffect(() => {
+        setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
+
+        if(parseInt(prazoFrete) > 0)
+            setMostrarFrete("show")
+        else if(parseInt(prazoFrete) === 0)
+            setMostrarFrete("error")
+    }, [calcularFrete])
+
+    // Muda o CEP de destino quando é escrito algo no input
+    function handleCEPInputChange(event: ChangeEvent<HTMLInputElement>) 
+    {
+        const { value } = event.target;
+
+        setCepDestino(apenasNumeros(value));
+    }
+
+    // Retira os caracteres que não forem números do CEP
+    function apenasNumeros(string:string) 
+    {
+        return string.replace(/[^0-9]/g,'');
+    }
+
+    // Calcula o frete com os dados informados e mostra o frete
+    function calcularFrete(event: FormEvent<HTMLFormElement>)
+    {
+        setLoadingFrete(true)
+        event.preventDefault();
+        let ajax = new Ajax();
+        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
+        (status:number, response:string) => {
+            setFreteInfo(JSON.stringify(response));
+            const freteInfo = (JSON.stringify(response));
+            const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+            const freightPrice = parseFloat(freight.replace(",", "."));
+            setValorFrete(freightPrice)
+
+
+            setLoadingFrete(false);
+        })
+    }
+
+    // Mostra animação de carregamento
+    function loadingAnimationFrete()
+    {
+        if(loadingFrete)
+        return(
+            <img src={load} alt="Carregando" width="52.4" height="52.4"/>
+        );
+    }
+
+    // Mostra o frete ou a mensagem de erro ao carregar o frete
+    function showFrete()
+    {
+            if(mostrarFrete === "show")
+            {
+                return(
+                    <div className="delivery">
+                        <div className="delivery-text">Entrega</div>
+                        <div className="delivery-data">
+                            <div className="type">Normal</div>
+                            <div className="day">{`Entregue em ${prazoFrete} dias`}</div>
+                            <div className="cost">{`R$${valorFrete.toFixed(2)}`}</div>
+                        </div>
+                    </div>
+                );
+            }
+            else if(mostrarFrete === "")
+            {
+                return(
+                    <div></div>
+                );
+            }
+            else
+            {
+                return(
+                    <div className="error-delivery">CEP não encontrado, tente outro!</div>
+                );
+            }
+
+    }
+
     return(
         <div id="page-cart">
             <Header />
             <div className="content">
                 <main>
+                    <h1>Carrinho de compras</h1>
                     <div className="products-grid">
                         {products.map(prod => {
                             let images ="";
@@ -179,7 +311,41 @@ const Cart = () =>
                             );
                         })}
                     </div>
-                    <div className="total-price">{productsPrice}</div>
+                    <div className="freight-area-price">
+                        <div className="freight-area">
+                            <div className="freight-area-column">
+                                <div className="freight-area-row">
+                                    <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
+                                        <div className="cep">
+                                            <form onSubmit={calcularFrete} id="form2">
+                                                <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
+                                                <button>OK</button>
+                                                {loadingAnimationFrete()}
+                                            </form>
+                                            <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                        </div>
+                                    </div>
+                                {showFrete()}
+                            </div>
+                        </div>                        
+                        <div className="checkout-price">
+                            <div className="products-price">
+                                <div className="products-price-text">Produtos:</div>
+                                <div className="products-price-number">R${productsPrice.toFixed(2)}</div>
+                            </div>
+                            <div className="freight-price">
+                                <div className="freight-price-text">Frete:</div>
+                                <div className="freight-price-number">R${valorFrete.toFixed(2)}</div>
+                            </div>
+                            <div className="total-price">
+                                <div className="total-price-text">Total:</div>
+                                <div className="total-price-number">R${(productsPrice + valorFrete).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="/buying" method="GET" id="form1">
+                        <button type="submit">Continuar a compra</button>
+                    </form>
                 </main>
             </div>
             <Footer />
