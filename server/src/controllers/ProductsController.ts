@@ -127,6 +127,28 @@ class ProductsController
 
         return response.json(products);
     }
+
+    async list(request: Request, response: Response)
+    {
+        let productsId = request.body.products;
+        const ids = productsId.map((res:any) => {
+            return res.id as number;
+        })
+
+        const productsPromisses = ids.map(async (id:any) => {
+            const aux = await knex('products').where('id', id).first();
+            return aux;
+        });
+
+        (async () => {
+            const products = await Promise.all(productsPromisses);
+
+            return response.json({
+                products,
+            });
+            })();      
+    }
+
 }
 
 export default ProductsController;

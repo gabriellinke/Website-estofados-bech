@@ -30,12 +30,13 @@ routes.post(
     upload.single('images'),
     productsController.create
 );
-routes.post('/description', productsController.createDesciption);
-routes.post('/image/:id', upload.single('images'), productsController.image);
+routes.post('/description', productsController.createDesciption);   // Rota para cadastrar descrições de um produto
+routes.post('/image/:id', upload.single('images'), productsController.image);   // Rota para cadastrar as imagens de um produto
+routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
 
-routes.post('/user/login', usersController.verifyUser);
-routes.post('/user/reset', usersController.verifyEmail);
-routes.post('/user/register',
+routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
+routes.post('/user/reset', usersController.verifyEmail);    // Rota para verificar se o email está cadastrado e enviar um email de recuperação de senha
+routes.post('/user/register',                               // Rota para registrar um usuário
 celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
     body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
     name: Joi.string().required(),
@@ -50,12 +51,12 @@ celebrate({                                     //Dá pra passar essa validaçã
 }),
 usersController.createUser);
 
-routes.post("/checkout", walletcontroller.walletbutton);
-routes.post("/checkout/data", checkoutController.create)
+routes.post("/checkout", walletcontroller.walletbutton);    // Rota para criar uma preference do Mercado Pago
+routes.post("/checkout/data", checkoutController.create)    // Rota que cria uma tabela com os dados do comprador e envia esses dados por email para ter um controle
 
-routes.post('/user/cart/add', cartController.add);
-routes.post('/user/cart/change', cartController.change);
-routes.post('/user/cart/remove', cartController.remove);
-routes.get('/user/cart/:id', cartController.index);
+routes.post('/user/cart/add', cartController.add);          // Rota que adiciona os itens ao carrinho
+routes.post('/user/cart/change', cartController.change);    // Rota que muda a quantidade de itens no carrinho
+routes.post('/user/cart/remove', cartController.remove);    // Rota que remove itens do carrinho 
+routes.get('/user/cart/:id', cartController.index);         // Rota que mostra todos os itens no carrinho de um usuário
 
 export default routes;

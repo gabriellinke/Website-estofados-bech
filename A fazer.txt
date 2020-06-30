@@ -49,7 +49,7 @@ Fazer as backURLs
 Página para acompanhar a compra
 
 Fazer página para o admin verificar os dados do comprador do produto
-Fazer outras páginas que faltam
+Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadastrar multiplas imagens
 
 Fazer o deploy
 
