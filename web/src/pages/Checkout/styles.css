@@ -101,7 +101,7 @@
     grid-template-columns: 64px auto;
     gap: 16px;
     border-bottom: 1px solid rgb(204, 203, 203);
-    padding-bottom: 16px;
+    padding: 16px 0;
 }
 
 #page-checkout .content main .grid .product-info-button .product-info .general-info img

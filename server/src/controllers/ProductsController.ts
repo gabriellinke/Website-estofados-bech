@@ -130,9 +130,9 @@ class ProductsController
 
     async list(request: Request, response: Response)
     {
-        let productsId = request.body.products;
-        const ids = productsId.map((res:any) => {
-            return res.id as number;
+        let productsId = request.body.products.split("-");
+        let ids = productsId.map((id:any) => {
+            return parseInt(id);
         })
 
         const productsPromisses = ids.map(async (id:any) => {
