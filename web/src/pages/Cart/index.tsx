@@ -53,6 +53,9 @@ const Cart = () =>
     const [loadingInput, setLoadingInput] = useState<number>(0); //Animação de loading quando adiciona/remove produto. O number é o id do produto
     const [productsPrice, setProductsPrice] = useState<number>(0); //Salva a o preço acumulado dos produtos
 
+    const [idInput, setIdInput] = useState<string>(""); //Animação de loading quando adiciona/remove produto. O number é o id do produto
+    const [quantityInput, setQuantityInput] = useState<string>(""); //Animação de loading quando adiciona/remove produto. O number é o id do produto
+
     // Ao abrir a página faz um request pra API pra pegar os produtos que estão no carrinho do usuário
     useEffect(() => {
         let id = 0;
@@ -66,9 +69,19 @@ const Cart = () =>
             });
     }, [])
 
-    // Atualiza o preço total quando os produtos do carrinho são atualizados
+    // Atualiza o preço total quando os produtos do carrinho são atualizados. Também atualiza o Input de IDs e de quantidades
     useEffect(() => {
         updateProductsPrice();
+
+        const quantidade = productsQuantity.map(pd => {
+            return pd.quantity;
+        })
+        setQuantityInput(quantidade.join('-'));
+
+        const produto = productsQuantity.map(pd => {
+            return pd.product_id;
+        })
+        setIdInput(produto.join('-'));
     }, [productsQuantity, products])
     
     // Remove um produto do carrinho
@@ -344,6 +357,8 @@ const Cart = () =>
                         </div>
                     </div>
                     <form action="/buying" method="GET" id="form1">
+                        <input type="hidden" name="id" value={idInput} />
+                        <input type="hidden" name="quantity" value={quantityInput} />
                         <button type="submit">Continuar a compra</button>
                     </form>
                 </main>

@@ -158,7 +158,7 @@ const Checkout = () =>
     const [productNames, setProductNames] = useState<string[]>([]); 
     const [images, setImages] = useState<string[]>([]); 
     const [quantitys, setQuantitys] = useState<number[]>([]);
-    const [muchProducts, setMuchProducts] = useState<number[]>([]);
+    const [totalQuantity, setTotalQuantity] = useState<number[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
 
@@ -197,69 +197,43 @@ const Checkout = () =>
             if(parametros[0] !== null)
                 setId(parametros[0].split("=")[1])
 
-            const idURL = parametros[0].split("=")[1];
-            const qtds = parametros[1].split("=")[1];
-            // Consulta a api com o id do produto que veio como parâmetro
-            api.post('/products/list', {products: `${idURL}` })
+            const idURL = parametros[0].split("=")[1];  //Variável que tem os ids que vem da url
+            const qtdsURL = parametros[1].split("=")[1];   //Variável que tem as quantidades que vem da url
+
+            // Consulta a api com os ids dos produtos que vieram como parâmetro
+            api.post('/products/list', {products: `${idURL}`})
                 .then(response => {
-                    console.log(response.data.products);
-
-                    const aux = response.data.products[0];
-                    setProduct(aux);
-
-                    // O segundo parâmetro é a quantidade de produtos que o usuário quer comprar.
-                    // Assim, verifica-se se tem essa quantidade disponível senão, seta a quantidade como a máxima quantidade disponível
-                    if(parametros[1])
-                    {
-                        if((parseInt(parametros[1].split("=")[1])) <= aux.quantity)
-                            setQuantity(parseInt(parametros[1].split("=")[1]))
-                        else
-                            setQuantity(aux.quantity);
-                    }
-
-                    // Seta o preço e o nome do produto
-                    setPrice(aux.price)
-                    setProductName(aux.name)
-
-                    // Seta a imagem. Se tiver mais que uma imagem, a primeira que aparecer é a que vai ser utilizada
-                    if(aux.images.indexOf(",") > 0)
-                        setImage(aux.images.substring(0, aux.images.indexOf(","))); 
-                    else
-                        setImage(aux.images);
-
-//  MAIS DE UM PRODUTO
-
-                    const aux2 = response.data.products
-                    setProducts(aux2)
+                    const productsAux = response.data.products   // Guarda os produtos em uma variável
+                    setProducts(productsAux)
                 
-                    if(parametros[1])
+                    let quantidadeFinal = [0]; // Guarda a quantidade de unidades de cada produto
+                    if(parametros[1])   // Para não dar problema caso não venha o parametro de quantidade
                     {
-                        let quantidade1 = qtds.split("-");
-                        let param = quantidade1.map(qtd => {
+                        let qtds = qtdsURL.split("-");   // Separa a quantidade de cada produto em um vetor
+                        let param = qtds.map(qtd => {
                             return parseInt(qtd);
                         })
 
                         let i = 0;
-                        let quantidadeFinal = [0];
-                        let quantidadeDeProdutos = [0];
-                        for(let iterator of param)
+                        let quantidadeDeProdutos = [0];    // Salva a quantidade total de produtos
+                        for(let iterator of param)  // Salva a quantidade do produto como a que veio da URL ou a máx disponível
                         {
-                            if(aux2[i])
+                            if(productsAux[i])
                             {
-                                quantidadeFinal[i] = (parseInt(aux2[i].quantity) > iterator) ? iterator : parseInt(aux2[i].quantity);
+                                quantidadeFinal[i] = (parseInt(productsAux[i].quantity) > iterator) ? iterator : parseInt(productsAux[i].quantity);
                             }
                             quantidadeDeProdutos[i] = i;
                             i++;
                         }
-                        console.log(quantidadeDeProdutos)
-                        setMuchProducts(quantidadeDeProdutos);
+
+                        setTotalQuantity(quantidadeDeProdutos);
                         setQuantitys(quantidadeFinal);
                     }
 
                     let i = 0;
-                    let precoFinal = [0];
-                    let nomeFinal = [""];
-                    for(let prod of aux2)
+                    let precoFinal = [0];   // Salva o preço de cada produto
+                    let nomeFinal = [""];   // Salva o nome de cada produto
+                    for(let prod of productsAux)
                     {
                         precoFinal[i] = prod.price;
                         nomeFinal[i] = prod.name;
@@ -268,9 +242,20 @@ const Checkout = () =>
                     setPrices(precoFinal)
                     setProductNames(nomeFinal)
 
+                    let k = 0;
+                    let precoXquantidade = [0];     // Auxiliar pra achar a soma dos preços dos produtos
+                    for(let preco of precoFinal)
+                    {
+                        precoXquantidade[k] = preco * quantidadeFinal[k];
+                        k++;
+                    }
+
+                    const reducer = (accumulator:number, currentValue:number) => accumulator + currentValue;
+                    setTotalPrice(precoXquantidade.reduce(reducer))  // Salva como o preço total a soma de todos os preços
+
                     let j = 0;
-                    let imagemFinal = [""];
-                    for(let prod of aux2)
+                    let imagemFinal = [""];     // Salva a imagem do produto
+                    for(let prod of productsAux)
                     {
                         if(prod.images.indexOf(",") > 0)
                             imagemFinal[j] = prod.images.substring(0, prod.images.indexOf(",")); 
@@ -279,7 +264,6 @@ const Checkout = () =>
 
                         j++;
                     }
-
                     setImages(imagemFinal);
                 })
         }
@@ -496,7 +480,7 @@ const Checkout = () =>
                         </div>
                         <div className="product-info-button">
                             <div className="product-info">
-                                {muchProducts.map(num => {
+                                {totalQuantity.map(num => {
                                     return(
                                     <div className="general-info">
                                         <img src={images[num]} alt="Imagem do produto"/>
@@ -510,7 +494,7 @@ const Checkout = () =>
                                 <div className="costs">
                                     <div className="subtotal">
                                         <div className="name">Subtotal</div>
-                                        <div className="price">R${((Number)(product?.price)*(Number)(quantity)).toFixed(2)}</div>
+                                        <div className="price">R${(totalPrice).toFixed(2)}</div>
                                     </div>
                                     <div className="freight">
                                         <div className="name">Custo do frete</div>
@@ -519,11 +503,9 @@ const Checkout = () =>
                                 </div>
                                 <div className="total-costs">
                                     <div className="name">Total</div>
-                                    <div className="price">R${(((Number)(product?.price)*(Number)(quantity))+(frete)).toFixed(2)}</div>
+                                    <div className="price">R${((totalPrice)+(frete)).toFixed(2)}</div>
                                 </div>
                             </div>
-
-
                             <div className="mercado-pago-button">
                                 {buttonMercadoPago()}
                             </div>
