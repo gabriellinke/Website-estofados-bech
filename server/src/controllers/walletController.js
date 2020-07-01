@@ -36,22 +36,43 @@ exports.walletbutton = async (req, res, next) => {
     userEmail,
   } = req.body;
 
+  // Os parâmetros virão em uma string, com os valores separados por @
+  vetorId = id.split("@")
+  vetorNome = productName.split("@")
+  vetorQuantidade = quantity.toString().split("@")
+  vetorPreco = price.toString().split("@")
+
+  let itemsArray = [{
+    id: 0,
+    title: 0,
+    currency_id: "BRL",
+    quantity: 0,
+    unit_price: 0
+  }]
+
+  // Os produtos vão ser botados no array de items 
+  for(let i = 0; i < vetorPreco.length; i++)
+  {
+    itemsArray[i] = {
+      id: vetorId[i],
+      title: vetorNome[i],
+      currency_id: "BRL",
+      quantity: parseInt(vetorQuantidade[i]),
+      unit_price: parseFloat(vetorPreco[i])
+    }
+  }
+
+  // Na última posição do array vai ficar o frete
+  itemsArray[itemsArray.length] = {
+    id: 0,
+    title: "Frete",
+    currency_id: "BRL",
+    quantity: 1,
+    unit_price: freightPrice
+  }
+
   let preference = {
-    items: [
-        {
-            id: id,
-            title: productName,
-            currency_id: "BRL",
-            quantity: quantity,
-            unit_price: price
-        },
-        {
-          title: "Frete",
-          currency_id: "BRL",
-          quantity: 1,
-          unit_price: freightPrice
-        }
-    ],
+    items: itemsArray,
     payer: {
         name: name,
         surname: surname,

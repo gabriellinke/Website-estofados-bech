@@ -6,14 +6,11 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
 
         // Todo product_id dentro dessa tabela precisa ser um id valido dentro da tabela products
-        table.integer('product_id')
-            .notNullable()
-            .references('id')
-            .inTable('products');
+        table.string('product_id')
         table.string('productName').notNullable();
-        table.decimal('price').notNullable();
+        table.string('price').notNullable();
+        table.string('quantity').notNullable();
         table.decimal('freightPrice').notNullable();
-        table.integer('quantity').notNullable();
 
         //Dados pessoais
         table.string('name').notNullable();

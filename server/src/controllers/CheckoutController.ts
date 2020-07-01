@@ -84,6 +84,16 @@ class CheckoutController
             tls: { rejectUnauthorized: false }
         });
 
+        let quantityArray = quantity.split('@');
+        let nameArray = productName.split('@');
+        let priceArray = price.split('@');
+
+        let msg = "";
+        for(let i=0; i < quantityArray.length; i++)
+        {
+            msg += quantityArray[i] + " unidades de " + nameArray[i] + " pelo preço de R$" + priceArray[i] + " por unidade,"
+        }
+
         const mensagem = `<p>O usuário ${userName} ${userSurname} cadastrado com o email ${userEmail} acaba de iniciar um processo de compra.<br/></p>
                           <p>O seu email de contato é ${email} e seu telefone para contato é (${area_code}) ${phone}.<br/></p>
                           <p>O nome preenchido no formulário é ${name} ${surname} e o CPF é ${cpf}.<br/></p>
@@ -95,7 +105,7 @@ class CheckoutController
                           <p>Rua: ${street}.</p>
                           <p>Número: ${number}.</p>
                           <p>Complemento: ${adjunct}.<br/></p>
-                          <p>O produto comprado foi ${quantity} unidades de ${productName} pelo preço de R$${price} por unidade, com um frete de R$${freightPrice}.<br/></p>
+                          <p>Os produtos comprados foram ${msg} com um frete de R$${freightPrice}.<br/></p>
                           <p>O link utilizado para a compra foi: <a href=${url}>${url}</a><br/></p>
                           <h3>Aguarde a confirmação do pagamento pelo Mercado Pago para fazer o envio do produto<h3>
                           `
