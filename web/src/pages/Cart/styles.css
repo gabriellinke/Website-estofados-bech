@@ -384,3 +384,23 @@
     display: flex;
     flex-direction: row;
 }
+
+#page-cart .content main .empty
+{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#page-cart .content main .empty .title
+{
+    text-align: center;
+    font-size: 32px;
+}
+
+#page-cart .content main .empty a
+{
+    font-size: 24px;
+    text-align: center;
+}

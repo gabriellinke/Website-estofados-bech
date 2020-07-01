@@ -166,6 +166,108 @@ const Cart = () =>
             );
     }
 
+    // Se o carrinho estiver vazio vai mostrar uma mensagem. Se não estiver, vai mostrar o carrinho
+    function showCart()
+    {
+        if(productsPrice != 0)
+        {
+            return(
+                <main>
+                    <h1>Carrinho de compras</h1>
+                    <div className="products-grid">
+                        {products.map(prod => {
+                            let images ="";
+                            if(prod.images.indexOf(',') > 0)
+                                images = prod.images.substring(0, prod.images.indexOf(','));
+                            else
+                                images = prod.images.substring(0, prod.images.length);
+
+                            const currentQuantity = productsQuantity.filter(res => {
+                                return res.product_id === prod.id;
+                            })
+
+                            return(
+                                <li key={prod.id} className="cart-product">
+                                    <Link to={`/products/${prod.id}`}>
+                                        <div className="info">
+                                            <img src={images} width={100} height={100} alt={prod.name}/>
+                                            <div className="title">{prod.name}</div>
+                                        </div>
+                                    </Link>
+                                    <div className="quantity-price">
+                                        <div className="quantity">
+                                            {Input(prod, currentQuantity[0].quantity)}
+                                        </div>    
+                                        <div className="max-quantity-remove-price">
+                                            <div className="max-quantity-remove">
+                                                <div className="max-quantity">{prod.quantity} disponíveis</div>
+                                                <button className="remove" onClick={() => removeProduct(prod.id)}>Excluir</button>
+                                            </div>
+                                            <div className="price">
+                                                <strong>{`R$${(Number(prod.price)*Number(currentQuantity[0].quantity)).toFixed(2)}`}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </div>
+                    <div className="freight-area-price">
+                        <div className="freight-area">
+                            <div className="freight-area-column">
+                                <div className="freight-area-row">
+                                    <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
+                                        <div className="cep">
+                                            <form onSubmit={calcularFrete} id="form2">
+                                                <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
+                                                <button>OK</button>
+                                                {loadingAnimationFrete()}
+                                            </form>
+                                            <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                        </div>
+                                    </div>
+                                {showFrete()}
+                            </div>
+                        </div>                        
+                        <div className="checkout-price">
+                            <div className="products-price">
+                                <div className="products-price-text">Produtos:</div>
+                                <div className="products-price-number">R${productsPrice.toFixed(2)}</div>
+                            </div>
+                            <div className="freight-price">
+                                <div className="freight-price-text">Frete:</div>
+                                <div className="freight-price-number">R${valorFrete.toFixed(2)}</div>
+                            </div>
+                            <div className="total-price">
+                                <div className="total-price-text">Total:</div>
+                                <div className="total-price-number">R${(productsPrice + valorFrete).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="/buying" method="GET" id="form1">
+                        <input type="hidden" name="id" value={idInput} />
+                        <input type="hidden" name="quantity" value={quantityInput} />
+                        <button type="submit">Continuar a compra</button>
+                    </form>
+                </main>
+            );
+        }
+        else
+        {
+            return(
+                <main>
+                    <h1>Carrinho de compras</h1>
+                    <div className="empty">
+                        <div className="title">
+                            O seu carrinho está vazio!
+                        </div>
+                        <Link to='/'>Continuar comprando</Link>
+                    </div>
+                </main>
+            );
+        }
+    }
+
     // Parte referente ao cálculo do frete
 
     const [cepDestino, setCepDestino] = useState<string>(""); //Vetor que armazena o CEP de destino do produto
@@ -284,84 +386,7 @@ const Cart = () =>
         <div id="page-cart">
             <Header />
             <div className="content">
-                <main>
-                    <h1>Carrinho de compras</h1>
-                    <div className="products-grid">
-                        {products.map(prod => {
-                            let images ="";
-                            if(prod.images.indexOf(',') > 0)
-                                images = prod.images.substring(0, prod.images.indexOf(','));
-                            else
-                                images = prod.images.substring(0, prod.images.length);
-
-                            const currentQuantity = productsQuantity.filter(res => {
-                                return res.product_id === prod.id;
-                            })
-
-                            return(
-                                <li key={prod.id} className="cart-product">
-                                    <Link to={`/products/${prod.id}`}>
-                                        <div className="info">
-                                            <img src={images} width={100} height={100} alt={prod.name}/>
-                                            <div className="title">{prod.name}</div>
-                                        </div>
-                                    </Link>
-                                    <div className="quantity-price">
-                                        <div className="quantity">
-                                            {Input(prod, currentQuantity[0].quantity)}
-                                        </div>    
-                                        <div className="max-quantity-remove-price">
-                                            <div className="max-quantity-remove">
-                                                <div className="max-quantity">{prod.quantity} disponíveis</div>
-                                                <button className="remove" onClick={() => removeProduct(prod.id)}>Excluir</button>
-                                            </div>
-                                            <div className="price">
-                                                <strong>{`R$${(Number(prod.price)*Number(currentQuantity[0].quantity)).toFixed(2)}`}</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            );
-                        })}
-                    </div>
-                    <div className="freight-area-price">
-                        <div className="freight-area">
-                            <div className="freight-area-column">
-                                <div className="freight-area-row">
-                                    <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
-                                        <div className="cep">
-                                            <form onSubmit={calcularFrete} id="form2">
-                                                <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
-                                                <button>OK</button>
-                                                {loadingAnimationFrete()}
-                                            </form>
-                                            <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
-                                        </div>
-                                    </div>
-                                {showFrete()}
-                            </div>
-                        </div>                        
-                        <div className="checkout-price">
-                            <div className="products-price">
-                                <div className="products-price-text">Produtos:</div>
-                                <div className="products-price-number">R${productsPrice.toFixed(2)}</div>
-                            </div>
-                            <div className="freight-price">
-                                <div className="freight-price-text">Frete:</div>
-                                <div className="freight-price-number">R${valorFrete.toFixed(2)}</div>
-                            </div>
-                            <div className="total-price">
-                                <div className="total-price-text">Total:</div>
-                                <div className="total-price-number">R${(productsPrice + valorFrete).toFixed(2)}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <form action="/buying" method="GET" id="form1">
-                        <input type="hidden" name="id" value={idInput} />
-                        <input type="hidden" name="quantity" value={quantityInput} />
-                        <button type="submit">Continuar a compra</button>
-                    </form>
-                </main>
+                {showCart()}
             </div>
             <Footer />
         </div>
