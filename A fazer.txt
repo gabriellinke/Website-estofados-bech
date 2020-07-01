@@ -31,7 +31,8 @@ Mostrar itens no carrinho						OK
 Fazer CSS do carrinho							OK
 Permitir adicionar/remover pelo carrinho				OK
 Calcular frete pelo carrinho						ALFA OK
-Fazer a compra através do carrinho
+Fazer a compra através do carrinho					OK
+Fazer página de carrinho vazio
 
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
 
@@ -46,7 +47,7 @@ Fazer o cálculo do frete pelo carrinho
 Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
 
 Fazer as backURLs
-Página para acompanhar a compra
+Página para acompanhar a compra. Também tirar o item do carrinho se ele tiver ido para essa página.
 
 Fazer página para o admin verificar os dados do comprador do produto
 Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadastrar multiplas imagens

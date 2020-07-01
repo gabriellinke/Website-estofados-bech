@@ -154,21 +154,14 @@ const Checkout = () =>
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [ids, setIds] = useState<string[]>([]); 
-    const [prices, setPrices] = useState<number[]>([]);
-    const [productNames, setProductNames] = useState<string[]>([]); 
-    const [images, setImages] = useState<string[]>([]); 
-    const [quantitys, setQuantitys] = useState<number[]>([]);
-    const [totalQuantity, setTotalQuantity] = useState<number[]>([]);
-    const [totalPrice, setTotalPrice] = useState<number>(0);
-
-
-    const [product, setProduct] = useState<ProductProps>(); //Guardar o produto
+    const [prices, setPrices] = useState<number[]>([]); // Guarda o preço de cada produto
+    const [productNames, setProductNames] = useState<string[]>([]); // Guarda o nome de cada produto
+    const [images, setImages] = useState<string[]>([]);  // Guarda a imagem de cada produto
+    const [quantitys, setQuantitys] = useState<number[]>([]);   // Guarda a quantidade de cada produto
+    const [totalQuantity, setTotalQuantity] = useState<number[]>([]); // Guarda a quantidade de produtos na lista de checkout
+    const [totalPrice, setTotalPrice] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
+    
     const [link, setLink] = useState<string>("#"); // Onde fica salvo o link para o redirecionamento para a compra
-    const [id, setId] = useState<string>("0"); // Salva o id do produto
-    const [price, setPrice] = useState<number>(999999); // Salva o preço do produto
-    const [productName, setProductName] = useState<string>(""); // Salva o nome do produto
-    const [image, setImage] = useState<string>(""); // Mostra a imagem do produto na área de informações
-    const [quantity, setQuantity] = useState<number>(0); // Salva a quantidade que o usuário quer comprar do produto
     const [checkoutData, setCheckoutData] = useState<Data>(); //
     const [disabled, setDisabled] = useState<boolean>(true); // Habilita/desabilita o botão de Pagar com Mercado Pago
     const [frete, setFrete] = useState<number>(0);  // Salva o custo do frete
@@ -193,10 +186,6 @@ const Checkout = () =>
             // Pega a parte da url que interessa, que é onde tem os parâmetros
             let parametros = res[1].split('&');
 
-            // O primeiro parâmetro é o id
-            if(parametros[0] !== null)
-                setId(parametros[0].split("=")[1])
-
             const idURL = parametros[0].split("=")[1];  //Variável que tem os ids que vem da url
             const qtdsURL = parametros[1].split("=")[1];   //Variável que tem as quantidades que vem da url
 
@@ -206,6 +195,10 @@ const Checkout = () =>
                     const productsAux = response.data.products   // Guarda os produtos em uma variável
                     setProducts(productsAux)
                 
+                    // Tenho um problema com relação aos ids: Se mudaram a url, não podem botar uma quantidade maior do que o estoque do produto
+                    // Porém, tem como botar o mesmo id mais de uma vez, o que faria com que desse, por ex, pra comprar a quantidade máxima do produto 2x
+                    setIds(idURL.split("-"))
+
                     let quantidadeFinal = [0]; // Guarda a quantidade de unidades de cada produto
                     if(parametros[1])   // Para não dar problema caso não venha o parametro de quantidade
                     {
@@ -292,7 +285,8 @@ const Checkout = () =>
         } = values;
 
         let ajax = new Ajax();
-        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +'&sCepOrigem='+ "89870000" +'&sCepDestino='+ cep +'&nVlPeso='+product?.peso+'&nCdFormato='+product?.formato+'&nVlComprimento='+product?.comprimento+'&nVlAltura='+product?.altura+'&nVlLargura='+product?.largura+'&nVlDiametro='+product?.diametro+'&sCdMaoPropria='+ "N" +'&nVlValorDeclarado='+0+'&sCdAvisoRecebimento='+"N"+'%20HTTP/1.1',
+        // Precisa fazer um cálculo real, com todos os produtos levados em conta
+        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +'&sCepOrigem='+ "89870000" +'&sCepDestino='+ cep +'&nVlPeso='+products[0]?.peso+'&nCdFormato='+products[0]?.formato+'&nVlComprimento='+products[0]?.comprimento+'&nVlAltura='+products[0]?.altura+'&nVlLargura='+products[0]?.largura+'&nVlDiametro='+products[0]?.diametro+'&sCdMaoPropria='+ "N" +'&nVlValorDeclarado='+0+'&sCdAvisoRecebimento='+"N"+'%20HTTP/1.1',
         (status:number, response:string) => {
             // Calcula o frete e coloca numa variável
             const freteInfo = (JSON.stringify(response));
@@ -311,6 +305,22 @@ const Checkout = () =>
             if(user != null)
                 userNotNull = user;
 
+            // Concatena os items em uma string, separando-os por @
+            let id="", price="", productName="", quantity="";
+            for(let i of totalQuantity)
+            {
+                id += ids[i] + "@"
+                price += prices[i] + "@"
+                productName += productNames[i] + "@"
+                quantity += quantitys[i] + "@"
+            }
+
+            // Remove o último @
+            id = id.substring(0,(id.length - 1));
+            price = price.substring(0,(price.length - 1));
+            productName = productName.substring(0,(productName.length - 1));
+            quantity = quantity.substring(0,(quantity.length - 1));
+
             // Dá um post para criar uma preference do Mercado Pago
             api.post('checkout', {
                 id, price, freightPrice, productName, quantity,
@@ -319,7 +329,7 @@ const Checkout = () =>
                 userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
             })
                 .then(response => {
-                    // console.log(response.data);
+                    console.log(response.data);
                     // Seta o link do botão e consequentemente libera o seu uso
                     setLink(response.data.checkoutInfo.url);
     
@@ -356,11 +366,11 @@ const Checkout = () =>
 
                     // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
                     setCheckoutData({
-                    product_id: parseInt(product_id),
+                    product_id,
                     productName,
-                    quantity: parseInt(quantity),
-                    price: parseFloat(price),
-                    freightPrice: parseFloat(freightPrice),
+                    quantity,
+                    price,
+                    freightPrice,
                 
                     name,
                     surname,
