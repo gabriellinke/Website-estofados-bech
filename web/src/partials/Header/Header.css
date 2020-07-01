@@ -80,9 +80,80 @@ header .bottom-menu
 {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
+    height: 36px;
     padding: 4px 32px;
     background-color: var(--logo-color);
+}
+
+header .bottom-menu .items
+{
+    align-items: center;
+    display: flex;
+    height: 36px;
+    width: 90%;
+    max-width: 1200px;
+    color: white;
+    font-size: 17px;
+}
+
+header .bottom-menu .items .first-categorie:hover,
+header .bottom-menu .items .second-categorie:hover,
+header .bottom-menu .items .third-categorie:hover
+{
+    color: #eeeeee;
+}
+
+header .bottom-menu .items .categories
+{
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px 0 0 ;
+}
+
+header .bottom-menu .items .categories span.menu
+{
+    margin-right: 3px;
+    height: 24px;
+    width: 24px;
+}
+
+header .bottom-menu .items .categories span.arrow
+{
+    margin-left: 3px;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header .bottom-menu .items .first-categorie
+{
+    align-items: center;
+    display: flex;
+    height: 36px;
+    padding: 0 28px;
+    transition: 200ms;
+}
+
+header .bottom-menu .items .second-categorie
+{
+    align-items: center;
+    display: flex;
+    height: 36px;
+    padding: 0 28px;
+}
+
+header .bottom-menu .items .third-categorie
+{
+    align-items: center;
+    display: flex;
+    height: 36px;
+    padding: 0 28px;
 }
 
 header p

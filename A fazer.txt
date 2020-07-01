@@ -34,7 +34,13 @@ Calcular frete pelo carrinho						ALFA OK
 Fazer a compra através do carrinho					OK
 Fazer página de carrinho vazio						OK
 
+
+
 Fazer um menu para categorias de itens e também possibilitar a pesquisa de itens
+Fazer paginação
+Ordenar de A-Z, Z-A, Maior preço, Menor preço
+
+Tirar o campo cart da tabela de users. Não ta sendo usado
 
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.

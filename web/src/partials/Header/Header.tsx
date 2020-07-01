@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa'
+import { MdMenu, MdKeyboardArrowDown } from 'react-icons/md'
 import logo from '../../assets/Logo.png';
 
 import { useAuth } from '../../contexts/auth'
@@ -71,7 +72,9 @@ const Header: React.FC<HeaderProps> = (props) =>
         </div>
         <div className="middle">
             <div className="logo-search">
-                <img src={logo} alt="Logomarca" />    {/* Ver oq fazer com as imagens */}
+                <Link to='/'>
+                    <img src={logo} alt="Logomarca" />
+                </Link>
                 <form id="form2" action="">
                     <div className="search-field">
                         <input type="text" name="search-box" placeholder="Buscar" />
@@ -81,12 +84,32 @@ const Header: React.FC<HeaderProps> = (props) =>
                     </div>
                 </form>
             </div>
-
             {userInfo()}
-
         </div>
+
         <div className="bottom-menu">
-            <p>Menu para escolher a pesquisa por conteúdo específico</p>
+            <div className="items">
+                    <div className="categories">
+                        <span className="menu"> <MdMenu size="24" /></span>
+                        <div className="text">Categorias</div>
+                        <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
+                    </div>
+                <Link to="/bancos">
+                    <div className="first-categorie">
+                        Bancos
+                    </div>
+                </Link>
+                <Link to="/tecidos">
+                    <div className="second-categorie">
+                        Tecidos
+                    </div>
+                </Link>
+                <Link to="/tapetes">
+                    <div className="third-categorie">
+                        Tapetes
+                    </div>
+                </Link>
+            </div>
         </div>
     </header>
     );
