@@ -8,6 +8,7 @@ import ProductsController from './controllers/ProductsController';
 import CheckoutController from './controllers/CheckoutController';
 import UsersController from './controllers/UsersController';
 import CartController from './controllers/CartController';
+import SearchController from './controllers/SearchController'
 import { celebrate , Joi} from 'celebrate';
 
 const routes = express.Router();
@@ -17,6 +18,7 @@ const productsController = new ProductsController();
 const usersController = new UsersController();
 const checkoutController = new CheckoutController();
 const cartController = new CartController();
+const searchController = new SearchController();
 const walletcontroller = require("./controllers/walletController");
 
 // Dá pra juntar as rotas de show do products e descriptions
@@ -58,5 +60,8 @@ routes.post('/user/cart/add', cartController.add);          // Rota que adiciona
 routes.post('/user/cart/change', cartController.change);    // Rota que muda a quantidade de itens no carrinho
 routes.post('/user/cart/remove', cartController.remove);    // Rota que remove itens do carrinho 
 routes.get('/user/cart/:id', cartController.index);         // Rota que mostra todos os itens no carrinho de um usuário
+
+routes.get('/search', searchController.index)
+routes.get('/category/search', searchController.indexCategory)
 
 export default routes;

@@ -94,8 +94,9 @@ class CartController
         const product = await knex('products').where('id', cartProduct.product_id).first();
         
         let modifiedProductInCart;
+
         // Muda o valor para o que foi passado. Se for maior que o estoque, muda para o máximo possível
-        if(cartProduct.quantity > product.quantity)
+        if(parseInt(cartProduct.quantity) > parseInt(product.quantity))
         {
             modifiedProductInCart = {
                 user_id: productInCart.user_id,
@@ -103,7 +104,7 @@ class CartController
                 quantity: parseInt(product.quantity),
             }
         }
-        else if(cartProduct.quantity < 1)
+        else if(parseInt(cartProduct.quantity) < 1)
         {
             modifiedProductInCart = {
                 user_id: productInCart.user_id,

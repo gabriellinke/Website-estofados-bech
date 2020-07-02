@@ -24,7 +24,6 @@ class UsersController
             surname,
             email,
             password,
-            cart: "0",
             admin,
         }
 

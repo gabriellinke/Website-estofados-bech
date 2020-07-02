@@ -5,6 +5,7 @@ import Checkout from '../pages/Checkout';
 import Home from '../pages/Home'
 import Product from '../pages/Product'
 import Cart from '../pages/Cart'
+import Search from '../pages/Search'
 
 // Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
 const UserRoutes = () => 
@@ -13,6 +14,7 @@ const UserRoutes = () =>
         <BrowserRouter>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
+                <Route component={Search} path="/search" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
                 <Route component={Home} path="/" exact/>
                 <Route component={Product} path="/products/:id" exact/>

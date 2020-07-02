@@ -9,6 +9,7 @@ class ProductsController
         const {
             name,       
             images,
+            category,
             conditions,
             price,
             quantity,
@@ -23,6 +24,7 @@ class ProductsController
         const product = {
             name,       
             images: `${process.env.BASE_URL}/uploads/` + request.file.filename,
+            category,
             price,          
             conditions,
             quantity,

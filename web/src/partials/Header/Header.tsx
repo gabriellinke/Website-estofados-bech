@@ -75,9 +75,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                 <Link to='/'>
                     <img src={logo} alt="Logomarca" />
                 </Link>
-                <form id="form2" action="">
+                <form id="form2" action="/search">
                     <div className="search-field">
-                        <input type="text" name="search-box" placeholder="Buscar" />
+                        <input type="text" name="search" placeholder="Buscar" />
                         <button>
                             <span> <FiSearch size={20}/> </span>
                         </button>
