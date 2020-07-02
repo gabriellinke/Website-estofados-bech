@@ -21,16 +21,21 @@ interface User
     name: string;
 }
 
-// Componente escrito em formato de função (React.FC)
 const Header: React.FC<HeaderProps> = (props) =>
 {
     const { user, signOut } = useAuth();
 
+    // Estados para saber se deve mostrar o menu de categorias
+    const [show, setShow] = useState<boolean>(false)
+    const [overMenu, setOverMenu] = useState<boolean>(false)
+    const [overOptions, setOverOptions] = useState<boolean>(false)
+
+    // Desloga o usuário
     function handleLogOut(){
         signOut();
     }
     
-    // Talvez dê para fazer um novo componente com isso
+    // Informações do usuário. Muda se o usuário ta logado ou não.
     function userInfo(){
         if(!user)
             return (
@@ -63,10 +68,51 @@ const Header: React.FC<HeaderProps> = (props) =>
             );
     }
 
+    // Usado para saber se deve mostrar o menu de categorias
+    useEffect(() => {
+        setTimeout(() => {
+            if(!overOptions && !overMenu)
+                setShow(false)
+        }, 100)
+    }, [overMenu, overOptions])
+
+    // Usado para saber se deve mostrar o menu de categorias
+    function handleOverMenu()
+    {
+        setOverMenu(true);
+        setShow(true);
+    }
+
+    // Usado para saber se deve mostrar o menu de categorias
+    function handleOverOptions()
+    {
+        setOverOptions(true);
+        setShow(true);
+    }
+
+
+    function categoriesOptions()
+    {
+        if(show)
+            return(
+                <div className="categories-options" onMouseEnter={handleOverOptions} onMouseLeave={() => setOverOptions(false)}>
+                    <Link to='/category/bancos' className="options">
+                        <div className="first-option">Bancos</div>
+                    </Link>
+                    <Link to='/category/tecidos' className="options">
+                        <div className="second-option">Tecidos</div>
+                    </Link>
+                    <Link to='/category/tapetes' className="options">
+                        <div className="third-option">Tapetes</div>
+                    </Link>
+                </div>
+            )
+    }
+
     return(
     <header>
         <div className = "top">
-            <Link to="">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="">Quem somos</Link>
             <Link to="">Contato</Link>
         </div>
@@ -86,14 +132,18 @@ const Header: React.FC<HeaderProps> = (props) =>
             </div>
             {userInfo()}
         </div>
-
         <div className="bottom-menu">
             <div className="items">
-                    <div className="categories">
-                        <span className="menu"> <MdMenu size="24" /></span>
-                        <div className="text">Categorias</div>
-                        <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
-                    </div>
+                <div className="categories-menu">
+                    <Link to="#" onMouseEnter={handleOverMenu} onMouseLeave={() => setOverMenu(false)}>
+                        <div className="categories">
+                            <span className="menu"> <MdMenu size="24" /></span>
+                            <div className="text">Categorias</div>
+                            <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
+                        </div>
+                    </Link>
+                    {categoriesOptions()}
+                </div>
                 <Link to="/category/bancos">
                     <div className="first-categorie">
                         Bancos
