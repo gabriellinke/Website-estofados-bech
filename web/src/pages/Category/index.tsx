@@ -22,9 +22,9 @@ const Home = () =>
     let { category } = useParams();
     // Toda a vez que é mudada a categoria, faz uma consulta à API para pegar a lista de produtos
     useEffect(() => {
-        api.get('category/search?search='+category)
+        api.get('category/search?page=1&limit=50&order=az&search='+category)
             .then(response => {
-                setProducts(response.data)
+                setProducts(response.data.results)
             });
     }, [category]);
 

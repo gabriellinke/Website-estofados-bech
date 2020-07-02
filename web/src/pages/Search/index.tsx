@@ -28,9 +28,9 @@ const Home = () =>
         let searchFinal = searchArray.join(' '); //Substitui os + por espaços
         setSearch(searchFinal);
         
-        api.get('search?search='+searchFinal)
+        api.get('search?page=1&limit=50&order=az&search='+searchFinal)
             .then(response => {
-                setProducts(response.data)
+                setProducts(response.data.results)
             });
     }, []);
 

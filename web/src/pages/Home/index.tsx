@@ -20,9 +20,9 @@ const Home = () =>
 
     // Consulta a API para pegar a lista de produtos
     useEffect(() => {
-        api.get('products')
+        api.get('products?page=1&limit=50&order=az')
             .then(response => {
-                setProducts(response.data)
+                setProducts(response.data.results)
             });
     }, []);
 

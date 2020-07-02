@@ -1,0 +1,1 @@
+GET http://localhost:3333/products?page=1&limit=13&order=01
