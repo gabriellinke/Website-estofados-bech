@@ -94,17 +94,17 @@ const Header: React.FC<HeaderProps> = (props) =>
                         <div className="text">Categorias</div>
                         <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
                     </div>
-                <Link to="/bancos">
+                <Link to="/category/bancos">
                     <div className="first-categorie">
                         Bancos
                     </div>
                 </Link>
-                <Link to="/tecidos">
+                <Link to="/category/tecidos">
                     <div className="second-categorie">
                         Tecidos
                     </div>
                 </Link>
-                <Link to="/tapetes">
+                <Link to="/category/tapetes">
                     <div className="third-categorie">
                         Tapetes
                     </div>

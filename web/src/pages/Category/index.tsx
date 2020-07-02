@@ -5,6 +5,7 @@ import Product from '../../partials/Product/Product';
 import api from '../../services/api';
 
 import './styles.css';
+import { useParams } from 'react-router-dom';
 
 const Home = () => 
 {
@@ -17,29 +18,22 @@ const Home = () =>
     }
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
-    const [search, setSearch] = useState<string>(""); // Frase que foi pesquisada
 
-    // Consulta a API para pegar a lista de produtos
+    let { category } = useParams();
+    // Toda a vez que é mudada a categoria, faz uma consulta à API para pegar a lista de produtos
     useEffect(() => {
-        let res = window.location.href.split('?'); //Pega o parametro da URL
-        let search = res[1].split('='); //Pega os valores do parâmetro
-        let searchString = search[1]; //Pega os valores do parâmetro
-        let searchArray = searchString.split('+'); //Substitui os + por espaços
-        let searchFinal = searchArray.join(' '); //Substitui os + por espaços
-        setSearch(searchFinal);
-        
-        api.get('search?search='+searchFinal)
+        api.get('category/search?search='+category)
             .then(response => {
                 setProducts(response.data)
             });
-    }, []);
+    }, [category]);
 
     return(
         <div id="page-home">
             <Header />
             <div className="content">
                 <main>
-                    <h1>Você está pesquisando por {search}</h1>    
+                    <h1>Você está vendo {category}</h1>   
                     <div className="products-grid">
                         {/* Cria os produtos */}
                         {products.map(prod => {
