@@ -1,6 +1,6 @@
 // O arquivo routes vai ser utilizado como se fosse um gerenciador de rotas.
 // Ele configura as rotas, tendo o funcionamento de cada uma delas sendo feito em um arquivo diferente, específico para cada rota distinta
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer' //Pra fazer o upload de imagens
 import multerConfig from './config/multer';    
 
@@ -13,6 +13,7 @@ import { celebrate , Joi} from 'celebrate';
 
 const routes = express.Router();
 const upload = multer(multerConfig);
+const jwt = require('jsonwebtoken');
 
 const productsController = new ProductsController();
 const usersController = new UsersController();
@@ -63,5 +64,31 @@ routes.get('/user/cart/:id', cartController.index);         // Rota que mostra t
 
 routes.get('/search', searchController.index)
 routes.get('/category/search', searchController.indexCategory)
+
+
+routes.post('/verify', authenticateToken, (req, res) => {
+    res.json(req.body.user)
+})
+
+routes.post('/token', usersController.refreshToken);
+routes.delete('/logout', usersController.logout);
+
+// Middleware para verificação de token
+function authenticateToken(req:Request, res:Response, next:NextFunction) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.sendStatus(401)
+
+    let secret = "";
+    if(process.env.ACCESS_TOKEN_SECRET)
+        secret = process.env.ACCESS_TOKEN_SECRET
+
+    jwt.verify(token, secret, (err:any, user:any) => {
+        console.log(err)
+        if (err) return res.sendStatus(403)
+        req.body.user = user;
+        next()
+    })
+}      
 
 export default routes;

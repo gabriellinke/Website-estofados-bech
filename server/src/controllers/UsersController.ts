@@ -6,6 +6,15 @@ import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 require("dotenv").config();
 
+interface User{
+    id: number;
+    name: string;    
+    surname: string;
+    email: string;
+    password: undefined;
+    admin: boolean;
+}
+
 class UsersController
 {
     // Cria um usuário com a senha salva após ser convertida em um hash
@@ -48,17 +57,9 @@ class UsersController
         });
     }
 
-    // Verifica se o usuário e senha estão cadastrados no banco de dados
+    // Verifica se o usuário e senha estão cadastrados no banco de dados. Manda um access e um refresh token de resposta
     async verifyUser(request: Request, response: Response)
     {
-        interface User{
-            id: number;
-            name: string;    
-            surname: string;
-            email: string;
-            admin: boolean;
-        }
-
         const {
             email,
             password
@@ -69,26 +70,78 @@ class UsersController
         const HashPassword = shaObj.getHash("HEX");
 
         const userOk:User = await knex('users').where('email', email).where('password', HashPassword).first();
-        let meuToken = null;
         
         if(userOk!==undefined)
         {
-            let secret = "";
-            if(process.env.SECRET)
-                secret = process.env.SECRET
+            let refreshSecret = "";
+            if(process.env.REFRESH_TOKEN_SECRET)
+                refreshSecret = process.env.REFRESH_TOKEN_SECRET;
 
-            meuToken = jwt.sign({ email: userOk.email, id: userOk.id, name: userOk.name, surname: userOk.surname, admin: userOk.admin }, 
-                secret)
-            
+            userOk.password = undefined;
+            const accessToken = generateAccessToken(userOk)
+            const refreshToken = jwt.sign(userOk, refreshSecret)
+
+            // refreshTokens.push(refreshToken) Colocar o token no banco de dados de refresh Tokens
+            const insertedToken = await knex('tokens').insert({token: refreshToken});
+
             return response.json({
                 userOk, 
-                meuToken
+                accessToken,
+                refreshToken,
+                insertedToken: !!insertedToken
             })
         }
 
         return response.json({
             userOk: null, 
-            meuToken:null
+            accessToken:null,
+            refreshToken:null,
+        })
+    }
+
+    // Desloga o usuário, deletando o refreshToken
+    async logout(request: Request, response: Response)
+    {
+        const deleted = await knex('tokens').where('token', request.body.token).del()
+        return response.json({
+            deleted: !!deleted,
+        })
+    }
+
+    // Verifica o refresh token e envia um novo access token
+    async refreshToken(request: Request, response: Response)
+    {
+        const refreshToken = request.body.token
+        if (refreshToken == null) return response.sendStatus(401)
+
+        const isValid = await knex('tokens').where('token', refreshToken).first();
+        if (!isValid) return response.sendStatus(403)
+
+        let refreshSecret = "";
+        if(process.env.REFRESH_TOKEN_SECRET)
+            refreshSecret = process.env.REFRESH_TOKEN_SECRET;
+        jwt.verify(refreshToken, refreshSecret , (err:any, user:any) => {
+            if (err) return response.sendStatus(403)
+            const {
+                id,
+                name,
+                surname,
+                email,
+                admin
+            } = user;
+
+            const userFinal = {
+                id,
+                name,
+                surname,
+                email,
+                admin,
+                password:undefined
+            }
+            const accessToken = generateAccessToken(userFinal)
+            response.json({
+                accessToken 
+            })
         })
     }
 
@@ -134,6 +187,14 @@ class UsersController
             resposta
         })
     }
+}
+
+function generateAccessToken(user:User) {
+    let secret = "";
+    if(process.env.ACCESS_TOKEN_SECRET)
+        secret = process.env.ACCESS_TOKEN_SECRET;
+
+    return jwt.sign(user, secret, { expiresIn: 900 });
 }
 
 export default UsersController;

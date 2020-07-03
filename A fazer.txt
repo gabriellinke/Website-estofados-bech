@@ -40,7 +40,6 @@ Ordenar de A-Z, Z-A, Maior preço, Menor preço				OK
 Fazer paginação								OK
 
 
-
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 https://www.youtube.com/watch?v=mbsmsi7l3r4 - Video gringo
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
@@ -53,7 +52,10 @@ Fazer o cálculo do frete pelo carrinho
 Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
 
 Fazer as backURLs
+
 Página para acompanhar a compra. Também tirar o item do carrinho se ele tiver ido para essa página.
+Fazer uma página de histórico de compra e uma de acompanhamento.
+Fazer página para mudar dados de nome, sobrenome e senha.
 
 Fazer página para o admin verificar os dados do comprador do produto
 Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadastrar multiplas imagens
