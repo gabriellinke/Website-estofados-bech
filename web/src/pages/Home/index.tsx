@@ -20,8 +20,8 @@ const Home = () =>
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
-    const [limit, setLimit] = useState<number>(24); // Quantidade de itens
-    const [order, setOrder] = useState<string>(""); // Qual a ordem que os itens são organizados
+    const [limit, setLimit] = useState<number>(8); // Quantidade de itens
+    const [order, setOrder] = useState<string>("az"); // Qual a ordem que os itens são organizados
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
     const [nextPage, setNextPage] = useState<boolean>(false); // Mostra se tem próxima página
     const [previousPage, setPreviousPage] = useState<boolean>(false); // Mostra se tem uma página anterior
@@ -48,6 +48,110 @@ const Home = () =>
         setImageWidth(largura)
     }, [])
 
+    // Atualiza a próxima página de produtos
+    function handleNext()
+    {
+        api.get('products?page='+(currentPage+1)+'&limit='+limit+'&order='+order)
+        .then(response => {
+            setProducts(response.data.results)
+            setResultsQuantity(response.data.quantity)
+            setNextPage(!!response.data.next.page)
+            setPreviousPage(!!response.data.previous.page)
+            setCurrentPage(currentPage + 1)
+
+            window.scrollTo(0, 0);
+        });
+    }
+
+    // Atualiza a página anterior de produtos
+    function handlePrevious()
+    {
+        api.get('products?page='+(currentPage-1)+'&limit='+limit+'&order='+order)
+        .then(response => {
+            setProducts(response.data.results)
+            setResultsQuantity(response.data.quantity)
+            setNextPage(!!response.data.next.page)
+            setPreviousPage(!!response.data.previous.page)
+            setCurrentPage(currentPage - 1)
+
+            window.scrollTo(0, 0);
+        });
+    }
+
+    // Mostra o botão de próxima página habilitado/desabilitado
+    function buttonNext()
+    {
+        if(nextPage)
+        {
+            return(
+                <button className="next" onClick={handleNext}>
+                    <div className="next-page">Próxima</div>
+                    <IoIosArrowForward />
+                </button>
+            );
+        }
+        else
+        {
+            return(
+                <button disabled className="next-disabled">
+                    <div className="next-page">Próxima</div>
+                    <IoIosArrowForward />
+                </button>
+            );
+        }
+
+    }
+
+    // Mostra o botão de página anterior habilitado/desabilitado
+    function buttonPrevious()
+    {
+        if(previousPage)
+        {
+            return(
+                <button className="previous" onClick={handlePrevious}>
+                        <IoIosArrowBack />
+                        <div className="previous-page">Anterior</div>
+                </button>
+            );
+        }
+        else
+        {
+            return(
+                <button disabled className="previous-disabled">
+                        <IoIosArrowBack />
+                        <div className="previous-page">Anterior</div>
+                </button>
+            );
+        }
+    }
+
+    // Mostra os produtos
+    function productsList()
+    {
+        if(resultsQuantity > 0)
+            return (
+                products.map(prod => {
+                    let images ="";
+                    if(prod.images.indexOf(',') > 0)
+                        images = prod.images.substring(0, prod.images.indexOf(','));
+                    else
+                        images = prod.images.substring(0, prod.images.length);
+                    return(
+                        <Product 
+                            src={images}
+                            width={imageWidth}
+                            height={imageWidth}
+                            title={prod.name}
+                            price={`R$${Number(prod.price).toFixed(2)}`}
+                            conditions={`${prod.conditions}x R$${(Number(prod.price)/Number(prod.conditions)).toFixed(2)} sem juros`}
+                            id={prod.id}
+                            key={prod.id}
+                        />
+                    );
+                })
+            );
+    }
+
     // Muda o tipo de ordenação
     function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) 
     {
@@ -65,46 +169,21 @@ const Home = () =>
                         <div className="order">
                             <div className="text">Organizar anúncios</div> 
                             <select name="order" id="order" onChange={handleSelectChange}>
-                                <option value="01">Menor preço</option>    
-                                <option value="10">Maior preço</option>    
                                 <option value="az">A-Z</option>    
                                 <option value="za">Z-A</option>    
+                                <option value="01">Menor preço</option>    
+                                <option value="10">Maior preço</option>    
                             </select>    
                         </div>    
                         <h3>{resultsQuantity} produtos</h3>
                     </div>
                     <div className="products-grid" id="products-grid">
-                        {/* Cria os produtos */}
-                        {products.map(prod => {
-                            let images ="";
-                            if(prod.images.indexOf(',') > 0)
-                                images = prod.images.substring(0, prod.images.indexOf(','));
-                            else
-                                images = prod.images.substring(0, prod.images.length);
-                            return(
-                                <Product 
-                                    src={images}
-                                    width={imageWidth}
-                                    height={imageWidth}
-                                    title={prod.name}
-                                    price={`R$${Number(prod.price).toFixed(2)}`}
-                                    conditions={`${prod.conditions}x R$${(Number(prod.price)/Number(prod.conditions)).toFixed(2)} sem juros`}
-                                    id={prod.id}
-                                    key={prod.id}
-                                />
-                            );
-                        })}                 
+                        {productsList()}
                     </div>
                     <div className="pages">
                         <div className="buttons">
-                            <button className="previous">
-                                <IoIosArrowBack />
-                                <div className="previous-page">Anterior</div>
-                            </button>
-                            <button className="next">
-                                <div className="next-page">Próxima</div>
-                                <IoIosArrowForward />
-                            </button>
+                            {buttonPrevious()}
+                            {buttonNext()}
                         </div>
                         <div className="pages-info">Vendo página {currentPage} de {Math.max(1, parseInt((resultsQuantity / limit).toString()))}</div>
                     </div>

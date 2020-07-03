@@ -34,12 +34,10 @@ Calcular frete pelo carrinho						ALFA OK
 Fazer a compra através do carrinho					OK
 Fazer página de carrinho vazio						OK
 
-
-
 Fazer um menu para categorias de itens					OK
 Possibilitar a pesquisa de itens					OK
 Ordenar de A-Z, Z-A, Maior preço, Menor preço				OK
-Fazer paginação
+Fazer paginação								OK
 
 
 
@@ -63,6 +61,7 @@ Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadas
 Fazer o deploy
 
 Fazer um hover quando passar o mouse por cima da imagem de um produto
+Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Fazer layouts de Contato, Quem somos, etc.
 
