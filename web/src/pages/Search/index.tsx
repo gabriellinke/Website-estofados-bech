@@ -18,6 +18,7 @@ const Home = () =>
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [search, setSearch] = useState<string>(""); // Frase que foi pesquisada
+    const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
 
     // Consulta a API para pegar a lista de produtos
     useEffect(() => {
@@ -28,18 +29,29 @@ const Home = () =>
         let searchFinal = searchArray.join(' '); //Substitui os + por espaços
         setSearch(searchFinal);
         
-        api.get('search?page=1&limit=50&order=az&search='+searchFinal)
+        api.get('search?page=1&limit=24&order=az&search='+searchFinal)
             .then(response => {
                 setProducts(response.data.results)
+                setResultsQuantity(response.data.quantity)
             });
     }, []);
 
     return(
-        <div id="page-home">
+        <div id="page-search">
             <Header />
             <div className="content">
                 <main>
-                    <h1>Você está pesquisando por {search}</h1>    
+                    <h1>Resultado da pesquisa por: {search}</h1>
+                    <h3>{resultsQuantity} resultados</h3>
+                    <div className="order">
+                        Organizar anúncios
+                        <select name="order" id="order">
+                            <option value="01">Menor preço</option>    
+                            <option value="10">Maior preço</option>    
+                            <option value="az">A-Z</option>    
+                            <option value="za">Z-A</option>    
+                        </select>    
+                    </div>     
                     <div className="products-grid">
                         {/* Cria os produtos */}
                         {products.map(prod => {

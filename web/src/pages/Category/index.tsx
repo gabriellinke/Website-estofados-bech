@@ -18,22 +18,34 @@ const Home = () =>
     }
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
+    const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
 
     let { category } = useParams();
     // Toda a vez que é mudada a categoria, faz uma consulta à API para pegar a lista de produtos
     useEffect(() => {
-        api.get('category/search?page=1&limit=50&order=az&search='+category)
+        api.get('category/search?page=1&limit=24&order=az&search='+category)
             .then(response => {
                 setProducts(response.data.results)
+                setResultsQuantity(response.data.quantity)
             });
     }, [category]);
 
     return(
-        <div id="page-home">
+        <div id="page-category">
             <Header />
             <div className="content">
                 <main>
-                    <h1>Você está vendo {category}</h1>   
+                    <h1>{category.replace(/\w/, (c:string) => c.toUpperCase())}</h1>
+                    <h3>{resultsQuantity} resultados</h3>
+                    <div className="order">
+                        Organizar anúncios
+                        <select name="order" id="order">
+                            <option value="01">Menor preço</option>    
+                            <option value="10">Maior preço</option>    
+                            <option value="az">A-Z</option>    
+                            <option value="za">Z-A</option>    
+                        </select>    
+                    </div>        
                     <div className="products-grid">
                         {/* Cria os produtos */}
                         {products.map(prod => {

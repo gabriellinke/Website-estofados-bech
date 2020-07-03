@@ -32,14 +32,68 @@
 #page-home main h1
 {
     font-size: 54px;
+    margin-bottom: 120px;
 }
 
 #page-home .content main .products-grid
 {
-    margin-top: 120px;
-
+    margin-top: 32px;
     display: grid;
-    grid-template-columns: 256px 256px 256px 256px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 24px;
     background:var(--gray-color);
 }
+
+#page-home main select
+{
+    font-size: 16px;
+    text-align: center;
+    height: 30px;
+    width: 120px;
+}
+
+#page-home .content main .products-order
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#page-home .content main .products-order .order .text
+{
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #333333;
+}
+
+#page-home .content main .products-order h3
+{
+    color: #333333;
+}
+
+#page-home .content main .pages
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 32px;
+}
+
+#page-home .content main .pages .buttons
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#page-home .content main .pages .buttons .next,
+#page-home .content main .pages .buttons .previous
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+

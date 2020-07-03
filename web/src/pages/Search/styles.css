@@ -1,4 +1,4 @@
-#page-home
+#page-search
 {
     height: 100%;
     position: relative;
@@ -6,7 +6,7 @@
     padding-bottom: 110px;
 }
 
-#page-home .content
+#page-search .content
 {
     width: 90%;
     max-width: 1200px;
@@ -19,7 +19,7 @@
     flex-direction: column;
 }
 
-#page-home main
+#page-search main
 {
     flex: 1;
     display: flex;
@@ -29,12 +29,12 @@
     margin-bottom: 64px;
 }
 
-#page-home main h1
+#page-search main h1
 {
     font-size: 54px;
 }
 
-#page-home .content main .products-grid
+#page-search .content main .products-grid
 {
     margin-top: 120px;
 

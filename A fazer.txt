@@ -41,6 +41,8 @@ Possibilitar a pesquisa de itens					OK
 Ordenar de A-Z, Z-A, Maior preço, Menor preço				OK
 Fazer paginação
 
+
+
 https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
 https://www.youtube.com/watch?v=mbsmsi7l3r4 - Video gringo
 Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
@@ -60,6 +62,7 @@ Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadas
 
 Fazer o deploy
 
+Fazer um hover quando passar o mouse por cima da imagem de um produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Fazer layouts de Contato, Quem somos, etc.
 
