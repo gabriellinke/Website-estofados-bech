@@ -6,6 +6,8 @@ class ProductsController
     // Adiciona um novo produto a tabela
     async create(request: Request, response: Response)
     {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
         const {
             name,       
             images,
@@ -48,6 +50,8 @@ class ProductsController
     // Adiciona as descrições dos produtos
     async createDesciption(request: Request, response: Response)
     {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
         const {
             product_id,
             description,
@@ -70,6 +74,8 @@ class ProductsController
     // Adiciona as imagens secundárias dos produtos
     async image(request: Request, response: Response)
     {
+        if(!request.body.user.admin) return response.sendStatus(401);
+        
         const { id } = request.params;
         const image = request.file.filename;
 

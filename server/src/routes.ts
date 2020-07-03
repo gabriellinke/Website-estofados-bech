@@ -2,7 +2,8 @@
 // Ele configura as rotas, tendo o funcionamento de cada uma delas sendo feito em um arquivo diferente, específico para cada rota distinta
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer' //Pra fazer o upload de imagens
-import multerConfig from './config/multer';    
+import multerConfig from './config/multer';
+import knex from './database/connection';
 
 import ProductsController from './controllers/ProductsController';
 import CheckoutController from './controllers/CheckoutController';
@@ -31,10 +32,11 @@ routes.get('/descriptions/:id', productsController.showDescriptions);   // Rota 
 routes.post(
     '/products',
     upload.single('images'),
+    authenticateToken,
     productsController.create
 );
-routes.post('/description', productsController.createDesciption);   // Rota para cadastrar descrições de um produto
-routes.post('/image/:id', upload.single('images'), productsController.image);   // Rota para cadastrar as imagens de um produto
+routes.post('/description', authenticateToken, productsController.createDesciption);   // Rota para cadastrar descrições de um produto
+routes.post('/image/:id', upload.single('images'), authenticateToken, productsController.image);   // Rota para cadastrar as imagens de um produto
 routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
 
 routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
@@ -54,7 +56,7 @@ celebrate({                                     //Dá pra passar essa validaçã
 }),
 usersController.createUser);
 
-routes.post("/checkout", walletcontroller.walletbutton);    // Rota para criar uma preference do Mercado Pago
+routes.post("/checkout", authenticateToken, walletcontroller.walletbutton);    // Rota para criar uma preference do Mercado Pago
 routes.post("/checkout/data", checkoutController.create)    // Rota que cria uma tabela com os dados do comprador e envia esses dados por email para ter um controle
 
 routes.post('/user/cart/add', cartController.add);          // Rota que adiciona os itens ao carrinho
@@ -62,16 +64,11 @@ routes.post('/user/cart/change', cartController.change);    // Rota que muda a q
 routes.post('/user/cart/remove', cartController.remove);    // Rota que remove itens do carrinho 
 routes.get('/user/cart/:id', cartController.index);         // Rota que mostra todos os itens no carrinho de um usuário
 
-routes.get('/search', searchController.index)
-routes.get('/category/search', searchController.indexCategory)
+routes.get('/search', searchController.index)               // Pesquisa com a barra de pesquisas
+routes.get('/category/search', searchController.indexCategory)  // Pesquisa por categorias
 
-
-routes.post('/verify', authenticateToken, (req, res) => {
-    res.json(req.body.user)
-})
-
-routes.post('/token', usersController.refreshToken);
-routes.delete('/logout', usersController.logout);
+routes.post('/token', usersController.refreshToken);    //Usa o refreshToken para obter um novo accessToken
+routes.post('/logout', usersController.logout);         //Desloga o usuário
 
 // Middleware para verificação de token
 function authenticateToken(req:Request, res:Response, next:NextFunction) {

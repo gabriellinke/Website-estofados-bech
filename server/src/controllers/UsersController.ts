@@ -85,7 +85,7 @@ class UsersController
             const insertedToken = await knex('tokens').insert({token: refreshToken});
 
             return response.json({
-                userOk, 
+                user: userOk, 
                 accessToken,
                 refreshToken,
                 insertedToken: !!insertedToken
@@ -93,7 +93,7 @@ class UsersController
         }
 
         return response.json({
-            userOk: null, 
+            user: null, 
             accessToken:null,
             refreshToken:null,
         })

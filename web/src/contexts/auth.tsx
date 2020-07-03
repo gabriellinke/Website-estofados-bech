@@ -11,7 +11,8 @@ interface User{
 }
 
 interface Response {
-    token: string;
+    accessToken: string;
+    refreshToken: string;
     user: {
         id: number;
         name: string;
@@ -37,12 +38,13 @@ export const AuthProvider:React.FC = ({ children }) =>  {
     // Quando atualiza a página ele verifica no localStorage se tinha algum usuário logado pra continuar a conexão
     useEffect(() => {
             const storagedUSer = localStorage.getItem('@EB:user');
-            const storagedToken = localStorage.getItem('@EB:token');
+            const storagedAccessToken = localStorage.getItem('@EB:accessToken');
+            const storagedRefreshToken = localStorage.getItem('@EB:refreshToken');
 
             // usar o token tbm
-            if(storagedToken && storagedUSer) {
+            if(storagedAccessToken && storagedUSer && storagedRefreshToken) {
                 // Agora quando estou logado, ele automáticamente vai mandar um token pra API nesse header
-                api.defaults.headers['Authorization'] = `Bearer ${storagedToken}`;
+                api.defaults.headers['Authorization'] = `Bearer ${storagedAccessToken}`;
 
                 setUser(JSON.parse(storagedUSer));
             }
@@ -56,18 +58,25 @@ export const AuthProvider:React.FC = ({ children }) =>  {
         setUser(response.user);
         // Agora quando estou logado, ele automáticamente vai mandar um token pra API nesse header. 
         // Não vou precisar adicionar o token manualmente a API
-        api.defaults.headers['Authorization'] = `Bearer ${response.token}`;
+        api.defaults.headers['Authorization'] = `Bearer ${response.accessToken}`;
 
         localStorage.setItem('@EB:user', JSON.stringify(response.user));
-        localStorage.setItem('@EB:token', response.token);
+        localStorage.setItem('@EB:accessToken', response.accessToken);
+        localStorage.setItem('@EB:refreshToken', response.refreshToken);
 
-        return (response.token != null);
+        return (response.accessToken != null);
     }
 
     // Desloga o usuário limpando o localStorage e setando o usuário como null
     function signOut(){
-        localStorage.clear();
-        setUser(null);
+        api.post('logout', {token: localStorage.getItem('@EB:refreshToken')})
+            .then(res => {
+                localStorage.clear();
+                setUser(null);
+            })
+            .catch(err => {
+                console.log("Erro no logout", err)
+            })
     }
 
     // O contexto dá esses values para as rotas. No caso todas rotas recebem esse contexto, devido a configuração do App.tsx
