@@ -12,6 +12,35 @@ import load from '../../assets/load2.gif';
 
 import './styles.css';  //Importa o css
 
+interface CheckoutPostData
+{
+    id: string;
+    productName: string;
+    quantity: string;
+    price: string;
+    freightPrice: number;
+
+    name: string;
+    surname: string;
+    email: string;
+    area_code: string;
+    phone: number;
+    cpf: string;
+
+    cep: string;
+    state: string;
+    city: string;
+    neighborhood: string;
+    street: string;
+    number: string;
+    adjunct: string;
+
+    userId: number;
+    userName: string;
+    userSurname: string;
+    userEmail: string;
+};
+
 interface User{
     id: number;
     name: string;
@@ -151,6 +180,7 @@ const CheckoutSchema = Yup.object().shape({
 
 const Checkout = () => 
 {
+    const { signOut } = useAuth();
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [ids, setIds] = useState<string[]>([]); 
@@ -160,9 +190,11 @@ const Checkout = () =>
     const [quantitys, setQuantitys] = useState<number[]>([]);   // Guarda a quantidade de cada produto
     const [totalQuantity, setTotalQuantity] = useState<number[]>([]); // Guarda a quantidade de produtos na lista de checkout
     const [totalPrice, setTotalPrice] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
+    const [notAuthorized, setNotAuthorized] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
     
     const [link, setLink] = useState<string>("#"); // Onde fica salvo o link para o redirecionamento para a compra
-    const [checkoutData, setCheckoutData] = useState<Data>(); //
+    const [checkoutData, setCheckoutData] = useState<Data>(); // Dados que vão ser usados para criar um aviso de nova compra no banco de dados e email
+    const [checkoutPostData, setCheckoutPostData] = useState<CheckoutPostData>(); // Guarda os dados que vão para o post do checkout, para usar nos casos de falha de autorização
     const [disabled, setDisabled] = useState<boolean>(true); // Habilita/desabilita o botão de Pagar com Mercado Pago
     const [frete, setFrete] = useState<number>(0);  // Salva o custo do frete
     const [loadingConfirm, setLoadingConfirm] = useState<boolean>(false); // Diz se precisa ou não mostrar animação de carregamento
@@ -172,7 +204,6 @@ const Checkout = () =>
     useEffect(() => {
         api.post('checkout/data', checkoutData)
             .then(response => {
-                // console.log(response);
                 setLoadingConfirm(false);
                 setDisabled(false);
             })
@@ -262,6 +293,92 @@ const Checkout = () =>
         }
     }, [])
 
+    // Se houver algum problema de autorização, tenta pedir um novo token e fazer nova requisição. Se der problema, desloga o usuário.
+    useEffect(() => {
+        if(notAuthorized === 1)
+        {
+            api.post('token', {token: localStorage.getItem('@EB:refreshToken')})
+                .then(response => {
+                    api.defaults.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
+                    localStorage.setItem('@EB:accessToken', response.data.accessToken);
+
+                    api.post('/checkout', checkoutPostData)
+                        .then(response => {
+                            // Seta o link do botão e consequentemente libera o seu uso
+                            setLink(response.data.checkoutInfo.url);
+            
+                            const {
+                                product_id,
+                                productName,
+                                quantity,
+                                price,
+                                freightPrice,
+                        
+                                name,
+                                surname,
+                                email,
+                                area_code,
+                                phone,
+                                cpf,
+                        
+                                cep,
+                                state,
+                                city,
+                                neighborhood,
+                                street,
+                                number,
+                                adjunct,
+                        
+                                url,
+                                checkout_id,
+        
+                                userId,
+                                userName,
+                                userSurname,
+                                userEmail,
+                            } = response.data.checkoutInfo;
+        
+                            // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
+                            setCheckoutData({
+                            product_id,
+                            productName,
+                            quantity,
+                            price,
+                            freightPrice,
+                        
+                            name,
+                            surname,
+                            email,
+                            area_code,
+                            phone,
+                            cpf,
+                        
+                            cep,
+                            state,
+                            city,
+                            neighborhood,
+                            street,
+                            number,
+                            adjunct,
+                        
+                            url,
+                            checkout_id,
+        
+                            userId,
+                            userName,
+                            userSurname,
+                            userEmail,
+                            })
+                        })
+                        setNotAuthorized(0);
+                })
+                .catch(err => {
+                    signOut();
+                    console.log(err)
+                })
+        }
+    }, [notAuthorized])
+
     // Ação feita ao confirmar os dados
     const handleSubmit = (values: FormValues): void =>
     {
@@ -321,6 +438,14 @@ const Checkout = () =>
             productName = productName.substring(0,(productName.length - 1));
             quantity = quantity.substring(0,(quantity.length - 1));
 
+            // Salva esses dados, para caso de algum problema de autorização
+            setCheckoutPostData({
+                id, price, freightPrice, productName, quantity,
+                name, surname, email, phone: parseInt(phone), cpf, area_code,
+                cep, state, city, neighborhood, street, number, adjunct,
+                userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
+            })
+
             // Dá um post para criar uma preference do Mercado Pago
             api.post('checkout', {
                 id, price, freightPrice, productName, quantity,
@@ -329,7 +454,6 @@ const Checkout = () =>
                 userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
             })
                 .then(response => {
-                    console.log(response.data);
                     // Seta o link do botão e consequentemente libera o seu uso
                     setLink(response.data.checkoutInfo.url);
     
@@ -395,6 +519,10 @@ const Checkout = () =>
                     userSurname,
                     userEmail,
                     })
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized(1);
             })
         })
     }

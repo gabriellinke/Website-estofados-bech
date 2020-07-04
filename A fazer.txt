@@ -39,19 +39,10 @@ Possibilitar a pesquisa de itens					OK
 Ordenar de A-Z, Z-A, Maior preço, Menor preço				OK
 Fazer paginação								OK
 
+Fazer uso de tokens							OK
 
-
-Ao logar, manda um accessToken e um refreshToken.			OK
-Ao fazer requisição, a API vê se o token é válido, e se n for, retorna um erro.		OK
-Se retornou um erro, tenta pedir um novo token com o refreshToken. Se retornar um erro, desloga o usuário.
-Se tiver um retorno faz uma nova requisição com o novo token.
-
-
-
-https://www.luiztools.com.br/post/autenticacao-json-web-token-jwt-em-nodejs/
-https://www.youtube.com/watch?v=mbsmsi7l3r4 - Video gringo
-Usar JWT para algumas rotas post, por ex, pra cadastrar produtos precisa ter token admin. Pra fazer a requisição de compra, precisa ter um token de user.
-Tem algo sobre JWT no video da rocketseat - https://www.youtube.com/watch?v=KKTX1l3sZGk
+Fazer páginas de cadastro de produto 
+Fazer página de edição de produto
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
