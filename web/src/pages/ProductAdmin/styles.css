@@ -1,0 +1,343 @@
+#product-info
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 110px;
+}
+
+#product-info .content
+{
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#product-info .content h2
+{
+    font-size: 27px;
+    padding: 8px 0 4px 16px;
+}
+
+#product-info .content main
+{
+    margin-top: 32px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    border: 1px solid rgb(204, 203, 203);
+
+    padding: 16px;
+}
+
+#product-info .content main .grid
+{
+    display: grid;
+    grid-template-columns: 574px 574px;
+    gap: 20px;
+}
+
+#product-info .content main .buy
+{
+    height: min-content;
+    font-size: 32px;
+    padding: 16px;
+    border: 1px solid rgb(204, 203, 203);
+}
+
+#product-info .content main .buy p.price-area
+{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+#product-info .content main .buy p.conditions
+{
+    font-size: 17px;
+    line-height: 24px;
+    text-align: center;
+}
+
+#product-info .content main .buy .purchase-area
+{
+    margin-top: 64px;
+    margin-bottom: 64px;
+}
+
+#form1 select
+{
+    background-color: white;
+
+    border: 1px solid rgb(204, 203, 203);
+
+    /* Aumenta o tamanho dos campos para input/select */
+    padding: 16px 16px;
+    line-height: 16px;
+    font-size: 16px;
+    height: 50px;
+
+    /* quando seleciona o campo ficava uma linha ao redor */
+    outline: none;
+
+    /* resetar a aparência padrão - usa os 3 pra aplicar em mais tipos de navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#product-info .content main .buy .purchase-area p.avaiable
+{
+    font-size: 16px;
+}
+
+#product-info .content main .buy .purchase-area .purchase
+{
+    display: grid;
+    grid-template-columns: 120px 180px 180px;
+    gap: 20px;
+    margin-top: 6px;
+}
+
+#product-info .content main .buy .purchase-area .purchase button
+{
+    width: 180px;
+    height: 50px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+
+    border: 0;
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#product-info .content main .buy .purchase-area .purchase button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#product-info .content main .buy .purchase-area .purchase .add
+{
+    background-color: var(--primary-color);
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    cursor: pointer;
+    padding: 0 0 0 8px;
+    /* width: 150px; */
+    height: 50px;
+
+    transition: background-color 400ms;
+}
+
+#product-info .content main .buy .purchase-area .purchase .add:hover
+{
+    background-color: var(--hover-color);
+}
+
+#product-info .content main .buy .purchase-area .purchase .add .add-text
+{
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+
+
+
+#product-info .content main .buy .freight-area
+{
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 48px;   
+}
+
+#product-info .content main .buy .freight-area #form2
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product-info .content main .buy .freight-area #form2 input
+{
+    background-color: white;
+    border: 1px solid rgb(204, 203, 203);
+
+    /* Aumenta o tamanho dos campos para input/select */
+    margin-left: 32px;
+    padding: 16px 16px;
+    line-height: 16px;
+    font-size: 16px;
+
+    /* quando seleciona o campo ficava uma linha ao redor */
+    outline: none;
+
+    /* resetar a aparência padrão - usa os 3 pra aplicar em mais tipos de navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
+#product-info .content main .buy .freight-area #form2 button
+{
+    width:  52.4px;
+    height: 52.4px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+
+    border: 0;
+
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#product-info .content main .buy .freight-area #form2 button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#product-info .content main .buy a
+{
+    margin-left: 32px;
+    font-size: 14px;
+}
+
+
+
+
+#product-info .content main .delivery
+{
+    margin-top: 32px;
+    font-size: 18px;
+}
+
+#product-info .content main .error-delivery
+{
+    margin-top: 32px;
+    font-size: 18px;
+    color: rgb(207, 72, 72);
+}
+
+#product-info .content main .delivery .delivery-text
+{
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+#product-info .content main .delivery .delivery-data
+{
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+#product-info .content main .delivery .delivery-data .day
+{
+    margin-right: 48px;
+}
+
+#product-info .content main .delivery .delivery-data .type
+{
+    margin-right: 48px;
+}
+
+
+
+
+#product-info .content main .image 
+{
+    border: 1px solid rgb(204, 203, 203);
+}
+
+#product-info .content main .image .secondary-image
+{
+    /* flex: 1; */
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 16px;
+}
+
+#product-info .content main .image .secondary-image img
+{
+    height: 90px;
+    width: 90px;
+
+    cursor: pointer;
+}
+
+#product-info .content main .image .secondary-image img.selected
+{
+    border: 3px solid var(--primary-color);
+}
+
+
+#product-info .content main .image .main-image img
+{
+    width: 572px;
+    height: 572px;
+}
+
+
+
+
+
+#product-info .content .description
+{
+    border: 1px solid rgb(204, 203, 203);
+    padding: 16px 16px;
+
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+
+    margin-bottom: 64px;
+    margin-top: 64px;
+    background-color: white;
+
+}
+
+#product-info .content .description h1
+{
+    font-size: 40px;
+    text-align: center;
+}
+
+#product-info .content .description h2
+{
+    margin-top: 16px;
+}
+
+#product-info .content .description p
+{
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 24px;
+}

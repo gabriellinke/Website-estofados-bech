@@ -3,7 +3,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Checkout from '../pages/Checkout';
 import Home from '../pages/Home';
-import Product from '../pages/Product';
+import ProductAdmin from '../pages/ProductAdmin';
 import RegisterProduct from '../pages/RegisterProduct'
 import Cart from '../pages/Cart'
 import Search from '../pages/Search'
@@ -20,7 +20,7 @@ const AdminRoutes = () =>
                 <Route component={Search} path="/search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Home} path="/" exact/>
-                <Route component={Product} path="/products/:id" exact/>
+                <Route component={ProductAdmin} path="/products/:id" exact/>
                 <Route component={RegisterProduct} path="/register" exact/>
                 <Route component={Home} />  {/* Usa o switch para que essa rota com a home seja a rota default caso não encontre nenhuma */}
             </Switch>

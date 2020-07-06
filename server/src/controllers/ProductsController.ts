@@ -99,6 +99,46 @@ class ProductsController
         return response.json(product); 
     }
 
+    async removeImage(request: Request, response: Response)
+    {
+        // if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            product_id,
+            image
+        } = request.body;
+
+        const product = await knex('products').where('id', product_id).first();
+        let img = product.images;
+
+        let changedProduct = 0;
+        let imgArray = img.split(',');
+        let newImgArray;
+
+        if(imgArray.length === 1 && imgArray[0] === image)
+        {
+            img = "http://localhost:3333/uploads/042cdabe104d-fundo-branco.png";
+            imgArray[0] = img;
+            changedProduct = await knex('products').where('id', product_id).update({images: img})
+        }
+        else if(imgArray.length !== 1)  // Pode ser que não passou do primeiro if porque só tem uma imagem mas veio com a imagem com nome diferente
+        {
+            newImgArray = imgArray.filter((singleImg: string) => {
+                return singleImg !== image; 
+            })
+            img = newImgArray.join(",");
+            changedProduct = await knex('products').where('id', product_id).update({images: img})
+        }
+
+        
+
+        return response.json({
+            changedProduct,
+            img
+        })
+
+    }
+
     // Usado para requisição dos dados de algum produto
     async show(request: Request, response: Response) {
         const { id } = request.params;

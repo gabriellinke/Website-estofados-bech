@@ -152,7 +152,7 @@ const Home = () =>
                         height={imageWidth}
                         title={prod.name}
                         price={`R$${Number(prod.price).toFixed(2)}`}
-                        conditions={`${prod.conditions}x R$${(Number(prod.price)/Number(prod.conditions)).toFixed(2)} sem juros`}
+                        conditions={`em até ${prod?.conditions}x no cartão`}
                         id={prod.id}
                         key={prod.id}
                     />

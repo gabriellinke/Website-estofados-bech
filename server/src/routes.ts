@@ -36,6 +36,7 @@ routes.post(
     productsController.create);
 routes.post('/description', authenticateToken, productsController.createDesciption);   // Rota para cadastrar descrições de um produto
 routes.post('/image/:id', upload.single('images'), authenticateToken, productsController.image);   // Rota para cadastrar as imagens de um produto
+routes.post('/remove/image'/*, authenticateToken*/, productsController.removeImage);   // Rota para cadastrar as imagens de um produto
 routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
 routes.post('/category', authenticateToken, productsController.category);     // Rota para cadastrar categorias
 

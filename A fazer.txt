@@ -40,17 +40,14 @@ Ordenar de A-Z, Z-A, Maior preço, Menor preço				OK
 Fazer paginação								OK
 
 Fazer uso de tokens							OK
-
 Fazer banco de dados com as categorias de produtos			OK
+Fazer páginas de cadastro de produtos					OK
 
-
-Fazer páginas de cadastro de produto					OK
-JWT expirado
 
 Fazer página de edição de produto
 Remover estoque
 
-Ver se consigo fazer um botão para alternar entre Admin e usuário comum
+Limitar a quantidade de parcelas no cartão
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
