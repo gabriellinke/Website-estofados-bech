@@ -30,7 +30,9 @@ const Home = () =>
     // Consulta a API para pegar a lista de produtos
     let { category } = useParams();
     useEffect(() => {
-        api.get('category/search?page='+currentPage+'&limit='+limit+'&order='+order+'&search='+category)
+        setCurrentPage(1);
+        // Troquei categoria / ordem, tenho que ir pra página 1
+        api.get('category/search?page='+1+'&limit='+limit+'&order='+order+'&search='+category)
             .then(response => {
                 setProducts(response.data.results)
                 setResultsQuantity(response.data.quantity)

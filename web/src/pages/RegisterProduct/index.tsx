@@ -1,4 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react'
+import { useHistory } from "react-router-dom";
+import check from '../../assets/check.svg';
 import Footer from '../../partials/Footer/Footer';
 import Header from '../../partials/Header/Header';
 import * as Yup from "yup";
@@ -108,17 +110,18 @@ interface BackupDataProps
     diametro: string;
 }
 
-// Página sendo utilizada como teste, pois é uma página só para admin
 const RegisterProduct = () => 
 {
     const [selectedFIle, setSelectedFile] = useState<File>(); //Guardar o arquivo da imagem
-    const [categories, setCategories] = useState<CategoriesProps[]>();
-    const [formatoValue, setFormatoValue] = useState<string>("1");
-    const [categoryValue, setCategoryValue] = useState<string>("");
+    const [categories, setCategories] = useState<CategoriesProps[]>();  // Salvar as categorias existentes
+    const [formatoValue, setFormatoValue] = useState<string>("1");  // Salvar o valor do select de formato
+    const [categoryValue, setCategoryValue] = useState<string>(""); // Salvar o valor do select de categorias
     const [notAuthorized, setNotAuthorized] = useState<number>(0);    // Diz se o usuário não é autorizado
     const [backupData, setBackupData] = useState<BackupDataProps>();    // Backup do FormData pra caso haja erro de autorização
+    const history = useHistory();   // Usado para possibilitar o redirecionamento
+    const [situation, setSituation] = useState<string>("hide"); // Usado para mostrar o modal de produto criado
 
-
+    // Carrega as categorias, para que sejam colocadas no select de categorias
     useEffect(() => {
         api.get('category')
             .then(res => {
@@ -129,12 +132,10 @@ const RegisterProduct = () =>
             })
     }, [])
 
-    // Se houver algum problema de autorização, tenta pedir um novo token e fazer nova requisição. Se der problema, desloga o usuário.
+    // Se houver algum problema de autorização, tenta pedir um novo token e fazer nova requisição. Se der problema, dá um aviso pro admin relogar ou entrar em contato
     useEffect(() => {
         if(notAuthorized === 1)
         {
-            console.log(backupData, selectedFIle)
-
             api.post('token', {token: localStorage.getItem('@EB:refreshToken')})
                 .then(response => {
                     api.defaults.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
@@ -142,7 +143,7 @@ const RegisterProduct = () =>
                     
                     if(backupData != undefined)
                     {
-                        const {
+                        let {
                             category,
                             formato,
                             name,
@@ -155,6 +156,19 @@ const RegisterProduct = () =>
                             largura,
                             diametro,
                         } = backupData;
+
+                        if(categoryValue === "nova")
+                        {
+                            api.post('category', {category})
+                                .then(res => {
+                                    console.log("Categoria criada", res)
+                                })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                        }
+                        else
+                            category = categoryValue;
 
                         // Salva os dados em data
                         const data = new FormData();
@@ -176,12 +190,12 @@ const RegisterProduct = () =>
 
                         api.post('products', data)
                         .then(res => {
-                            alert("Produto criado")
-                            // setSituation("ok");
-                            // setTimeout(() => {
-                            //   setSituation("hide");
-                            //   history.push('/user/login')
-                            // }, 2000)
+                            const id = res.data.product_id
+                            setSituation("ok");
+                            setTimeout(() => {
+                            setSituation("hide");
+                            history.push('/products/'+id)
+                            }, 1000)
                         })
                         .catch(err => {
                             alert("Erro ao criar o produto, relogue e tente novamente. Caso o erro persista, contate o desenvolvedor")
@@ -197,6 +211,22 @@ const RegisterProduct = () =>
 
     }, [notAuthorized])
 
+    // Mostra o modal de sucesso
+    function handleRegister()
+    {
+        return(
+            <div id="modal" className={situation}>
+                <div className="content">
+                    <div className="header">
+                        <img src={check} alt="Cadastro concluído"></img>
+                        <h1>Produto cadastrado com sucesso</h1>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Tenta criar o produto com o POST para a API. Se não der certo, diz que o usuário não é autorizado e no useEffect tenta fazer novo post com novo token
     const handleSubmit = (values: FormValues): void =>
     {
         let category = ""
@@ -208,7 +238,6 @@ const RegisterProduct = () =>
                     console.log("Categoria criada", res)
                 })
                 .catch(err => {
-                    alert("Erro ao criar a categoria")
                     console.log(err)
                 })
         }
@@ -242,19 +271,19 @@ const RegisterProduct = () =>
         data.append('largura', String(largura));
         data.append('diametro', String(diametro));
 
-        setBackupData({category, formato:formatoValue, name, conditions:String(conditions), price: String(price), quantity: String(quantity), peso: String(peso), comprimento: String(comprimento), altura: String(altura), largura: String(largura), diametro: String(diametro)})
+        setBackupData({category: values.category, formato:formatoValue, name, conditions:String(conditions), price: String(price), quantity: String(quantity), peso: String(peso), comprimento: String(comprimento), altura: String(altura), largura: String(largura), diametro: String(diametro)})
 
         if(selectedFIle)
             data.append('images', selectedFIle);
         
         api.post('products', data)
             .then(res => {
-                alert("Produto criado")
-                // setSituation("ok");
-                // setTimeout(() => {
-                //   setSituation("hide");
-                //   history.push('/user/login')
-                // }, 2000)
+                const id = res.data.product_id
+                setSituation("ok");
+                setTimeout(() => {
+                  setSituation("hide");
+                  history.push('/products/'+id)
+                }, 1000)
             })
             .catch(err => {
                 setNotAuthorized(1)
@@ -262,18 +291,27 @@ const RegisterProduct = () =>
             })
     }
 
+    // Muda os valores do select de categorias
     function handleCategorySelectChange(event: ChangeEvent<HTMLSelectElement>) 
     {
         const { value } = event.target;        
         setCategoryValue(value);
-        console.log(value);
     }
 
+    // Muda os valores do select de formato
     function handleFormatSelectChange(event: ChangeEvent<HTMLSelectElement>) 
     {
         const { value } = event.target;        
         setFormatoValue(value);
-        console.log(value);
+    }
+
+    // Input de categoria. Só é liberado se o Select de categoria tiver o valor de Nova categoria
+    function categoryInput()
+    {
+        if(categoryValue === "nova")
+            return <FormikField name="category" label="Categoria" required={true}/>
+        else
+            return <FormikField name="category" label="Categoria" disabled={true}/>
     }
 
     return(
@@ -314,7 +352,7 @@ const RegisterProduct = () =>
                                                             })}
                                                     </select>
                                                 </div>
-                                                <FormikField name="category" label="Categoria" />
+                                                {categoryInput()}
                                             </div>
                                         </div>
 
@@ -355,6 +393,7 @@ const RegisterProduct = () =>
                 </div>
             </div>
             <Footer />
+            {handleRegister()}
         </div>
     );
 };

@@ -36,7 +36,9 @@ const Home = () =>
         let searchFinal = searchArray.join(' '); //Substitui os + por espaços
         setSearch(searchFinal);
         
-        api.get('search?page='+currentPage+'&limit='+limit+'&order='+order+'&search='+searchFinal)
+        setCurrentPage(1);
+        // Troquei ordem, tenho que ir pra página 1
+        api.get('search?page='+1+'&limit='+limit+'&order='+order+'&search='+searchFinal)
             .then(response => {
                 setProducts(response.data.results)
                 setResultsQuantity(response.data.quantity)

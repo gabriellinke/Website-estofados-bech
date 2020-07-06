@@ -28,7 +28,9 @@ const Home = () =>
 
     // Consulta a API para pegar a lista de produtos
     useEffect(() => {
-        api.get('products?page='+currentPage+'&limit='+limit+'&order='+order)
+        setCurrentPage(1);
+        // Troquei ordem, tenho que ir pra página 1
+        api.get('products?page='+1+'&limit='+limit+'&order='+order)
             .then(response => {
                 setProducts(response.data.results)
                 setResultsQuantity(response.data.quantity)
