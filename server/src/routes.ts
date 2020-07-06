@@ -3,7 +3,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer' //Pra fazer o upload de imagens
 import multerConfig from './config/multer';
-import knex from './database/connection';
 
 import ProductsController from './controllers/ProductsController';
 import CheckoutController from './controllers/CheckoutController';
@@ -27,34 +26,35 @@ const walletcontroller = require("./controllers/walletController");
 routes.get('/products', productsController.index);  // Rota para obter todos os produtos cadastrados
 routes.get('/products/:id', productsController.show);   // Rota para obter um produto específico
 routes.get('/descriptions/:id', productsController.showDescriptions);   // Rota para obter as descrições de um produto específico
+routes.get('/category', productsController.indexCategories);     // Rota para obter as categorias
 
 //Upload de mais imagens deveria ser feito com upload.array, mas deu problema com o typescript e precisou de uma nova rota de upload de imagens
 routes.post(
     '/products',
     upload.single('images'),
     authenticateToken,
-    productsController.create
-);
+    productsController.create);
 routes.post('/description', authenticateToken, productsController.createDesciption);   // Rota para cadastrar descrições de um produto
 routes.post('/image/:id', upload.single('images'), authenticateToken, productsController.image);   // Rota para cadastrar as imagens de um produto
 routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
+routes.post('/category', authenticateToken, productsController.category);     // Rota para cadastrar categorias
 
 routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
 routes.post('/user/reset', usersController.verifyEmail);    // Rota para verificar se o email está cadastrado e enviar um email de recuperação de senha
 routes.post('/user/register',                               // Rota para registrar um usuário
-celebrate({                                     //Dá pra passar essa validação para outro arquivo. Também dá pra mandar mensagens
-    body: Joi.object().keys({                   //Personalizadas de acordo com o campo que falta para o usuário
-    name: Joi.string().required(),
-    surname: Joi.string().required(),
-    email: Joi.string().required().lowercase().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-    password: Joi.string().required().min(6).max(20),
-    repeat_password: Joi.ref('password'),
-    admin: Joi.boolean().default(false),
-    }).with('password', 'repeat_password')
-    }, {
-        abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
-}),
-usersController.createUser);
+    celebrate({                                             // Faz a validação dos dados
+        body: Joi.object().keys({                   
+        name: Joi.string().required(),
+        surname: Joi.string().required(),
+        email: Joi.string().required().lowercase().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        password: Joi.string().required().min(6).max(20),
+        repeat_password: Joi.ref('password'),
+        admin: Joi.boolean().default(false),
+        }).with('password', 'repeat_password')
+        }, {
+            abortEarly: false // Pra ele mostrar todos os erros, não apenas o primeiro
+    }),
+    usersController.createUser);
 
 routes.post("/checkout", authenticateToken, walletcontroller.walletbutton);    // Rota para criar uma preference do Mercado Pago
 routes.post("/checkout/data", checkoutController.create)    // Rota que cria uma tabela com os dados do comprador e envia esses dados por email para ter um controle

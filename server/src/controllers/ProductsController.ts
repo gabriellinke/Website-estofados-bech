@@ -194,6 +194,7 @@ class ProductsController
         return response.json(results);
     }
 
+    // listar determinados produtos
     async list(request: Request, response: Response)
     {
         let productsId = request.body.products.split("-");
@@ -215,6 +216,38 @@ class ProductsController
             })();      
     }
 
+    // Cria categoria
+    async category(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            category,
+        } = request.body;
+
+        const createdCategory = {
+            category,
+        }
+
+        const alreadyExists = await knex('categories').where('category', createdCategory.category).first();
+        if(alreadyExists)
+            return response.json({erro: "A categoria já existe"});
+
+        const insertedCategory = await knex('categories').insert(createdCategory);
+        const category_id = insertedCategory[0];
+
+        return response.json({
+            category_id,
+            ...createdCategory,
+        });
+    }
+
+    // Mostra todas categorias
+    async indexCategories(request: Request, response: Response)
+    {
+        const categories = await knex('categories');
+        return response.json(categories);
+    }
 }
 
 export default ProductsController;

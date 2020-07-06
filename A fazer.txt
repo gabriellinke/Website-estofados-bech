@@ -41,14 +41,23 @@ Fazer paginação								OK
 
 Fazer uso de tokens							OK
 
-Fazer páginas de cadastro de produto 
+Fazer banco de dados com as categorias de produtos			OK
+
+
+Fazer páginas de cadastro de produto					OK
+JWT expirado
+
 Fazer página de edição de produto
+Remover estoque
+
+Ver se consigo fazer um botão para alternar entre Admin e usuário comum
 
 Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho
 Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
+Frete tem que ser maior que 0 para liberar a compra (Não sei se já ta feito)
 
 Fazer as backURLs
 
@@ -57,7 +66,7 @@ Fazer uma página de histórico de compra e uma de acompanhamento.
 Fazer página para mudar dados de nome, sobrenome e senha.
 
 Fazer página para o admin verificar os dados do comprador do produto
-Fazer outras páginas que faltam - Usando map com :any pode dar certo para cadastrar multiplas imagens
+Fazer outras páginas que faltam
 
 Fazer o deploy
 
@@ -67,6 +76,8 @@ Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com i
 Fazer layouts de Contato, Quem somos, etc.
 
 Fazer os ajustes de acordo com o tamanho da tela
+
+https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 
 LOJAS:
 https://www.madeiramadeira.com.br/moveis/moveis-para-sala-de-estar/sofas/conjunto-de-sofas?utm_content=52592609005&utm_source=google&utm_medium=cpc&gclid=CjwKCAjwt-L2BRA_EiwAacX32XAN5x1CjJLThiaPj6IJ8mwhToxDn6Hbvetvp4O3NjHBMBFrWgxHdxoCYp8QAvD_BwE

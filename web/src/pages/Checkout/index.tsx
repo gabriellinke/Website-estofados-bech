@@ -190,7 +190,7 @@ const Checkout = () =>
     const [quantitys, setQuantitys] = useState<number[]>([]);   // Guarda a quantidade de cada produto
     const [totalQuantity, setTotalQuantity] = useState<number[]>([]); // Guarda a quantidade de produtos na lista de checkout
     const [totalPrice, setTotalPrice] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
-    const [notAuthorized, setNotAuthorized] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
+    const [notAuthorized, setNotAuthorized] = useState<number>(0);    // Diz se o usuário não é autorizado
     
     const [link, setLink] = useState<string>("#"); // Onde fica salvo o link para o redirecionamento para a compra
     const [checkoutData, setCheckoutData] = useState<Data>(); // Dados que vão ser usados para criar um aviso de nova compra no banco de dados e email

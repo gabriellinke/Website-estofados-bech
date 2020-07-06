@@ -53,7 +53,7 @@ const Home = () =>
     // Atualiza a próxima página de produtos
     function handleNext()
     {
-        api.get('products?page='+(currentPage+1)+'&limit='+limit+'&order='+order)
+        api.get('category/search?page='+(currentPage+1)+'&limit='+limit+'&order='+order+'&search='+category)
         .then(response => {
             setProducts(response.data.results)
             setResultsQuantity(response.data.quantity)
@@ -68,7 +68,7 @@ const Home = () =>
     // Atualiza a página anterior de produtos
     function handlePrevious()
     {
-        api.get('products?page='+(currentPage-1)+'&limit='+limit+'&order='+order)
+        api.get('category/search?page='+(currentPage-1)+'&limit='+limit+'&order='+order+'&search='+category)
         .then(response => {
             setProducts(response.data.results)
             setResultsQuantity(response.data.quantity)
@@ -187,7 +187,7 @@ const Home = () =>
                             {buttonPrevious()}
                             {buttonNext()}
                         </div>
-                        <div className="pages-info">Vendo página {currentPage} de {Math.max(1, parseInt((resultsQuantity / limit).toString()))}</div>
+                        <div className="pages-info">Vendo página {currentPage} de {Math.max(1, Math.ceil(resultsQuantity / limit))}</div>
                     </div>
                 </main>
             </div>

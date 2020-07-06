@@ -211,13 +211,13 @@ header a
     align-items: center;
 }
 
-.user-area
+header .user-area
 {
     display: flex;
     flex-direction: row;
 }
 
-.user
+header .user
 {
     display: flex;
     margin-right: 16px;
@@ -225,7 +225,7 @@ header a
     justify-content: center;
 }
 
-.user-name
+header .user-name
 {
     color: white;
     font-weight: 600;
@@ -233,8 +233,14 @@ header a
 
 }
 
-.user span
+header .user span
 {
     margin-right: 8px;
     color:white;
+}
+
+header .direction-row
+{
+    display: flex;
+    flex-direction: row;
 }

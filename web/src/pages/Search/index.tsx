@@ -202,7 +202,7 @@ const Home = () =>
                             {buttonPrevious()}
                             {buttonNext()}
                         </div>
-                        <div className="pages-info">Vendo página {currentPage} de {Math.max(1, parseInt((resultsQuantity / limit).toString()))}</div>
+                        <div className="pages-info">Vendo página {currentPage} de {Math.max(1, Math.ceil(resultsQuantity / limit))}</div>
                     </div>
                 </main>
             </div>

@@ -1,18 +1,22 @@
 import React, { useState, useEffect }from 'react';
-import './Header.css';
 import { Link } from "react-router-dom";
+import api from '../../services/api';
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa'
 import { MdMenu, MdKeyboardArrowDown } from 'react-icons/md'
 import logo from '../../assets/Logo.png';
-
 import { useAuth } from '../../contexts/auth'
 
+import './Header.css';
 // É o Header que é utilizado na maioria das páginas
 
 interface HeaderProps{
     title?: string,
+}
+
+interface CategoriesProps{
+    category: string;
 }
 
 interface User
@@ -26,9 +30,20 @@ const Header: React.FC<HeaderProps> = (props) =>
     const { user, signOut } = useAuth();
 
     // Estados para saber se deve mostrar o menu de categorias
-    const [show, setShow] = useState<boolean>(false)
-    const [overMenu, setOverMenu] = useState<boolean>(false)
-    const [overOptions, setOverOptions] = useState<boolean>(false)
+    const [show, setShow] = useState<boolean>(false);
+    const [overMenu, setOverMenu] = useState<boolean>(false);
+    const [overOptions, setOverOptions] = useState<boolean>(false);
+    const [categories, setCategories] = useState<CategoriesProps[]>();
+
+    useEffect(() => {
+        api.get('category')
+            .then(res => {
+                setCategories(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
 
     // Desloga o usuário
     function handleLogOut(){
@@ -90,23 +105,51 @@ const Header: React.FC<HeaderProps> = (props) =>
         setShow(true);
     }
 
-
+    // Categorias que vão aparecer no menu
     function categoriesOptions()
     {
-        if(show)
+        if(show && categories != undefined)
             return(
                 <div className="categories-options" onMouseEnter={handleOverOptions} onMouseLeave={() => setOverOptions(false)}>
-                    <Link to='/category/bancos' className="options">
-                        <div className="first-option">Bancos</div>
-                    </Link>
-                    <Link to='/category/tecidos' className="options">
-                        <div className="second-option">Tecidos</div>
-                    </Link>
-                    <Link to='/category/tapetes' className="options">
-                        <div className="third-option">Tapetes</div>
-                    </Link>
+                    {
+                        categories.map(res => {
+                            if(res.category === 'sem categoria') return;
+                            return(
+                            <Link to={'/category/' + res.category} className="options">
+                                <div className="first-option">{res.category.replace(/\w/, (c:string) => c.toUpperCase())}</div>
+                            </Link>
+                            );
+                        })
+                    }
                 </div>
             )
+    }
+
+    // Categorias de mais fácil acesso, ao lado do menu
+    function categoriesOutOfMenu()
+    {
+        if(categories != undefined)
+        {
+            return(
+                <div className="direction-row">
+                    <Link to={`/category/${categories[1].category}`}>
+                        <div className="first-categorie">
+                            {categories[1].category.replace(/\w/, (c:string) => c.toUpperCase())}
+                        </div>
+                    </Link>
+                    <Link to={`/category/${categories[2].category}`}>
+                        <div className="second-categorie">
+                            {categories[2].category.replace(/\w/, (c:string) => c.toUpperCase())}
+                        </div>
+                    </Link>
+                    <Link to={`/category/${categories[3].category}`}>
+                        <div className="third-categorie">
+                            {categories[3].category.replace(/\w/, (c:string) => c.toUpperCase())}
+                        </div>
+                    </Link>
+                </div>
+            );
+        }
     }
 
     return(
@@ -144,21 +187,7 @@ const Header: React.FC<HeaderProps> = (props) =>
                     </Link>
                     {categoriesOptions()}
                 </div>
-                <Link to="/category/bancos">
-                    <div className="first-categorie">
-                        Bancos
-                    </div>
-                </Link>
-                <Link to="/category/tecidos">
-                    <div className="second-categorie">
-                        Tecidos
-                    </div>
-                </Link>
-                <Link to="/category/tapetes">
-                    <div className="third-categorie">
-                        Tapetes
-                    </div>
-                </Link>
+                {categoriesOutOfMenu()}
             </div>
         </div>
     </header>
