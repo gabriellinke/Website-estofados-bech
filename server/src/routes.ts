@@ -34,11 +34,12 @@ routes.post(
     upload.single('images'),
     authenticateToken,
     productsController.create);
-routes.post('/description', authenticateToken, productsController.createDesciption);   // Rota para cadastrar descrições de um produto
+routes.post('/description', authenticateToken, productsController.createDescription);   // Rota para cadastrar descrições de um produto
+routes.post('/remove/description', authenticateToken, productsController.removeDescription);   // Rota para remover descrições de um produto
 routes.post('/image/:id', upload.single('images'), authenticateToken, productsController.image);   // Rota para cadastrar as imagens de um produto
-routes.post('/remove/image'/*, authenticateToken*/, productsController.removeImage);   // Rota para cadastrar as imagens de um produto
-routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
+routes.post('/remove/image', authenticateToken, productsController.removeImage);  // Rota  para remover imagens
 routes.post('/category', authenticateToken, productsController.category);     // Rota para cadastrar categorias
+routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
 
 routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
 routes.post('/user/reset', usersController.verifyEmail);    // Rota para verificar se o email está cadastrado e enviar um email de recuperação de senha

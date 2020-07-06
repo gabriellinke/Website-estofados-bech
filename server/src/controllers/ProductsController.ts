@@ -48,7 +48,7 @@ class ProductsController
     }
 
     // Adiciona as descrições dos produtos
-    async createDesciption(request: Request, response: Response)
+    async createDescription(request: Request, response: Response)
     {
         if(!request.body.user.admin) return response.sendStatus(401);
 
@@ -71,6 +71,24 @@ class ProductsController
         });
     }
 
+    // Remove uma descrição do produto
+    async removeDescription(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            product_id,
+            description
+        } = request.body;
+
+        const removedDescription = await knex('descriptions').where('product_id', product_id).where('description', description).del();
+
+        return response.json({
+            removedDescription
+        })
+
+    }
+
     // Adiciona as imagens secundárias dos produtos
     async image(request: Request, response: Response)
     {
@@ -85,7 +103,6 @@ class ProductsController
 
         // Atualiza o campo images com o que tinha antes mais o nome da nova imagem 
         const finalImage = imgString + `,${process.env.BASE_URL}/uploads/` + image;
-        console.log(finalImage);
         await knex('products')
             .where('id', id)
             .update({ images: finalImage })
@@ -99,9 +116,10 @@ class ProductsController
         return response.json(product); 
     }
 
+    // Usado para remover imagens
     async removeImage(request: Request, response: Response)
     {
-        // if(!request.body.user.admin) return response.sendStatus(401);
+        if(!request.body.user.admin) return response.sendStatus(401);
 
         const {
             product_id,
@@ -130,13 +148,10 @@ class ProductsController
             changedProduct = await knex('products').where('id', product_id).update({images: img})
         }
 
-        
-
         return response.json({
             changedProduct,
             img
         })
-
     }
 
     // Usado para requisição dos dados de algum produto
