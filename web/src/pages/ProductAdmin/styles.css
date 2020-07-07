@@ -1,4 +1,4 @@
-#product-info
+#product-info-admin
 {
     height: 100%;
     position: relative;
@@ -6,7 +6,7 @@
     padding-bottom: 110px;
 }
 
-#product-info .content
+#product-info-admin .content
 {
     width: 90%;
     max-width: 1200px;
@@ -19,13 +19,13 @@
     flex-direction: column;
 }
 
-#product-info .content h2
+#product-info-admin .content h2
 {
     font-size: 27px;
     padding: 8px 0 4px 16px;
 }
 
-#product-info .content main
+#product-info-admin .content main
 {
     margin-top: 32px;
     background-color: white;
@@ -37,14 +37,14 @@
     padding: 16px;
 }
 
-#product-info .content main .grid
+#product-info-admin .content main .grid
 {
     display: grid;
     grid-template-columns: 574px 574px;
     gap: 20px;
 }
 
-#product-info .content main .buy
+#product-info-admin .content main .buy
 {
     height: min-content;
     font-size: 32px;
@@ -52,7 +52,7 @@
     border: 1px solid rgb(204, 203, 203);
 }
 
-#product-info .content main .buy p.price-area
+#product-info-admin .content main .buy p.price-area
 {
     text-align: center;
     font-size: 30px;
@@ -60,14 +60,14 @@
     line-height: 40px;
 }
 
-#product-info .content main .buy p.conditions
+#product-info-admin .content main .buy p.conditions
 {
     font-size: 17px;
     line-height: 24px;
     text-align: center;
 }
 
-#product-info .content main .buy .purchase-area
+#product-info-admin .content main .buy .purchase-area
 {
     margin-top: 64px;
     margin-bottom: 64px;
@@ -94,12 +94,12 @@
     appearance: none;
 }
 
-#product-info .content main .buy .purchase-area p.avaiable
+#product-info-admin .content main .buy .purchase-area p.avaiable
 {
     font-size: 16px;
 }
 
-#product-info .content main .buy .purchase-area .purchase
+#product-info-admin .content main .buy .purchase-area .purchase
 {
     display: grid;
     grid-template-columns: 120px 180px 180px;
@@ -107,7 +107,7 @@
     margin-top: 6px;
 }
 
-#product-info .content main .buy .purchase-area .purchase button
+#product-info-admin .content main .buy .purchase-area .purchase button
 {
     width: 180px;
     height: 50px;
@@ -126,12 +126,12 @@
 }
 
 /* Muda a cor ao passar o mouse por cima */
-#product-info .content main .buy .purchase-area .purchase button:hover
+#product-info-admin .content main .buy .purchase-area .purchase button:hover
 {
     background-color: var(--hover-color);
 }
 
-#product-info .content main .buy .purchase-area .purchase .add
+#product-info-admin .content main .buy .purchase-area .purchase .add
 {
     background-color: var(--primary-color);
     
@@ -147,12 +147,12 @@
     transition: background-color 400ms;
 }
 
-#product-info .content main .buy .purchase-area .purchase .add:hover
+#product-info-admin .content main .buy .purchase-area .purchase .add:hover
 {
     background-color: var(--hover-color);
 }
 
-#product-info .content main .buy .purchase-area .purchase .add .add-text
+#product-info-admin .content main .buy .purchase-area .purchase .add .add-text
 {
     text-align: center;
     font-weight: 600;
@@ -163,7 +163,7 @@
 
 
 
-#product-info .content main .buy .freight-area
+#product-info-admin .content main .buy .freight-area
 {
     font-size: 20px;
     display: flex;
@@ -171,14 +171,14 @@
     margin-top: 48px;   
 }
 
-#product-info .content main .buy .freight-area #form2
+#product-info-admin .content main .buy .freight-area #form2
 {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#product-info .content main .buy .freight-area #form2 input
+#product-info-admin .content main .buy .freight-area #form2 input
 {
     background-color: white;
     border: 1px solid rgb(204, 203, 203);
@@ -199,7 +199,7 @@
 
 }
 
-#product-info .content main .buy .freight-area #form2 button
+#product-info-admin .content main .buy .freight-area #form2 button
 {
     width:  52.4px;
     height: 52.4px;
@@ -218,12 +218,12 @@
     transition: background-color 400ms;
 }
 
-#product-info .content main .buy .freight-area #form2 button:hover
+#product-info-admin .content main .buy .freight-area #form2 button:hover
 {
     background-color: var(--hover-color);
 }
 
-#product-info .content main .buy a
+#product-info-admin .content main .buy a
 {
     margin-left: 32px;
     font-size: 14px;
@@ -232,38 +232,38 @@
 
 
 
-#product-info .content main .delivery
+#product-info-admin .content main .delivery
 {
     margin-top: 32px;
     font-size: 18px;
 }
 
-#product-info .content main .error-delivery
+#product-info-admin .content main .error-delivery
 {
     margin-top: 32px;
     font-size: 18px;
     color: rgb(207, 72, 72);
 }
 
-#product-info .content main .delivery .delivery-text
+#product-info-admin .content main .delivery .delivery-text
 {
     margin-bottom: 8px;
     font-weight: 700;
 }
 
-#product-info .content main .delivery .delivery-data
+#product-info-admin .content main .delivery .delivery-data
 {
     font-size: 16px;
     display: flex;
     flex-direction: row;
 }
 
-#product-info .content main .delivery .delivery-data .day
+#product-info-admin .content main .delivery .delivery-data .day
 {
     margin-right: 48px;
 }
 
-#product-info .content main .delivery .delivery-data .type
+#product-info-admin .content main .delivery .delivery-data .type
 {
     margin-right: 48px;
 }
@@ -271,21 +271,53 @@
 
 
 
-#product-info .content main .image 
+#product-info-admin .content main .image 
 {
     border: 1px solid rgb(204, 203, 203);
 }
 
-#product-info .content main .image .secondary-image
+#product-info-admin .content main .image .secondary-image
 {
-    /* flex: 1; */
     align-items: center;
     display: flex;
     justify-content: space-evenly;
     padding: 16px;
 }
 
-#product-info .content main .image .secondary-image img
+#product-info-admin .content main .image .secondary-image .delete-image
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#product-info-admin .content main .image .secondary-image .delete-image span.delete
+{
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+#product-info-admin .content .description .delete-description
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product-info-admin .content .description .delete-description span.delete
+{
+    color: red;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: sans-serif;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+#product-info-admin .content main .image .secondary-image img
 {
     height: 90px;
     width: 90px;
@@ -293,13 +325,13 @@
     cursor: pointer;
 }
 
-#product-info .content main .image .secondary-image img.selected
+#product-info-admin .content main .image .secondary-image img.selected
 {
     border: 3px solid var(--primary-color);
 }
 
 
-#product-info .content main .image .main-image img
+#product-info-admin .content main .image .main-image img
 {
     width: 572px;
     height: 572px;
@@ -309,7 +341,7 @@
 
 
 
-#product-info .content .description
+#product-info-admin .content .description
 {
     border: 1px solid rgb(204, 203, 203);
     padding: 16px 16px;
@@ -324,20 +356,118 @@
 
 }
 
-#product-info .content .description h1
+#product-info-admin .content .description h1
 {
     font-size: 40px;
     text-align: center;
 }
 
-#product-info .content .description h2
+#product-info-admin .content .description h2
 {
     margin-top: 16px;
 }
 
-#product-info .content .description p
+#product-info-admin .content .description p
 {
     text-align: justify;
     margin: 20px 0;
     line-height: 24px;
+}
+
+
+#product-info-admin #modal
+{
+    /* Para o modal utilizar 100% da tela */
+    height: 100vh;
+    width: 100vw;
+    background-color: #0e0a14ef;
+
+    position: fixed;
+
+    /* Ser fixado no topo da tela */
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Transição pra quando for aberto */
+    transition: 400ms;
+}
+
+/* Caixa que vai ter o conteúdo */
+#product-info-admin #modal .content
+{
+    background-color: white;
+    color: black;
+    width: 420px;
+    height: 200px;
+    justify-content: center;
+}
+
+#product-info-admin #modal .header
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#product-info-admin #modal .header .buttons
+{
+    display: flex;
+    flex-direction: row;
+    padding: 16px 32px;
+    align-items: center;
+}
+
+#product-info-admin #modal .header .buttons button.ok
+{
+    margin-right: 16px;
+}
+
+#product-info-admin #modal .header .buttons button
+{
+    width: 90px;
+    height: 40px;
+  
+    background-color: var(--primary-color);
+    border-radius: 8px;
+  
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  
+    border: 0;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#product-info-admin #modal .header .buttons button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#product-info-admin #modal .header h1
+{
+    color: black;
+
+    margin-top: 32px;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+/* Quando o modal estiver pertencendo à classe hide ele não vai mostrar nada do seu conteúdo */
+#product-info-admin #modal.hide
+{
+    display: none;
 }

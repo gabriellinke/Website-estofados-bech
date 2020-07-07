@@ -383,7 +383,7 @@ const RegisterProduct = () =>
                                         </div>
 
                                         <div className="confirm">
-                                            <button className="normal" type="submit">Confirmar</button>
+                                            <button className="confirm" type="submit">Confirmar</button>
                                         </div>
                                     </Form>
                                 </div>

@@ -40,11 +40,14 @@ const Product = () =>
     const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
     const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
-
+    const [imageToDelete, setImageToDelete] = useState<string>('');   // Imagem que deve ser deletada
+    const [descriptionToDelete, setDescriptionToDelete] = useState<string>('');   // Descrição que deve ser deletada
+    
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
     const [options, setOptions] = useState<number[]>([]); // Armazena a quantidade de options disponíveis
     const [quantity, setQuantity] = useState<number>(1); // Armazena a quantidade de produtos que vão ser adicionados ao carrinho
     const [loadingCart, setLoadingCart] = useState<boolean>(false);   // Loading do adicionar ao carrinho
+    const [notAuthorized, setNotAuthorized] = useState<string>('');    // Diz se o usuário não é autorizado
 
     // Vê qual é o produto da URL e seta as imagens de acordo com o produto
     let { id } = useParams();
@@ -82,6 +85,26 @@ const Product = () =>
         }
         setOptions(vetor);
     }, [product])
+
+    useEffect(() => {
+        if(notAuthorized !== "")
+        {
+            api.post('token', {token: localStorage.getItem('@EB:refreshToken')})
+                .then(response => {
+                    api.defaults.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
+                    localStorage.setItem('@EB:accessToken', response.data.accessToken);
+
+                    if(notAuthorized === 'image')
+                        deleteImageSecond();
+                    else if(notAuthorized === 'description')
+                        deleteDescriptionSecond();
+                }) 
+                .catch(err => {
+                    alert("Token inválido")
+                    console.log(err)
+                })
+        }
+    }, [notAuthorized])
 
     // Muda a main image quando a secondary-image for clicada
     function handleImageClick(image:string)
@@ -133,14 +156,148 @@ const Product = () =>
             );
     }
 
-    function deleteImage(image:string)
+    // Função para deletar a imagem
+    function deleteImage()
     {
-        console.log(image)
+        api.post('remove/image', {product_id: product?.id, image: imageToDelete})
+            .then(response => {
+                if(response.data.img.indexOf(",") > 0)
+                {
+                    setImagesUrl(response.data.img.split(","));  //Separa a string num vetor de imagens
+                    setMainImage(response.data.img.substring(0, response.data.img.indexOf(","))); //Seta a main image como a primeira imagem da string
+                }
+                else    //Se tiver apenas uma imagem
+                {
+                    setImagesUrl(response.data.img.split(","));  //Transforma em vetor de imagens. Como n vai ter vírgula, é um vetor de 1 posição
+                    setMainImage(response.data.img); //Seta a main image
+                }
+
+                if(response.data.changedProduct > 0)
+                {
+                    setImageToDelete('')
+                    alert("Imagem excluída");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('image');
+            })
+    }
+
+    // Função chamada caso dê um problema na autorização para deletar a imagem
+    function deleteImageSecond()
+    {
+        api.post('remove/image', {product_id: product?.id, image: imageToDelete})
+            .then(response => {
+                if(response.data.images.indexOf(",") > 0)
+                {
+                    setImagesUrl(response.data.img.split(","));  //Separa a string num vetor de imagens
+                    setMainImage(response.data.img.substring(0, response.data.img.indexOf(","))); //Seta a main image como a primeira imagem da string
+                }
+                else    //Se tiver apenas uma imagem
+                {
+                    setImagesUrl(response.data.img.split(","));  //Transforma em vetor de imagens. Como n vai ter vírgula, é um vetor de 1 posição
+                    setMainImage(response.data.img); //Seta a main image
+                }
+
+                if(response.data.changedProduct > 0)
+                {
+                    setImageToDelete('')
+                    alert("Imagem excluída");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+            })
+    }
+
+    // Mostra o modal para deletar a imagem
+    function modalDeleteImage()
+    {
+        if(imageToDelete !== "")
+            return(
+                <div id="modal" className='image-modal'>
+                    <div className="content">
+                        <div className="header">
+                            <h1>Tem certeza que deseja deletar a imagem?</h1>
+                            <div className="buttons">
+                                <button className="ok" onClick={deleteImage}>Sim</button>
+                                <button onClick={() => setImageToDelete('')}>Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+    }
+
+    // Função para deletar a descrição
+    function deleteDescription()
+    {
+        console.log(descriptionToDelete)
+        api.post('remove/description', {product_id: product?.id, description: descriptionToDelete})
+            .then((response) => {
+                setDescriptions(descriptions.filter(desc => {
+                    return (desc.description !== descriptionToDelete)
+                }))
+
+                if(response.data.removedDescription > 0)
+                {
+                    setDescriptionToDelete('')
+                    alert("Descrição excluída");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('description');
+            })
+    }
+
+    // Função para deletar a descrição caso haja erro na autorização
+    function deleteDescriptionSecond()
+    {
+        api.post('remove/description', {product_id: product?.id, description: descriptionToDelete})
+            .then((response) => {
+                setDescriptions(descriptions.filter(desc => {
+                    return (desc.description !== descriptionToDelete)
+                }))
+
+                if(response.data.removedDescription > 0)
+                {
+                    setDescriptionToDelete('')
+                    alert("Descrição excluída");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+            })
+    }
+
+    // Mostra o modal para deletar a descrição
+    function modalDeleteDescription()
+    {
+        if(descriptionToDelete !== "")
+            return(
+                <div id="modal" className='description-modal'>
+                    <div className="content">
+                        <div className="header">
+                            <h1>Tem certeza que deseja deletar a descrição?</h1>
+                            <div className="buttons">
+                                <button className="ok" onClick={deleteDescription}>Sim</button>
+                                <button onClick={() => setDescriptionToDelete('')}>Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
     }
 
     return(
-        <div id="product-info">
+        <div id="product-info-admin">
             <Header />
+            {modalDeleteImage()}
+            {modalDeleteDescription()}
             <div className="content">
                 <main>
                 <h2>{product?.name}</h2>
@@ -152,8 +309,8 @@ const Product = () =>
                             <div className="secondary-image">
                                 {imagesUrl.map(image => {
                                      return(
-                                        <div>
-                                            <span onClick={(() => deleteImage(image))}>X</span>
+                                        <div className="delete-image">
+                                            <span className="delete" onClick={(() => setImageToDelete(image))}>X</span>
                                             <img src={image}
                                             className={ (mainImage === image) ? 'selected' : ''}
                                             alt="Imagem do produto"
@@ -198,12 +355,15 @@ const Product = () =>
                 <div className="description">
                     <h1>Descrição</h1>
                     <h2>{product?.name}</h2>
-                    {descriptions.map(res => {
+                    {descriptions.map((res:any) => {
                         return(
-                        <p>{res.description}</p>
+                        <div className="delete-description">
+                            <span className="delete" onClick={(() => setDescriptionToDelete(res.description))}>X</span>
+                            <p>{res.description}</p>
+                        </div>
                         );
                     })}
-                  </div>
+                </div>              
             </div>
             <Footer />
         </div>
