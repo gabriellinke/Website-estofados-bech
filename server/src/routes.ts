@@ -44,6 +44,7 @@ routes.post('/category', authenticateToken, productsController.category);     //
 
 routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
 routes.post('/user/reset', usersController.verifyEmail);    // Rota para verificar se o email está cadastrado e enviar um email de recuperação de senha
+routes.post('/user/reset_password/:token', usersController.resetPassword);
 routes.post('/user/register',                               // Rota para registrar um usuário
     celebrate({                                             // Faz a validação dos dados
         body: Joi.object().keys({                   
@@ -92,6 +93,9 @@ function authenticateToken(req:Request, res:Response, next:NextFunction) {
         req.body.user = user;
         next()
     })
-}      
+
+
+
+}
 
 export default routes;

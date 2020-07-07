@@ -1,7 +1,7 @@
 Criar cabeçalho / rodapé 			 			OK
 
-Criar banco de dados dos itens a venda 		 			ALFA OK
-Criar cadastro de produtos			 			ALFA OK
+Criar banco de dados dos itens a venda 		 			OK
+Criar cadastro de produtos			 			OK
 
 Criar home-page listando os itens 		 			OK
 Criar uma página para detalhes do itens		 			OK
@@ -44,9 +44,14 @@ Fazer banco de dados com as categorias de produtos			OK
 Fazer páginas de cadastro de produtos					OK
 Fazer página de edição de produto					OK
 Limitar a quantidade de parcelas no cartão				OK
-Botão para adicionar produto
+Botão para adicionar produto						OK
+Botão para adicionar imagem						OK
+Botão para adicionar descrição						OK
+Fazer recuperação de senha através do email 				OK
 
-Fazer recuperação de senha através do email - https://www.youtube.com/watch?v=Zwdv9RllPqU 
+
+Fazer o deploy
+
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho
@@ -61,8 +66,6 @@ Fazer página para mudar dados de nome, sobrenome e senha.
 
 Fazer página para o admin verificar os dados do comprador do produto
 Fazer outras páginas que faltam
-
-Fazer o deploy
 
 Fazer um hover quando passar o mouse por cima da imagem de um produto
 Fazer uma proporção pro tamanho da imagem do produto

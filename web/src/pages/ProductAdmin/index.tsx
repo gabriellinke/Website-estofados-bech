@@ -547,9 +547,6 @@ const Product = () =>
     return(
         <div id="product-info-admin">
             <Header />
-            {modalDeleteImage()}
-            {modalDeleteDescription()}
-            {addPhotoDropzone()}
             <div className="content">
                 <main>
                 <h2>{product?.name}</h2>
@@ -560,7 +557,7 @@ const Product = () =>
                             </div>
                             <div className="secondary-image">
                                 {imagesUrl.map(image => {
-                                     return(
+                                    return(
                                         <div className="delete-image">
                                             <span className="delete" onClick={(() => setImageToDelete(image))}>X</span>
                                             <img src={image}
@@ -589,7 +586,7 @@ const Product = () =>
                                             {options.map(number => {
                                                 return <option value={number} key={number}>{number}</option>;
                                             })
-                                            }
+                                        }
                                         </select>
                                             <button type="submit">Comprar</button>
                                         
@@ -612,7 +609,7 @@ const Product = () =>
                     <h2>{product?.name}</h2>
                     {descriptions.map((res:any) => {
                         return(
-                        <div className="delete-description">
+                            <div className="delete-description">
                             <span className="delete" onClick={(() => setDescriptionToDelete(res.description))}>X</span>
                             <p>{res.description}</p>
                         </div>
@@ -624,6 +621,9 @@ const Product = () =>
                 </div>              
             </div>
             <Footer />
+            {modalDeleteImage()}
+            {modalDeleteDescription()}
+            {addPhotoDropzone()}
         </div>
     );
 };

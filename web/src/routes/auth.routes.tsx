@@ -6,6 +6,7 @@ import Product from '../pages/Product'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import NewPassword from '../pages/NewPassword'
+import ResetPassword from '../pages/ResetPassword'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
 
@@ -22,6 +23,7 @@ const AuthRoutes = () =>
                 <Route component={Search} path="/search" exact/>
                 <Route component={Product} path="/products/:id" exact/>
                 <Route component={NewPassword} path="/user/reset" exact/>
+                <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
                 <Route component={Home} />  {/* Usa o switch para essa rota com a home ser a rota default caso não encontre nenhuma */}
             </Switch>
         </BrowserRouter>

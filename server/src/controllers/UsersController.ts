@@ -166,10 +166,16 @@ class UsersController
                 tls: { rejectUnauthorized: false }
             });
     
-            const link = process.env.RESET_PASSWORD_URL
+            let secret = "";
+            if(process.env.RESET_PASSWORD_TOKEN_SECRET)
+                secret = process.env.RESET_PASSWORD_TOKEN_SECRET;
+        
+            const token = jwt.sign({email}, secret, { expiresIn: 3600 });
+            
+            const link = String(process.env.RESET_PASSWORD_URL)+token
             const mensagem = `<p>Você está recebendo este email porque utilizou a opção para recuperar a sua senha na Loja Virtual da Estofados Bech.<br/></p>
-                              <p>Clique no link abaixo para alterar a sua senha:<br/></p>
-                              <a href='${link}'>${link}</a>`
+                              <p>Clique <a href='${link}'>aqui</a> para alterar a sua senha.</p>
+                              `
     
             transporter.sendMail({
                 from: `Estofados Bech <${process.env.EMAIL_USER}>`,
@@ -185,6 +191,34 @@ class UsersController
 
         return response.json({
             resposta
+        })
+    }
+
+    // Reseta a senha do usuário
+    async resetPassword(request: Request, response: Response)
+    {
+        const { token } = request.params;
+        let password = request.body.password;
+
+        // Atualiza a password como sendo o Hash da senha
+        const shaObj = new jsSHA("SHA3-512", "TEXT")
+        shaObj.update(password);
+        password = shaObj.getHash("HEX");
+
+        jwt.verify(token, String(process.env.RESET_PASSWORD_TOKEN_SECRET), async (err:any, token:any) => {
+            console.log(err)
+            if (err) return response.sendStatus(403)
+            console.log(token.email)
+
+            const emailEstaCadastrado = await knex('users').where('email', token.email).first();
+            if(!emailEstaCadastrado)
+            {
+                // Status com começo 4 significa que houve algum erro
+                return response.status(400).json({ message: 'Email não cadastrado'});
+            }
+
+            const changedUser = await knex('users').where('email', token.email).update({password})
+            return response.json(changedUser)
         })
     }
 }
