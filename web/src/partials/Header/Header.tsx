@@ -4,6 +4,7 @@ import api from '../../services/api';
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
 import { FaUserCircle } from 'react-icons/fa'
+import { AiFillFileAdd } from 'react-icons/ai'
 import { MdMenu, MdKeyboardArrowDown } from 'react-icons/md'
 import logo from '../../assets/Logo.png';
 import { useAuth } from '../../contexts/auth'
@@ -66,21 +67,48 @@ const Header: React.FC<HeaderProps> = (props) =>
                 </div>
             );
         else
-            return (
-                <div className="user-area">
-                    <div className="user">
-                        <span><FaUserCircle size="60"/> </span>
-                        <div className="name-logout">
-                            <div className="user-name">{user.name}</div>
-                            <Link to="" onClick={handleLogOut}>Logout</Link>
+        {
+            if(!user.admin)
+            {
+                return (
+                    <div className="user-area">
+                        <div className="user">
+                            <span><FaUserCircle size="60"/> </span>
+                            <div className="name-logout">
+                                <div className="user-name">{user.name}</div>
+                                <Link to="" onClick={handleLogOut}>Logout</Link>
+                            </div>
                         </div>
+                        <Link to="/user/cart" className="carrinho">
+                            <span> <GiShoppingCart size="60" /></span>
+                            Carrinho
+                        </Link>
                     </div>
-                    <Link to="/user/cart" className="carrinho">
-                        <span> <GiShoppingCart size="60" /></span>
-                        Carrinho
-                    </Link>
-                </div>
-            );
+                );
+            }
+            else
+            {
+                return (
+                    <div className="user-area">
+                        <Link to='register' className='register'>
+                            <span><AiFillFileAdd size='60' /> </span>
+                            <div>Novo <br/>produto</div>
+                        </Link>
+                        <div className="user">
+                            <span><FaUserCircle size="60"/> </span>
+                            <div className="name-logout">
+                                <div className="user-name">{user.name}</div>
+                                <Link to="" onClick={handleLogOut}>Logout</Link>
+                            </div>
+                        </div>
+                        <Link to="/user/cart" className="carrinho">
+                            <span> <GiShoppingCart size="60" /></span>
+                            Carrinho
+                        </Link>
+                    </div>
+                );
+            }
+        }
     }
 
     // Usado para saber se deve mostrar o menu de categorias

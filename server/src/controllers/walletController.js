@@ -17,6 +17,7 @@ exports.walletbutton = async (req, res, next) => {
     quantity,
     price,
     freightPrice,
+    condition,
     name,
     surname,
     email,
@@ -41,6 +42,7 @@ exports.walletbutton = async (req, res, next) => {
   vetorNome = productName.split("@")
   vetorQuantidade = quantity.toString().split("@")
   vetorPreco = price.toString().split("@")
+  vetorParcelas = condition.toString().split("@")
 
   let itemsArray = [{
     id: 0,
@@ -71,6 +73,8 @@ exports.walletbutton = async (req, res, next) => {
     unit_price: freightPrice
   }
 
+  const parcelas = Math.min(...vetorParcelas); //Pega a menor quantidade de parcelas
+
   let preference = {
     items: itemsArray,
     payer: {
@@ -90,6 +94,9 @@ exports.walletbutton = async (req, res, next) => {
           street_number: parseInt(number),
           zip_code: cep
         }
+    },
+    payment_methods: {
+      installments: parseInt(parcelas)
     }
   }
 

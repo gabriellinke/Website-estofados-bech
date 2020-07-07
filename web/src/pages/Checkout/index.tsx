@@ -18,6 +18,7 @@ interface CheckoutPostData
     productName: string;
     quantity: string;
     price: string;
+    condition: string;
     freightPrice: number;
 
     name: string;
@@ -188,6 +189,7 @@ const Checkout = () =>
     const [productNames, setProductNames] = useState<string[]>([]); // Guarda o nome de cada produto
     const [images, setImages] = useState<string[]>([]);  // Guarda a imagem de cada produto
     const [quantitys, setQuantitys] = useState<number[]>([]);   // Guarda a quantidade de cada produto
+    const [conditions, setConditions] = useState<string[]>([]);   // Guarda a quantidade de parcelas possíveis de cada produto
     const [totalQuantity, setTotalQuantity] = useState<number[]>([]); // Guarda a quantidade de produtos na lista de checkout
     const [totalPrice, setTotalPrice] = useState<number>(0);    // Guarda o preço total, somando todos os produtos
     const [notAuthorized, setNotAuthorized] = useState<number>(0);    // Diz se o usuário não é autorizado
@@ -256,13 +258,16 @@ const Checkout = () =>
 
                     let i = 0;
                     let precoFinal = [0];   // Salva o preço de cada produto
+                    let parcelaFinal = [""];   // Salva as parcelas
                     let nomeFinal = [""];   // Salva o nome de cada produto
                     for(let prod of productsAux)
                     {
+                        parcelaFinal[i] = prod.conditions;
                         precoFinal[i] = prod.price;
                         nomeFinal[i] = prod.name;
                         i++;
                     }
+                    setConditions(parcelaFinal)
                     setPrices(precoFinal)
                     setProductNames(nomeFinal)
 
@@ -423,13 +428,14 @@ const Checkout = () =>
                 userNotNull = user;
 
             // Concatena os items em uma string, separando-os por @
-            let id="", price="", productName="", quantity="";
+            let id="", price="", productName="", quantity="", condition="";
             for(let i of totalQuantity)
             {
                 id += ids[i] + "@"
                 price += prices[i] + "@"
                 productName += productNames[i] + "@"
                 quantity += quantitys[i] + "@"
+                condition += conditions[i] + "@"
             }
 
             // Remove o último @
@@ -437,10 +443,11 @@ const Checkout = () =>
             price = price.substring(0,(price.length - 1));
             productName = productName.substring(0,(productName.length - 1));
             quantity = quantity.substring(0,(quantity.length - 1));
+            condition = condition.substring(0,(condition.length - 1));
 
             // Salva esses dados, para caso de algum problema de autorização
             setCheckoutPostData({
-                id, price, freightPrice, productName, quantity,
+                id, price, freightPrice, productName, quantity, condition,
                 name, surname, email, phone: parseInt(phone), cpf, area_code,
                 cep, state, city, neighborhood, street, number, adjunct,
                 userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
@@ -448,7 +455,7 @@ const Checkout = () =>
 
             // Dá um post para criar uma preference do Mercado Pago
             api.post('checkout', {
-                id, price, freightPrice, productName, quantity,
+                id, price, freightPrice, productName, quantity, condition,
                 name, surname, email, phone: parseInt(phone), cpf, area_code,
                 cep, state, city, neighborhood, street, number, adjunct,
                 userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email

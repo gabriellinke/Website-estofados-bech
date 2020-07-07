@@ -61,8 +61,6 @@ header .middle .logo-search #form2 .search-field button
     cursor: pointer;
 }
 
-
-
 header .middle .logo-search #form2 .search-field input
 {
     background-color: var(--gray-color);
@@ -75,6 +73,12 @@ header .middle .logo-search #form2 .search-field input
     border-right: none;
     font-size: 16px;
 }
+
+header .user-area a.register
+{   
+    margin-right: 16px;
+}
+
 
 header .bottom-menu
 {
