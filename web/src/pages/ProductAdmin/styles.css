@@ -290,6 +290,33 @@
     cursor: pointer;
 }
 
+#product-info-admin .content .description .add-description .form
+{
+    display: grid;
+    grid-template-columns: auto 50px;
+    gap: 16px;
+    align-items: center;
+}
+
+#product-info-admin .content .description .add-description .form button
+{
+    height: 50px;
+    background: none;
+	color: inherit;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+
+    padding: 8px;
+    border: 1px solid rgb(204, 203, 203);
+}
+
+#product-info-admin .content .description .add-description .form button:hover
+{
+    background-color: #cac9c9;
+}
+
 #product-info-admin .content .description .delete-description
 {
     display: flex;
@@ -320,13 +347,23 @@
     border: 3px solid var(--primary-color);
 }
 
-
 #product-info-admin .content main .image .main-image img
 {
     width: 572px;
     height: 572px;
 }
 
+#product-info-admin .content main .image .add-photo
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#product-info-admin .content main .image .add-photo .icon 
+{
+    cursor: pointer;
+}
 
 
 
@@ -364,7 +401,6 @@
     line-height: 24px;
 }
 
-
 #product-info-admin #modal
 {
     /* Para o modal utilizar 100% da tela */
@@ -393,6 +429,12 @@
     width: 420px;
     height: 200px;
     justify-content: center;
+}
+
+#product-info-admin #modal.add-photo-modal .content
+{
+    width: 420px;
+    height: 420px;
 }
 
 #product-info-admin #modal .header

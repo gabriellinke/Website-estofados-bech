@@ -1,5 +1,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react'; 
-import { MdAddShoppingCart } from 'react-icons/md';
+import { MdAddShoppingCart, MdAddAPhoto } from 'react-icons/md';
+import { GrChapterAdd } from 'react-icons/gr'
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 import * as Yup from "yup";
@@ -10,6 +11,7 @@ import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
 import { useAuth } from '../../contexts/auth'
 import { useHistory } from "react-router-dom";
+import Dropzone from '../../components/Dropzone'
 
 import './styles.css';  //Importa o css
 
@@ -19,6 +21,10 @@ interface FormValues {
     conditions: number;
     quantity: number;
 };
+
+interface DescriptionFormValues {
+    description: string;
+}
 
 // Valores iniciais dos inputs
 let initialValues: FormValues = {
@@ -46,6 +52,12 @@ const CheckoutSchema = Yup.object().shape({
         .min(0, "Número precisa ser positivo")
         .integer("Precisa ser um número inteiro")
         .typeError("É necessário ser um número"),
+});
+
+// Esquema de validação dos inputs
+const DescriptionSchema = Yup.object().shape({
+    description: Yup.string()
+        .required("Obrigatório")
 });
 
 const Product = () =>
@@ -78,9 +90,12 @@ const Product = () =>
     const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
     const [imageToDelete, setImageToDelete] = useState<string>('');   // Imagem que deve ser deletada
+    const [savedDescription, setSavedDescription] = useState<string>('');   // Imagem que deve ser deletada
     const [descriptionToDelete, setDescriptionToDelete] = useState<string>('');   // Descrição que deve ser deletada
     const [modifyingProduct, setModifyingProduct] = useState<boolean>(false);   // Form para modificar o produto
+    const [addingPhoto, setAddingPhoto] = useState<boolean>(false);   // Abre a dropzone para adicionar foto
     const [savedModified, setSavedModified] = useState<FormikValues>();   // Salva os dados que foram modificados no produto, para casos com problema de autenticação
+    const [selectedFIle, setSelectedFile] = useState<File>(); //Guardar o arquivo da imagem
     
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
     const [options, setOptions] = useState<number[]>([]); // Armazena a quantidade de options disponíveis
@@ -156,6 +171,50 @@ const Product = () =>
                             console.log(err);                
                             alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
                         })
+                    }
+                    else if(notAuthorized === 'addPhoto')
+                    {
+                        const data = new FormData();
+                        if(selectedFIle)
+                            data.append('images', selectedFIle);
+                
+                        api.post('image/'+product?.id, data)
+                            .then(response => {
+                                if(response.data.images.indexOf(",") > 0)
+                                {
+                                    setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
+                                    setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
+                                }
+                                else    //Se tiver apenas uma imagem
+                                {
+                                    setImagesUrl(response.data.images.split(","));  //Transforma em vetor de imagens. Como n vai ter vírgula, é um vetor de 1 posição
+                                    setMainImage(response.data.images); //Seta a main image
+                                }
+                                setAddingPhoto(false);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+                                setAddingPhoto(false);
+                            })
+                    }
+                    else if(notAuthorized === 'addDescription')
+                    {
+                        api.post('description', {product_id: product?.id, description: savedDescription})
+                            .then(response => {
+                                let newDescription:descriptionProps = {
+                                    id: parseInt(response.data.description_id),
+                                    description: response.data.description,
+                                    product_id: parseInt(response.data.product_id)
+                                }
+                                setDescriptions([...descriptions, newDescription])
+                                setSavedDescription('');
+                            })
+                            .catch(err => {
+                                console.log(err)
+                                alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+                                setSavedDescription('');
+                            })
                     }
                 }) 
                 .catch(err => {
@@ -235,7 +294,6 @@ const Product = () =>
                 {
                     setImageToDelete('');
                     setNotAuthorized('');
-                    alert("Imagem excluída");
                 }
             })
             .catch(err => {
@@ -264,7 +322,6 @@ const Product = () =>
                 {
                     setImageToDelete('');
                     setNotAuthorized('');
-                    alert("Imagem excluída");
                 }
             })
             .catch(err => {
@@ -306,7 +363,6 @@ const Product = () =>
                 {
                     setDescriptionToDelete('');
                     setNotAuthorized('');
-                    alert("Descrição excluída");
                 }
             })
             .catch(err => {
@@ -328,7 +384,6 @@ const Product = () =>
                 {
                     setDescriptionToDelete('');
                     setNotAuthorized('');
-                    alert("Descrição excluída");
                 }
             })
             .catch(err => {
@@ -402,11 +457,99 @@ const Product = () =>
             return <button className="modify-product" onClick={() => setModifyingProduct(!modifyingProduct)}>Modificar produto</button>
     }
 
+    // Modal com a dropzone para adicionar foto
+    function addPhotoDropzone()
+    {
+        if(addingPhoto)
+            return(
+                <div id="modal" className='add-photo-modal'>
+                    <div className="content">
+                        <div className="header">
+                            <Dropzone onFileUploaded={setSelectedFile} />
+                            <div className="buttons">
+                                <button className="ok" onClick={addPhoto}>Adicionar</button>
+                                <button onClick={() => setAddingPhoto(false)}>Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+    }
+
+    // Adiciona a foto ao produto
+    function addPhoto()
+    {
+        const data = new FormData();
+        if(selectedFIle)
+            data.append('images', selectedFIle);
+
+        api.post('image/'+product?.id, data)
+            .then(response => {
+                if(response.data.images.indexOf(",") > 0)
+                {
+                    setImagesUrl(response.data.images.split(","));  //Separa a string num vetor de imagens
+                    setMainImage(response.data.images.substring(0, response.data.images.indexOf(","))); //Seta a main image como a primeira imagem da string
+                }
+                else    //Se tiver apenas uma imagem
+                {
+                    setImagesUrl(response.data.images.split(","));  //Transforma em vetor de imagens. Como n vai ter vírgula, é um vetor de 1 posição
+                    setMainImage(response.data.images); //Seta a main image
+                }
+                setAddingPhoto(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('addPhoto')
+            })
+    }
+
+    const handleSubmit2 = (values: DescriptionFormValues): void =>
+    {
+        setSavedDescription(values.description);
+        api.post('description', {product_id: product?.id, description: values.description})
+            .then(response => {
+                let newDescription:descriptionProps = {
+                    id: parseInt(response.data.description_id),
+                    description: response.data.description,
+                    product_id: parseInt(response.data.product_id)
+                }
+                setDescriptions([...descriptions, newDescription])
+                setSavedDescription('');
+            })
+            .catch(err => {
+                console.log(err)
+                setNotAuthorized('addDescription');
+            })
+    }
+
+    function descriptionForm()
+    {
+        return(
+            <Formik
+                initialValues={{description: ''}}
+                onSubmit={handleSubmit2}
+                validationSchema={DescriptionSchema}
+            >
+                {() => {
+                    return (
+                        <div>
+                            <Form className="form">
+                                <FormikField className="description-field" name="description" label="Nova descrição"/>
+                                <button><GrChapterAdd size="30"/></button>
+                            </Form>
+                        </div>
+                    );
+                }}
+            </Formik>
+        );
+    }
+
     return(
         <div id="product-info-admin">
             <Header />
             {modalDeleteImage()}
             {modalDeleteDescription()}
+            {addPhotoDropzone()}
             <div className="content">
                 <main>
                 <h2>{product?.name}</h2>
@@ -429,6 +572,9 @@ const Product = () =>
                                         </div>
                                     );
                                 })}
+                            </div>
+                            <div className="add-photo">
+                                <MdAddAPhoto size='40' onClick={() => setAddingPhoto(true)} className='icon'/>
                             </div>
                         </div>
                         <div className="buy">
@@ -472,6 +618,9 @@ const Product = () =>
                         </div>
                         );
                     })}
+                    <div className="add-description">
+                        {descriptionForm()}
+                    </div>
                 </div>              
             </div>
             <Footer />
