@@ -43,9 +43,7 @@ Fazer uso de tokens							OK
 Fazer banco de dados com as categorias de produtos			OK
 Fazer páginas de cadastro de produtos					OK
 
-
-Fazer página de edição de produto
-Remover estoque
+Fazer página de edição de produto					OK
 
 Limitar a quantidade de parcelas no cartão
 

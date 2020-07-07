@@ -70,10 +70,9 @@
 #product-info-admin .content main .buy .purchase-area
 {
     margin-top: 64px;
-    margin-bottom: 64px;
 }
 
-#form1 select
+#product-info-admin #form1 select
 {
     background-color: white;
 
@@ -163,62 +162,53 @@
 
 
 
-#product-info-admin .content main .buy .freight-area
+#product-info-admin .content main .buy .modify-product
 {
     font-size: 20px;
     display: flex;
-    flex-direction: row;
-    margin-top: 48px;   
-}
-
-#product-info-admin .content main .buy .freight-area #form2
-{
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-#product-info-admin .content main .buy .freight-area #form2 input
+#product-info-admin .content main .buy .modify-product .form
 {
-    background-color: white;
-    border: 1px solid rgb(204, 203, 203);
-
-    /* Aumenta o tamanho dos campos para input/select */
-    margin-left: 32px;
-    padding: 16px 16px;
-    line-height: 16px;
-    font-size: 16px;
-
-    /* quando seleciona o campo ficava uma linha ao redor */
-    outline: none;
-
-    /* resetar a aparência padrão - usa os 3 pra aplicar em mais tipos de navegadores */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
+    margin-top: 64px;
 }
 
-#product-info-admin .content main .buy .freight-area #form2 button
+#product-info-admin .content main .buy .modify-product .form .field-group
 {
-    width:  52.4px;
-    height: 52.4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
 
+#product-info-admin .content main .buy .modify-product button
+{
+    width: 180px;
+    height: 56px;
+  
     background-color: var(--primary-color);
-
+    border-radius: 8px;
+  
     color: white;
     font-weight: bold;
     font-size: 16px;
-    line-height: 16px;
-
+  
     border: 0;
-
-    cursor: pointer;
+  
+    margin-top: 32px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
     /* Para deixar o efeito de hover mais suave */
     transition: background-color 400ms;
 }
 
-#product-info-admin .content main .buy .freight-area #form2 button:hover
+#product-info-admin .content main .buy .modify-product button:hover
 {
     background-color: var(--hover-color);
 }

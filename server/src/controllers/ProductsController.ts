@@ -47,6 +47,35 @@ class ProductsController
         });
     }
 
+    // Modifica um produto existente
+    async modify(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            id,
+            name,      
+            conditions,
+            price,
+            quantity,
+        } = request.body;
+
+        const product = {
+            id,
+            name,       
+            price,          
+            conditions,
+            quantity,
+        };
+
+        let finalProduct;
+        const modifyedProduct = await knex('products').where('id', id).update(product);
+        if(modifyedProduct)
+            finalProduct = await knex('products').where('id', id).first();
+
+        return response.json({product: finalProduct});
+    }
+
     // Adiciona as descrições dos produtos
     async createDescription(request: Request, response: Response)
     {

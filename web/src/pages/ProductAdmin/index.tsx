@@ -2,7 +2,9 @@ import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
-import Ajax from '../../services/ajax'
+import * as Yup from "yup";
+import { Formik, Form, FormikValues } from "formik";
+import FormikField from "../../components/FormikField";
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
@@ -10,6 +12,41 @@ import { useAuth } from '../../contexts/auth'
 import { useHistory } from "react-router-dom";
 
 import './styles.css';  //Importa o css
+
+interface FormValues {
+    name: string;
+    price: number;
+    conditions: number;
+    quantity: number;
+};
+
+// Valores iniciais dos inputs
+let initialValues: FormValues = {
+    name: "",
+    price: 0.00,
+    conditions: 0,
+    quantity: 0,
+};
+
+// Esquema de validação dos inputs
+const CheckoutSchema = Yup.object().shape({
+    name: Yup.string()
+        .required("Obrigatório"),
+    price: Yup.number()
+        .required("Obrigatório")
+        .min(1, "É necessário ter um preço")
+        .typeError("Escreva somente números. Use pontos e não vírgulas."),
+    conditions: Yup.number()
+        .required("Obrigatório")
+        .min(1, "Mínimo 1")
+        .typeError("É necessário ser um número")
+        .integer("Precisa ser um número inteiro"),
+    quantity: Yup.number()
+        .required("Obrigatório")
+        .min(0, "Número precisa ser positivo")
+        .integer("Precisa ser um número inteiro")
+        .typeError("É necessário ser um número"),
+});
 
 const Product = () =>
 {
@@ -42,6 +79,8 @@ const Product = () =>
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
     const [imageToDelete, setImageToDelete] = useState<string>('');   // Imagem que deve ser deletada
     const [descriptionToDelete, setDescriptionToDelete] = useState<string>('');   // Descrição que deve ser deletada
+    const [modifyingProduct, setModifyingProduct] = useState<boolean>(false);   // Form para modificar o produto
+    const [savedModified, setSavedModified] = useState<FormikValues>();   // Salva os dados que foram modificados no produto, para casos com problema de autenticação
     
     const [descriptions, setDescriptions] = useState<descriptionProps[]>([]); //Armazena as descrições do produto
     const [options, setOptions] = useState<number[]>([]); // Armazena a quantidade de options disponíveis
@@ -84,8 +123,16 @@ const Product = () =>
             vetor[i] = i;
         }
         setOptions(vetor);
+        // Valores iniciais dos inputs
+        initialValues = {
+            name: String(product?.name),
+            price: Number(product?.price),
+            conditions: Number(product?.conditions),
+            quantity: Number(product?.quantity),
+        };
     }, [product])
 
+    // Atualiza o token e faz novas requisições
     useEffect(() => {
         if(notAuthorized !== "")
         {
@@ -98,6 +145,18 @@ const Product = () =>
                         deleteImageSecond();
                     else if(notAuthorized === 'description')
                         deleteDescriptionSecond();
+                    else if(notAuthorized === 'modify')
+                    {
+                        api.post('products/modify', {id: product?.id, name: savedModified?.name, price: savedModified?.price, conditions: savedModified?.conditions, quantity: savedModified?.quantity})
+                        .then(response => {
+                            setProduct(response.data.product);
+                            setNotAuthorized('');
+                        })
+                        .catch(err => {
+                            console.log(err);                
+                            alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+                        })
+                    }
                 }) 
                 .catch(err => {
                     alert("Token inválido")
@@ -174,7 +233,8 @@ const Product = () =>
 
                 if(response.data.changedProduct > 0)
                 {
-                    setImageToDelete('')
+                    setImageToDelete('');
+                    setNotAuthorized('');
                     alert("Imagem excluída");
                 }
             })
@@ -202,7 +262,8 @@ const Product = () =>
 
                 if(response.data.changedProduct > 0)
                 {
-                    setImageToDelete('')
+                    setImageToDelete('');
+                    setNotAuthorized('');
                     alert("Imagem excluída");
                 }
             })
@@ -243,7 +304,8 @@ const Product = () =>
 
                 if(response.data.removedDescription > 0)
                 {
-                    setDescriptionToDelete('')
+                    setDescriptionToDelete('');
+                    setNotAuthorized('');
                     alert("Descrição excluída");
                 }
             })
@@ -264,7 +326,8 @@ const Product = () =>
 
                 if(response.data.removedDescription > 0)
                 {
-                    setDescriptionToDelete('')
+                    setDescriptionToDelete('');
+                    setNotAuthorized('');
                     alert("Descrição excluída");
                 }
             })
@@ -291,6 +354,52 @@ const Product = () =>
                     </div>
                 </div>
             );
+    }
+
+    // Ao enviar o formulário de modificação
+    const handleSubmit = (values: FormValues): void =>
+    {
+        setSavedModified(values);
+        api.post('products/modify', {id: product?.id, name: values.name, price: values.price, conditions: values.conditions, quantity: values.quantity})
+            .then(response => {
+                setProduct(response.data.product);
+                setNotAuthorized('');
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('modify');
+            })
+    }
+
+    // Botão para modificar / Formulário para modificação
+    function modifyingForm()
+    {
+        if(modifyingProduct)
+            return(
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={handleSubmit}
+                    validationSchema={CheckoutSchema}
+                >
+                    {() => {
+                        return (
+                            <div>
+                                <Form className="form">
+                                    <FormikField className="name-field" name="name" label="Nome do produto"/>
+                                    <div className="field-group">
+                                        <FormikField name="price" label="Preço"/>
+                                        <FormikField name="quantity" label="Quantidade"/>
+                                        <FormikField name="conditions" label="Parcelas"/>
+                                    </div>
+                                    <button>Aplicar mudanças</button>
+                                </Form>
+                            </div>
+                        );
+                    }}
+                </Formik>
+            );
+        else
+            return <button className="modify-product" onClick={() => setModifyingProduct(!modifyingProduct)}>Modificar produto</button>
     }
 
     return(
@@ -345,10 +454,10 @@ const Product = () =>
                                             </form>
                                     </div>
                                 </div>
-                                <div className="freight-area">
-                                    {/* Área que vai ter o botão */}
-                                </div>
                             </form>
+                            <div className="modify-product">
+                                {modifyingForm()}
+                            </div>
                         </div>
                     </div>
                 </main>
