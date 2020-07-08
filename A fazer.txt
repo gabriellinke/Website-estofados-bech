@@ -55,6 +55,9 @@ Ao logar ir para '/'							OK
 
 Fazer o deploy								ALFA OK
 
+Redirecionar pro login se tentar comprar e n tiver token
+Redirecionar pro login se tentar adicionar ao carrinho e n tiver token
+Deletar produto
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho
@@ -62,6 +65,10 @@ Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
 Frete tem que ser maior que 0 para liberar a compra
 
 Fazer as backURLs
+
+Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Dentro de 24 horas você poderá acessar a página da sua conta e acompanhar o pedido, como mostram as imagens. Caso haja alguma dúvida ou algum problema, contate a loja através desses contatos:
+Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Assim que seu pagamento for aprovado poderá acessar a página da sua conta e acompanhar o pedido, como mostram as imagens. Caso haja alguma dúvida ou algum problema, contate a loja através desses contatos:
+Infelizmente a sua compra não foi concluída. Caso esteja havendo algum problema, contate a loja através desses contatos:
 
 Página para acompanhar a compra. Também tirar o item do carrinho se ele tiver ido para essa página.
 Fazer uma página de histórico de compra e uma de acompanhamento.
