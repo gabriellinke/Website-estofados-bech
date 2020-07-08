@@ -7,6 +7,7 @@ import Product from '../pages/Product'
 import Cart from '../pages/Cart'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
+import ResetPassword from '../pages/ResetPassword'
 
 // Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
 const UserRoutes = () => 
@@ -20,6 +21,7 @@ const UserRoutes = () =>
                 <Route component={Cart} path="/user/cart" exact/>
                 <Route component={Home} path="/" exact/>
                 <Route component={Product} path="/products/:id" exact/>
+                <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
                 <Route component={Home} />  {/* Usa o switch para essa rota com a home ser a rota default caso não encontre nenhuma */}
             </Switch>
         </BrowserRouter>

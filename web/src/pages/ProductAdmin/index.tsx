@@ -239,9 +239,8 @@ const Product = () =>
     }
 
     // Faz a requisição para a API para adicionar o produto ao carrinho do usuário
-    function addToCart(event: FormEvent<HTMLFormElement>)
+    function addToCart()
     {
-        event.preventDefault();
         setLoadingCart(true)
         api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
             .then(response => {
@@ -588,13 +587,10 @@ const Product = () =>
                                             })
                                         }
                                         </select>
-                                            <button type="submit">Comprar</button>
-                                        
-                                            <form onSubmit={addToCart} id="form3">
-                                                <button>
-                                                    {buttonCart()}
-                                                </button>
-                                            </form>
+                                        <button type="submit">Comprar</button>
+                                        <button type="button" onClick={addToCart}>
+                                            {buttonCart()}
+                                        </button>
                                     </div>
                                 </div>
                             </form>
