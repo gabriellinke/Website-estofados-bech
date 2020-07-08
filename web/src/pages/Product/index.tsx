@@ -257,8 +257,10 @@ const Product = () =>
         let idProduto = product.id        
         localStorage.setItem('@EB:id', String(idProduto));
         localStorage.setItem('@EB:quantity', String(quantity));
+        console.log('antes do try')
         try{
             history.push('/buying')
+            console.log('no try')
         }
         catch
         {
