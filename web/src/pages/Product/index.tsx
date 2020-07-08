@@ -214,9 +214,8 @@ const Product = () =>
     }
 
     // Faz a requisição para a API para adicionar o produto ao carrinho do usuário
-    function addToCart(event: FormEvent<HTMLFormElement>)
+    function addToCart()
     {
-        event.preventDefault();
         setLoadingCart(true)
         api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
             .then(response => {
@@ -257,10 +256,8 @@ const Product = () =>
         let idProduto = product.id        
         localStorage.setItem('@EB:id', String(idProduto));
         localStorage.setItem('@EB:quantity', String(quantity));
-        console.log('antes do try')
         try{
             history.push('/buying')
-            console.log('no try')
         }
         catch
         {
@@ -306,27 +303,24 @@ const Product = () =>
                                             })
                                             }
                                         </select>
-                                            <button type="submit">Comprar</button>
-                                        
-                                            <form onSubmit={addToCart} id="form3">
-                                                <button>
-                                                    {buttonCart()}
-                                                </button>
-                                            </form>
-                                    </div>
-                                </div>
-                                <div className="freight-area">
-                                    <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
-                                    <div className="cep">
-                                        <form onSubmit={calcularFrete} id="form2">
-                                            <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
-                                            <button>OK</button>
-                                            {loadingAnimationFrete()}
-                                        </form>
-                                        <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                    <button type="submit">Comprar</button>
+                                    <button type="button" onClick={addToCart}>
+                                        {buttonCart()}
+                                    </button>
                                     </div>
                                 </div>
                             </form>
+                            <div className="freight-area">
+                                <div className="freight-text">Calcular frete e <br /> prazo de entrega</div>
+                                <div className="cep">
+                                    <form onSubmit={calcularFrete} id="form2">
+                                        <input type="text" placeholder="CEP" name="cep" id="cep" onChange={handleCEPInputChange}/>
+                                        <button>OK</button>
+                                        {loadingAnimationFrete()}
+                                    </form>
+                                    <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                </div>
+                            </div>
                             {showFrete()}
                         </div>
                     </div>
