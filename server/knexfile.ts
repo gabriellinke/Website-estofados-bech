@@ -9,9 +9,11 @@ import path from 'path';
 // No nosso caso, as migrations tem as tabelas criadas em javascript - Nas migrations futuras, pode ser por exemplo, que tenha um delete da tabela ou atualização
 // Seeds: Serve para popular as tabelas com um valor padrão. No nosso caso, vamos popular a tabela de itens com os que nós já temos
 module.exports = {
-    client: 'sqlite3',
+    client: 'pg',
     connection: {
-        filename: path.resolve(__dirname, 'src', 'database', 'database.sqlite'),
+        database: "test",
+        user: 'postgres',
+        password: 'gabrielhenrique12.'
     },
     migrations: {
         directory: path.resolve(__dirname, 'src', 'database', 'migrations')

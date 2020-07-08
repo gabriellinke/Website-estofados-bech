@@ -236,9 +236,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                             <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
                         </div>
                     </Link>
-                    {categoriesOptions()}
+                    {/* {categoriesOptions()} */}
                 </div>
-                {categoriesOutOfMenu()}
+                {/* {categoriesOutOfMenu()} */}
             </div>
         </div>
     </header>
