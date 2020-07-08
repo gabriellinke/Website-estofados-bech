@@ -53,7 +53,7 @@ const Product = () =>
         product_id: number;
     }
 
-    const [product, setProduct] = useState<ProductProps>(); //Guardar a lista de produtos
+    const [product, setProduct] = useState<ProductProps>({} as ProductProps); //Guardar a lista de produtos
     const [imagesUrl, setImagesUrl] = useState<string[]>([]); //Vetor que guarda as imagens secundárias
     const [mainImage, setMainImage] = useState<string>(""); //Vetor que guarda a imagem principal
 
@@ -211,7 +211,6 @@ const Product = () =>
     {
         const { value } = event.target;
         setQuantity(parseInt(value));
-        console.log(value)
     }
 
     // Faz a requisição para a API para adicionar o produto ao carrinho do usuário
@@ -250,6 +249,24 @@ const Product = () =>
             );
     }
 
+    // Redireciona o usuário para a página de compra
+    function handleSubmit(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+
+        let idProduto = product.id        
+        localStorage.setItem('@EB:id', String(idProduto));
+        localStorage.setItem('@EB:quantity', String(quantity));
+        try{
+            history.push('/buying')
+        }
+        catch
+        {
+            history.push('/')
+            console.log("Ocorreu um erro no submit do Checkout")
+        }
+    }
+
     return(
         <div id="product-info">
             <Header />
@@ -275,8 +292,7 @@ const Product = () =>
                             </div>
                         </div>
                         <div className="buy">
-                            <form action="/buying" method="GET" id="form1">
-                                <input type="hidden" name="id" value={product?.id} />
+                            <form action="/buying" method="GET" id="form1" onSubmit={handleSubmit}>
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x no cartão`}</p>
                                 <div className="purchase-area">

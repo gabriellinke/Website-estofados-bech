@@ -17,7 +17,7 @@ const AdminRoutes = () =>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
-                <Route component={Search} path="/search" exact/>
+                <Route component={Search} path="/search/:search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Home} path="/" exact/>
                 <Route component={ProductAdmin} path="/products/:id" exact/>

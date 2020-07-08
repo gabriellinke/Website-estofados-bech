@@ -49,8 +49,11 @@ Botão para adicionar imagem						OK
 Botão para adicionar descrição						OK
 Fazer recuperação de senha através do email 				OK
 
+Mudar link para página de pesquisa					OK
+Mudar link para página de checkout					OK
+Ao logar ir para '/'							OK
 
-Fazer o deploy
+Fazer o deploy								ALFA OK
 
 
 Mexer na parte de frete

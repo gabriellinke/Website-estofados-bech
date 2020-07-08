@@ -58,6 +58,10 @@ header .middle .logo-search #form2 .search-field button
     border-bottom: 2px solid rgb(148, 148, 148);
     border-left: none;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
 }
 

@@ -213,89 +213,88 @@ const Checkout = () =>
 
     // Ao entrar na página carrega os dados da URL, o id do produto e a quantidade de produtos que o usuário quer comprar
     useEffect(() => {
-        let res = window.location.href.split('?');
-        if(res[1])
+        let idURL = localStorage.getItem('@EB:id');
+        let qtdsURL = localStorage.getItem('@EB:quantity');
+        let storagedId = '';
+        let storagedQuantity = '';
+
+        if(idURL && qtdsURL)
         {
-            // Pega a parte da url que interessa, que é onde tem os parâmetros
-            let parametros = res[1].split('&');
-
-            const idURL = parametros[0].split("=")[1];  //Variável que tem os ids que vem da url
-            const qtdsURL = parametros[1].split("=")[1];   //Variável que tem as quantidades que vem da url
-
-            // Consulta a api com os ids dos produtos que vieram como parâmetro
-            api.post('/products/list', {products: `${idURL}`})
-                .then(response => {
-                    const productsAux = response.data.products   // Guarda os produtos em uma variável
-                    setProducts(productsAux)
-                
-                    // Tenho um problema com relação aos ids: Se mudaram a url, não podem botar uma quantidade maior do que o estoque do produto
-                    // Porém, tem como botar o mesmo id mais de uma vez, o que faria com que desse, por ex, pra comprar a quantidade máxima do produto 2x
-                    setIds(idURL.split("-"))
-
-                    let quantidadeFinal = [0]; // Guarda a quantidade de unidades de cada produto
-                    if(parametros[1])   // Para não dar problema caso não venha o parametro de quantidade
-                    {
-                        let qtds = qtdsURL.split("-");   // Separa a quantidade de cada produto em um vetor
-                        let param = qtds.map(qtd => {
-                            return parseInt(qtd);
-                        })
-
-                        let i = 0;
-                        let quantidadeDeProdutos = [0];    // Salva a quantidade total de produtos
-                        for(let iterator of param)  // Salva a quantidade do produto como a que veio da URL ou a máx disponível
-                        {
-                            if(productsAux[i])
-                            {
-                                quantidadeFinal[i] = (parseInt(productsAux[i].quantity) > iterator) ? iterator : parseInt(productsAux[i].quantity);
-                            }
-                            quantidadeDeProdutos[i] = i;
-                            i++;
-                        }
-
-                        setTotalQuantity(quantidadeDeProdutos);
-                        setQuantitys(quantidadeFinal);
-                    }
-
-                    let i = 0;
-                    let precoFinal = [0];   // Salva o preço de cada produto
-                    let parcelaFinal = [""];   // Salva as parcelas
-                    let nomeFinal = [""];   // Salva o nome de cada produto
-                    for(let prod of productsAux)
-                    {
-                        parcelaFinal[i] = prod.conditions;
-                        precoFinal[i] = prod.price;
-                        nomeFinal[i] = prod.name;
-                        i++;
-                    }
-                    setConditions(parcelaFinal)
-                    setPrices(precoFinal)
-                    setProductNames(nomeFinal)
-
-                    let k = 0;
-                    let precoXquantidade = [0];     // Auxiliar pra achar a soma dos preços dos produtos
-                    for(let preco of precoFinal)
-                    {
-                        precoXquantidade[k] = preco * quantidadeFinal[k];
-                        k++;
-                    }
-
-                    const reducer = (accumulator:number, currentValue:number) => accumulator + currentValue;
-                    setTotalPrice(precoXquantidade.reduce(reducer))  // Salva como o preço total a soma de todos os preços
-
-                    let j = 0;
-                    let imagemFinal = [""];     // Salva a imagem do produto
-                    for(let prod of productsAux)
-                    {
-                        if(prod.images.indexOf(",") > 0)
-                            imagemFinal[j] = prod.images.substring(0, prod.images.indexOf(",")); 
-                        else
-                            imagemFinal[j] = prod.images;
-
-                        j++;
-                    }
-                    setImages(imagemFinal);
-                })
+            storagedId = idURL;
+            storagedQuantity = qtdsURL;
         }
+
+        // Consulta a api com os ids dos produtos que vieram como parâmetro
+        api.post('/products/list', {products: `${storagedId}`})
+            .then(response => {
+                const productsAux = response.data.products   // Guarda os produtos em uma variável
+                setProducts(productsAux)
+            
+                // Tenho um problema com relação aos ids: Se mudaram a url, não podem botar uma quantidade maior do que o estoque do produto
+                // Porém, tem como botar o mesmo id mais de uma vez, o que faria com que desse, por ex, pra comprar a quantidade máxima do produto 2x
+                setIds(storagedId.split("-"))
+
+                let quantidadeFinal = [0]; // Guarda a quantidade de unidades de cada produto
+
+                let qtds = storagedQuantity.split("-");   // Separa a quantidade de cada produto em um vetor
+                let param = qtds.map(qtd => {
+                    return parseInt(qtd);
+                })
+
+                let l = 0;
+                let quantidadeDeProdutos = [0];    // Salva a quantidade total de produtos
+                for(let iterator of param)  // Salva a quantidade do produto como a que veio da URL ou a máx disponível
+                {
+                    if(productsAux[l])
+                    {
+                        quantidadeFinal[l] = (parseInt(productsAux[l].quantity) > iterator) ? iterator : parseInt(productsAux[l].quantity);
+                    }
+                    quantidadeDeProdutos[l] = l;
+                    l++;
+                }
+
+                setTotalQuantity(quantidadeDeProdutos);
+                setQuantitys(quantidadeFinal);
+
+                let i = 0;
+                let precoFinal = [0];   // Salva o preço de cada produto
+                let parcelaFinal = [""];   // Salva as parcelas
+                let nomeFinal = [""];   // Salva o nome de cada produto
+                for(let prod of productsAux)
+                {
+                    parcelaFinal[i] = prod.conditions;
+                    precoFinal[i] = prod.price;
+                    nomeFinal[i] = prod.name;
+                    i++;
+                }
+                setConditions(parcelaFinal)
+                setPrices(precoFinal)
+                setProductNames(nomeFinal)
+
+                let k = 0;
+                let precoXquantidade = [0];     // Auxiliar pra achar a soma dos preços dos produtos
+                for(let preco of precoFinal)
+                {
+                    precoXquantidade[k] = preco * quantidadeFinal[k];
+                    k++;
+                }
+
+                const reducer = (accumulator:number, currentValue:number) => accumulator + currentValue;
+                setTotalPrice(precoXquantidade.reduce(reducer))  // Salva como o preço total a soma de todos os preços
+
+                let j = 0;
+                let imagemFinal = [""];     // Salva a imagem do produto
+                for(let prod of productsAux)
+                {
+                    if(prod.images.indexOf(",") > 0)
+                        imagemFinal[j] = prod.images.substring(0, prod.images.indexOf(",")); 
+                    else
+                        imagemFinal[j] = prod.images;
+
+                    j++;
+                }
+                setImages(imagemFinal);
+            })
     }, [])
 
     // Se houver algum problema de autorização, tenta pedir um novo token e fazer nova requisição. Se der problema, desloga o usuário.

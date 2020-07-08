@@ -1,5 +1,5 @@
 import React, { useState } from 'react'; 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from '../../contexts/auth'
 import { GrFormClose } from 'react-icons/gr'
 import { Formik, Form } from "formik";
@@ -31,6 +31,7 @@ const Login: React.FC = () =>
 {
     const { signIn } = useAuth();
     const [userError, setUserError] = useState<boolean>(false);
+    const history = useHistory();
 
     function handleCloseUserError()
     {
@@ -60,6 +61,8 @@ const Login: React.FC = () =>
             .then((res) => {
                 // console.log(!res)
                 setUserError(!res);
+                if(res)
+                    history.push('/')
             })
             .catch(()=> { setUserError(true); })
     }

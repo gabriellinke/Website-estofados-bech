@@ -1,5 +1,5 @@
-import React, { useState, useEffect }from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, ChangeEvent, FormEvent}from 'react';
+import { Link, useHistory } from "react-router-dom";
 import api from '../../services/api';
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
@@ -28,6 +28,7 @@ interface User
 
 const Header: React.FC<HeaderProps> = (props) =>
 {
+    const history = useHistory();
     const { user, signOut } = useAuth();
 
     // Estados para saber se deve mostrar o menu de categorias
@@ -35,6 +36,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     const [overMenu, setOverMenu] = useState<boolean>(false);
     const [overOptions, setOverOptions] = useState<boolean>(false);
     const [categories, setCategories] = useState<CategoriesProps[]>();
+    const [search, setSearch] = useState<string>("");
 
     useEffect(() => {
         api.get('category')
@@ -180,6 +182,27 @@ const Header: React.FC<HeaderProps> = (props) =>
         }
     }
 
+    // Atualiza o valor do input
+    function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) 
+    {
+        const { value } = event.target;
+
+        setSearch(value);
+    }
+
+    // Redireciona o usuário para a página de pesquisa
+    function handleSubmit(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+        try{
+            history.push('/search/'+search)
+        }
+        catch
+        {
+            history.push('/search/')
+        }
+    }
+
     return(
     <header>
         <div className = "top">
@@ -192,9 +215,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                 <Link to='/'>
                     <img src={logo} alt="Logomarca" />
                 </Link>
-                <form id="form2" action="/search">
+                <form id="form2" onSubmit={handleSubmit}>
                     <div className="search-field">
-                        <input type="text" name="search" placeholder="Buscar" />
+                        <input type="text" name="search" placeholder="Buscar" onChange={handleSearchInputChange}/>
                         <button>
                             <span> <FiSearch size={20}/> </span>
                         </button>

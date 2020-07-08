@@ -15,7 +15,7 @@ const UserRoutes = () =>
         <BrowserRouter>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
-                <Route component={Search} path="/search" exact/>
+                <Route component={Search} path="/search/:search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
                 <Route component={Home} path="/" exact/>

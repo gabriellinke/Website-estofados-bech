@@ -4,7 +4,7 @@ import Header from '../../partials/Header/Header';
 import { useAuth } from '../../contexts/auth'
 import api from '../../services/api';
 import Ajax from '../../services/ajax'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import load from '../../assets/load2.gif';
 
 import './styles.css';  //Importa o css
@@ -48,6 +48,7 @@ interface FreteInfo{
 const Cart = () => 
 {
     const { user } = useAuth(); // Usuário da sessão
+    const history = useHistory();
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [productsQuantity, setProductsQuantity] = useState<QuantityProps[]>([]); //Guardar a lista com a quantidade de cada produto
     const [loadingInput, setLoadingInput] = useState<number>(0); //Animação de loading quando adiciona/remove produto. O number é o id do produto
@@ -166,6 +167,23 @@ const Cart = () =>
             );
     }
 
+    // Redireciona o usuário para a página de compra
+    function handleSubmit(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+    
+        localStorage.setItem('@EB:id', String(idInput));
+        localStorage.setItem('@EB:quantity', String(quantityInput));
+        try{
+            history.push('/buying')
+        }
+        catch
+        {
+            history.push('/')
+            console.log("Ocorreu um erro no submit do Checkout")
+        }
+    }
+
     // Se o carrinho estiver vazio vai mostrar uma mensagem. Se não estiver, vai mostrar o carrinho
     function showCart()
     {
@@ -244,9 +262,7 @@ const Cart = () =>
                             </div>
                         </div>
                     </div>
-                    <form action="/buying" method="GET" id="form1">
-                        <input type="hidden" name="id" value={idInput} />
-                        <input type="hidden" name="quantity" value={quantityInput} />
+                    <form action="/buying" method="GET" id="form1" onSubmit={handleSubmit}>
                         <button type="submit">Continuar a compra</button>
                     </form>
                 </main>

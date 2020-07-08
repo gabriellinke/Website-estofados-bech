@@ -4,6 +4,7 @@ import Footer from '../../partials/Footer/Footer';
 import Product from '../../partials/Product/Product';
 import api from '../../services/api';
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
+import { useParams } from 'react-router-dom';
 
 import './styles.css';
 
@@ -18,7 +19,7 @@ const Home = () =>
     }
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
-    const [search, setSearch] = useState<string>(""); // Frase que foi pesquisada
+    const [searchWord, setSearchWord] = useState<string>(""); // Frase que foi pesquisada
     const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
     const [limit, setLimit] = useState<number>(8); // Quantidade de itens
@@ -28,14 +29,25 @@ const Home = () =>
     const [previousPage, setPreviousPage] = useState<boolean>(false); // Mostra se tem uma página anterior
 
     // Consulta a API para pegar a lista de produtos
+    let { search } = useParams();
     useEffect(() => {
-        let res = window.location.href.split('?'); //Pega o parametro da URL
-        let search = res[1].split('='); //Pega os valores do parâmetro
-        let searchString = search[1]; //Pega os valores do parâmetro
-        let searchArray = searchString.split('+'); //Substitui os + por espaços
-        let searchFinal = searchArray.join(' '); //Substitui os + por espaços
-        setSearch(searchFinal);
-        
+        let searchFinal = "";
+        let parcial;
+
+        try
+        {
+            // Trocar %20 por espaço
+            parcial = search.split('%20');
+            searchFinal = parcial.join(' ');
+            console.log(searchFinal)
+        }
+        catch{
+            searchFinal = "";
+            parcial = [];
+            console.log("Erro na pesquisa")
+        }
+
+        setSearchWord(searchFinal);
         setCurrentPage(1);
         // Troquei ordem, tenho que ir pra página 1
         api.get('search?page='+1+'&limit='+limit+'&order='+order+'&search='+searchFinal)
@@ -45,7 +57,7 @@ const Home = () =>
                 setNextPage(!!response.data.next.page)
                 setPreviousPage(!!response.data.previous.page)
             });
-    }, [order]);
+    }, [order, search]);
 
     // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid
     useEffect(() => {
@@ -61,7 +73,7 @@ const Home = () =>
     // Atualiza a próxima página de produtos
     function handleNext()
     {
-        api.get('search?page='+(currentPage+1)+'&limit='+limit+'&order='+order+'&search='+search)
+        api.get('search?page='+(currentPage+1)+'&limit='+limit+'&order='+order+'&search='+searchWord)
         .then(response => {
             setProducts(response.data.results)
             setResultsQuantity(response.data.quantity)
@@ -76,7 +88,7 @@ const Home = () =>
     // Atualiza a página anterior de produtos
     function handlePrevious()
     {
-        api.get('search?page='+(currentPage-1)+'&limit='+limit+'&order='+order+'&search='+search)
+        api.get('search?page='+(currentPage-1)+'&limit='+limit+'&order='+order+'&search='+searchWord)
         .then(response => {
             setProducts(response.data.results)
             setResultsQuantity(response.data.quantity)

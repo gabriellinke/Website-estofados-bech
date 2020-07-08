@@ -20,7 +20,7 @@ const AuthRoutes = () =>
                 <Route component={Register} path="/user/register" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Home} path="/" exact/>
-                <Route component={Search} path="/search" exact/>
+                <Route component={Search} path="/search/:search" exact/>
                 <Route component={Product} path="/products/:id" exact/>
                 <Route component={NewPassword} path="/user/reset" exact/>
                 <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
