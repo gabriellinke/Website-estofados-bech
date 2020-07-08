@@ -249,7 +249,7 @@ const Product = () =>
     }
 
     // Redireciona o usuário para a página de compra
-    function handleSubmit(event: FormEvent<HTMLFormElement>)
+    function handleCheckout(event: FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
 
@@ -291,7 +291,7 @@ const Product = () =>
                             </div>
                         </div>
                         <div className="buy">
-                            <form action="/buying" method="GET" id="form1" onSubmit={handleSubmit}>
+                            <form action="/buying" method="GET" id="form1" onSubmit={handleCheckout}>
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x no cartão`}</p>
                                 <div className="purchase-area">
