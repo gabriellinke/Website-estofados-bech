@@ -34,6 +34,7 @@ routes.post(
     upload.single('images'),
     authenticateToken,
     productsController.create);
+routes.post('/products/delete', authenticateToken, productsController.delete);   // Rota para deletar um produto
 routes.post('/products/modify', authenticateToken, productsController.modify);   // Rota para modificar um produto
 routes.post('/products/list', productsController.list);     // Rota para listar determinados produtos
 routes.post('/description', authenticateToken, productsController.createDescription);   // Rota para cadastrar descrições de um produto

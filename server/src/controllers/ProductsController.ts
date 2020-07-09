@@ -47,6 +47,22 @@ class ProductsController
         });
     }
 
+    // Deleta um produto
+    async delete(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            id
+        } = request.body;
+
+        const removedProduct = await knex('products').where('id', id).del();
+
+        return response.json({
+            removedProduct
+        })
+    }
+
     // Modifica um produto existente
     async modify(request: Request, response: Response)
     {

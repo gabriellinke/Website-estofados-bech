@@ -93,6 +93,7 @@ const Product = () =>
     const [savedDescription, setSavedDescription] = useState<string>('');   // Imagem que deve ser deletada
     const [descriptionToDelete, setDescriptionToDelete] = useState<string>('');   // Descrição que deve ser deletada
     const [modifyingProduct, setModifyingProduct] = useState<boolean>(false);   // Form para modificar o produto
+    const [deletingProduct, setDeletingProduct] = useState<boolean>(false);   // Mostra o modal de deletar o produto
     const [addingPhoto, setAddingPhoto] = useState<boolean>(false);   // Abre a dropzone para adicionar foto
     const [savedModified, setSavedModified] = useState<FormikValues>();   // Salva os dados que foram modificados no produto, para casos com problema de autenticação
     const [selectedFIle, setSelectedFile] = useState<File>(); //Guardar o arquivo da imagem
@@ -215,6 +216,25 @@ const Product = () =>
                                 alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
                                 setSavedDescription('');
                             })
+                    }
+                    else if(notAuthorized === 'deleteProduct')
+                    {
+                        api.post('products/delete', {id: product?.id})
+                        .then(response => {
+                            if(response.data.removedProduct > 0)
+                            {
+                                setDeletingProduct(false);
+                                alert("Produto removido")
+                                history.push('/');
+                            }
+                            
+                            setDeletingProduct(false);
+                        })
+                        .catch(err => {
+                            setDeletingProduct(false);
+                            console.log(err);
+                            alert("Problema de autorização, tente relogar. Se o problema persistir, contate o desenvolvedor");
+                        })
                     }
                 }) 
                 .catch(err => {
@@ -410,6 +430,44 @@ const Product = () =>
             );
     }
 
+    // Modal para deletar produto
+    function modalDeleteProduct()
+    {
+        if(deletingProduct)
+            return(
+                <div id="modal" className='delete-modal'>
+                    <div className="content">
+                        <div className="header">
+                            <h1>Tem certeza que deseja excluir o produto?</h1>
+                            <div className="buttons">
+                                <button className="ok" onClick={deleteProduct}>Sim</button>
+                                <button onClick={() => setDeletingProduct(false)}>Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+    }
+
+    // Função que deleta o produto
+    function deleteProduct()
+    {
+        api.post('products/delete', {id: product?.id})
+            .then(response => {
+                if(response.data.removedProduct > 0)
+                {
+                    setDeletingProduct(false);
+                    alert("Produto removido")
+                    history.push('/');
+                }
+                setDeletingProduct(false);
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('deleteProduct')
+            })
+    }
+
     // Ao enviar o formulário de modificação
     const handleSubmit = (values: FormValues): void =>
     {
@@ -447,6 +505,7 @@ const Product = () =>
                                     </div>
                                     <button>Aplicar mudanças</button>
                                 </Form>
+                                <button className="delete-product" onClick={() => setDeletingProduct(true)}>Excluir produto</button>    
                             </div>
                         );
                     }}
@@ -502,6 +561,7 @@ const Product = () =>
             })
     }
 
+    // Usado para criar uma nova decrição
     const handleSubmit2 = (values: DescriptionFormValues): void =>
     {
         setSavedDescription(values.description);
@@ -521,6 +581,7 @@ const Product = () =>
             })
     }
 
+    // Form para criar descrição
     function descriptionForm()
     {
         return(
@@ -639,6 +700,7 @@ const Product = () =>
             {modalDeleteImage()}
             {modalDeleteDescription()}
             {addPhotoDropzone()}
+            {modalDeleteProduct()}
         </div>
     );
 };

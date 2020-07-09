@@ -217,16 +217,23 @@ const Product = () =>
     function addToCart()
     {
         setLoadingCart(true)
-        api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
-            .then(response => {
-                setLoadingCart(false);
-                console.log(response.data);
-                history.push('/user/cart')
-            })
-            .catch(err =>{
-                console.log(err);
-                setLoadingCart(false);
-            })
+        if(localStorage.getItem('@EB:accessToken'))
+        {
+            api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
+                .then(response => {
+                    setLoadingCart(false);
+                    console.log(response.data);
+                    history.push('/user/cart');
+                })
+                .catch(err =>{
+                    console.log(err);
+                    setLoadingCart(false);
+                })
+        }
+        else
+        {
+            history.push('/user/login');
+        }
     }
 
     // Mostra o botão do carrinho e mostra a animação de carregamento
@@ -256,13 +263,20 @@ const Product = () =>
         let idProduto = product.id        
         localStorage.setItem('@EB:id', String(idProduto));
         localStorage.setItem('@EB:quantity', String(quantity));
-        try{
-            history.push('/buying')
-        }
-        catch
+        if(localStorage.getItem('@EB:accessToken'))
         {
-            history.push('/')
-            console.log("Ocorreu um erro no submit do Checkout")
+            try{
+                history.push('/buying')
+            }
+            catch
+            {
+                history.push('/')
+                console.log("Ocorreu um erro no submit do Checkout")
+            }
+        }
+        else
+        {
+            history.push('/user/login')
         }
     }
 

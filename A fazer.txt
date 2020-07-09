@@ -83,6 +83,7 @@ Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com i
 Fazer layouts de Contato, Quem somos, etc.
 
 Fazer os ajustes de acordo com o tamanho da tela
+Quando tudo estiver pronto, tirar a opção de criar conta admin
 
 https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 

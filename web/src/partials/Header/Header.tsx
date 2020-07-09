@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = (props) =>
             {
                 return (
                     <div className="user-area">
-                        <Link to='register' className='register'>
+                        <Link to='/register' className='register'>
                             <span><AiFillFileAdd size='60' /> </span>
                             <div>Novo <br/>produto</div>
                         </Link>
@@ -236,9 +236,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                             <span className="arrow"><MdKeyboardArrowDown size="15"/></span>
                         </div>
                     </Link>
-                    {/* {categoriesOptions()} */}
+                    {categoriesOptions()}
                 </div>
-                {/* {categoriesOutOfMenu()} */}
+                {categoriesOutOfMenu()}
             </div>
         </div>
     </header>

@@ -213,6 +213,37 @@
     background-color: var(--hover-color);
 }
 
+#product-info-admin .content main .buy .modify-product button.delete-product
+{
+    width: 180px;
+    height: 56px;
+  
+    background-color: #ff2828;
+    border-radius: 8px;
+  
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  
+    border: 0;
+  
+    margin-top: 32px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#product-info-admin .content main .buy .modify-product button.delete-product:hover
+{
+    background-color: #da2121;
+}
+
+
 #product-info-admin .content main .buy a
 {
     margin-left: 32px;
