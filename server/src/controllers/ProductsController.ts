@@ -37,8 +37,6 @@ class ProductsController
             diametro,
         };
 
-        console.log(request.file)
-
         const insertedProduct = await knex('products').insert(product);
         const product_id = insertedProduct[0];
 
@@ -348,6 +346,68 @@ class ProductsController
     {
         const categories = await knex('categories');
         return response.json(categories);
+    }
+
+    // Adiciona um novo produto a lista de produtos vendidos
+    async sold(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            email,
+            quantity,
+            date,
+            code,
+            id
+        } = request.body;
+
+        const produto = await knex('products').where('id', id).first();
+
+        const product = {
+            email,
+            image: produto.images,
+            name: produto.name,
+            quantity,
+            price: produto.price,
+            date,
+            code,
+            delivered: false,
+        };
+
+        const insertedProduct = await knex('sold_products').insert(product);
+
+        return response.json({
+            product,
+        })
+    }
+
+    // Muda o estado do produto de vendido para entregue
+    async delivered(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const id = request.body.id
+        const produto = await knex('sold_products').where('id', id).update({delivered:true});
+
+        return response.json({
+            modificado: !!produto
+        })
+    }
+
+    // Mostra os detalhes do produto vendido
+    async showSold(request: Request, response: Response)
+    {
+        const { id } = request.params;
+
+        const sold_products = await knex('sold_products').where('id', id);
+
+        if(!sold_products)
+        {
+            // Status com começo 4 significa que houve algum erro
+            return response.status(400).json({ message: 'sold_products not found'});
+        }
+
+        return response.json(sold_products);
     }
 }
 

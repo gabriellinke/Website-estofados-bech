@@ -27,6 +27,7 @@ routes.get('/products', productsController.index);  // Rota para obter todos os 
 routes.get('/products/:id', productsController.show);   // Rota para obter um produto específico
 routes.get('/descriptions/:id', productsController.showDescriptions);   // Rota para obter as descrições de um produto específico
 routes.get('/category', productsController.indexCategories);     // Rota para obter as categorias
+routes.get('/sold/:id', productsController.showSold);     // Rota para obter as categorias
 
 //Upload de mais imagens deveria ser feito com upload.array, mas deu problema com o typescript e precisou de uma nova rota de upload de imagens
 routes.post(
@@ -42,6 +43,8 @@ routes.post('/remove/description', authenticateToken, productsController.removeD
 routes.post('/image/:id', upload.single('images'), authenticateToken, productsController.image);   // Rota para cadastrar as imagens de um produto
 routes.post('/remove/image', authenticateToken, productsController.removeImage);  // Rota  para remover imagens
 routes.post('/category', authenticateToken, productsController.category);     // Rota para cadastrar categorias
+routes.post('/products/sold', authenticateToken, productsController.sold);     // Rota para registrar um produto que foi vendido
+routes.post('/products/delivered', authenticateToken, productsController.delivered);     // Rota para mudar o estado de vendido para entregue
 
 routes.post('/user/login', usersController.verifyUser);     // Rota para verificar o usuário e senha
 routes.post('/user/reset', usersController.verifyEmail);    // Rota para verificar se o email está cadastrado e enviar um email de recuperação de senha
