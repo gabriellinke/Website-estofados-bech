@@ -99,7 +99,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                             <div>Novo <br/>produto</div>
                         </Link>
                         <div className="user">
-                            <span><FaUserCircle size="60"/> </span>
+                            <Link to='/user/menu'>
+                                <span><FaUserCircle size="60"/> </span>
+                            </Link>
                             <div className="name-logout">
                                 <div className="user-name">{user.name}</div>
                                 <Link to="" onClick={handleLogOut}>Logout</Link>

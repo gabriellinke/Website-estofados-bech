@@ -384,8 +384,6 @@ class ProductsController
     // Muda o estado do produto de vendido para entregue
     async delivered(request: Request, response: Response)
     {
-        if(!request.body.user.admin) return response.sendStatus(401);
-
         const id = request.body.id
         const produto = await knex('sold_products').where('id', id).update({delivered:true});
 
@@ -400,6 +398,22 @@ class ProductsController
         const { id } = request.params;
 
         const sold_products = await knex('sold_products').where('id', id);
+
+        if(!sold_products)
+        {
+            // Status com começo 4 significa que houve algum erro
+            return response.status(400).json({ message: 'sold_products not found'});
+        }
+
+        return response.json(sold_products);
+    }
+
+    // Mostra os detalhes dos produtos vendidos para um determinado email
+    async showEmailSold(request: Request, response: Response)
+    {
+        const { email } = request.params;
+
+        const sold_products = await knex('sold_products').where('email', email);
 
         if(!sold_products)
         {
