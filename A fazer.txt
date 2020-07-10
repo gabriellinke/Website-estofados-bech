@@ -60,9 +60,9 @@ Achar algum lugar pra armazenar as imagens
 
 
 Banco de dados para compras realizadas 					OK
-Página para acompanhar compra. Informações do produto e código de rastreamento. Também tem botão para sinalizar: Recebi minha compra. - Se a compra tem mais de 30 dias, manda pro histórico
-Página de histórico de compras mostra a data da compra e as informações do produto comprado.
-Página para alterar informações: Altera nome e sobrenome. Também altera senha, porém, pra conseguir dar o submit tem que confirmar com a senha da conta.
+Página para acompanhar compra						OK
+Página de histórico de compras						OK
+Página para alterar senha						OK
 
 - Menu com opção de consultar dados do comprador e depois para cadastrar para acompanhamento
 Fazer página para o admin verificar os dados do comprador do produto

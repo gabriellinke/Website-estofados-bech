@@ -381,6 +381,19 @@ class ProductsController
         })
     }
 
+    async soldDelete(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const id = request.body.id;
+
+        const removedProduct = await knex('sold_products').where('id', id).del();
+
+        return response.json({
+            removed: !!removedProduct
+        })
+    }
+
     // Muda o estado do produto de vendido para entregue
     async delivered(request: Request, response: Response)
     {

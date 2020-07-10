@@ -78,6 +78,60 @@
     padding-bottom: 32px;
 }   
 
+#page-user-menu .content main .info .form p.detail
+{
+    font-size: 18px;
+    margin-top: 24px;
+}
+
+#page-user-menu .content main .info .form p.success
+{
+    color: #02b11c;
+}
+
+#page-user-menu .content main .info .form p.error
+{
+    color: #b10802;
+}
+
+#page-user-menu .content main .info .form button
+{
+    width: 180px;
+    height: 40px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    border-radius: 6px;
+    margin-top: 24px;
+
+    border: 0;
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-user-menu .content main .info .form button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#page-user-menu .content main .info .form .button-loading img
+{
+    margin-top: 24px;
+}
+
+#page-user-menu .content main .info .form .button-loading
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #page-user-menu .content main .info .not-found
 {
     height: 400px;

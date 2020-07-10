@@ -221,6 +221,33 @@ class UsersController
             return response.json(changedUser)
         })
     }
+
+    // Muda a senha do usuário
+    async changePassword(request: Request, response: Response)
+    {
+        const {
+            email,
+            password,
+            new_password
+        } = request.body;
+
+        const shaObj = new jsSHA("SHA3-512", "TEXT")
+        shaObj.update(password);
+        const HashPassword = shaObj.getHash("HEX");
+
+        const userOk:User = await knex('users').where('email', email).where('password', HashPassword).first();
+
+        const shaObj2 = new jsSHA("SHA3-512", "TEXT")
+        shaObj2.update(new_password);
+        const NewHashPassword = shaObj2.getHash("HEX");
+
+        let ok;
+        if(userOk != undefined)
+            ok = await knex('users').where('email', email).update({password: NewHashPassword});
+
+        return response.json({changed: !!ok})
+    }
+
 }
 
 function generateAccessToken(user:User) {
