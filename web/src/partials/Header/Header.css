@@ -83,6 +83,15 @@ header .user-area a.register
     margin-right: 16px;
 }
 
+header .user-area .name-logout a.logout
+{
+    transition: 200ms;
+}
+
+header .user-area .name-logout a.logout:hover
+{
+    color: #cccccc;
+}
 
 header .bottom-menu
 {

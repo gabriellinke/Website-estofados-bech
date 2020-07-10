@@ -10,7 +10,6 @@ class ProductsController
 
         const {
             name,       
-            images,
             category,
             conditions,
             price,
@@ -37,6 +36,8 @@ class ProductsController
             largura,
             diametro,
         };
+
+        console.log(request.file)
 
         const insertedProduct = await knex('products').insert(product);
         const product_id = insertedProduct[0];

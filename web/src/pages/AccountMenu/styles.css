@@ -1,0 +1,97 @@
+#page-user-menu
+{
+    height: 100%;
+    position: relative;
+}
+
+#page-user-menu .content{
+    padding-bottom: 110px;
+    min-height: 100vh;
+
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#page-user-menu .content main
+{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    border: 1px solid rgb(204, 203, 203);
+
+    display: grid;
+    grid-template-columns: 270px auto;
+}
+
+#page-user-menu .content main .menu
+{
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0;
+    border-right: 1px solid rgb(204, 203, 203);
+    color: #333333;
+    font-weight: 500;
+}
+
+#page-user-menu .content main .menu .option
+{
+    display: flex;
+    flex-direction: column;
+    padding: 4px 28px;
+    cursor: pointer;
+    transition: 200ms;
+    font-size: 18px;
+}
+
+#page-user-menu .content main .menu .selected
+{
+    font-weight: bold;
+}
+
+#page-user-menu .content main .menu .option:hover
+{
+    background-color: #dddddd;
+}
+
+#page-user-menu .content main .info
+{
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+}
+
+#page-user-menu .content main .info h1
+{
+    margin-left: 16px;
+    margin-top: 32px;
+}   
+
+#page-user-menu .content main .info .empty
+{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#page-user-menu .content main .info .empty .title
+{
+    text-align: center;
+    font-size: 32px;
+}
+
+#page-user-menu .content main .info .empty a
+{
+    font-size: 24px;
+    text-align: center;
+}

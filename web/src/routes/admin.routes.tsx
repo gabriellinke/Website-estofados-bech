@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import ProductAdmin from '../pages/ProductAdmin';
 import RegisterProduct from '../pages/RegisterProduct'
 import Cart from '../pages/Cart'
+import AccountMenu from '../pages/AccountMenu'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
 import ResetPassword from '../pages/ResetPassword'
@@ -18,6 +19,7 @@ const AdminRoutes = () =>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
+                <Route component={AccountMenu} path="/user/menu" exact/>
                 <Route component={Search} path="/search/:search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Home} path="/" exact/>

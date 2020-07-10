@@ -75,10 +75,12 @@ const Header: React.FC<HeaderProps> = (props) =>
                 return (
                     <div className="user-area">
                         <div className="user">
-                            <span><FaUserCircle size="60"/> </span>
+                            <Link to='/user/menu'>
+                                <span><FaUserCircle size="60"/> </span>
+                            </Link>
                             <div className="name-logout">
                                 <div className="user-name">{user.name}</div>
-                                <Link to="" onClick={handleLogOut}>Logout</Link>
+                                <Link to="" className="logout" onClick={handleLogOut}>Logout</Link>
                             </div>
                         </div>
                         <Link to="/user/cart" className="carrinho">

@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Checkout from '../pages/Checkout';
 import Home from '../pages/Home'
 import Product from '../pages/Product'
+import AccountMenu from '../pages/AccountMenu'
 import Cart from '../pages/Cart'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
@@ -19,6 +20,7 @@ const UserRoutes = () =>
                 <Route component={Search} path="/search/:search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
+                <Route component={AccountMenu} path="/user/menu" exact/>
                 <Route component={Home} path="/" exact/>
                 <Route component={Product} path="/products/:id" exact/>
                 <Route component={ResetPassword} path="/user/reset_password/:token" exact/>

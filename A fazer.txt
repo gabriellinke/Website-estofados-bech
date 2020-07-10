@@ -52,17 +52,24 @@ Fazer recuperação de senha através do email 				OK
 Mudar link para página de pesquisa					OK
 Mudar link para página de checkout					OK
 Ao logar ir para '/'							OK
+Deletar produto								OK
 
 Fazer o deploy								ALFA OK
+Achar algum lugar pra armazenar as imagens
 
-Redirecionar pro login se tentar comprar e n tiver token
-Redirecionar pro login se tentar adicionar ao carrinho e n tiver token
-Deletar produto
 
-Mexer na parte de frete
-Fazer o cálculo do frete pelo carrinho
-Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
-Frete tem que ser maior que 0 para liberar a compra
+
+Banco de dados para acompanhar compra
+Banco de dados para histórico de compra
+Página para acompanhar compra. Informações do produto e código de rastreamento. Também tem botão para sinalizar: Recebi minha compra.
+Página de histórico de compras mostra a data da compra e as informações do produto comprado.
+Página para alterar informações: Altera nome e sobrenome. Também altera senha, porém, pra conseguir dar o submit tem que confirmar com a senha da conta.
+
+- Menu com opção de consultar dados do comprador e depois para cadastrar para acompanhamento
+Fazer página para o admin verificar os dados do comprador do produto
+Página pro admin cadastrar produto para acompanhamento.
+
+
 
 Fazer as backURLs
 
@@ -70,20 +77,25 @@ Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Dentro de 24
 Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Assim que seu pagamento for aprovado poderá acessar a página da sua conta e acompanhar o pedido, como mostram as imagens. Caso haja alguma dúvida ou algum problema, contate a loja através desses contatos:
 Infelizmente a sua compra não foi concluída. Caso esteja havendo algum problema, contate a loja através desses contatos:
 
-Página para acompanhar a compra. Também tirar o item do carrinho se ele tiver ido para essa página.
-Fazer uma página de histórico de compra e uma de acompanhamento.
-Fazer página para mudar dados de nome, sobrenome e senha.
+Mexer na parte de frete
+Fazer o cálculo do frete pelo carrinho
+Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
+Frete tem que ser maior que 0 para liberar a compra
 
-Fazer página para o admin verificar os dados do comprador do produto
 Fazer outras páginas que faltam
 
+Arrumar redirecionamento quando o admin cria um produto
 Fazer um hover quando passar o mouse por cima da imagem de um produto
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Fazer layouts de Contato, Quem somos, etc.
+Política de privacidade. Termos...
+
+Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados
 
 Fazer os ajustes de acordo com o tamanho da tela
 Quando tudo estiver pronto, tirar a opção de criar conta admin
+Deploy definitivo, com tudo no github, sabendo certinho como funciona
 
 https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 
