@@ -381,6 +381,7 @@ class ProductsController
         })
     }
 
+    // Remove um produto da lista de produtos vendidos
     async soldDelete(request: Request, response: Response)
     {
         if(!request.body.user.admin) return response.sendStatus(401);

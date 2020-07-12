@@ -70,7 +70,9 @@ Página pro admin cadastrar produto para acompanhamento.
 Ao cadastrar para acompanhamento, verifica se o produto estava no carrinho. Se sim, tira ele.
 Também deixar o admin ver quais produtos estão em acompanhamento. Deixar opção de excluir caso tenha cadastrado errado
 
-
+Consultar dados do comprador
+Cadastrar produto para acompanhamento
+Listar produtos em acompanhamento de um usuário
 
 Fazer as backURLs
 
@@ -91,6 +93,8 @@ Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Fazer layouts de Contato, Quem somos, etc.
 Política de privacidade. Termos...
+
+Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 
 Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados
 
