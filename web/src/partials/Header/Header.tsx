@@ -208,7 +208,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     }
 
     return(
-    <header>
+    <header id="Header">
         <div className = "top">
             <Link to="/">Home</Link>
             <Link to="">Quem somos</Link>
@@ -242,7 +242,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                     </Link>
                     {categoriesOptions()}
                 </div>
-                {categoriesOutOfMenu()}
+                <div className="categories-out-of-menu">
+                    {categoriesOutOfMenu()}
+                </div>
             </div>
         </div>
     </header>
