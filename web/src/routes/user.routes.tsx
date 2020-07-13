@@ -9,6 +9,9 @@ import Cart from '../pages/Cart'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
 import ResetPassword from '../pages/ResetPassword'
+import CheckoutOk from '../pages/CheckoutOk'
+import CheckoutPending from '../pages/CheckoutPending'
+import CheckoutError from '../pages/CheckoutError'
 
 // Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
 const UserRoutes = () => 
@@ -17,6 +20,9 @@ const UserRoutes = () =>
         <BrowserRouter>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
+                <Route component={CheckoutOk} path="/buying/success" exact/>
+                <Route component={CheckoutPending} path="/buying/pending" exact/>
+                <Route component={CheckoutError} path="/buying/error" exact/>
                 <Route component={Search} path="/search/:search" exact/>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Cart} path="/user/cart" exact/>
