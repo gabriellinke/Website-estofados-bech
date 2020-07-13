@@ -48,7 +48,7 @@ const VerifySchema = Yup.object().shape({
         .required("Obrigatório"),
 });
 
-const Cart = () => 
+const AccountMenu = () => 
 {
     const { user } = useAuth();
 
@@ -330,4 +330,4 @@ const Cart = () =>
     );
 };
 
-export default Cart;
+export default AccountMenu;

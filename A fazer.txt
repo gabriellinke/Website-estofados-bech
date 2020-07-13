@@ -55,24 +55,16 @@ Ao logar ir para '/'							OK
 Deletar produto								OK
 
 Fazer o deploy								ALFA OK
-Achar algum lugar pra armazenar as imagens
-
-
 
 Banco de dados para compras realizadas 					OK
 Página para acompanhar compra						OK
 Página de histórico de compras						OK
 Página para alterar senha						OK
 
-- Menu com opção de consultar dados do comprador e depois para cadastrar para acompanhamento
-Fazer página para o admin verificar os dados do comprador do produto
-Página pro admin cadastrar produto para acompanhamento.
-Ao cadastrar para acompanhamento, verifica se o produto estava no carrinho. Se sim, tira ele.
-Também deixar o admin ver quais produtos estão em acompanhamento. Deixar opção de excluir caso tenha cadastrado errado
+Página para o admin verificar os dados do comprador do produto		OK
+Página pro admin cadastrar produto para acompanhamento			OK
+Página pro admin ver quais produtos estão em acompanhamento		OK
 
-Consultar dados do comprador
-Cadastrar produto para acompanhamento
-Listar produtos em acompanhamento de um usuário
 
 Fazer as backURLs
 
@@ -85,8 +77,7 @@ Fazer o cálculo do frete pelo carrinho
 Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
 Frete tem que ser maior que 0 para liberar a compra
 
-Fazer outras páginas que faltam
-
+Achar algum lugar pra armazenar as imagens
 Arrumar redirecionamento quando o admin cria um produto
 Fazer um hover quando passar o mouse por cima da imagem de um produto
 Fazer uma proporção pro tamanho da imagem do produto

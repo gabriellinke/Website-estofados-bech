@@ -58,16 +58,16 @@ const VerifySchema = Yup.object().shape({
         .required("Obrigatório"),
 });
 
-const Cart = () => 
+const AccountMenuAdmin = () => 
 {
-    const [consult, setConsult] = useState<boolean>(true);
-    const [create, setCreate] = useState<boolean>(false);
-    const [list, setList] = useState<boolean>(false);
-    const [products, setProducts] = useState<SoldProduct[]>([]);
-    const [code, setCode] = useState<string>('');
-    const [userMP, setUserMP] = useState<UserProps>();
-    const [loading, setLoading] = useState<boolean>(false); //Animação de loading
-    const [situation, setSituation] = useState<string>('');
+    const [consult, setConsult] = useState<boolean>(true);  // Mostra a página pra consultar os dados do comprador
+    const [create, setCreate] = useState<boolean>(false);   // Mostra a página pra acompanhamento do produto
+    const [list, setList] = useState<boolean>(false);   // Mostra a página pra listar produtos de um usuário
+    const [products, setProducts] = useState<SoldProduct[]>([]);    // Mostra os produtos no histórico de um usuário
+    const [code, setCode] = useState<string>('');   // Salva o código da compra pra pegar os dados do comprador
+    const [userMP, setUserMP] = useState<UserProps>();  // Usuário que está sendo pesquisado pela sua compra
+    const [loading, setLoading] = useState<boolean>(false); // Animação de loading
+    const [situation, setSituation] = useState<string>(''); // Mensagem de cadastro ou de erro
     const [notAuthorized, setNotAuthorized] = useState<string>('');    // Diz se o usuário não é autorizado
     const [createData, setCreateData] = useState<FormValues>();    // Guarda os dados para ser usado se a primeira request não tiver sido autorizada
     const [email, setEmail] = useState<string>('');  // Email do usuário que se deseja acompanhar
@@ -218,6 +218,7 @@ const Cart = () =>
             );
     }
 
+    // Mensagem de cadastrado ou de erro
     function message()
     {
         if(situation === 'ok')
@@ -226,6 +227,7 @@ const Cart = () =>
             return <p className="detail error">Erro ao cadastrar</p>
     }
 
+    // Cria um produto no histórico de um usuário
     const handleCreateProduct = (values: FormValues): void =>
     {
         setLoading(true)
@@ -244,6 +246,7 @@ const Cart = () =>
             })
     }
 
+    // Consulta a lista de produtos de um usuário
     function handleList(event: FormEvent<HTMLFormElement>)
     {
         event.preventDefault();
@@ -259,9 +262,10 @@ const Cart = () =>
             })
     }
 
+    // Mostra se o produto já foi entregue pro usuário
     function delivered(delivered: boolean)
     {
-        return delivered? <p>Sim</p> : <p>Não</p>
+        return delivered? <p>Sim</p> : <p>Não informado</p>
     }
 
     // Modal que pede confirmação de que o produto foi entregue
@@ -285,6 +289,7 @@ const Cart = () =>
         }
     }
 
+    // Faz um POST pra API para deletar um produto do histórico do usuário
     function deleteProduct()
     {
         api.post('products/sold/delete', {id: deleting})
@@ -307,6 +312,7 @@ const Cart = () =>
             })
     }
 
+    // Mostra os produtos do histórico de um usuário
     function userProducts()
     {
         return(
@@ -450,4 +456,4 @@ const Cart = () =>
     );
 };
 
-export default Cart;
+export default AccountMenuAdmin;
