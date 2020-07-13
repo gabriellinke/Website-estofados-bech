@@ -65,29 +65,27 @@ Página para o admin verificar os dados do comprador do produto		OK
 Página pro admin cadastrar produto para acompanhamento			OK
 Página pro admin ver quais produtos estão em acompanhamento		OK
 
+Fazer páginas de redirecionamento pós compra				OK
+Fazer as backURLs							OK
 
-Fazer as backURLs
 
-Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Dentro de 24 horas você poderá acessar a página da sua conta e acompanhar o pedido, como mostram as imagens. Caso haja alguma dúvida ou algum problema, contate a loja através desses contatos:
-Parabéns, você acabou de fazer uma compra na Loja Estofados Bech! Assim que seu pagamento for aprovado poderá acessar a página da sua conta e acompanhar o pedido, como mostram as imagens. Caso haja alguma dúvida ou algum problema, contate a loja através desses contatos:
-Infelizmente a sua compra não foi concluída. Caso esteja havendo algum problema, contate a loja através desses contatos:
 
-Mexer na parte de frete
-Fazer o cálculo do frete pelo carrinho
-Mudar o frete no checkout: Tem q levar em conta a quantidade de produtos
-Frete tem que ser maior que 0 para liberar a compra
-
-Achar algum lugar pra armazenar as imagens
 Arrumar redirecionamento quando o admin cria um produto
 Fazer um hover quando passar o mouse por cima da imagem de um produto
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
+Achar algum lugar pra armazenar as imagens
 Fazer layouts de Contato, Quem somos, etc.
 Política de privacidade. Termos...
 
 Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 
-Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados
+Mexer na parte de frete
+Fazer o cálculo do frete pelo carrinho
+Mudar o frete no checkout: Tem que levar em conta a quantidade de produtos
+Frete tem que ser maior que 0 para liberar a compra
+
+Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy
 
 Fazer os ajustes de acordo com o tamanho da tela
 Quando tudo estiver pronto, tirar a opção de criar conta admin
