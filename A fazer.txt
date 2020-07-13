@@ -71,7 +71,6 @@ Fazer as backURLs							OK
 
 
 Arrumar redirecionamento quando o admin cria um produto
-Fazer um hover quando passar o mouse por cima da imagem de um produto
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Achar algum lugar pra armazenar as imagens
