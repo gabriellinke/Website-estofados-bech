@@ -102,42 +102,44 @@ const RegisterFormik: React.FC = () =>
   }
 
   return (
-    <div className="RegisterFormik">
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={SignupSchema}
-      >
-        {() => {
-          return (
-            <div>
-                <body></body>
-                <header>
-                    <img src={logo} alt="Logomarca" />
-                </header>
-                <Form className="form">
-                    <h1>Cadastre-se</h1>
-                    <FormikField name="name" label="Nome"/>
-                    <FormikField name="surname" label="Sobrenome"/>
-                    <FormikField name="email" label="Email"/>
-                    <FormikField name="password" label="Senha " type="password"/>
-                    <FormikField name="repeat_password" label="Confirme a senha" type="password" />
+    <div id="page-register">
+      <div className="RegisterFormik">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={SignupSchema}
+        >
+          {() => {
+            return (
+              <div>
+                  <body></body>
+                  <header>
+                      <img src={logo} alt="Logomarca" />
+                  </header>
+                  <Form className="form">
+                      <h1>Cadastre-se</h1>
+                      <FormikField name="name" label="Nome"/>
+                      <FormikField name="surname" label="Sobrenome"/>
+                      <FormikField name="email" label="Email"/>
+                      <FormikField name="password" label="Senha " type="password"/>
+                      <FormikField name="repeat_password" label="Confirme a senha" type="password" />
 
-                    <button type="submit">
-                      Cadastre-se
-                    </button>
-                    <Link to="/user/login">
-                          <span>Já tenho uma conta</span>
-                    </Link>
-                </Form>
-                <Footer />
+                      <button type="submit">
+                        Cadastre-se
+                      </button>
+                      <Link to="/user/login">
+                            <span>Já tenho uma conta</span>
+                      </Link>
+                  </Form>
+                  <Footer />
 
-                {handleRegister()}
+                  {handleRegister()}
 
-            </div>
-          );
-        }}
-      </Formik>
+              </div>
+            );
+          }}
+        </Formik>
+      </div>
     </div>
   );
 };

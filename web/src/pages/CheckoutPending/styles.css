@@ -1,12 +1,12 @@
-#page-checkout-ok
+#page-checkout-pending
 {
     height: 100%;
     position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
 }
 
-#page-checkout-ok .content{
-    padding-bottom: 110px;
-    min-height: 100vh;
+#page-checkout-pending .content{
 
     width: 90%;
     max-width: 1200px;
@@ -19,7 +19,7 @@
     flex-direction: column;
 }
 
-#page-checkout-ok .content main
+#page-checkout-pending .content main
 {
     margin-top: 32px;
     margin-bottom: 32px;
@@ -39,7 +39,7 @@
     color: #333333;
 }
 
-#page-checkout-ok body::after
+#page-checkout-pending body::after
 {
     content: "";
     position: absolute ;
@@ -52,13 +52,13 @@
     z-index: -1;
 }
 
-#page-checkout-ok header img
+#page-checkout-pending header img
 {
 
     background-color: var(--cor-teste);
 }
 
-#page-checkout-ok header
+#page-checkout-pending header
 {
     background-color: var(--cor-teste);
     padding-top: 64px;
@@ -66,58 +66,58 @@
     align-items: center;
 }
 
-#page-checkout-ok .content main .title-first
+#page-checkout-pending .content main .title-first
 {
     text-align: center;
     font-size: 34px;
     margin-bottom: 16px;
 }
 
-#page-checkout-ok .content main .title-second
+#page-checkout-pending .content main .title-second
 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 100px;
 }
 
-#page-checkout-ok .content main .info
+#page-checkout-pending .content main .info
 {
     margin-bottom: 50px;
     text-align: justify;
 }
 
-#page-checkout-ok .content main .header-image .subtitle
+#page-checkout-pending .content main .header-image .subtitle
 {
     font-size: 18px;
     font-weight: 500;
     text-align: center;
 }
 
-#page-checkout-ok .content main .header-image 
+#page-checkout-pending .content main .header-image 
 {
     margin-bottom: 60px;
 }
 
-#page-checkout-ok .content main .menu-image .subtitle
+#page-checkout-pending .content main .menu-image .subtitle
 {
     font-size: 18px;
     font-weight: 500;
     text-align: center;
 }
 
-#page-checkout-ok .content main .menu-image 
+#page-checkout-pending .content main .menu-image 
 {
     margin-bottom: 60px;
 }
 
-#page-checkout-ok .content main a
+#page-checkout-pending .content main a
 {
     font-weight: 500;
     text-align: center;
     color:#3483FA;
 }
 
-#page-checkout-ok .content main .contato
+#page-checkout-pending .content main .contato
 {
     text-align: center;
     margin-bottom: 60px;

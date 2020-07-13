@@ -2,11 +2,11 @@
 {
     height: 100%;
     position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
 }
 
 #page-cart .content{
-    padding-bottom: 110px;
-    min-height: 100vh;
 
     width: 90%;
     max-width: 1200px;

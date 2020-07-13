@@ -11,7 +11,7 @@ const CheckoutPending = () =>
 {
 
     return(
-        <div id="page-checkout-ok">
+        <div id="page-checkout-pending">
             <body>
             </body>
             <header>

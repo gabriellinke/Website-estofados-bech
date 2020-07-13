@@ -31,7 +31,6 @@ header .middle .logo-search
 {
     display: flex;
     align-items: center;
-    width: 50%;
     justify-content: space-between;
 }
 
@@ -39,8 +38,7 @@ header .middle .logo-search #form2 .search-field
 {
     display: flex;
     align-items: center;
-
-    /* ~TAMANHO */
+    margin-left: 32px;
 
     background-color: var(--gray-color);
     

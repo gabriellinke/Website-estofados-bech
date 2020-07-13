@@ -12,7 +12,7 @@ const CheckoutError = () =>
 {
 
     return(
-        <div id="page-checkout-ok">
+        <div id="page-checkout-error">
             <body>
             </body>
             <header>

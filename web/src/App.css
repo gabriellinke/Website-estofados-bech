@@ -57,9 +57,11 @@ h1, h2, h3, h4, h5, h6
 
     }
 
-    #Header .middle .logo-search .search-field
+    #Header .middle .logo-search #form2 .search-field
+
     {
         margin-bottom: 12px;
+        margin-left: 0px;
     }
 
     #Header .middle .logo-search #form2 .search-field input
@@ -80,8 +82,31 @@ h1, h2, h3, h4, h5, h6
 
     #Header .bottom-menu .items .categories-out-of-menu
     {
-        background-color: red;
         display: none;
+    }
+}
+
+@media (min-width: 701px)
+{
+    #page-user-menu,
+    #page-user-menu-admin,
+    #page-cart,
+    #page-category,
+    #page-checkout,
+    page-checkout-error,
+    #page-checkout-ok,
+    page-checkout-pending,
+    #page-home,
+    #page-login,
+    #page-reset,
+    #product-info,
+    #product-info-admin,
+    #page-register,
+    #page-register-product,
+    #page-reset-password,
+    #page-search
+    {
+        padding-bottom: 110px;
     }
 }
 
@@ -92,6 +117,27 @@ h1, h2, h3, h4, h5, h6
         flex-direction: column;
         height: 190px;
     }
+
+    #page-user-menu,
+    #page-user-menu-admin,
+    #page-cart,
+    #page-category,
+    #page-checkout,
+    page-checkout-error,
+    #page-checkout-ok,
+    page-checkout-pending,
+    #page-home,
+    #page-login,
+    #page-reset,
+    #product-info,
+    #product-info-admin,
+    #page-register,
+    #page-register-product,
+    #page-reset-password,
+    #page-search
+    {
+        padding-bottom: 190px;
+    }
 }
 
 @media (max-width: 500px)
@@ -100,6 +146,27 @@ h1, h2, h3, h4, h5, h6
     {
         flex-direction: column;
         height: 210px;
+    }
+
+    #page-user-menu,
+    #page-user-menu-admin,
+    #page-cart,
+    #page-category,
+    #page-checkout,
+    page-checkout-error,
+    #page-checkout-ok,
+    page-checkout-pending,
+    #page-home,
+    #page-login,
+    #page-reset,
+    #product-info,
+    #product-info-admin,
+    #page-register,
+    #page-register-product,
+    #page-reset-password,
+    #page-search
+    {
+        padding-bottom: 210px;
     }
 }
 

@@ -2,14 +2,12 @@
 {
     height: 100%;
     position: relative;
+    padding-bottom: 110px;
+    /* min-height: 100vh; */
 }
 
 #page-register-product .content
 {
-  /** Altura do rodapé tem que ser igual a isso aqui e vice-versa **/
-    padding-bottom: 110px;
-    min-height: 100vh;
-
     width: 90%;
     max-width: 1200px;
    

@@ -2,12 +2,12 @@
 {
     height: 100%;
     position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
 }
 
-#page-user-menu .content{
-    padding-bottom: 110px;
-    min-height: 100vh;
-
+#page-user-menu .content
+{
     width: 90%;
     max-width: 1200px;
    
