@@ -6,20 +6,18 @@ import path from 'path';
 // Exporta a nossa conexão com o banco de dados para as outras partes do programa 
 // Objeto connection ta recebendo as configurações do nosso banco de dados
 const connection = knex({
-    client: 'pg',
-    // Qual o arquivo em que vamos armazenar nosso arquivo do banco de dados
+    client: 'mysql',
     connection: {
-        database: "test",
-        user: 'postgres',
-        password: 'gabrielhenrique12.'
+        host: 'mysql669.umbler.com',
+        port: 41890,
+        user: 'gabriellinke',
+        password: 'gabrielhenrique12.',
+        database: "bancotesteeb",
     },
     // connection: {
-    //     user: "qftltjpbrysfda",
-    //     password: "ed3de20453c24655f658a635302c7fc0033a540c42923e0d8c2b64ebb3262478",
-    //     database: "d8ji2blcr75vs2",
-    //     port: 5432,
-    //     host: "ec2-3-215-83-17.compute-1.amazonaws.com",
-    //     ssl: { rejectUnauthorized: false },
+    //     database: "test",
+    //     user: 'postgres',
+    //     password: 'gabrielhenrique12.'
     // },
     // connection: {
     //     user: "znfxbikupmlhrt",

@@ -596,13 +596,13 @@ const Checkout = () =>
                                                     </div>
                                                 </div>
                                                 <div className="personal-info">
-                                                    <h3>Dados do destinatário</h3>
+                                                    <h3>Dados do comprador</h3>
                                                     <FormikField name="name" label="Nome"/>
                                                     <FormikField name="surname" label="Sobrenome"/>
                                                     <FormikField name="cpf" label="CPF"/>
                                                 </div>
                                                 <div className="delivery-info">
-                                                    <h3>Endereço do destinatário</h3>
+                                                    <h3>Endereço de entrega</h3>
                                                     <FormikField name="cep" label="CEP"/>
                                                     <FormikField name="state" label="Estado"/>
                                                     <FormikField name="city" label="Cidade"/>

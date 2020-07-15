@@ -20,7 +20,7 @@ const Home = () =>
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
-    const [limit, setLimit] = useState<number>(8); // Quantidade de itens
+    const [limit, setLimit] = useState<number>(50); // Quantidade de itens
     const [order, setOrder] = useState<string>("az"); // Qual a ordem que os itens são organizados
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
     const [nextPage, setNextPage] = useState<boolean>(false); // Mostra se tem próxima página

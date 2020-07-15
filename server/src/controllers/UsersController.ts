@@ -11,7 +11,15 @@ interface User{
     name: string;    
     surname: string;
     email: string;
-    password: undefined;
+    password: string | undefined;
+    admin: boolean;
+}
+
+interface UserNoPassword{
+    id: number;
+    name: string;    
+    surname: string;
+    email: string;
     admin: boolean;
 }
 
@@ -78,10 +86,17 @@ class UsersController
                 refreshSecret = process.env.REFRESH_TOKEN_SECRET;
 
             userOk.password = undefined;
-            const accessToken = generateAccessToken(userOk)
-            const refreshToken = jwt.sign(userOk, refreshSecret)
+            const tokenUser:UserNoPassword = 
+            {
+                id: userOk.id,
+                name: userOk.name,
+                surname: userOk.surname,
+                email: userOk.email,
+                admin: userOk.admin
+            }
+            const accessToken = generateAccessToken(tokenUser)
+            const refreshToken = jwt.sign(tokenUser, refreshSecret)
 
-            // refreshTokens.push(refreshToken) Colocar o token no banco de dados de refresh Tokens
             const insertedToken = await knex('tokens').insert({token: refreshToken});
 
             return response.json({
@@ -250,7 +265,7 @@ class UsersController
 
 }
 
-function generateAccessToken(user:User) {
+function generateAccessToken(user:UserNoPassword) {
     let secret = "";
     if(process.env.ACCESS_TOKEN_SECRET)
         secret = process.env.ACCESS_TOKEN_SECRET;

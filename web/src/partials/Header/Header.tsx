@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     // Categorias de mais fácil acesso, ao lado do menu
     function categoriesOutOfMenu()
     {
-        if(categories != undefined)
+        if(categories != undefined && categories.length >= 4)
         {
             return(
                 <div className="direction-row">

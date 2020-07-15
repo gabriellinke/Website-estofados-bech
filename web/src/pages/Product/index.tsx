@@ -101,7 +101,7 @@ const Product = () =>
         diametro: (product?.diametro !== undefined) ? product.diametro : 5,
         cdMaoPropria: "N",
         valorDeclarado: 0,
-        avisoRecebimento: "N",
+        avisoRecebimento: "S",
     }
 
     // Carrega as descrições do produto

@@ -68,12 +68,14 @@ Página pro admin ver quais produtos estão em acompanhamento		OK
 Fazer páginas de redirecionamento pós compra				OK
 Fazer as backURLs							OK
 
+Excluir produto com problema						OK	
+Reserve produto para retirada na loja
+Arrumar redirecionamento quando o admin cria um produto			OK (Funcionou trocando o BD)
+Fazer os ajustes de acordo com o tamanho da tela
+Talvez fazer nova tabela no BD para cadastrar imagens
 
-
-Arrumar redirecionamento quando o admin cria um produto
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
-Achar algum lugar pra armazenar as imagens
 Fazer layouts de Contato, Quem somos, etc.
 Política de privacidade. Termos...
 
@@ -86,9 +88,9 @@ Frete tem que ser maior que 0 para liberar a compra
 
 Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy
 
-Fazer os ajustes de acordo com o tamanho da tela
 Quando tudo estiver pronto, tirar a opção de criar conta admin
 Deploy definitivo, com tudo no github, sabendo certinho como funciona
+Cores de tecido
 
 https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 
