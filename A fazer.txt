@@ -69,16 +69,16 @@ Fazer páginas de redirecionamento pós compra				OK
 Fazer as backURLs							OK
 
 Excluir produto com problema						OK	
-Reserve produto para retirada na loja
-Ajustar botão de pesquisa em outros browsers
-Arrumar redirecionamento quando o admin cria um produto			OK (Funcionou trocando o BD)
-Talvez fazer nova tabela no BD para cadastrar imagens
+Reserve produto para retirada na loja					OK
+Ajustar botão de pesquisa em outros browsers				OK
+Arrumar redirecionamento quando o admin cria um produto			OK
 
 Fazer responsividade
 	Comprar
-	Menu do usuário
 	Modal que tiver pra usuário
 	Home/pesquisa/categorias
+
+Fazer nova tabela no BD para cadastrar imagens
 
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois

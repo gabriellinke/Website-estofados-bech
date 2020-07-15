@@ -31,12 +31,11 @@ const Header: React.FC<HeaderProps> = (props) =>
     const history = useHistory();
     const { user, signOut } = useAuth();
 
-    // Estados para saber se deve mostrar o menu de categorias
-    const [show, setShow] = useState<boolean>(false);
-    const [overMenu, setOverMenu] = useState<boolean>(false);
-    const [overOptions, setOverOptions] = useState<boolean>(false);
-    const [categories, setCategories] = useState<CategoriesProps[]>();
-    const [search, setSearch] = useState<string>("");
+    const [show, setShow] = useState<boolean>(false);   // Estados para saber se deve mostrar o menu de categorias
+    const [overMenu, setOverMenu] = useState<boolean>(false);   // Estados para saber se deve mostrar o menu de categorias
+    const [overOptions, setOverOptions] = useState<boolean>(false); // Estados para saber se deve mostrar o menu de categorias
+    const [categories, setCategories] = useState<CategoriesProps[]>();  // Armazena as categorias
+    const [search, setSearch] = useState<string>("");   // Armazena a string sendo pesquisada
 
     useEffect(() => {
         api.get('category')

@@ -7,7 +7,7 @@ import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
 import { useAuth } from '../../contexts/auth'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import './styles.css';  //Importa o css
 
@@ -336,6 +336,7 @@ const Product = () =>
                                 </div>
                             </div>
                             {showFrete()}
+                            <div className="no-delivery">Se preferir, <Link to='/contato' className="contact">entre em contato</Link> e reserve o produto para retirada na loja. </div>
                         </div>
                     </div>
                 </main>

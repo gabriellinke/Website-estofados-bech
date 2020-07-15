@@ -43,7 +43,12 @@ const Home = () =>
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
         if(largura != undefined)
-            largura = (largura - 72)/4;
+        {
+            if(largura <= 425)
+                largura = (largura - 24)/2;
+            else if(largura > 425)
+                largura = (largura - 72)/4;
+        }
         else
             largura = 264;
             
@@ -142,7 +147,7 @@ const Home = () =>
                         <Product 
                             src={images}
                             width={imageWidth}
-                            height={imageWidth}
+                            height={(imageWidth/3)*4}
                             title={prod.name}
                             price={`R$${Number(prod.price).toFixed(2)}`}
                             conditions={`em até ${prod?.conditions}x no cartão`}
