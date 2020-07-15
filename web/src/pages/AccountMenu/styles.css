@@ -308,3 +308,36 @@
 {
     background-color: var(--hover-color);
 }
+
+@media (max-width: 900px)
+{
+    #page-user-menu .content main
+    {
+        grid-template-columns: 1fr;
+    }
+
+    #page-user-menu .content main .menu
+    {
+        border-bottom: 1px solid rgb(204, 203, 203);
+    }
+}
+
+@media (max-width: 600px)
+{
+    #page-user-menu .content main .info .products-list .sold-product,
+    #page-user-menu .content main .info .products-list .sold-product .image-title-price
+    {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    #page-user-menu .content main .info .products-list .sold-product .image-title-price .title-price
+    {
+        margin: 8px 0;
+    }
+}

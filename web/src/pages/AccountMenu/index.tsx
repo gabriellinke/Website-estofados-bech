@@ -52,13 +52,13 @@ const AccountMenu = () =>
 {
     const { user } = useAuth();
 
-    const [track, setTrack] = useState<boolean>(true);
-    const [history, setHistory] = useState<boolean>(false);
-    const [change, setChange] = useState<boolean>(false);
-    const [delivered, setDelivered] = useState<SoldProduct | undefined>();
-    const [products, setProducts] = useState<SoldProduct[]>([]);
-    const [noneHistory, setNoneHistory] = useState<boolean>(true);  
-    const [noneTrack, setNoneTrack] = useState<boolean>(true);
+    const [track, setTrack] = useState<boolean>(true);  // Se for true precisa mostrar Acompanhar compra
+    const [history, setHistory] = useState<boolean>(false);  // Se for true precisa mostrar Histórico de compras
+    const [change, setChange] = useState<boolean>(false);  // Se for true precisa mostrar   Alterar senha
+    const [delivered, setDelivered] = useState<SoldProduct | undefined>(); // Para saber qual foi o produto que o usuário clicou como entregue
+    const [products, setProducts] = useState<SoldProduct[]>([]);    // Produtos que já foram comprados pelo usuário (acompanhamento e histórico)
+    const [noneHistory, setNoneHistory] = useState<boolean>(true);  // Mostra se tem algo no histórico
+    const [noneTrack, setNoneTrack] = useState<boolean>(true);  // Mostra se tem algo no acompanhamento
     const [loading, setLoading] = useState<boolean>(false); //Animação de loading
     const [situation, setSituation] = useState<string>(''); // Situação: Senha alterada / erro
 
@@ -67,7 +67,7 @@ const AccountMenu = () =>
         api.get('email/sold/'+user?.email)
             .then(response => {
                 setProducts(response.data)
-                setNoneHistory(!response.data.find((res:any) => res.delivered === true))
+                setNoneHistory(!response.data.find((res:any) => !!res.delivered === true))
                 setNoneTrack(!response.data.find((res:any) => !res.delivered === true))
             })
             .catch(err => {
@@ -114,7 +114,7 @@ const AccountMenu = () =>
                         }
                     })
                     setProducts(updatedProducts)
-                    setNoneHistory(!updatedProducts.find((res:any) => res.delivered === true))
+                    setNoneHistory(!updatedProducts.find((res:any) => !!res.delivered === true))
                     setNoneTrack(!updatedProducts.find((res:any) => !res.delivered === true))
                 }
                 setDelivered(undefined)
@@ -165,6 +165,7 @@ const AccountMenu = () =>
             return <p className="error detail">Falha na alteração de senha</p>
     }
 
+    // Botão de alterar senha 
     function changeButton()
     {
         if(!loading)
@@ -178,6 +179,18 @@ const AccountMenu = () =>
                 </div>
             );
         }
+    }
+
+    // Pega a primeira imagem da string de imagens
+    function getImage(prodImage: string)
+    {
+        let images ="";
+        if(prodImage.indexOf(',') > 0)
+            images = prodImage.substring(0, prodImage.indexOf(','));
+        else
+            images = prodImage.substring(0, prodImage.length);
+
+        return images;
     }
 
     // Conteúdo que é mostrado, dependendo do que está selecionado no menu
@@ -201,7 +214,7 @@ const AccountMenu = () =>
                             <div className="sold-product">
                                 <div className="image-title-price">
                                     <div className="image">
-                                        <img src={product.image} width={100} height={100} alt={product.name}/>
+                                        <img src={getImage(product.image)} width={100} height={100} alt={product.name}/>
                                     </div>
                                     <div className="title-price">
                                         <div className="title">{product.name} x{product.quantity}</div>
@@ -235,11 +248,11 @@ const AccountMenu = () =>
                     <div className="products-list">
                         {products?.map(product => {
                             return (product.delivered) ?
-        
+
                             <div className="sold-product">
                                 <div className="image-title-price">
                                     <div className="image">
-                                        <img src={product.image} width={100} height={100} alt={product.name}/>
+                                        <img src={getImage(product.image)} width={100} height={100} alt={product.name}/>
                                     </div>
                                     <div className="title-price">
                                         <div className="title">{product.name} x{product.quantity}</div>

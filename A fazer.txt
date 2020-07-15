@@ -70,9 +70,15 @@ Fazer as backURLs							OK
 
 Excluir produto com problema						OK	
 Reserve produto para retirada na loja
+Ajustar botão de pesquisa em outros browsers
 Arrumar redirecionamento quando o admin cria um produto			OK (Funcionou trocando o BD)
-Fazer os ajustes de acordo com o tamanho da tela
 Talvez fazer nova tabela no BD para cadastrar imagens
+
+Fazer responsividade
+	Comprar
+	Menu do usuário
+	Modal que tiver pra usuário
+	Home/pesquisa/categorias
 
 Fazer uma proporção pro tamanho da imagem do produto
 Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois

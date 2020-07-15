@@ -322,7 +322,7 @@ const AccountMenuAdmin = () =>
                         <div className="sold-product">
                             <div className="image-title-price">
                                 <div className="image">
-                                    <img src={product.image} width={100} height={100} alt={product.name}/>
+                                    <img src={getImage(product.image)} width={100} height={100} alt={product.name}/>
                                 </div>
                                 <div className="title-price">
                                     <div className="title">{product.name} x{product.quantity}</div>
@@ -347,6 +347,18 @@ const AccountMenuAdmin = () =>
                 })}
             </div>
         );
+    }
+
+    // Pega a primeira imagem da string de imagens
+    function getImage(prodImage: string)
+    {
+        let images ="";
+        if(prodImage.indexOf(',') > 0)
+            images = prodImage.substring(0, prodImage.indexOf(','));
+        else
+            images = prodImage.substring(0, prodImage.length);
+
+        return images;
     }
 
     // Conteúdo que é mostrado, dependendo do que está selecionado no menu
@@ -383,7 +395,7 @@ const AccountMenuAdmin = () =>
                                 <FormikField name="id" label="ID do produto"/>
                                 <FormikField name="quantity" label="Quantidade comprada"/>
                                 <div className="button-create">
-                                    <button>Cadastrar</button>
+                                    <button type='submit'>Cadastrar</button>
                                     {loadingImage()}
                                     {message()}
                                 </div>
