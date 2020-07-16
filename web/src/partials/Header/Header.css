@@ -144,6 +144,7 @@ header .bottom-menu .items .categories-options
     flex-direction: column;
     flex: 1;
     position: absolute;
+    z-index: 1000;
     margin-top: 36px;
     background-color: #fefefe;
     color: #666666;

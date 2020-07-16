@@ -73,15 +73,18 @@ Reserve produto para retirada na loja					OK
 Ajustar botão de pesquisa em outros browsers				OK
 Arrumar redirecionamento quando o admin cria um produto			OK
 
+Fazer nova tabela no BD para cadastrar imagens				DIFÍCIL E TRABALHOSO
+Fazer uma proporção pro tamanho da imagem do produto			FALTA DECIDIR O TAMANHO NA HOME E NA PÁGINA DE PRODUTO
 Fazer responsividade
 	Comprar
-	Modal que tiver pra usuário
 	Home/pesquisa/categorias
 
-Fazer nova tabela no BD para cadastrar imagens
+Melhorar a home page, fazer as imagens das reformas			ALFA OK
+Banco de dados para cadastrar as imagens
+Pegar as imagens de reforma do BD
+Fazer página admin dentro menu de usuários pra botar/retirar imagens
+Botar um lugar falando de mercado pago, site seguro, pagamento cartão/boleto
 
-Fazer uma proporção pro tamanho da imagem do produto
-Melhorar a home page, fazer as imagenzinhas passando - mostrar as reformas com imagens de antes/depois
 Fazer layouts de Contato, Quem somos, etc.
 Política de privacidade. Termos...
 

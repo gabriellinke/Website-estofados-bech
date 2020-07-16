@@ -3,7 +3,13 @@ import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import Product from '../../partials/Product/Product';
 import api from '../../services/api';
+import { Link } from 'react-router-dom'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
+import { FaCircle } from 'react-icons/fa'
+import reforma1 from '../../assets/teste-reforma.png'
+import reforma2 from '../../assets/teste-reforma2.jpg'
+import reforma3 from '../../assets/teste-reforma3.jpg'
+import reforma4 from '../../assets/teste-reforma4.jpg'
 
 import './styles.css';
 
@@ -22,6 +28,9 @@ const Home = () =>
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
     const [limit, setLimit] = useState<number>(50); // Quantidade de itens
     const [order, setOrder] = useState<string>("az"); // Qual a ordem que os itens são organizados
+    const [reformImage, setReformImage] = useState<string[]>([reforma1, reforma2, reforma3, reforma4]); //Vetor com as imagens
+    const [indice, setIndice] = useState<number>(0); // Indice da imagem mostrada
+    const [imageClicked, setImageClicked] = useState<number>(-1); // Diz se já foi clicado para pausar a imagem ou trocar imagem
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
     const [nextPage, setNextPage] = useState<boolean>(false); // Mostra se tem próxima página
     const [previousPage, setPreviousPage] = useState<boolean>(false); // Mostra se tem uma página anterior
@@ -166,12 +175,53 @@ const Home = () =>
         setOrder(value);
     }
 
+    // Passa uma imagem
+    function handleReformNextClick()
+    {
+        setImageClicked((indice + 1) % reformImage.length);
+        setIndice((indice + 1) % reformImage.length);
+    }
+
+    // Volta uma imagem
+    function handleReformPreviousClick()
+    {
+        setImageClicked((indice + 3) % reformImage.length);
+        setIndice((indice + 3) % reformImage.length);
+    }
+
+    // Passa de imagem
+    function rodarImagens() {
+        if(imageClicked < 0)
+            setIndice((indice + 1) % reformImage.length); 
+    }
+
+    // Vai ficar passando as imagens se nenhuma imagem for clicada
+    if(imageClicked < 0)
+        setTimeout(rodarImagens , 6 * 1000);
+
     return(
         <div id="page-home">
             <Header />
+            <div className="reform">
+                <Link to='/contato'><h1>Peça sua reforma agora!</h1></Link>
+                <div className="reform-image">
+                    <img src={reformImage[Number(0)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(0)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(0)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                    <img src={reformImage[Number(1)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(1)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(1)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                    <img src={reformImage[Number(2)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(2)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(2)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                    <img src={reformImage[Number(3)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(3)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(3)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                    <span className='left' onClick={handleReformPreviousClick}><IoIosArrowBack size={80}/></span>
+                    <span className="right" onClick={handleReformNextClick}><IoIosArrowForward size={80}/></span>
+                </div>
+                <div className="round-items">
+                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma1 ? 'selected': "") : (reformImage[imageClicked] === reforma1 ? 'selected' : '')} onClick={() => {setIndice(0); setImageClicked(0);}}><FaCircle size='20'/></li>
+                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma2 ? 'selected': "") : (reformImage[imageClicked] === reforma2 ? 'selected' : '')} onClick={() => {setIndice(1); setImageClicked(1);}}><FaCircle size='20'/></li>
+                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma3 ? 'selected': "") : (reformImage[imageClicked] === reforma3 ? 'selected' : '')} onClick={() => {setIndice(2); setImageClicked(2);}}><FaCircle size='20'/></li>
+                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma4 ? 'selected': "") : (reformImage[imageClicked] === reforma4 ? 'selected' : '')} onClick={() => {setIndice(3); setImageClicked(3);}}><FaCircle size='20'/></li>
+                </div>
+            </div>
             <div className="content">
                 <main>
-                    <h1>Seja bem vindo! Esta é a home page.</h1>
+                    <h1>Produtos</h1>
                     <div className="products-order">
                         <div className="order">
                             <div className="text">Organizar anúncios</div> 
