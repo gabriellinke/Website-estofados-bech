@@ -1,0 +1,37 @@
+#page-contact
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
+    background-color: white;
+
+}
+
+#page-contact .content
+{  
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#page-contact .content main
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 32px;
+}
+
+#page-contact .content main h1
+{
+    font-size: 40px;
+    text-align: center;
+    border-bottom: 1px solid rgb(168, 168, 168);
+    padding: 16px 0;
+
+}

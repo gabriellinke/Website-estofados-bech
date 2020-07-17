@@ -210,7 +210,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     <header id="Header">
         <div className = "top">
             <Link to="/">Home</Link>
-            <Link to="">Quem somos</Link>
+            <Link to="/about">Quem somos</Link>
             <Link to="/contato">Contato</Link>
         </div>
         <div className="middle">

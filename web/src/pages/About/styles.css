@@ -1,0 +1,108 @@
+#page-about
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
+    background-color: white;
+
+}
+
+#page-about .content
+{  
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#page-about .content main
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 32px;
+}
+
+#page-about .content main h1
+{
+    font-size: 40px;
+    text-align: center;
+    border-top: 1px solid rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(168, 168, 168);
+    padding: 16px 0;
+
+}
+
+#page-about .content main h2
+{
+    font-size: 36px;
+    text-align: center;
+    border-top: 1px solid rgb(168, 168, 168);
+    padding: 16px 0;
+}
+
+#page-about .content main .address
+{
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 32px auto;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    text-align: justify;
+}
+
+#page-about .content main .map
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 32px;
+
+}
+
+@media (max-width: 769px)
+{
+    
+    #page-about #mapid
+    {
+        height: 300px;
+    }
+}
+
+@media (max-width: 425px)
+{
+    
+    #page-about #mapid
+    {
+        height: 250px;
+    }
+}
+
+#mapid
+{
+    height: 400px; 
+}
+
+#page-about .content main .content-text
+{
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 32px auto;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    text-align: justify;
+}

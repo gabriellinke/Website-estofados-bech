@@ -13,6 +13,8 @@ import ResetPassword from '../pages/ResetPassword'
 import CheckoutOk from '../pages/CheckoutOk'
 import CheckoutPending from '../pages/CheckoutPending'
 import CheckoutError from '../pages/CheckoutError'
+import About from '../pages/About'
+import Contact from '../pages/Contact'
 
 // Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
 const AdminRoutes = () => 
@@ -30,6 +32,8 @@ const AdminRoutes = () =>
                 <Route component={Category} path="/category/:category" exact/>
                 <Route component={Home} path="/" exact/>
                 <Route component={ProductAdmin} path="/products/:id" exact/>
+                <Route component={About} path="/about" exact/>
+                <Route component={Contact} path="/contato" exact/>
                 <Route component={RegisterProduct} path="/register" exact/>
                 <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
                 <Route component={Home} />  {/* Usa o switch para que essa rota com a home seja a rota default caso não encontre nenhuma */}

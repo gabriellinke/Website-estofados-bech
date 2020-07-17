@@ -83,9 +83,18 @@ Melhorar a home page, fazer as imagens das reformas			OK
 Banco de dados para cadastrar as imagens				OK
 Pegar as imagens de reforma do BD					OK
 Fazer página admin dentro menu de usuários pra botar/retirar imagens	OK
-Botar um lugar falando de mercado pago, site seguro, pagamento cartão/boleto
+Botar um lugar falando de mercado pago, site seguro...			OK
 
-Fazer layouts de Contato, Quem somos, etc.
+
+Fazer layouts de Quem somos						OK
+Colocar localização no mapa						OK
+Colocar imagem da frente da loja
+Responsividade da imagem
+Fazer um texto
+
+Fazer layouts de Contato
+
+
 Política de privacidade. Termos...
 
 Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
