@@ -79,10 +79,10 @@ Fazer responsividade
 	Comprar
 	Home/pesquisa/categorias
 
-Melhorar a home page, fazer as imagens das reformas			ALFA OK
-Banco de dados para cadastrar as imagens
-Pegar as imagens de reforma do BD
-Fazer página admin dentro menu de usuários pra botar/retirar imagens
+Melhorar a home page, fazer as imagens das reformas			OK
+Banco de dados para cadastrar as imagens				OK
+Pegar as imagens de reforma do BD					OK
+Fazer página admin dentro menu de usuários pra botar/retirar imagens	OK
 Botar um lugar falando de mercado pago, site seguro, pagamento cartão/boleto
 
 Fazer layouts de Contato, Quem somos, etc.

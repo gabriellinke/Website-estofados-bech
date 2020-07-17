@@ -6,7 +6,8 @@
     /* padding-bottom: 110px; */
 }
 
-#page-user-menu-admin .content{
+#page-user-menu-admin .content
+{
 
     width: 90%;
     max-width: 1200px;
@@ -69,6 +70,56 @@
     flex-direction: column;
     padding: 32px;
     min-height: 534px;
+}
+
+#page-user-menu-admin .content main .info img.reform
+{
+    margin-bottom: 32px;
+}
+
+#page-user-menu-admin .content main .info .delete-image
+{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#page-user-menu-admin .content main .info .delete-image span.delete
+{
+    color: red;
+    font-weight: bold;
+    font-size: 32px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+#page-user-menu-admin .content main .info button.add
+{
+    width: 180px;
+    height: 50px;
+  
+    background-color: var(--primary-color);
+    border-radius: 8px;
+  
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+  
+    border: 0;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+  
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#page-user-menu-admin .content main .info button.add:hover
+{
+    background-color: var(--hover-color);
 }
 
 #page-user-menu-admin .content main .info h1

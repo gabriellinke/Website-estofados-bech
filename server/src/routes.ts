@@ -10,6 +10,7 @@ import UsersController from './controllers/UsersController';
 import CartController from './controllers/CartController';
 import SearchController from './controllers/SearchController'
 import { celebrate , Joi} from 'celebrate';
+import ReformController from './controllers/ReformController';
 
 const routes = express.Router();
 const upload = multer(multerConfig);
@@ -20,6 +21,7 @@ const usersController = new UsersController();
 const checkoutController = new CheckoutController();
 const cartController = new CartController();
 const searchController = new SearchController();
+const reformController = new ReformController();
 const walletcontroller = require("./controllers/walletController");
 
 // Dá pra juntar as rotas de show do products e descriptions
@@ -77,6 +79,15 @@ routes.get('/user/cart/:id', cartController.index);         // Rota que mostra t
 
 routes.get('/search', searchController.index)               // Pesquisa com a barra de pesquisas
 routes.get('/category/search', searchController.indexCategory)  // Pesquisa por categorias
+
+//Upload de imagens de reforma
+routes.post(
+    '/reform/create',
+    upload.single('images'),
+    authenticateToken,
+    reformController.create);
+routes.post('/reform/remove', authenticateToken, reformController.remove)
+routes.get('/reform/index', reformController.index)
 
 routes.post('/token', usersController.refreshToken);    //Usa o refreshToken para obter um novo accessToken
 routes.post('/logout', usersController.logout);         //Desloga o usuário

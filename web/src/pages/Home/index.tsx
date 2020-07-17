@@ -6,29 +6,30 @@ import api from '../../services/api';
 import { Link } from 'react-router-dom'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import { FaCircle } from 'react-icons/fa'
-import reforma1 from '../../assets/teste-reforma.png'
-import reforma2 from '../../assets/teste-reforma2.jpg'
-import reforma3 from '../../assets/teste-reforma3.jpg'
-import reforma4 from '../../assets/teste-reforma4.jpg'
 
 import './styles.css';
 
+interface ProductProps{
+    id: number;
+    images: string;
+    name: string;
+    price: number;
+    conditions: number;
+}
+
+interface ReformProps{
+    image: string;
+    id: number;
+}
+
 const Home = () => 
 {
-    interface ProductProps{
-        id: number;
-        images: string;
-        name: string;
-        price: number;
-        conditions: number;
-    }
-
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
     const [limit, setLimit] = useState<number>(50); // Quantidade de itens
     const [order, setOrder] = useState<string>("az"); // Qual a ordem que os itens são organizados
-    const [reformImage, setReformImage] = useState<string[]>([reforma1, reforma2, reforma3, reforma4]); //Vetor com as imagens
+    const [reformImages, setReformImages] = useState<ReformProps[]>(); //Vetor com as imagens
     const [indice, setIndice] = useState<number>(0); // Indice da imagem mostrada
     const [imageClicked, setImageClicked] = useState<number>(-1); // Diz se já foi clicado para pausar a imagem ou trocar imagem
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
@@ -48,7 +49,7 @@ const Home = () =>
             });
     }, [order]);
 
-    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid
+    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid. Também pega as imagens de reforma
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
         if(largura != undefined)
@@ -62,6 +63,16 @@ const Home = () =>
             largura = 264;
             
         setImageWidth(largura)
+
+        // Pega as imagens de reforma
+        api.get('reform/index')
+            .then(response => {
+                setReformImages(response.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }, [])
 
     // Atualiza a próxima página de produtos
@@ -178,21 +189,28 @@ const Home = () =>
     // Passa uma imagem
     function handleReformNextClick()
     {
-        setImageClicked((indice + 1) % reformImage.length);
-        setIndice((indice + 1) % reformImage.length);
+        if(reformImages)
+        {
+            setImageClicked((indice + 1) % reformImages.length);
+            setIndice((indice + 1) % reformImages.length);
+        }
     }
 
     // Volta uma imagem
     function handleReformPreviousClick()
     {
-        setImageClicked((indice + 3) % reformImage.length);
-        setIndice((indice + 3) % reformImage.length);
+        if(reformImages)
+        {
+            setImageClicked((indice + 3) % reformImages.length);
+            setIndice((indice + 3) % reformImages.length);
+        }
     }
 
     // Passa de imagem
     function rodarImagens() {
         if(imageClicked < 0)
-            setIndice((indice + 1) % reformImage.length); 
+            if(reformImages)
+                setIndice((indice + 1) % reformImages.length); 
     }
 
     // Vai ficar passando as imagens se nenhuma imagem for clicada
@@ -205,18 +223,20 @@ const Home = () =>
             <div className="reform">
                 <Link to='/contato'><h1>Peça sua reforma agora!</h1></Link>
                 <div className="reform-image">
-                    <img src={reformImage[Number(0)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(0)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(0)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
-                    <img src={reformImage[Number(1)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(1)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(1)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
-                    <img src={reformImage[Number(2)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(2)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(2)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
-                    <img src={reformImage[Number(3)]} className={imageClicked < 0 ? (reformImage[indice] === reformImage[Number(3)] ? 'opaque' : '') : (reformImage[imageClicked] === reformImage[Number(3)] ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                    {reformImages?.map((image, i)=> {
+                        return (
+                            <img src={image.image} className={imageClicked < 0 ? (reformImages[indice].image === image.image ? 'opaque' : '') : (reformImages[imageClicked].image === image.image ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                        )
+                    })}
                     <span className='left' onClick={handleReformPreviousClick}><IoIosArrowBack size={80}/></span>
                     <span className="right" onClick={handleReformNextClick}><IoIosArrowForward size={80}/></span>
                 </div>
                 <div className="round-items">
-                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma1 ? 'selected': "") : (reformImage[imageClicked] === reforma1 ? 'selected' : '')} onClick={() => {setIndice(0); setImageClicked(0);}}><FaCircle size='20'/></li>
-                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma2 ? 'selected': "") : (reformImage[imageClicked] === reforma2 ? 'selected' : '')} onClick={() => {setIndice(1); setImageClicked(1);}}><FaCircle size='20'/></li>
-                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma3 ? 'selected': "") : (reformImage[imageClicked] === reforma3 ? 'selected' : '')} onClick={() => {setIndice(2); setImageClicked(2);}}><FaCircle size='20'/></li>
-                    <li className={imageClicked < 0 ? (reformImage[Number(indice)] === reforma4 ? 'selected': "") : (reformImage[imageClicked] === reforma4 ? 'selected' : '')} onClick={() => {setIndice(3); setImageClicked(3);}}><FaCircle size='20'/></li>
+                    {reformImages?.map((image, i)=> {
+                        return (
+                            <li className={imageClicked < 0 ? (reformImages[Number(indice)].image === image.image ? 'selected': "") : (reformImages[Number(indice)].image === image.image ? 'selected' : '')} onClick={() => {setIndice(i); setImageClicked(i);}}><FaCircle size='20'/></li>
+                        )
+                    })}
                 </div>
             </div>
             <div className="content">

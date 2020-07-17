@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
 import load from '../../assets/load2.gif';
+import Dropzone from '../../components/Dropzone'
 
 import './styles.css';  //Importa o css
 
@@ -20,6 +21,11 @@ interface SoldProduct
     name: string;
     price: string;
     quantity: string;
+}
+
+interface ReformProps{
+    image: string;
+    id: number;
 }
 
 interface UserProps {
@@ -63,6 +69,9 @@ const AccountMenuAdmin = () =>
     const [consult, setConsult] = useState<boolean>(true);  // Mostra a página pra consultar os dados do comprador
     const [create, setCreate] = useState<boolean>(false);   // Mostra a página pra acompanhamento do produto
     const [list, setList] = useState<boolean>(false);   // Mostra a página pra listar produtos de um usuário
+    const [reform, setReform] = useState<boolean>(false);   // Mostra a página pra modificar imagens de reformas
+    const [reformImages, setReformImages] = useState<ReformProps[]>(); //Vetor com as imagens
+    const [imageToDelete, setImageToDelete] = useState<number>(-1); //Animação de loading
     const [products, setProducts] = useState<SoldProduct[]>([]);    // Mostra os produtos no histórico de um usuário
     const [code, setCode] = useState<string>('');   // Salva o código da compra pra pegar os dados do comprador
     const [userMP, setUserMP] = useState<UserProps>();  // Usuário que está sendo pesquisado pela sua compra
@@ -72,6 +81,7 @@ const AccountMenuAdmin = () =>
     const [createData, setCreateData] = useState<FormValues>();    // Guarda os dados para ser usado se a primeira request não tiver sido autorizada
     const [email, setEmail] = useState<string>('');  // Email do usuário que se deseja acompanhar
     const [deleting, setDeleting] = useState<number>(0); //Animação de loading
+    const [selectedFIle, setSelectedFile] = useState<File>(); //Guardar o arquivo da imagem
 
    // Se houver algum problema de autorização, tenta pedir um novo token e fazer nova requisição.
     useEffect(() => {
@@ -122,7 +132,47 @@ const AccountMenuAdmin = () =>
                     setDeleting(0); 
                 })
         }
+        else if(notAuthorized === 'deleteImage')
+        {
+            api.post('reform/remove', {id: imageToDelete})
+            .then((response) => {
+                if(response.data.imageRemoved)
+                {    
+                    alert("Imagem removida");
+                    setReform(false);
+                    setReform(true);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Problema de autenticação. Tente relogar.");
+            })
+        }
+        else if(notAuthorized === 'addImage')
+        {
+            const data = new FormData();
+            if(selectedFIle)
+                data.append('images', selectedFIle);
+            
+            api.post('reform/create', data)
+                .then(response => {
+                    if(response.data.product_id >= 0)
+                    {
+                        alert("Imagem adicionada");
+                        setReform(false);
+                        setReform(true);
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    alert("Problema de autenticação. Tente relogar.");
+                })
+        }
     }, [notAuthorized])
+
+    useEffect(() => {
+        getReformImages();
+    }, [reform])
 
     // Título da página
     function title()
@@ -131,8 +181,10 @@ const AccountMenuAdmin = () =>
             return <h1>Consultar dados do comprador</h1>
         else if(create)
             return <h1>Cadastrar produto para acompanhamento</h1>
-        else
+        else if(list)
             return <h1>Listar produtos em acompanhamento de um usuário</h1>
+        else
+            return <h1>Modificar imagens da Home</h1>
     }
 
     // Muda o código do input
@@ -361,6 +413,58 @@ const AccountMenuAdmin = () =>
         return images;
     }
 
+    // Pega as imagens de reforma
+    function getReformImages()
+    {
+        api.get('reform/index')
+            .then(response => {
+                setReformImages(response.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    // Função para deletar a descrição caso haja erro na autorização
+    function deleteImage(id: number)
+    {
+        api.post('reform/remove', {id})
+            .then((response) => {
+                if(response.data.imageRemoved)
+                {
+                    alert("Imagem removida");
+                    setReform(false)
+                    setReform(true);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized('deleteImage');
+            })
+    }
+
+    // Adiciona a foto
+    function addPhoto()
+    {
+        const data = new FormData();
+        if(selectedFIle)
+            data.append('images', selectedFIle);
+        
+        api.post('reform/create', data)
+            .then(response => {
+                if(response.data.product_id >= 0)
+                {
+                    alert("Imagem adicionada");
+                    setReform(false);
+                    setReform(true);
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                setNotAuthorized('addImage')
+            })
+    }
+
     // Conteúdo que é mostrado, dependendo do que está selecionado no menu
     function content()
     {
@@ -405,7 +509,7 @@ const AccountMenuAdmin = () =>
                 </Formik>
             );
         }
-        else
+        else if(list)
         {
             return (
                 <div className="consult">
@@ -420,6 +524,24 @@ const AccountMenuAdmin = () =>
             );
 
         }
+        else
+        {
+            return(
+                <div className="reformImage">
+                    {reformImages?.map(res => {
+                        return(
+                                <div className='delete-image'>
+                                    <img className='reform' src={res.image} width='100%' alt="Imagem da home"/>
+                                    <span className="delete" onClick={(() => {setImageToDelete(res.id); deleteImage(res.id);})}>X</span>
+                                </div>
+                        )
+                    })}
+                    <h1>Adicionar imagem</h1>
+                    <Dropzone onFileUploaded={setSelectedFile}/>
+                    <button className='add' onClick={addPhoto}>Adicionar</button>
+                </div>
+            );
+        }
     }
 
     // Muda de tela com o clique no menu
@@ -428,6 +550,7 @@ const AccountMenuAdmin = () =>
         setConsult(true);
         setCreate(false);
         setList(false);
+        setReform(false);
     }
 
     // Muda de tela com o clique no menu
@@ -436,6 +559,7 @@ const AccountMenuAdmin = () =>
         setConsult(false);
         setCreate(true);
         setList(false);
+        setReform(false);
     }
 
     // Muda de tela com o clique no menu
@@ -444,6 +568,16 @@ const AccountMenuAdmin = () =>
         setConsult(false);
         setCreate(false);
         setList(true);
+        setReform(false);
+    }
+
+    // Muda de tela com o clique no menu
+    function handleReformClick()
+    {
+        setConsult(false);
+        setCreate(false);
+        setList(false);
+        setReform(true);
     }
 
     return(
@@ -455,6 +589,7 @@ const AccountMenuAdmin = () =>
                         <div className={`option ${consult? 'selected' : ''}`} onClick={handleConsultClick}>Consultar dados do comprador</div>
                         <div className={`option ${create? 'selected' : ''}`} onClick={handleCreateClick}>Cadastrar produto para acompanhamento</div>
                         <div className={`option ${list? 'selected' : ''}`} onClick={handleListClick}>Listar produtos em acompanhamento de um usuário</div>
+                        <div className={`option ${reform? 'selected' : ''}`} onClick={handleReformClick}>Modificar imagens da home</div>
                     </div>
                     <div className="info">
                         {title()}

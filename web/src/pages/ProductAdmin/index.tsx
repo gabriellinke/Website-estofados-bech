@@ -686,9 +686,9 @@ const Product = () =>
                     {descriptions.map((res:any) => {
                         return(
                             <div className="delete-description">
-                            <span className="delete" onClick={(() => setDescriptionToDelete(res.description))}>X</span>
-                            <p>{res.description}</p>
-                        </div>
+                                <span className="delete" onClick={(() => setDescriptionToDelete(res.description))}>X</span>
+                                <p>{res.description}</p>
+                            </div>
                         );
                     })}
                     <div className="add-description">
