@@ -5,7 +5,9 @@ import Product from '../../partials/Product/Product';
 import api from '../../services/api';
 import { Link } from 'react-router-dom'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
-import { FaCircle } from 'react-icons/fa'
+import { BsFillLockFill } from 'react-icons/bs'
+import { FaCircle, FaRegCreditCard } from 'react-icons/fa'
+import mp from '../../assets/mercado-pago.png'
 
 import './styles.css';
 
@@ -239,8 +241,25 @@ const Home = () =>
                     })}
                 </div>
             </div>
+
             <div className="content">
                 <main>
+                    <div className="container">
+                        <div className="mercado-pago">
+                            <span><img src={mp} alt="Mercado pago"/></span>
+                            Pagamento seguro com <br/>Mercado Pago
+                        </div>
+                        <div className="payment-methods">
+                            <span><FaRegCreditCard size='50'/></span>
+                            {/* Pagamentos no boleto, cartão <br/> e mais */}
+                            Diversos meios de pagamento <br/> disponíveis
+                        </div>
+                        <div className="safe">
+                            <span><BsFillLockFill size='45' /></span>
+                            Site seguro
+                        </div>
+                    </div>
+
                     <h1>Produtos</h1>
                     <div className="products-order">
                         <div className="order">
