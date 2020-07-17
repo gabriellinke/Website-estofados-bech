@@ -201,3 +201,36 @@
 {
     display: none;
 }
+
+@media (max-width: 1000px)
+{
+    #page-contact .content main .contact-content
+    {
+        grid-template-columns: 1fr;
+    }
+
+    #page-contact .content main .contact-content .social-media,
+    #page-contact .content main .contact-content .contact
+    {
+        padding-right: 0;
+        border-right: 0;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgb(168, 168, 168);
+        margin-bottom: 32px;
+    }
+
+    #page-contact .content main .contact-content .email
+    {
+        margin-bottom: 48px;
+    }
+}
+
+@media (max-width: 425px)
+{
+    #page-contact .content main .contact-content .contact .info
+    {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+    }
+}
