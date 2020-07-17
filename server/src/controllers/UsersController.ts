@@ -263,6 +263,44 @@ class UsersController
         return response.json({changed: !!ok})
     }
 
+    // Envia um email pelo formulário da página de contatos
+    async sendMessage(request: Request, response: Response)
+    {
+        const{
+            name,
+            email,
+            phone,
+            message
+        }= request.body;
+
+        //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD
+            },
+            tls: { rejectUnauthorized: false }
+        });
+
+        const mensagem = `<p>${name} mandou uma mensagem através do formulário da página de contato. Seu email é ${email} e seu telefone é ${phone}. Essa foi a mensagem enviada:<br/></p>
+                            ${message}`
+
+        transporter.sendMail({
+            from: `Estofados Bech <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
+            subject: "Mensagem enviada através da página de contato",
+            html: mensagem
+        }).then(message => {
+            console.log(message);
+            return response.json({send: true})
+        }).catch(err => {
+            console.log(err);
+            return response.json({send: false})
+        })
+    }
 }
 
 function generateAccessToken(user:UserNoPassword) {

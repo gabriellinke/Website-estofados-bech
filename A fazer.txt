@@ -90,6 +90,7 @@ Fazer layouts de Quem somos						OK
 Colocar localização no mapa						OK
 Colocar imagem da frente da loja
 Responsividade da imagem
+Ver como que é o jeito que faz com que ela não deforme
 Fazer um texto
 
 Fazer layouts de Contato

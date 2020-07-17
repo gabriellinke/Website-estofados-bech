@@ -105,7 +105,8 @@ h1, h2, h3, h4, h5, h6
     #page-register-product,
     #page-reset-password,
     #page-search,
-    #page-about
+    #page-about,
+    #page-contact
     {
         padding-bottom: 110px;
     }
@@ -136,7 +137,8 @@ h1, h2, h3, h4, h5, h6
     #page-register-product,
     #page-reset-password,
     #page-search,
-    #page-about
+    #page-about,
+    #page-contact
     {
         padding-bottom: 190px;
     }
@@ -167,7 +169,8 @@ h1, h2, h3, h4, h5, h6
     #page-register-product,
     #page-reset-password,
     #page-search,
-    #page-about
+    #page-about,
+    #page-contact
     {
         padding-bottom: 210px;
     }

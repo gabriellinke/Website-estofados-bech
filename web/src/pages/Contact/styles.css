@@ -11,7 +11,7 @@
 #page-contact .content
 {  
     margin: 0 auto;
-    
+    width: 90%;
     height: 100%;
     
     display: flex;
@@ -33,5 +33,171 @@
     text-align: center;
     border-bottom: 1px solid rgb(168, 168, 168);
     padding: 16px 0;
+    margin-bottom: 32px;
+}
 
+#page-contact .content main .contact-content
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+#page-contact .content main .contact-content .social-media,
+#page-contact .content main .contact-content .contact 
+{
+    padding-right: 16px;
+    border-right: 1px solid rgb(168, 168, 168);
+}
+
+#page-contact .content main .contact-content .contact 
+{
+    font-size: 20px;    
+}
+
+#page-contact .content main .contact-content .social-media .title,
+#page-contact .content main .contact-content .email .title,
+#page-contact .content main .contact-content .contact .details
+{
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+#page-contact .content main .contact-content .contact .info
+{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+}
+
+#page-contact .content main .contact-content .contact .info .title
+{
+    font-size: 22px;    
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#page-contact .content main .contact-content .social-media
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#page-contact .content main .contact-content .social-media a
+{
+    margin-top: 16px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    color: #666666;
+}
+
+#page-contact .content main .contact-content .social-media a:hover
+{
+    color: #000000;
+}
+
+#page-contact .content main .contact-content .social-media a span
+{
+    margin-right: 8px;
+}
+
+#page-contact .content main .contact-content .social-media a.instagram span
+{
+    color: black;
+}
+
+#page-contact .content main .contact-content .social-media a.facebook span
+{
+    color: #3b5998;
+}
+
+#page-contact .content main .contact-content .email .form .send-button
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 32px;
+}
+
+#page-contact .content main .contact-content .email .form button.form-button
+{
+    width: 180px;
+    height: 56px;
+
+    background-color: var(--primary-color);
+    border-radius: 8px;
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+
+    border: 0;
+
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-contact .content main .contact-content .email .form button.form-button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#page-contact #modal
+{
+    /* Para o modal utilizar 100% da tela */
+    height: 100vh;
+    width: 100vw;
+    background-color: #0e0a14ef;
+
+    position: fixed;
+
+    /* Ser fixado no topo da tela */
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Transição pra quando for aberto */
+    transition: 400ms;
+}
+
+/* Caixa que vai ter o conteúdo */
+#page-contact #modal .content
+{
+    color: white;
+    width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-contact #modal .header
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 48px;
+}
+
+#page-contact #modal .header h1
+{
+    color: white;
+
+    margin-top: 32px;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+/* Quando o modal estiver pertencendo à classe hide ele não vai mostrar nada do seu conteúdo */
+#page-contact #modal.hide
+{
+    display: none;
 }

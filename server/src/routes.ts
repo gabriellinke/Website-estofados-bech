@@ -89,6 +89,7 @@ routes.post(
 routes.post('/reform/remove', authenticateToken, reformController.remove)
 routes.get('/reform/index', reformController.index)
 
+routes.post('/send', usersController.sendMessage);    //Envia uma mensagem do usuário para o email da loja
 routes.post('/token', usersController.refreshToken);    //Usa o refreshToken para obter um novo accessToken
 routes.post('/logout', usersController.logout);         //Desloga o usuário
 routes.post('/verify', authenticateToken, (req, res) => {   // Rota de testes para desenvolvimento. Usada para verificar um token
