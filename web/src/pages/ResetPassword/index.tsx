@@ -75,7 +75,7 @@ const Login: React.FC = () =>
     // Mostra o modal de erro/sucesso
     function handleRegister()
     {
-        if(situation == 'error')
+        if(situation === 'error')
             return(
                 <div id="modal" className={situation}>
                 <div className="content">

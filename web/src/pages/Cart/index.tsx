@@ -68,7 +68,7 @@ const Cart = () =>
                 setProductsQuantity(response.data.quantity);
                 setProducts(response.data.products);
             });
-    }, [])
+    }, [user])
 
     // Atualiza o preço total quando os produtos do carrinho são atualizados. Também atualiza o Input de IDs e de quantidades
     useEffect(() => {
@@ -187,7 +187,7 @@ const Cart = () =>
     // Se o carrinho estiver vazio vai mostrar uma mensagem. Se não estiver, vai mostrar o carrinho
     function showCart()
     {
-        if(productsPrice != 0)
+        if(productsPrice !== 0)
         {
             return(
                 <main>

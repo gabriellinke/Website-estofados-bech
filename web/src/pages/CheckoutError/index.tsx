@@ -2,8 +2,6 @@ import React from 'react'
 import Footer from '../../partials/Footer/Footer';
 import logo from '../../assets/Logo.png';
 import {RiEmotionSadLine} from 'react-icons/ri'
-import header from '../../assets/header.png';
-import menu from '../../assets/menu-acompanhamento.png';
 import { Link } from "react-router-dom";
 
 import './styles.css';  //Importa o css

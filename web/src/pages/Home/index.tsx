@@ -49,12 +49,12 @@ const Home = () =>
                 setNextPage(!!response.data.next.page)
                 setPreviousPage(!!response.data.previous.page)
             });
-    }, [order]);
+    }, [order, limit]);
 
     // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid. Também pega as imagens de reforma
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
-        if(largura != undefined)
+        if(largura !== undefined)
         {
             if(largura <= 425)
                 largura = (largura - 24)/2;

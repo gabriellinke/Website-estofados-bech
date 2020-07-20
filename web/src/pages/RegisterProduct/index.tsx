@@ -141,7 +141,7 @@ const RegisterProduct = () =>
                     api.defaults.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
                     localStorage.setItem('@EB:accessToken', response.data.accessToken);
                     
-                    if(backupData != undefined)
+                    if(backupData !== undefined)
                     {
                         let {
                             category,

@@ -107,7 +107,7 @@ const Product = () =>
     // Vê qual é o produto da URL e seta as imagens de acordo com o produto
     let { id } = useParams();
     useEffect(() => {
-        api.get('products/'+id) //id
+        api.get('products/'+ id) //id
             .then(response => {
                 setProduct(response.data);
                 if(response.data.images.indexOf(",") > 0)
@@ -121,15 +121,15 @@ const Product = () =>
                     setMainImage(response.data.images); //Seta a main image
                 }
             });
-    }, []);
+    }, [id]);
 
     // Carrega as descrições do produto
     useEffect(() => {
-        api.get('descriptions/'+id)
+        api.get('descriptions/'+ id)
             .then(response => {
                 setDescriptions(response.data);
             })
-    }, [])
+    }, [id])
 
     // Disponibiliza a quantidade de unidades que podem ser compradas do produto
     useEffect(() => {
@@ -610,7 +610,7 @@ const Product = () =>
         event.preventDefault();
         let idProduto;
 
-        if(product != undefined)
+        if(product !== undefined)
             idProduto = product.id;      
         localStorage.setItem('@EB:id', String(idProduto));
         localStorage.setItem('@EB:quantity', String(quantity));

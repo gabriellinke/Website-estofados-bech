@@ -73,32 +73,27 @@ Reserve produto para retirada na loja					OK
 Ajustar botão de pesquisa em outros browsers				OK
 Arrumar redirecionamento quando o admin cria um produto			OK
 
-Fazer nova tabela no BD para cadastrar imagens				DIFÍCIL E TRABALHOSO
-Fazer uma proporção pro tamanho da imagem do produto			FALTA DECIDIR O TAMANHO NA HOME E NA PÁGINA DE PRODUTO
-Fazer responsividade
-	Comprar
-	Home/pesquisa/categorias
-
 Melhorar a home page, fazer as imagens das reformas			OK
 Banco de dados para cadastrar as imagens				OK
 Pegar as imagens de reforma do BD					OK
 Fazer página admin dentro menu de usuários pra botar/retirar imagens	OK
 Botar um lugar falando de mercado pago, site seguro...			OK
 
-
-Fazer layouts de Quem somos						OK
+Fazer layout de Contato							OK
+Fazer layout de Quem somos						OK
 Colocar localização no mapa						OK
 Colocar imagem da frente da loja
 Responsividade da imagem
-Ver como que é o jeito que faz com que ela não deforme
+Ver como que é o jeito que faz com que a imagem não deforme
 Fazer um texto
 
-Fazer layouts de Contato
-
+Fazer nova tabela no BD para cadastrar imagens				DIFÍCIL E TRABALHOSO
+Fazer uma proporção pro tamanho da imagem do produto			FALTA DECIDIR O TAMANHO NA HOME E NA PÁGINA DE PRODUTO
+Fazer responsividade
+	Comprar
+	Home/pesquisa/categorias
 
 Política de privacidade. Termos...
-
-Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho
@@ -107,6 +102,7 @@ Frete tem que ser maior que 0 para liberar a compra
 
 Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy
 
+Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 Quando tudo estiver pronto, tirar a opção de criar conta admin
 Deploy definitivo, com tudo no github, sabendo certinho como funciona
 Cores de tecido

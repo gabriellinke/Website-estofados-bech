@@ -141,7 +141,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     // Categorias que vão aparecer no menu
     function categoriesOptions()
     {
-        if(show && categories != undefined)
+        if(show && categories !== undefined)
             return(
                 <div className="categories-options" onMouseEnter={handleOverOptions} onMouseLeave={() => setOverOptions(false)}>
                     {
@@ -161,7 +161,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     // Categorias de mais fácil acesso, ao lado do menu
     function categoriesOutOfMenu()
     {
-        if(categories != undefined && categories.length >= 4)
+        if(categories !== undefined && categories.length >= 4)
         {
             return(
                 <div className="direction-row">

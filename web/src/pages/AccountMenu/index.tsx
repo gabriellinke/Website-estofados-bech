@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import React, { useState, useEffect} from 'react'
 import Footer from '../../partials/Footer/Footer';
 import Header from '../../partials/Header/Header';
 import { useAuth } from '../../contexts/auth'
@@ -73,12 +73,12 @@ const AccountMenu = () =>
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [user])
 
     // Modal que pede confirmação de que o produto foi entregue
     function modalDelivered()
     {
-        if(delivered != undefined)
+        if(delivered !== undefined)
         {
             return(
                 <div id="modal" className='delete-modal'>
@@ -105,7 +105,7 @@ const AccountMenu = () =>
                 if(res.data.modificado)
                 {
                     const updatedProducts = products.map(prod => {
-                        if(prod.id != delivered?.id)
+                        if(prod.id !== delivered?.id)
                             return prod;
                         else
                         {
@@ -129,7 +129,7 @@ const AccountMenu = () =>
     function title()
     {
         if(track)
-            return <h1>Acompanhar compra</h1>
+            return <h1>Acompanhar compras</h1>
         else if(history)
             return <h1>Histórico de compras</h1>
         else
@@ -327,7 +327,7 @@ const AccountMenu = () =>
             <div className="content">
                 <main>
                     <div className="menu">
-                        <div className={`option ${track? 'selected' : ''}`} onClick={handleTrackClick}>Acompanhar compra</div>
+                        <div className={`option ${track? 'selected' : ''}`} onClick={handleTrackClick}>Acompanhar compras</div>
                         <div className={`option ${history? 'selected' : ''}`} onClick={handleHistoryClick}>Histórico de compras</div>
                         <div className={`option ${change? 'selected' : ''}`} onClick={handleChangeClick}>Alterar senha</div>
                     </div>

@@ -48,7 +48,7 @@ const Contact: React.FC = () =>
     // Mensagem de enviado ou de erro
     function sendModal()
     {
-        if(situation == 'show')
+        if(situation === 'show')
             return(
                 <div id="modal" className={situation}>
                     <div className="content">
@@ -59,7 +59,7 @@ const Contact: React.FC = () =>
                     </div>
                 </div>
             );
-        else if(situation == 'error')
+        else if(situation === 'error')
             return(
                 <div id="modal" className={situation}>
                     <div className="content">

@@ -86,7 +86,7 @@ const Product = () =>
                     setMainImage(response.data.images); //Seta a main image
                 }
             });
-    }, []);
+    }, [id]);
 
     // Precisa configurar para cada tamanho de produto
     const frete:FreteInfo = {
@@ -110,7 +110,7 @@ const Product = () =>
             .then(response => {
                 setDescriptions(response.data);
             })
-    }, [])
+    }, [id])
 
     // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete e mostra eles
     useEffect(() => {

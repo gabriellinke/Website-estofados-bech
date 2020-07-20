@@ -39,12 +39,12 @@ const Home = () =>
                 setNextPage(!!response.data.next.page)
                 setPreviousPage(!!response.data.previous.page)
             });
-    }, [order, category]);
+    }, [order, category, limit]);
 
     // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
-        if(largura != undefined)
+        if(largura !== undefined)
             largura = (largura - 72)/4;
         else
             largura = 264;

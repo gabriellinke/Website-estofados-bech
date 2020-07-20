@@ -259,7 +259,7 @@ const AccountMenuAdmin = () =>
     // Informações do comprador
     function userInfo()
     {
-        if(userMP != undefined)
+        if(userMP !== undefined)
             return(
                 <div className="user-info">
                     <div className="name">Nome: {userMP.name}</div>
