@@ -252,7 +252,7 @@ const Home = () =>
                         <div className="payment-methods">
                             <span><FaRegCreditCard size='50'/></span>
                             {/* Pagamentos no boleto, cartão <br/> e mais */}
-                            Diversos meios de pagamento <br/> disponíveis
+                            Pagamentos com cartão,<br/>  boleto e mais
                         </div>
                         <div className="safe">
                             <span><BsFillLockFill size='45' /></span>

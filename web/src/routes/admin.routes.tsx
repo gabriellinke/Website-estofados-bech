@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Checkout from '../pages/Checkout';
+import CheckoutConfirm from '../pages/CheckoutConfirm';
 import Home from '../pages/Home';
 import ProductAdmin from '../pages/ProductAdmin';
 import RegisterProduct from '../pages/RegisterProduct'
@@ -23,6 +24,7 @@ const AdminRoutes = () =>
         <BrowserRouter>
             <Switch>
                 <Route component={Checkout} path="/buying" exact/>
+                <Route component={CheckoutConfirm} path="/buying/confirm" exact/>
                 <Route component={CheckoutOk} path="/buying/success" exact/>
                 <Route component={CheckoutPending} path="/buying/pending" exact/>
                 <Route component={CheckoutError} path="/buying/error" exact/>

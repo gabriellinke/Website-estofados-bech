@@ -5,6 +5,7 @@ import { Formik, Form } from "formik";
 import FormikField from "../../components/FormikField";
 import Ajax from '../../services/ajax'
 import { useAuth } from '../../contexts/auth'
+import { useHistory } from "react-router-dom";
 
 import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
@@ -182,6 +183,7 @@ const CheckoutSchema = Yup.object().shape({
 const Checkout = () => 
 {
     const { signOut } = useAuth();
+    const history = useHistory();
 
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [ids, setIds] = useState<string[]>([]); 
@@ -206,6 +208,7 @@ const Checkout = () =>
     useEffect(() => {
         api.post('checkout/data', checkoutData)
             .then(response => {
+                history.push('/buying/confirm');
                 setLoadingConfirm(false);
                 setDisabled(false);
             })
@@ -341,7 +344,7 @@ const Checkout = () =>
                                 userSurname,
                                 userEmail,
                             } = response.data.checkoutInfo;
-        
+
                             // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
                             setCheckoutData({
                             product_id,
@@ -373,6 +376,9 @@ const Checkout = () =>
                             userSurname,
                             userEmail,
                             })
+
+                            localStorage.setItem('@EB:checkoutData', "");
+                            localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
                         })
                         setNotAuthorized(0);
                 })
@@ -525,40 +531,15 @@ const Checkout = () =>
                     userSurname,
                     userEmail,
                     })
+
+                    localStorage.setItem('@EB:checkoutData', "");
+                    localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
             })
             .catch(err => {
                 console.log(err);
                 setNotAuthorized(1);
             })
         })
-    }
-
-    // Retorna o botão de pagamento, verificando se ele deve estar habilitado ou não
-    function buttonMercadoPago()
-    {
-        if(disabled)
-            return (
-            <div className="payment-button">
-                <p>Confirme seus dados para habilitar o pagamento</p>
-                <div className="confirm">
-                    <a href={`${link}`}>
-                        <button disabled className="disabled">Pagar com Mercado Pago</button>
-                    </a>
-                    {loading()}
-                </div>
-            </div>
-            );
-        else
-            return (
-                    <div className="payment-button">
-                        <div className="confirm">
-                            <a href={`${link}`}>
-                                <button className="normal">Pagar com Mercado Pago</button>
-                            </a>
-                            {loading()}
-                        </div>
-                    </div>
-                    );
     }
 
     // Mostra as animações de loading
@@ -649,9 +630,6 @@ const Checkout = () =>
                                     <div className="name">Total</div>
                                     <div className="price">R${((totalPrice)+(frete)).toFixed(2)}</div>
                                 </div>
-                            </div>
-                            <div className="mercado-pago-button">
-                                {buttonMercadoPago()}
                             </div>
                         </div>
                     </div>

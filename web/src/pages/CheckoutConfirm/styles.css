@@ -1,0 +1,274 @@
+#page-checkout
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
+}
+
+#page-checkout .content
+{
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+
+#page-checkout .content main
+{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    border: 1px solid rgb(204, 203, 203);
+
+    padding: 16px;
+}
+
+#page-checkout .content main h1
+{
+    /* text-align: center;   */
+    margin-left: 16px;
+    margin-top: 32px;
+    margin-bottom: 64px;
+}   
+
+#page-checkout .content main .grid
+{
+    display: grid;
+    grid-template-columns: auto 450px;
+    gap: 16px;
+}
+
+#page-checkout .content main .grid h3
+{
+    font-size: 24px;
+    margin: 16px 0;
+}
+
+#page-checkout .content main .grid .user-info
+{
+    padding: 16px;
+    border: 1px solid rgb(204, 203, 203);
+    font-size: 20px;
+}
+
+#page-checkout .content main .grid .user-info .form .contact
+{
+    margin-bottom: 64px;
+}
+
+#page-checkout .content main .grid .user-info .form .contact .field-group-phone
+{
+    display: grid;
+    grid-template-columns: 64px auto;
+    gap: 16px;
+}
+
+#page-checkout .content main .grid .user-info .form .personal-info
+{
+    margin-bottom: 64px;
+}
+
+#page-checkout .content main .grid .user-info .form .delivery-info
+{
+    margin-bottom: 48px;
+}
+
+#page-checkout .content main .grid .user-info .form .confirm
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info
+{
+    height: min-content;
+    padding: 16px;
+    border: 1px solid rgb(204, 203, 203);
+    color: #444343;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .general-info
+{
+    border-bottom: 1px solid rgb(204, 203, 203);
+    padding: 16px 0;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .general-info img
+{
+    height: 64px;
+    width: 64px;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .general-info .name-price
+{
+    font-size: 22px;
+    font-weight: 400;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .general-info .name-price .name
+{
+    margin-right: 8px;
+}
+#page-checkout .content main .grid .product-info-button .product-info .costs
+{
+    font-size: 18px;
+    font-weight: 300;
+    color: #575454;
+
+    margin-top: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgb(204, 203, 203);
+    padding-bottom: 16px;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .costs .subtotal
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .costs .freight
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-checkout .content main .grid .product-info-button .product-info .total-costs
+{
+    color: #2e2d2d;
+    font-size: 22px;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-checkout .content main .grid .product-info-button .mercado-pago-button
+{
+    text-align: center;
+    margin-top: 32px;
+    /* align-items: center;
+    justify-content: center; */
+}
+
+#page-checkout .content main .grid .product-info-button .mercado-pago-button .payment-button .confirm
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#page-checkout .content main .grid .product-info-button .mercado-pago-button p
+{
+    color: #414040;
+    margin-bottom: 8px;
+}
+
+#page-checkout button.normal
+{
+    width: 300px;
+    height: 56px;
+
+    background-color: var(--primary-color);
+    border-radius: 8px;
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+
+    border: 0;
+
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#page-checkout button.disabled
+{
+    width: 300px;
+    height: 56px;
+
+    color: #525050;
+    background-color: #858585;
+
+    font-weight: bold;
+    font-size: 16px;
+
+    border: 0;
+    border-radius: 8px;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-checkout button.normal:hover
+{
+    background-color: var(--hover-color);
+}
+
+@media (max-width: 1000px)
+{
+    #page-checkout .content main .grid
+    {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+
+@media (max-width: 800px)
+{
+    #page-checkout .content main .grid
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 425px)
+{
+    #page-checkout .content main button
+    {
+        width: 180px;
+    }
+
+    #page-checkout .content main .grid .product-info-button .product-info .general-info
+    {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 426px)
+{
+    #page-checkout .content main .grid .product-info-button .product-info .general-info
+    {
+        display: grid;
+        grid-template-columns: 64px auto;
+        gap: 16px;
+    }
+}
