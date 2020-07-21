@@ -152,7 +152,7 @@ const CheckoutConfirm = () =>
     }, [])
 
     return(
-        <div id="page-checkout">
+        <div id="page-checkout-confirm">
             <Header />
             <div className="content">
                 <main>

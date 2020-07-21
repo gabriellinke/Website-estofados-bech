@@ -37,6 +37,7 @@ const Home = () =>
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
     const [nextPage, setNextPage] = useState<boolean>(false); // Mostra se tem próxima página
     const [previousPage, setPreviousPage] = useState<boolean>(false); // Mostra se tem uma página anterior
+    const [mobile, setMobile] = useState<boolean>(false); // Diz se o dispositivo é mobile, pra fazer ajuste do tamanho do container
 
     // Consulta a API para pegar a lista de produtos
     useEffect(() => {
@@ -56,6 +57,11 @@ const Home = () =>
         let largura = document.getElementById('products-grid')?.clientWidth;
         if(largura !== undefined)
         {
+            if(largura > 650)
+                setMobile(false);
+            else
+                setMobile(true);
+
             if(largura <= 425)
                 largura = (largura - 24)/2;
             else if(largura > 425)
@@ -215,6 +221,44 @@ const Home = () =>
                 setIndice((indice + 1) % reformImages.length); 
     }
 
+    function Container()
+    {
+        if(mobile)
+            return(
+            <div className="container">
+                <div className="mercado-pago">
+                    <span><img src={mp} alt="Mercado pago"/></span>
+                    Pagamento <br/> seguro com <br/>Mercado Pago
+                </div>
+                <div className="payment-methods">
+                    <span><FaRegCreditCard size='50'/></span>
+                    Pagamentos <br/> com cartão,<br/>  boleto e mais
+                </div>
+                <div className="safe">
+                    <span><BsFillLockFill size='45' /></span>
+                    Site seguro
+                </div>
+            </div>
+            );
+        else
+            return(
+            <div className="container">
+                <div className="mercado-pago">
+                    <span><img src={mp} alt="Mercado pago"/></span>
+                    Pagamento seguro com <br/>Mercado Pago
+                </div>
+                <div className="payment-methods">
+                    <span><FaRegCreditCard size='50'/></span>
+                    Pagamentos com cartão,<br/>  boleto e mais
+                </div>
+                <div className="safe">
+                    <span><BsFillLockFill size='45' /></span>
+                    Site seguro
+                </div>
+            </div>
+            );
+    }
+
     // Vai ficar passando as imagens se nenhuma imagem for clicada
     if(imageClicked < 0)
         setTimeout(rodarImagens , 6 * 1000);
@@ -244,22 +288,7 @@ const Home = () =>
 
             <div className="content">
                 <main>
-                    <div className="container">
-                        <div className="mercado-pago">
-                            <span><img src={mp} alt="Mercado pago"/></span>
-                            Pagamento seguro com <br/>Mercado Pago
-                        </div>
-                        <div className="payment-methods">
-                            <span><FaRegCreditCard size='50'/></span>
-                            {/* Pagamentos no boleto, cartão <br/> e mais */}
-                            Pagamentos com cartão,<br/>  boleto e mais
-                        </div>
-                        <div className="safe">
-                            <span><BsFillLockFill size='45' /></span>
-                            Site seguro
-                        </div>
-                    </div>
-
+                    {Container()}
                     <h1>Produtos</h1>
                     <div className="products-order">
                         <div className="order">

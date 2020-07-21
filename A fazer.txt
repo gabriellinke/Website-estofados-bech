@@ -78,6 +78,7 @@ Banco de dados para cadastrar as imagens				OK
 Pegar as imagens de reforma do BD					OK
 Fazer página admin dentro menu de usuários pra botar/retirar imagens	OK
 Botar um lugar falando de mercado pago, site seguro...			OK
+Fazer a confirmação da compra em uma nova página			OK
 
 Fazer layout de Contato							OK
 Fazer layout de Quem somos						OK
@@ -105,7 +106,6 @@ Verificar se todas as funções estão funcionando, pois podem ter surgido algun
 Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 Quando tudo estiver pronto, tirar a opção de criar conta admin
 Deploy definitivo, com tudo no github, sabendo certinho como funciona
-Cores de tecido
 
 https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 

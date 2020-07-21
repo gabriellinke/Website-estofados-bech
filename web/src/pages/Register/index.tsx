@@ -7,7 +7,7 @@ import FormikField from "../../components/FormikField";
 import { Link, useHistory } from "react-router-dom";
 import api from '../../services/api'
 import Footer from '../../partials/Footer/Footer'
-import logo from '../../assets/Logo.png';
+import SimpleHeader from '../../partials/SimpleHeader/SimpleHeader';
 
 import "./styles.css";
 
@@ -112,17 +112,16 @@ const RegisterFormik: React.FC = () =>
           {() => {
             return (
               <div>
-                  <body></body>
-                  <header>
-                      <img src={logo} alt="Logomarca" />
-                  </header>
+                  <SimpleHeader/>
                   <Form className="form">
                       <h1>Cadastre-se</h1>
                       <FormikField name="name" label="Nome"/>
                       <FormikField name="surname" label="Sobrenome"/>
                       <FormikField name="email" label="Email"/>
                       <FormikField name="password" label="Senha " type="password"/>
-                      <FormikField name="repeat_password" label="Confirme a senha" type="password" />
+                      <FormikField name="repeat_password" label="Confirme a senha" type="password" className='repeat'/>
+                      
+                      <p>Ao efetuar seu cadastro você está concordando com <Link to='/termos'>termos e condições gerais de uso</Link> e com a <Link to='/politica-privacidade'>política de privacidade.</Link></p>
 
                       <button type="submit">
                         Cadastre-se

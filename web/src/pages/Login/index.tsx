@@ -6,7 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
 import Footer from '../../partials/Footer/Footer'
-import logo from '../../assets/Logo.png';
+import SimpleHeader from '../../partials/SimpleHeader/SimpleHeader';
 
 import './styles.css';  //Importa o css
 
@@ -69,12 +69,7 @@ const Login: React.FC = () =>
 
     return(
         <div id="page-login">
-            <body>
-            </body>
-                <header>
-                    <img src={logo} alt="Logomarca" />
-                </header>
-
+                <SimpleHeader/>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleSignIn}

@@ -100,33 +100,6 @@
     background-color:  #fff9c3;
 }
 
-#page-login body::after
-{
-    content: "";
-    position: absolute ;
-    background: var(--cor-teste);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 18rem;
-    z-index: -1;
-}
-
-#page-login header img
-{
-
-    background-color: var(--cor-teste);
-}
-
-#page-login header
-{
-    background-color: var(--cor-teste);
-    padding-top: 64px;
-    display: flex;
-    align-items: center;
-}
-
 .login-error
 {
     background-color: rgb(255, 78, 78);

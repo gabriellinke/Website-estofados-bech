@@ -4,11 +4,11 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
 import Footer from '../../partials/Footer/Footer'
-import logo from '../../assets/Logo.png';
 import { useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import check from '../../assets/check.svg';
 import errIcon from '../../assets/xred.svg';
+import SimpleHeader from '../../partials/SimpleHeader/SimpleHeader';
 
 import './styles.css';  //Importa o css
 
@@ -101,11 +101,7 @@ const Login: React.FC = () =>
 
     return(
         <div id="page-reset-password">
-            <body>
-            </body>
-                <header>
-                    <img src={logo} alt="Logomarca" />
-                </header>
+                <SimpleHeader/>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={handleReset}

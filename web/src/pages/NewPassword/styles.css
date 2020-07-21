@@ -105,33 +105,6 @@
     background-color:  #fff9c3;
 }
 
-#page-reset body::after
-{
-    content: "";
-    position: absolute ;
-    background: var(--cor-teste);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 18rem;
-    z-index: -1;
-}
-
-#page-reset header img
-{
-
-    background-color: var(--cor-teste);
-}
-
-#page-reset header
-{
-    background-color: var(--cor-teste);
-    padding-top: 64px;
-    display: flex;
-    align-items: center;
-}
-
 .reset-ok
 {
     background-color: rgb(26, 235, 53);

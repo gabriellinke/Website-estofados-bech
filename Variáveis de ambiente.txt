@@ -1,0 +1,17 @@
+HOME				/usr/src/app
+user				ssh-user
+ACCESS_TOKEN			APP_USR-3814211000061967-062720-ca7c62479c499858b60415eae08bb2a1-593717889
+ACCESS_TOKEN_SECRET		7be5684ed74756ec48dd5f66abb0d76c561954d83860544e509aa4ad74a48d3e
+BASE_URL			http://estofadosbech-com-br.umbler.net
+EMAIL_PASSWORD			estofadosbech12.
+EMAIL_USER			testandoestofadosbech123@gmail.com
+REFRESH_TOKEN_SECRET		f1c95bdf0786838bf9f41d8ebc65217228f89947656914899659d28835ae62ac
+RESET_PASSWORD_TOKEN_SECRET	1d904cde8da04ee028d2fa4d94fc67c6561479ccf1f5f919f82ee4e4c5ba9dcf
+RESET_PASSWORD_URL		https://estofadosbech.netlify.app/user/reset_password/
+SUCCESS_BACK_URL		https://estofadosbech.netlify.app/buying/success
+PENDING_BACK_URL		https://estofadosbech.netlify.app/buying/pending
+FAILURE_BACK_URL		https://estofadosbech.netlify.app/buying/error
+DB_HOST				mysql669.umbler.com
+DB_USER				gabriellinke
+DB_PASSWORD			gabrielhenrique12.
+DB_DATABASE			bancotesteeb

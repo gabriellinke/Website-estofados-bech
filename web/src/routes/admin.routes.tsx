@@ -16,6 +16,8 @@ import CheckoutPending from '../pages/CheckoutPending'
 import CheckoutError from '../pages/CheckoutError'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
+import Termos from '../pages/Termos'
+import PoliticaPrivacidade from '../pages/PoliticaPrivacidade'
 
 // Renderiza algum dos arquivos, dependendo de qual foi a rota acessada
 const AdminRoutes = () => 
@@ -38,6 +40,8 @@ const AdminRoutes = () =>
                 <Route component={Contact} path="/contato" exact/>
                 <Route component={RegisterProduct} path="/register" exact/>
                 <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
+                <Route component={PoliticaPrivacidade} path="/politica-privacidade" exact/>
+                <Route component={Termos} path="/termos" exact/>
                 <Route component={Home} />  {/* Usa o switch para que essa rota com a home seja a rota default caso não encontre nenhuma */}
             </Switch>
         </BrowserRouter>

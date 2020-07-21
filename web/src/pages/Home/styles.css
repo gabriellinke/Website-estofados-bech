@@ -7,8 +7,6 @@
     list-style-type: none; 
 }
 
-
-
 #page-home .reform
 {
     display: flex;
@@ -155,19 +153,55 @@
     margin-bottom: 32px;
 }
 
-#page-home .content main .container
+@media (max-width: 650px)
 {
-    margin: 32px 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    background-color: #FFFFFF;
-    padding: 32px;
-    border: 1px solid rgb(204, 203, 203);
-    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
-    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
-    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    #page-home .content main .container
+    {
+        margin: 32px 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        background-color: #FFFFFF;
+        padding: 32px;
+        border: 1px solid rgb(204, 203, 203);
+        -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+        -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+        box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    }
+
+    #page-home .content main .container .mercado-pago,
+    #page-home .content main .container .payment-methods,
+    #page-home .content main .container .safe
+    {
+        margin-right: 0;
+        border-right: 0;
+    }
 }
+
+@media (min-width: 651px)
+{
+    #page-home .content main .container .mercado-pago,
+    #page-home .content main .container .payment-methods
+    {
+        border-right: 1px solid rgb(204, 203, 203);
+        margin-right: 8px;
+    }
+
+    #page-home .content main .container
+    {
+        margin: 32px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        background-color: #FFFFFF;
+        padding: 32px;
+        border: 1px solid rgb(204, 203, 203);
+        -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+        -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+        box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    }
+}
+
 
 #page-home .content main .container .mercado-pago,
 #page-home .content main .container .payment-methods,
@@ -178,13 +212,6 @@
     justify-content: center;
     font-weight: bold;
     font-size: 18px;
-}
-
-#page-home .content main .container .mercado-pago,
-#page-home .content main .container .payment-methods
-{
-    border-right: 1px solid rgb(204, 203, 203);
-    margin-right: 8px;
 }
 
 #page-home .content main .container span

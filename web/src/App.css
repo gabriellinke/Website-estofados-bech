@@ -106,7 +106,10 @@ h1, h2, h3, h4, h5, h6
     #page-reset-password,
     #page-search,
     #page-about,
-    #page-contact
+    #page-contact,
+    #page-checkout-confirm,
+    #page-politica,
+    #page-termos
     {
         padding-bottom: 110px;
     }
@@ -138,7 +141,10 @@ h1, h2, h3, h4, h5, h6
     #page-reset-password,
     #page-search,
     #page-about,
-    #page-contact
+    #page-contact,
+    #page-checkout-confirm,
+    #page-politica,
+    #page-termos
     {
         padding-bottom: 190px;
     }
@@ -170,7 +176,10 @@ h1, h2, h3, h4, h5, h6
     #page-reset-password,
     #page-search,
     #page-about,
-    #page-contact
+    #page-contact,
+    #page-checkout-confirm,
+    #page-politica,
+    #page-termos
     {
         padding-bottom: 210px;
     }

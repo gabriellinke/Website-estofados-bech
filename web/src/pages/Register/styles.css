@@ -61,6 +61,26 @@
   justify-content: center;
 }
 
+#page-register .RegisterFormik .repeat
+{
+    margin-bottom: 16px;
+}
+
+#page-register .RegisterFormik .form p
+{
+    display: inline;
+}
+
+#page-register .RegisterFormik .form p a
+{
+    display: inherit;
+    margin: 0;
+    font-size: inherit;
+    font-weight: 500;
+    color:#3483FA;
+    padding: 0;
+}
+
 #page-register .RegisterFormik .form a span
 {
     height: 56px;
@@ -78,34 +98,6 @@
 {
     background-color:  #fff9c3;
 }
-
-#page-register .RegisterFormik body::after
-{
-    content: "";
-    position: absolute ;
-    background: var(--cor-teste);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 18rem;
-    z-index: -1;
-}
-
-#page-register .RegisterFormik header img
-{
-
-    background-color: var(--cor-teste);
-}
-
-#page-register .RegisterFormik header
-{
-    background-color: var(--cor-teste);
-    padding-top: 64px;
-    display: flex;
-    align-items: center;
-}
-
 
 #modal
 {
