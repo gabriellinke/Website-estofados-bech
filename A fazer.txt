@@ -88,13 +88,18 @@ Responsividade da imagem
 Ver como que é o jeito que faz com que a imagem não deforme
 Fazer um texto
 
-Fazer nova tabela no BD para cadastrar imagens				DIFÍCIL E TRABALHOSO
-Fazer uma proporção pro tamanho da imagem do produto			FALTA DECIDIR O TAMANHO NA HOME E NA PÁGINA DE PRODUTO
+Ir para Whatsapp através do site
+
+Fazer uma proporção pro tamanho da imagem do produto			
 Fazer responsividade
 	Comprar
 	Home/pesquisa/categorias
+	Termos
+	Politica privacidade
+	
 
-Política de privacidade. Termos...
+Escrever política de privacidade.
+Escrever termos de uso.
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho

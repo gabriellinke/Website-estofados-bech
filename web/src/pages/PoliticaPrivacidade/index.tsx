@@ -4,7 +4,7 @@ import SimpleHeader from '../../partials/SimpleHeader/SimpleHeader';
 
 import './styles.css';  //Importa o css
 
-const CheckoutConfirm = () => 
+const PoliticaPrivacidade = () => 
 {
 
     return(
@@ -23,4 +23,4 @@ const CheckoutConfirm = () =>
     );
 };
 
-export default CheckoutConfirm;
+export default PoliticaPrivacidade;

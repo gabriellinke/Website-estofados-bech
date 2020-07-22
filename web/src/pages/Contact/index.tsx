@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Footer from '../../partials/Footer/Footer'
 import Header from '../../partials/Header/Header'
 import { FiInstagram } from 'react-icons/fi';
-import {AiFillFacebook} from 'react-icons/ai';
+import { AiFillFacebook } from 'react-icons/ai';
+import { IoLogoWhatsapp } from 'react-icons/io';
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FormikField from "../../components/FormikField";
@@ -166,6 +167,10 @@ const Contact: React.FC = () =>
                             <a href="https://www.instagram.com/estofadosbech/" className="instagram">
                                 <span><FiInstagram size="60"/></span>
                                 Instagram
+                            </a>
+                            <a href="https://wa.me/5549988186614" className="whatsapp">
+                                <span><IoLogoWhatsapp size="60"/></span>
+                                WhatsApp
                             </a>
                         </div>
                         <div className="email">

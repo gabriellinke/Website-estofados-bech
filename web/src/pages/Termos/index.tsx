@@ -4,7 +4,7 @@ import SimpleHeader from '../../partials/SimpleHeader/SimpleHeader';
 
 import './styles.css';  //Importa o css
 
-const CheckoutConfirm = () => 
+const Termos = () => 
 {
     return(
         <div id="page-termos">
@@ -12,7 +12,7 @@ const CheckoutConfirm = () =>
             <div className="content">
                 <main>
                     <h1>Termos e condições gerais de uso</h1>
-                    <div className="user-info">
+                    <div className="info">
 
                     </div>
                 </main>
@@ -22,4 +22,4 @@ const CheckoutConfirm = () =>
     );
 };
 
-export default CheckoutConfirm;
+export default Termos;

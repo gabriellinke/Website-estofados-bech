@@ -112,6 +112,11 @@
     color: #3b5998;
 }
 
+#page-contact .content main .contact-content .social-media a.whatsapp span
+{
+    color: #34af23;
+}
+
 #page-contact .content main .contact-content .email .form .send-button
 {
     display: flex;
