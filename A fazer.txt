@@ -83,12 +83,12 @@ Fazer a confirmação da compra em uma nova página			OK
 Fazer layout de Contato							OK
 Fazer layout de Quem somos						OK
 Colocar localização no mapa						OK
-Colocar imagem da frente da loja
-Responsividade da imagem
-Ver como que é o jeito que faz com que a imagem não deforme
+Colocar imagem da frente da loja				
+Responsividade da imagem						ALFA OK
+Ver como que é o jeito que faz com que a imagem não deforme		OK
 Fazer um texto
 
-Ir para Whatsapp através do site
+Ir para Whatsapp através do site					OK
 
 Fazer uma proporção pro tamanho da imagem do produto			
 Fazer responsividade

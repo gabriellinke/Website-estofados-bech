@@ -8,6 +8,25 @@
 
 }
 
+#page-about img.imagem-loja
+{
+    object-fit: cover;
+    object-position: 50% 20%;
+    width: 100%;
+    height: 200px;
+}
+
+@media(min-width: 1600px)
+{
+    #page-about img.imagem-loja
+    {
+        object-fit: cover;
+        object-position: 50% 20%;
+        width: 100%;
+        height: 350px;
+    }
+}
+
 #page-about .content
 {  
     margin: 0 auto;

@@ -12,7 +12,7 @@ const About: React.FC = () =>
     return(
         <div id="page-about">
             <Header />
-            <img src={imagemLoja} width='100%' height='200px' alt="Imagem da loja"/>
+            <img src={imagemLoja} alt="Imagem da loja" className='imagem-loja'/>
             <div className="content">
                 <main>
                     <h1>Quem somos</h1>
