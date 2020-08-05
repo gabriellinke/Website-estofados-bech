@@ -160,15 +160,15 @@ const Contact: React.FC = () =>
                         </div>
                         <div className="social-media">
                             <div className="title">Redes sociais</div>
-                            <a href="https://www.facebook.com/estofadosbech" className="facebook">
+                            <a target='blank' href="https://www.facebook.com/estofadosbech" className="facebook">
                                 <span> < AiFillFacebook size="60"/> </span>
                                 Facebook
                             </a>
-                            <a href="https://www.instagram.com/estofadosbech/" className="instagram">
+                            <a target='blank' href="https://www.instagram.com/estofadosbech/" className="instagram">
                                 <span><FiInstagram size="60"/></span>
                                 Instagram
                             </a>
-                            <a href="https://wa.me/5549988186614" className="whatsapp">
+                            <a target='blank' href="https://wa.me/5549988186614" className="whatsapp">
                                 <span><IoLogoWhatsapp size="60"/></span>
                                 WhatsApp
                             </a>

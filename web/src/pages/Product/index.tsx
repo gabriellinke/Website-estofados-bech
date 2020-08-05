@@ -332,7 +332,7 @@ const Product = () =>
                                         <button>OK</button>
                                         {loadingAnimationFrete()}
                                     </form>
-                                    <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                    <a target='blank' href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
                                 </div>
                             </div>
                             {showFrete()}

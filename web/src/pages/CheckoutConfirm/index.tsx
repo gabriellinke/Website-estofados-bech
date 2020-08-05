@@ -206,7 +206,7 @@ const CheckoutConfirm = () =>
                                 <div className="payment-button">
                                     <p>Verifique os dados antes de realizar o pagamento</p>
                                     <div className="confirm">
-                                        <a href={`${link}`}>
+                                        <a target='blank' href={`${link}`}>
                                             <button className="normal">Pagar com Mercado Pago</button>
                                         </a>
                                     </div>

@@ -343,7 +343,7 @@ const RegisterProduct = () =>
                                                 <div className="select-field">
                                                     <p>Categoria</p>
                                                     <select name="category" id="category" defaultValue="" placeholder="Categoria" required onChange={handleCategorySelectChange}>
-                                                        <option value="" data-default disabled>Selecione uma categoria</option>
+                                                        <option value="" disabled selected hidden>Selecione uma categoria</option>
                                                         <option value="nova">Nova categoria</option>
                                                         {categories?.map(category => {
                                                             return(
