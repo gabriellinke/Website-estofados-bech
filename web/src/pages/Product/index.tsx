@@ -7,7 +7,7 @@ import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
 import { useAuth } from '../../contexts/auth'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import './styles.css';  //Importa o css
 
@@ -86,7 +86,7 @@ const Product = () =>
                     setMainImage(response.data.images); //Seta a main image
                 }
             });
-    }, []);
+    }, [id]);
 
     // Precisa configurar para cada tamanho de produto
     const frete:FreteInfo = {
@@ -101,7 +101,7 @@ const Product = () =>
         diametro: (product?.diametro !== undefined) ? product.diametro : 5,
         cdMaoPropria: "N",
         valorDeclarado: 0,
-        avisoRecebimento: "N",
+        avisoRecebimento: "S",
     }
 
     // Carrega as descrições do produto
@@ -110,7 +110,7 @@ const Product = () =>
             .then(response => {
                 setDescriptions(response.data);
             })
-    }, [])
+    }, [id])
 
     // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete e mostra eles
     useEffect(() => {
@@ -217,16 +217,23 @@ const Product = () =>
     function addToCart()
     {
         setLoadingCart(true)
-        api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
-            .then(response => {
-                setLoadingCart(false);
-                console.log(response.data);
-                history.push('/user/cart')
-            })
-            .catch(err =>{
-                console.log(err);
-                setLoadingCart(false);
-            })
+        if(localStorage.getItem('@EB:accessToken'))
+        {
+            api.post('/user/cart/add', {product_id: product?.id, user_id: user?.id, quantity: quantity})
+                .then(response => {
+                    setLoadingCart(false);
+                    console.log(response.data);
+                    history.push('/user/cart');
+                })
+                .catch(err =>{
+                    console.log(err);
+                    setLoadingCart(false);
+                })
+        }
+        else
+        {
+            history.push('/user/login');
+        }
     }
 
     // Mostra o botão do carrinho e mostra a animação de carregamento
@@ -248,23 +255,30 @@ const Product = () =>
             );
     }
 
-    // // Redireciona o usuário para a página de compra
-    // function handleSubmit(event: FormEvent<HTMLFormElement>)
-    // {
-    //     event.preventDefault();
+    // Redireciona o usuário para a página de compra
+    function handleCheckout(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
 
-    //     let idProduto = product.id        
-    //     localStorage.setItem('@EB:id', String(idProduto));
-    //     localStorage.setItem('@EB:quantity', String(quantity));
-    //     try{
-    //         history.push('/buying')
-    //     }
-    //     catch
-    //     {
-    //         history.push('/')
-    //         console.log("Ocorreu um erro no submit do Checkout")
-    //     }
-    // }
+        let idProduto = product.id        
+        localStorage.setItem('@EB:id', String(idProduto));
+        localStorage.setItem('@EB:quantity', String(quantity));
+        if(localStorage.getItem('@EB:accessToken'))
+        {
+            try{
+                history.push('/buying')
+            }
+            catch
+            {
+                history.push('/')
+                console.log("Ocorreu um erro no submit do Checkout")
+            }
+        }
+        else
+        {
+            history.push('/user/login')
+        }
+    }
 
     return(
         <div id="product-info">
@@ -291,8 +305,12 @@ const Product = () =>
                             </div>
                         </div>
                         <div className="buy">
+<<<<<<< HEAD
+                            <form action="/buying" method="GET" id="form1" onSubmit={handleCheckout}>
+=======
                             <form action="/buying" method="GET" id="form1">
                                 <input type="hidden" name="id" value={product?.id} />
+>>>>>>> 0ff8e7d1b9ecf0cf16392961da125d6b075f70fe
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x no cartão`}</p>
                                 <div className="purchase-area">
@@ -319,10 +337,11 @@ const Product = () =>
                                         <button>OK</button>
                                         {loadingAnimationFrete()}
                                     </form>
-                                    <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
+                                    <a target='blank' href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu CEP</a>
                                 </div>
                             </div>
                             {showFrete()}
+                            <div className="no-delivery">Se preferir, <Link to='/contato' className="contact">entre em contato</Link> e reserve o produto para retirada na loja. </div>
                         </div>
                     </div>
                 </main>

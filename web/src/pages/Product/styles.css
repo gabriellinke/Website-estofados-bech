@@ -3,7 +3,7 @@
     height: 100%;
     position: relative;
     min-height: 100vh;
-    padding-bottom: 110px;
+    /* padding-bottom: 110px; */
 }
 
 #product-info .content
@@ -169,6 +169,18 @@
     display: flex;
     flex-direction: row;
     margin-top: 48px;   
+}
+
+#product-info .content main .buy .no-delivery
+{
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+#product-info .content main .buy .no-delivery a.contact
+{
+    margin: 0;
+    font-size: 18px;
 }
 
 #product-info .content main .buy .freight-area #form2

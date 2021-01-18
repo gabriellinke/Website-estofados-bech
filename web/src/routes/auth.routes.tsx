@@ -9,6 +9,13 @@ import NewPassword from '../pages/NewPassword'
 import ResetPassword from '../pages/ResetPassword'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
+import CheckoutOk from '../pages/CheckoutOk'
+import CheckoutPending from '../pages/CheckoutPending'
+import CheckoutError from '../pages/CheckoutError'
+import About from '../pages/About'
+import Contact from '../pages/Contact'
+import Termos from '../pages/Termos'
+import PoliticaPrivacidade from '../pages/PoliticaPrivacidade'
 
 // Rotas para quem não está autenticado
 const AuthRoutes = () => 
@@ -24,6 +31,13 @@ const AuthRoutes = () =>
                 <Route component={Product} path="/products/:id" exact/>
                 <Route component={NewPassword} path="/user/reset" exact/>
                 <Route component={ResetPassword} path="/user/reset_password/:token" exact/>
+                <Route component={CheckoutOk} path="/buying/success" exact/>
+                <Route component={CheckoutPending} path="/buying/pending" exact/>
+                <Route component={CheckoutError} path="/buying/error" exact/>
+                <Route component={About} path="/about" exact/>
+                <Route component={Contact} path="/contato" exact/>
+                <Route component={PoliticaPrivacidade} path="/politica-privacidade" exact/>
+                <Route component={Termos} path="/termos" exact/>
                 <Route component={Home} />  {/* Usa o switch para essa rota com a home ser a rota default caso não encontre nenhuma */}
             </Switch>
         </BrowserRouter>

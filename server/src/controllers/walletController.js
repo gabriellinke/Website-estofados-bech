@@ -97,7 +97,13 @@ exports.walletbutton = async (req, res, next) => {
     },
     payment_methods: {
       installments: parseInt(parcelas)
-    }
+    },
+    back_urls: {
+      success: process.env.SUCCESS_BACK_URL,
+      failure: process.env.FAILURE_BACK_URL,
+      pending: process.env.PENDING_BACK_URL
+    },
+    auto_return: "approved",
   }
 
   try {

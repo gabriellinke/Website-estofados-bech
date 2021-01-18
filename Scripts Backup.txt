@@ -1,0 +1,18 @@
+BACK-END
+
+  "scripts": {
+    "start": "node dist/src/server.js",
+    "build": "rimraf dist && tsc",
+    "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
+  },
+
+FRONT-END
+
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "CI= react-scripts build && echo '/* /index.html 200' | cat >build/_redirects",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },

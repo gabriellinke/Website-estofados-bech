@@ -50,9 +50,9 @@ class CheckoutController
             email,
             area_code,
             phone,
-            cpf,
+            CPF: cpf,
       
-            cep,
+            CEP: cep,
             state,
             city,
             neighborhood,
@@ -70,7 +70,7 @@ class CheckoutController
         };
 
         const insertedData = await knex('checkout_data').insert(data);
-        const data_id = insertedData[0];
+        // const data_id = insertedData[0];
 
         //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
         let transporter = nodemailer.createTransport({
@@ -84,6 +84,7 @@ class CheckoutController
             tls: { rejectUnauthorized: false }
         });
 
+        let idArray = product_id.split('@')
         let quantityArray = quantity.split('@');
         let nameArray = productName.split('@');
         let priceArray = price.split('@');
@@ -91,7 +92,7 @@ class CheckoutController
         let msg = "";
         for(let i=0; i < quantityArray.length; i++)
         {
-            msg += quantityArray[i] + " unidades de " + nameArray[i] + " pelo preço de R$" + priceArray[i] + " por unidade,"
+            msg += quantityArray[i] + " unidades de " + nameArray[i]+'(id: '+ idArray[i] +')' + " pelo preço de R$" + priceArray[i] + " por unidade,"
         }
 
         const mensagem = `<p>O usuário ${userName} ${userSurname} cadastrado com o email ${userEmail} acaba de iniciar um processo de compra.<br/></p>
@@ -122,7 +123,7 @@ class CheckoutController
         })
 
         return response.json({
-            data_id,
+            // data_id,
             data
         });
     }

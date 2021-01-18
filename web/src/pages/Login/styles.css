@@ -3,7 +3,7 @@
     height: 100%;
     position: relative;
     min-height: 100vh;
-    padding-bottom: 110px;
+    /* padding-bottom: 110px; */
 }
 
 #page-login .form
@@ -98,33 +98,6 @@
 #page-login form a span:hover
 {
     background-color:  #fff9c3;
-}
-
-#page-login body::after
-{
-    content: "";
-    position: absolute ;
-    background: var(--cor-teste);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 18rem;
-    z-index: -1;
-}
-
-#page-login header img
-{
-
-    background-color: var(--cor-teste);
-}
-
-#page-login header
-{
-    background-color: var(--cor-teste);
-    padding-top: 64px;
-    display: flex;
-    align-items: center;
 }
 
 .login-error

@@ -11,7 +11,15 @@ interface User{
     name: string;    
     surname: string;
     email: string;
-    password: undefined;
+    password: string | undefined;
+    admin: boolean;
+}
+
+interface UserNoPassword{
+    id: number;
+    name: string;    
+    surname: string;
+    email: string;
     admin: boolean;
 }
 
@@ -78,10 +86,17 @@ class UsersController
                 refreshSecret = process.env.REFRESH_TOKEN_SECRET;
 
             userOk.password = undefined;
-            const accessToken = generateAccessToken(userOk)
-            const refreshToken = jwt.sign(userOk, refreshSecret)
+            const tokenUser:UserNoPassword = 
+            {
+                id: userOk.id,
+                name: userOk.name,
+                surname: userOk.surname,
+                email: userOk.email,
+                admin: userOk.admin
+            }
+            const accessToken = generateAccessToken(tokenUser)
+            const refreshToken = jwt.sign(tokenUser, refreshSecret)
 
-            // refreshTokens.push(refreshToken) Colocar o token no banco de dados de refresh Tokens
             const insertedToken = await knex('tokens').insert({token: refreshToken});
 
             return response.json({
@@ -221,9 +236,74 @@ class UsersController
             return response.json(changedUser)
         })
     }
+
+    // Muda a senha do usuário
+    async changePassword(request: Request, response: Response)
+    {
+        const {
+            email,
+            password,
+            new_password
+        } = request.body;
+
+        const shaObj = new jsSHA("SHA3-512", "TEXT")
+        shaObj.update(password);
+        const HashPassword = shaObj.getHash("HEX");
+
+        const userOk:User = await knex('users').where('email', email).where('password', HashPassword).first();
+
+        const shaObj2 = new jsSHA("SHA3-512", "TEXT")
+        shaObj2.update(new_password);
+        const NewHashPassword = shaObj2.getHash("HEX");
+
+        let ok;
+        if(userOk != undefined)
+            ok = await knex('users').where('email', email).update({password: NewHashPassword});
+
+        return response.json({changed: !!ok})
+    }
+
+    // Envia um email pelo formulário da página de contatos
+    async sendMessage(request: Request, response: Response)
+    {
+        const{
+            name,
+            email,
+            phone,
+            message
+        }= request.body;
+
+        //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD
+            },
+            tls: { rejectUnauthorized: false }
+        });
+
+        const mensagem = `<p>${name} mandou uma mensagem através do formulário da página de contato. Seu email é ${email} e seu telefone é ${phone}. Essa foi a mensagem enviada:<br/></p>
+                            ${message}`
+
+        transporter.sendMail({
+            from: `Estofados Bech <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
+            subject: "Mensagem enviada através da página de contato",
+            html: mensagem
+        }).then(message => {
+            console.log(message);
+            return response.json({send: true})
+        }).catch(err => {
+            console.log(err);
+            return response.json({send: false})
+        })
+    }
 }
 
-function generateAccessToken(user:User) {
+function generateAccessToken(user:UserNoPassword) {
     let secret = "";
     if(process.env.ACCESS_TOKEN_SECRET)
         secret = process.env.ACCESS_TOKEN_SECRET;

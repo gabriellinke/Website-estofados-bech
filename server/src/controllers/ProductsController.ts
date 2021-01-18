@@ -10,7 +10,6 @@ class ProductsController
 
         const {
             name,       
-            images,
             category,
             conditions,
             price,
@@ -45,6 +44,22 @@ class ProductsController
             product_id,
             ...product, 
         });
+    }
+
+    // Deleta um produto
+    async delete(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            id
+        } = request.body;
+
+        const removedProduct = await knex('products').where('id', id).del();
+
+        return response.json({
+            removedProduct
+        })
     }
 
     // Modifica um produto existente
@@ -331,6 +346,96 @@ class ProductsController
     {
         const categories = await knex('categories');
         return response.json(categories);
+    }
+
+    // Adiciona um novo produto a lista de produtos vendidos
+    async sold(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const {
+            email,
+            quantity,
+            date,
+            code,
+            id
+        } = request.body;
+
+        const produto = await knex('products').where('id', id).first();
+
+        const product = {
+            email,
+            image: produto.images,
+            name: produto.name,
+            quantity,
+            price: produto.price,
+            date,
+            code,
+            delivered: false,
+        };
+
+        const insertedProduct = await knex('sold_products').insert(product);
+
+        return response.json({
+            product,
+        })
+    }
+
+    // Remove um produto da lista de produtos vendidos
+    async soldDelete(request: Request, response: Response)
+    {
+        if(!request.body.user.admin) return response.sendStatus(401);
+
+        const id = request.body.id;
+
+        const removedProduct = await knex('sold_products').where('id', id).del();
+
+        return response.json({
+            removed: !!removedProduct
+        })
+    }
+
+    // Muda o estado do produto de vendido para entregue
+    async delivered(request: Request, response: Response)
+    {
+        const id = request.body.id
+        const produto = await knex('sold_products').where('id', id).update({delivered:true});
+
+        return response.json({
+            modificado: !!produto
+        })
+    }
+
+    // Mostra os detalhes do produto vendido
+    async showSold(request: Request, response: Response)
+    {
+        const { id } = request.params;
+
+        const sold_products = await knex('sold_products').where('id', id);
+
+        if(!sold_products)
+        {
+            // Status com começo 4 significa que houve algum erro
+            return response.status(400).json({ message: 'sold_products not found'});
+        }
+
+        return response.json(sold_products);
+    }
+
+    // Mostra os detalhes dos produtos vendidos para um determinado email
+    async showEmailSold(request: Request, response: Response)
+    {
+        const { email } = request.params;
+
+        const sold_products = await knex('sold_products').where('email', email);
+
+        if(!sold_products)
+        {
+            // Status com começo 4 significa que houve algum erro
+            return response.status(400).json({ message: 'sold_products not found'});
+        }
+
+        return response.json(sold_products);
     }
 }
 

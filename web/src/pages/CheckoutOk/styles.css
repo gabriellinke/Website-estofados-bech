@@ -1,0 +1,126 @@
+#page-checkout-ok
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
+}
+
+#page-checkout-ok .content{
+
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#page-checkout-ok .content main
+{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    border: 1px solid rgb(204, 203, 203);
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+
+    padding: 64px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #333333;
+}
+
+@media (min-width:425px)
+{
+    #page-checkout-ok .content main .header-image .subtitle
+    {
+        font-size: 18px;
+    }
+
+    #page-checkout-ok .content main .menu-image .subtitle
+    {
+        font-size: 18px;
+    }
+}
+
+@media (max-width:425px)
+{
+    #page-checkout-ok .content main
+    {
+        font-size: 18px;
+    }
+
+    #page-checkout-ok .content main .header-image .subtitle
+    {
+        font-size: 14px;
+    }
+
+    #page-checkout-ok .content main .menu-image .subtitle
+    {
+        font-size: 14px;
+    }
+}
+
+#page-checkout-ok .content main .title-first
+{
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 16px;
+}
+
+#page-checkout-ok .content main .title-second
+{
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 100px;
+}
+
+#page-checkout-ok .content main .info
+{
+    margin-bottom: 50px;
+    text-align: justify;
+}
+
+#page-checkout-ok .content main .header-image .subtitle
+{
+    font-weight: 500;
+    text-align: center;
+}
+
+#page-checkout-ok .content main .header-image 
+{
+    margin-bottom: 60px;
+}
+
+#page-checkout-ok .content main .menu-image .subtitle
+{
+    font-weight: 500;
+    text-align: center;
+}
+
+#page-checkout-ok .content main .menu-image 
+{
+    margin-bottom: 60px;
+}
+
+#page-checkout-ok .content main a
+{
+    font-weight: 500;
+    text-align: center;
+    color:#3483FA;
+}
+
+#page-checkout-ok .content main .contato
+{
+    text-align: center;
+    margin-bottom: 60px;
+}

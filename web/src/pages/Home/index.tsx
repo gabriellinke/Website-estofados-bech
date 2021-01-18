@@ -3,28 +3,41 @@ import Header from '../../partials/Header/Header';
 import Footer from '../../partials/Footer/Footer';
 import Product from '../../partials/Product/Product';
 import api from '../../services/api';
+import { Link } from 'react-router-dom'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
+import { BsFillLockFill } from 'react-icons/bs'
+import { FaCircle, FaRegCreditCard } from 'react-icons/fa'
+import mp from '../../assets/mercado-pago.png'
 
 import './styles.css';
 
+interface ProductProps{
+    id: number;
+    images: string;
+    name: string;
+    price: number;
+    conditions: number;
+}
+
+interface ReformProps{
+    image: string;
+    id: number;
+}
+
 const Home = () => 
 {
-    interface ProductProps{
-        id: number;
-        images: string;
-        name: string;
-        price: number;
-        conditions: number;
-    }
-
     const [products, setProducts] = useState<ProductProps[]>([]); //Guardar a lista de produtos
     const [resultsQuantity, setResultsQuantity] = useState<number>(0); // Quantidade de itens
     const [imageWidth, setImageWidth] = useState<number>(0); // Largura da imagem do produto
-    const [limit, setLimit] = useState<number>(8); // Quantidade de itens
+    const [limit, setLimit] = useState<number>(50); // Quantidade de itens
     const [order, setOrder] = useState<string>("az"); // Qual a ordem que os itens são organizados
+    const [reformImages, setReformImages] = useState<ReformProps[]>(); //Vetor com as imagens
+    const [indice, setIndice] = useState<number>(0); // Indice da imagem mostrada
+    const [imageClicked, setImageClicked] = useState<number>(-1); // Diz se já foi clicado para pausar a imagem ou trocar imagem
     const [currentPage, setCurrentPage] = useState<number>(1); //Página atual
     const [nextPage, setNextPage] = useState<boolean>(false); // Mostra se tem próxima página
     const [previousPage, setPreviousPage] = useState<boolean>(false); // Mostra se tem uma página anterior
+    const [mobile, setMobile] = useState<boolean>(false); // Diz se o dispositivo é mobile, pra fazer ajuste do tamanho do container
 
     // Consulta a API para pegar a lista de produtos
     useEffect(() => {
@@ -37,17 +50,37 @@ const Home = () =>
                 setNextPage(!!response.data.next.page)
                 setPreviousPage(!!response.data.previous.page)
             });
-    }, [order]);
+    }, [order, limit]);
 
-    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid
+    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid. Também pega as imagens de reforma
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
-        if(largura != undefined)
-            largura = (largura - 72)/4;
+        if(largura !== undefined)
+        {
+            if(largura > 650)
+                setMobile(false);
+            else
+                setMobile(true);
+
+            if(largura <= 425)
+                largura = (largura - 24)/2;
+            else if(largura > 425)
+                largura = (largura - 72)/4;
+        }
         else
             largura = 264;
             
         setImageWidth(largura)
+
+        // Pega as imagens de reforma
+        api.get('reform/index')
+            .then(response => {
+                setReformImages(response.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }, [])
 
     // Atualiza a próxima página de produtos
@@ -142,7 +175,7 @@ const Home = () =>
                         <Product 
                             src={images}
                             width={imageWidth}
-                            height={imageWidth}
+                            height={(imageWidth/3)*4}
                             title={prod.name}
                             price={`R$${Number(prod.price).toFixed(2)}`}
                             conditions={`em até ${prod?.conditions}x no cartão`}
@@ -161,12 +194,102 @@ const Home = () =>
         setOrder(value);
     }
 
+    // Passa uma imagem
+    function handleReformNextClick()
+    {
+        if(reformImages)
+        {
+            setImageClicked((indice + 1) % reformImages.length);
+            setIndice((indice + 1) % reformImages.length);
+        }
+    }
+
+    // Volta uma imagem
+    function handleReformPreviousClick()
+    {
+        if(reformImages)
+        {
+            setImageClicked((indice + 3) % reformImages.length);
+            setIndice((indice + 3) % reformImages.length);
+        }
+    }
+
+    // Passa de imagem
+    function rodarImagens() {
+        if(imageClicked < 0)
+            if(reformImages)
+                setIndice((indice + 1) % reformImages.length); 
+    }
+
+    function Container()
+    {
+        if(mobile)
+            return(
+            <div className="container">
+                <div className="mercado-pago">
+                    <span><img src={mp} alt="Mercado pago"/></span>
+                    Pagamento <br/> seguro com <br/>Mercado Pago
+                </div>
+                <div className="payment-methods">
+                    <span><FaRegCreditCard size='50'/></span>
+                    Pagamentos <br/> com cartão,<br/>  boleto e mais
+                </div>
+                <div className="safe">
+                    <span><BsFillLockFill size='45' /></span>
+                    Site seguro
+                </div>
+            </div>
+            );
+        else
+            return(
+            <div className="container">
+                <div className="mercado-pago">
+                    <span><img src={mp} alt="Mercado pago"/></span>
+                    Pagamento seguro com <br/>Mercado Pago
+                </div>
+                <div className="payment-methods">
+                    <span><FaRegCreditCard size='50'/></span>
+                    Pagamentos com cartão,<br/>  boleto e mais
+                </div>
+                <div className="safe">
+                    <span><BsFillLockFill size='45' /></span>
+                    Site seguro
+                </div>
+            </div>
+            );
+    }
+
+    // Vai ficar passando as imagens se nenhuma imagem for clicada
+    if(imageClicked < 0)
+        setTimeout(rodarImagens , 6 * 1000);
+
     return(
         <div id="page-home">
             <Header />
+            <div className="reform">
+                <Link to='/contato'><h1>Peça sua reforma agora!</h1></Link>
+                <div className="reform-image">
+                    {reformImages?.map((image, i)=> {
+                        return (
+                            <img src={image.image} className={imageClicked < 0 ? (reformImages[indice].image === image.image ? 'opaque' : '') : (reformImages[imageClicked].image === image.image ? 'opaque' : '')} width='100%' height='450px' alt="Imagens de reforma de estofados"/>
+                        )
+                    })}
+                    <span className='left' onClick={handleReformPreviousClick}><IoIosArrowBack size={80}/></span>
+                    <span className="right" onClick={handleReformNextClick}><IoIosArrowForward size={80}/></span>
+                </div>
+                <div className="round-items">
+                    {reformImages?.map((image, i)=> {
+                        return (
+                            <li className={imageClicked < 0 ? (reformImages[Number(indice)].image === image.image ? 'selected': "") : (reformImages[Number(indice)].image === image.image ? 'selected' : '')} onClick={() => {setIndice(i); setImageClicked(i);}}><FaCircle size='20'/></li>
+                        )
+                    })}
+                </div>
+            </div>
+
             <div className="content">
                 <main>
-                    <h1>Seja bem vindo! Esta é a home page.</h1>
+                    {Container()}
+                    <h1>Produtos</h1>
                     <div className="products-order">
                         <div className="order">
                             <div className="text">Organizar anúncios</div> 

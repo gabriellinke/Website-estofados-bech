@@ -23,14 +23,3 @@ export async function down(knex: Knex) {
     // VOLTAR ATRÁS (DELETAR A TABELA)
     return knex.schema.dropTable('products');
 }
-
-/* 
-    nome
-    imagem1
-    imagem2
-    imagem3
-    descrição
-    preço
-
-*/
-//PODE SER QUE VÁ BOTAR UMA FICHA TÉCNICA/MODELO/COR/VETOR DE IMAGENS/TABELA COM ID->IMAGEM/PROMOÇÃO/CARACTERÍSTICAS

@@ -1,12 +1,12 @@
-.RegisterFormik
+#page-register
 {
     height: 100%;
     position: relative;
     min-height: 100vh;
-    padding-bottom: 110px;
+    /* padding-bottom: 110px; */
 }
 
-.RegisterFormik .form {
+#page-register .RegisterFormik .form {
     background: white;
     border-radius: 8px;
     max-width: 500px;
@@ -15,14 +15,14 @@
     margin: 20px auto 80px;
   }
 
-.RegisterFormik form h1
+#page-register .RegisterFormik form h1
 {
     font-size: 36px;
     text-align: center;
     margin-bottom: 32px;
 }
 
-.RegisterFormik button {
+#page-register .RegisterFormik button {
     width: 100%;
     height: 56px;
 
@@ -41,13 +41,13 @@
     transition: background-color 400ms;
 }
 
-.RegisterFormik button:hover
+#page-register .RegisterFormik button:hover
 {
     background-color: var(--hover-color);
 }
 
 
-.RegisterFormik .form a
+#page-register .RegisterFormik .form a
 {
   display: flex;
   flex: 1;
@@ -61,7 +61,27 @@
   justify-content: center;
 }
 
-.RegisterFormik .form a span
+#page-register .RegisterFormik .repeat
+{
+    margin-bottom: 16px;
+}
+
+#page-register .RegisterFormik .form p
+{
+    display: inline;
+}
+
+#page-register .RegisterFormik .form p a
+{
+    display: inherit;
+    margin: 0;
+    font-size: inherit;
+    font-weight: 500;
+    color:#3483FA;
+    padding: 0;
+}
+
+#page-register .RegisterFormik .form a span
 {
     height: 56px;
     width: 100%;
@@ -74,38 +94,10 @@
     justify-content: center;
 }
 
-.RegisterFormik .form a span:hover
+#page-register .RegisterFormik .form a span:hover
 {
     background-color:  #fff9c3;
 }
-
-.RegisterFormik body::after
-{
-    content: "";
-    position: absolute ;
-    background: var(--cor-teste);
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 18rem;
-    z-index: -1;
-}
-
-.RegisterFormik header img
-{
-
-    background-color: var(--cor-teste);
-}
-
-.RegisterFormik header
-{
-    background-color: var(--cor-teste);
-    padding-top: 64px;
-    display: flex;
-    align-items: center;
-}
-
 
 #modal
 {

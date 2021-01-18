@@ -2,11 +2,11 @@
 {
     height: 100%;
     position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
 }
 
 #page-cart .content{
-    padding-bottom: 110px;
-    min-height: 100vh;
 
     width: 90%;
     max-width: 1200px;
@@ -90,6 +90,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+#page-cart .content main .products-grid .cart-product .quantity-price .max-quantity-remove
+{
+    margin-right: 8px;
 }
 
 #page-cart .content main .products-grid .cart-product .quantity-price .max-quantity-remove-price
@@ -283,6 +288,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-right: 8px;
 }
 
 #page-cart .content main .freight-area-price .freight-area #form2 input
@@ -403,4 +409,119 @@
 {
     font-size: 24px;
     text-align: center;
+}
+
+@media (max-width: 768px)
+{
+    #page-cart .content main .products-grid .cart-product
+    {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        height: auto;
+    }
+
+    #page-cart .content main .freight-area-price
+    {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    #page-cart .content main .freight-area-price .checkout-price
+    {
+        margin-top: 32px;
+    }
+}
+
+@media (max-width: 470px)
+{
+    #page-cart .content main .products-grid .cart-product .info
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #page-cart .content main .products-grid .cart-product .info .title
+    {
+        text-align: center;
+    }
+
+    #page-cart .content main .products-grid .cart-product .quantity-price,
+    #page-cart .content main .products-grid .cart-product .quantity-price .max-quantity-remove-price
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #page-cart .content main .products-grid .cart-product .quantity-price .input
+    {
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    #page-cart .content main .products-grid .cart-product .quantity-price .max-quantity-remove-price .price
+    {
+        margin-bottom: 8px;
+    }
+
+    #page-cart .content main .products-grid .cart-product .quantity-price .max-quantity-remove-price .max-quantity-remove
+    {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #page-cart .content main .freight-area-row
+    {
+        display: table-column;
+    }
+
+    #page-cart .content main .freight-area-price .freight-area .cep a,
+    #page-cart .content main .freight-area-price .freight-area #form2 input,
+    #page-cart .content main .freight-area-price .freight-area #form2
+    {
+        margin: 0;
+    }
+    
+    #page-cart .content main .freight-area-price .freight-area .freight-text
+    {
+        margin-bottom: 16px;
+    }
+
+    #page-cart .content main .freight-area-price .freight-area .delivery
+    {
+        margin-top: 16px;
+    }
+
+
+}
+
+@media (max-width: 425px)
+{
+    #page-cart .content main .freight-area-price .freight-area #form2 input
+    {
+        width: 180px;
+    }
+
+    #page-cart .content main .freight-area-price .freight-area .delivery,
+    #page-cart .content main .freight-area-price .checkout-price
+    {
+        width: auto;
+    }
+
+    #page-cart .content main .freight-area-price .freight-area .delivery .delivery-data
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #page-cart .content main #form1
+    {
+        justify-content: center;
+    }
 }

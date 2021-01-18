@@ -16,22 +16,24 @@ interface FooterProps{
 const Footer: React.FC<FooterProps> = (props) =>
 {
     return(
-    <footer>
+    <footer id="Footer">
         <div className="info">
             <div className="contato">
                 <Link to="">Contato</Link>
-                <a href="https://www.facebook.com/estofadosbech" className="icone">
+                <a target='blank' href="https://www.facebook.com/estofadosbech" className="icone">
                     Facebook
                     <span> < AiFillFacebook size="35"/> </span>
                 </a>
-                <a href="https://www.instagram.com/estofadosbech/" className="icone">
+                <a target='blank' href="https://www.instagram.com/estofadosbech/" className="icone">
                     Instagram
                     <span><FiInstagram size="35"/></span>
                 </a>
             </div>
             
             <p>Copyright &copy; 2020 Gabriel Henrique Linke</p>
-            <p>Avenida Belém, Nº 1563, Centro, Pinhalzinho-SC - CEP 89870000</p>
+            <div className="address">
+                <p>Avenida Belém, Nº 1563, Centro, Pinhalzinho-SC - CEP 89870000</p>
+            </div>
         </div>
         <Link to='/'>
             <img src={logo} alt="Logomarca" />

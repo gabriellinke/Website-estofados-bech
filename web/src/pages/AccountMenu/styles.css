@@ -1,0 +1,343 @@
+#page-user-menu
+{
+    height: 100%;
+    position: relative;
+    min-height: 100vh;
+    /* padding-bottom: 110px; */
+}
+
+#page-user-menu .content
+{
+    width: 90%;
+    max-width: 1200px;
+   
+    margin: 0 auto;
+    
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+#page-user-menu .content main
+{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.25);
+    border: 1px solid rgb(204, 203, 203);
+
+    display: grid;
+    grid-template-columns: 270px auto;
+}
+
+#page-user-menu .content main .menu
+{
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0;
+    border-right: 1px solid rgb(204, 203, 203);
+    color: #333333;
+    font-weight: 500;
+}
+
+#page-user-menu .content main .menu .option
+{
+    display: flex;
+    flex-direction: column;
+    padding: 4px 28px;
+    cursor: pointer;
+    transition: 200ms;
+    font-size: 18px;
+}
+
+#page-user-menu .content main .menu .selected
+{
+    font-weight: bold;
+}
+
+#page-user-menu .content main .menu .option:hover
+{
+    background-color: #dddddd;
+}
+
+#page-user-menu .content main .info
+{
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    min-height: 534px;
+}
+
+#page-user-menu .content main .info h1
+{
+    margin-left: 16px;
+    margin-top: 32px;
+    padding-bottom: 32px;
+}   
+
+#page-user-menu .content main .info .form p.detail
+{
+    font-size: 18px;
+    margin-top: 24px;
+}
+
+#page-user-menu .content main .info .form p.success
+{
+    color: #02b11c;
+}
+
+#page-user-menu .content main .info .form p.error
+{
+    color: #b10802;
+}
+
+#page-user-menu .content main .info .form button
+{
+    width: 180px;
+    height: 40px;
+
+    background-color: var(--primary-color);
+
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    border-radius: 6px;
+    margin-top: 24px;
+
+    border: 0;
+    cursor: pointer;
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+/* Muda a cor ao passar o mouse por cima */
+#page-user-menu .content main .info .form button:hover
+{
+    background-color: var(--hover-color);
+}
+
+#page-user-menu .content main .info .form .button-loading img
+{
+    margin-top: 24px;
+}
+
+#page-user-menu .content main .info .form .button-loading
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#page-user-menu .content main .info .not-found
+{
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: center;
+    color: #333333;
+    font-size: 32px;
+}
+
+#page-user-menu .content main .info .products-list
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+#page-user-menu .content main .info .products-list .sold-product
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+    background-color: white;
+    list-style: none;
+
+    /* Configurar o tamanho dos itens */
+    height: 140px;
+
+    align-items: center;
+
+    border-top: 1px solid rgb(204, 203, 203);
+
+    margin-bottom: 32px;
+    padding-top: 32px;
+    padding-right: 64px;
+}
+
+#page-user-menu .content main .info .products-list .image-title-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#page-user-menu .content main .info .products-list .title-price
+{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+    margin-left: 32px;
+}
+
+#page-user-menu .content main .info .products-list .code
+{
+    color: #333333;
+    text-align: center;
+    font-size: 18px;
+}
+
+#page-user-menu .content main .info .products-list .code button
+{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    
+    font-size: 16px;
+    color:#3483FA;
+    margin-top: 16px;
+}
+
+#page-user-menu .content main .info .products-list .date
+{
+    color: #333333;
+    text-align: center;
+    font-size: 18px;
+}
+
+#page-user-menu .content main .info .products-list a
+{
+    font-size: 24px;
+    text-align: center;
+}
+
+#page-user-menu #modal
+{
+    /* Para o modal utilizar 100% da tela */
+    height: 100vh;
+    width: 100vw;
+    background-color: #0e0a14ef;
+
+    position: fixed;
+
+    /* Ser fixado no topo da tela */
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Transição pra quando for aberto */
+    transition: 400ms;
+}
+
+/* Caixa que vai ter o conteúdo */
+#page-user-menu #modal .content
+{
+    color:white;
+    width: 420px;
+    height: 200px;
+    justify-content: center;
+}
+
+#page-user-menu #modal.add-photo-modal .content
+{
+    width: 420px;
+    height: 420px;
+}
+
+#page-user-menu #modal .header
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#page-user-menu #modal .header .buttons
+{
+    display: flex;
+    flex-direction: row;
+    padding: 16px 32px;
+    align-items: center;
+}
+
+#page-user-menu #modal .header .buttons button.ok
+{
+    margin-right: 16px;
+}
+
+#page-user-menu #modal .header .buttons button
+{
+    width: 90px;
+    height: 40px;
+  
+    background-color: var(--primary-color);
+    border-radius: 8px;
+  
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+  
+    border: 0;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    /* Para deixar o efeito de hover mais suave */
+    transition: background-color 400ms;
+}
+
+#page-user-menu #modal .header .buttons button:hover
+{
+    background-color: var(--hover-color);
+}
+
+@media (max-width: 900px)
+{
+    #page-user-menu .content main
+    {
+        grid-template-columns: 1fr;
+    }
+
+    #page-user-menu .content main .menu
+    {
+        border-bottom: 1px solid rgb(204, 203, 203);
+    }
+}
+
+@media (max-width: 600px)
+{
+    #page-user-menu .content main .info .products-list .sold-product,
+    #page-user-menu .content main .info .products-list .sold-product .image-title-price
+    {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    #page-user-menu .content main .info .products-list .sold-product .image-title-price .title-price
+    {
+        margin: 8px 0;
+    }
+}

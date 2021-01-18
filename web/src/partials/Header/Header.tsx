@@ -31,12 +31,11 @@ const Header: React.FC<HeaderProps> = (props) =>
     const history = useHistory();
     const { user, signOut } = useAuth();
 
-    // Estados para saber se deve mostrar o menu de categorias
-    const [show, setShow] = useState<boolean>(false);
-    const [overMenu, setOverMenu] = useState<boolean>(false);
-    const [overOptions, setOverOptions] = useState<boolean>(false);
-    const [categories, setCategories] = useState<CategoriesProps[]>();
-    const [search, setSearch] = useState<string>("");
+    const [show, setShow] = useState<boolean>(false);   // Estados para saber se deve mostrar o menu de categorias
+    const [overMenu, setOverMenu] = useState<boolean>(false);   // Estados para saber se deve mostrar o menu de categorias
+    const [overOptions, setOverOptions] = useState<boolean>(false); // Estados para saber se deve mostrar o menu de categorias
+    const [categories, setCategories] = useState<CategoriesProps[]>();  // Armazena as categorias
+    const [search, setSearch] = useState<string>("");   // Armazena a string sendo pesquisada
 
     useEffect(() => {
         api.get('category')
@@ -75,10 +74,12 @@ const Header: React.FC<HeaderProps> = (props) =>
                 return (
                     <div className="user-area">
                         <div className="user">
-                            <span><FaUserCircle size="60"/> </span>
+                            <Link to='/user/menu'>
+                                <span><FaUserCircle size="60"/> </span>
+                            </Link>
                             <div className="name-logout">
                                 <div className="user-name">{user.name}</div>
-                                <Link to="" onClick={handleLogOut}>Logout</Link>
+                                <Link to="" className="logout" onClick={handleLogOut}>Logout</Link>
                             </div>
                         </div>
                         <Link to="/user/cart" className="carrinho">
@@ -92,12 +93,14 @@ const Header: React.FC<HeaderProps> = (props) =>
             {
                 return (
                     <div className="user-area">
-                        <Link to='register' className='register'>
+                        <Link to='/register' className='register'>
                             <span><AiFillFileAdd size='60' /> </span>
                             <div>Novo <br/>produto</div>
                         </Link>
                         <div className="user">
-                            <span><FaUserCircle size="60"/> </span>
+                            <Link to='/user/menu'>
+                                <span><FaUserCircle size="60"/> </span>
+                            </Link>
                             <div className="name-logout">
                                 <div className="user-name">{user.name}</div>
                                 <Link to="" onClick={handleLogOut}>Logout</Link>
@@ -138,7 +141,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     // Categorias que vão aparecer no menu
     function categoriesOptions()
     {
-        if(show && categories != undefined)
+        if(show && categories !== undefined)
             return(
                 <div className="categories-options" onMouseEnter={handleOverOptions} onMouseLeave={() => setOverOptions(false)}>
                     {
@@ -158,7 +161,7 @@ const Header: React.FC<HeaderProps> = (props) =>
     // Categorias de mais fácil acesso, ao lado do menu
     function categoriesOutOfMenu()
     {
-        if(categories != undefined)
+        if(categories !== undefined && categories.length >= 4)
         {
             return(
                 <div className="direction-row">
@@ -204,11 +207,11 @@ const Header: React.FC<HeaderProps> = (props) =>
     }
 
     return(
-    <header>
+    <header id="Header">
         <div className = "top">
             <Link to="/">Home</Link>
-            <Link to="">Quem somos</Link>
-            <Link to="">Contato</Link>
+            <Link to="/about">Quem somos</Link>
+            <Link to="/contato">Contato</Link>
         </div>
         <div className="middle">
             <div className="logo-search">
@@ -238,7 +241,9 @@ const Header: React.FC<HeaderProps> = (props) =>
                     </Link>
                     {categoriesOptions()}
                 </div>
-                {categoriesOutOfMenu()}
+                <div className="categories-out-of-menu">
+                    {categoriesOutOfMenu()}
+                </div>
             </div>
         </div>
     </header>

@@ -31,7 +31,6 @@ header .middle .logo-search
 {
     display: flex;
     align-items: center;
-    width: 50%;
     justify-content: space-between;
 }
 
@@ -39,8 +38,7 @@ header .middle .logo-search #form2 .search-field
 {
     display: flex;
     align-items: center;
-
-    /* ~TAMANHO */
+    margin-left: 32px;
 
     background-color: var(--gray-color);
     
@@ -50,8 +48,23 @@ header .middle .logo-search #form2 .search-field
 
 header .middle .logo-search #form2 .search-field button
 {
-    width: 38.4px;
-    height: 38.4px;
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    border: none;
+    background-color: var(--gray-color);
+
+}
+
+header .middle .logo-search #form2 .search-field button span
+{
+    width: 39px;
+    height: 39px;
 
     border-top: 2px solid rgb(148, 148, 148);
     border-right: 2px solid rgb(148, 148, 148);
@@ -61,6 +74,7 @@ header .middle .logo-search #form2 .search-field button
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--gray-color);
 
     cursor: pointer;
 }
@@ -68,6 +82,8 @@ header .middle .logo-search #form2 .search-field button
 header .middle .logo-search #form2 .search-field input
 {
     background-color: var(--gray-color);
+    height: 39px;
+    border-radius: 0;
 
     border-style: solid;
     border-color: rgb(148, 148, 148);
@@ -83,6 +99,15 @@ header .user-area a.register
     margin-right: 16px;
 }
 
+header .user-area .name-logout a.logout
+{
+    transition: 200ms;
+}
+
+header .user-area .name-logout a.logout:hover
+{
+    color: #cccccc;
+}
 
 header .bottom-menu
 {
@@ -119,6 +144,7 @@ header .bottom-menu .items .categories-options
     flex-direction: column;
     flex: 1;
     position: absolute;
+    z-index: 1000;
     margin-top: 36px;
     background-color: #fefefe;
     color: #666666;
