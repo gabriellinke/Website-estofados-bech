@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState, ChangeEvent } from 'react'; 
 import Footer from '../../partials/Footer/Footer'
 import Header from '../../partials/Header/Header'
 import { FiInstagram } from 'react-icons/fi';
@@ -18,14 +18,12 @@ interface FormValues {
     email: string;
     name: string;
     phone: string;
-    message: string;
 }
   
 const initialValues: FormValues = {
     email: "",
     name: "",
     phone: "",
-    message: "",
 };
 
 const SubmitSchema = Yup.object().shape({
@@ -36,8 +34,6 @@ const SubmitSchema = Yup.object().shape({
         .email("Precisa ser um email"),
     phone: Yup.string()
         .notRequired(),
-    message: Yup.string()
-        .required("Obrigatório")
 });
 
 const Contact: React.FC = () =>
@@ -45,6 +41,7 @@ const Contact: React.FC = () =>
 
     const [situation, setSituation] = useState<string>("hide"); // Mostra o modal da situação da mensagem
     const [loading, setLoading] = useState<boolean>(false); // Mostra animação de loading
+    const [message, setMessage] = useState<string>(''); // Mensagem
 
     // Mensagem de enviado ou de erro
     function sendModal()
@@ -80,7 +77,6 @@ const Contact: React.FC = () =>
             name,
             email,
             phone,
-            message
         } = values
 
         setLoading(true);
@@ -110,26 +106,13 @@ const Contact: React.FC = () =>
                 }, 2000)
                 setLoading(false);
             })
+
     }
 
-    // Animação de carregamento
-    function loadingAnimation()
+    function handleTextAreaChange(event: React.ChangeEvent<HTMLTextAreaElement>)
     {
-        if(loading)
-        return(
-            <img src={load} alt="Carregando" width="56" height="56"/>
-        );
-    }
-
-    // Botão para enviar mensagem
-    function sendButton()
-    {
-        return(
-            <div className="send-button">
-                <button className="form-button" type="submit">Enviar</button>
-                {loadingAnimation()}
-            </div>
-        );
+        const { value } = event.target;        
+        setMessage(value);
     }
 
     return(
@@ -186,9 +169,24 @@ const Contact: React.FC = () =>
                                         <FormikField name="name" label="Nome"/>
                                         <FormikField name="email" label="Email"/>
                                         <FormikField name="phone" label="Telefone (opcional)"/>
-                                        <FormikField name="message" label="Mensagem"/> 
+                                        <textarea
+                                            style={{
+                                                width: '100%',
+                                                marginTop: '30px',
+                                                padding: '8px',
+                                                height: '10vh',
+                                                resize: 'none',
+                                            }}
+                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextAreaChange(event)}
+                                            placeholder="Escreva sua mensagem" 
+                                            name="message"
+                                            required={true}
+                                        />
 
-                                        {sendButton()}
+                                        <div className="send-button">
+                                            <button className="form-button" type="submit">Enviar</button>
+                                            {loading && <img src={load} alt="Carregando" width="56" height="56"/>}
+                                        </div>
                                     </Form>
                                 );
                             }}
