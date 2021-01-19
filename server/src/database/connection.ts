@@ -6,14 +6,18 @@ import path from 'path';
 // Exporta a nossa conexão com o banco de dados para as outras partes do programa 
 // Objeto connection ta recebendo as configurações do nosso banco de dados
 const connection = knex({
-    client: 'mysql',
+    client: 'sqlite3',
     connection: {
-        host: 'mysql669.umbler.com',
-        port: 41890,
-        user: 'gabriellinke',
-        password: 'gabrielhenrique12.',
-        database: "bancotesteeb",
+        filename: path.resolve(__dirname, 'database.sqlite')
     },
+    // client: 'mysql',
+    // connection: {
+    //     host: 'mysql669.umbler.com',
+    //     port: 41890,
+    //     user: 'gabriellinke',
+    //     password: 'gabrielhenrique12.',
+    //     database: "bancotesteeb",
+    // },
     // connection: {
     //     database: "test",
     //     user: 'postgres',

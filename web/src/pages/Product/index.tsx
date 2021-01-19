@@ -305,12 +305,8 @@ const Product = () =>
                             </div>
                         </div>
                         <div className="buy">
-<<<<<<< HEAD
+
                             <form action="/buying" method="GET" id="form1" onSubmit={handleCheckout}>
-=======
-                            <form action="/buying" method="GET" id="form1">
-                                <input type="hidden" name="id" value={product?.id} />
->>>>>>> 0ff8e7d1b9ecf0cf16392961da125d6b075f70fe
                                 <p className="price-area">{`R$${Number(product?.price).toFixed(2)}`}</p>
                                 <p className="conditions">{`em até ${product?.conditions}x no cartão`}</p>
                                 <div className="purchase-area">
