@@ -83,7 +83,7 @@ Fazer a confirmação da compra em uma nova página				OK
 Fazer layout de Contato							OK
 Fazer layout de Quem somos						OK
 Colocar localização no mapa						OK
-Colocar imagem da frente da loja					
+Colocar imagem da frente da loja						OK ESTUDOS
 Responsividade da imagem						ALFA OK
 Ver como que é o jeito que faz com que a imagem não deforme		OK
 Fazer um texto								OK ESTUDOS
@@ -91,7 +91,7 @@ Fazer um texto								OK ESTUDOS
 Ir para Whatsapp através do site						OK
 Fazer o campo de mensagem ser um textarea				OK
 
-Fazer uma proporção pro tamanho da imagem do produto			
+Fazer uma proporção pro tamanho da imagem do produto			OK ESTUDOS
 Fazer responsividade
 	Comprar
 	Home/pesquisa/categorias
@@ -99,8 +99,8 @@ Fazer responsividade
 	Politica privacidade
 	
 
-Escrever política de privacidade.
-Escrever termos de uso.
+Escrever política de privacidade.					OK ESTUDOS
+Escrever termos de uso.							OK ESTUDOS
 
 Mexer na parte de frete
 Fazer o cálculo do frete pelo carrinho

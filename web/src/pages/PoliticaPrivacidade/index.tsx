@@ -13,8 +13,15 @@ const PoliticaPrivacidade = () =>
             <div className="content">
                 <main>
                     <h1>Política de privacidade</h1>
-                    <div className="info">
-
+                    <div className="info" 
+                        style={{
+                            paddingLeft: '5vw',
+                            paddingRight: '5vw',
+                            paddingBottom: '10vh',
+                        }}
+                    >
+                        Esta área é destinada para a apresentação da política de privacidade. Como o website atual é utilizado apenas
+                        para fins de estudo, esta seção permanecerá vazia.
                     </div>
                 </main>
             </div>    
