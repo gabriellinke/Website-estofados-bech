@@ -69,6 +69,7 @@ class CheckoutController
             userEmail,
         };
 
+        console.log(data);
         const insertedData = await knex('checkout_data').insert(data);
         // const data_id = insertedData[0];
 
