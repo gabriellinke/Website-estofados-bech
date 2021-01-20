@@ -93,7 +93,7 @@ Fazer o campo de mensagem ser um textarea				OK
 
 Fazer uma proporção pro tamanho da imagem do produto			OK ESTUDOS
 Fazer responsividade
-	Comprar
+	Comprar								OK
 	Home/pesquisa/categorias					OK ESTUDOS um pouco estranho 500~650
 	Termos								OK ESTUDOS
 	Politica privacidade						OK ESTUDOS

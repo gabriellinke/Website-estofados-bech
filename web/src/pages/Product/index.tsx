@@ -294,12 +294,14 @@ const Product = () =>
                             <div className="secondary-image">
                                 {imagesUrl.map(image => {
                                      return(
-                                        <img src={image}
-                                        className={ (mainImage === image) ? 'selected' : ''}
-                                        alt="Imagem do produto"
-                                        key={image}
-                                        id={image}
-                                        onClick={() => handleImageClick(image)}/>
+                                        <img 
+                                            src={image}
+                                            className={ (mainImage === image) ? 'selected' : ''}
+                                            alt="Imagem do produto"
+                                            key={image}
+                                            id={image}
+                                            onClick={() => handleImageClick(image)}
+                                        />
                                     );
                                 })}
                             </div>
