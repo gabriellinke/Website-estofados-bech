@@ -59,15 +59,23 @@ const Home = () =>
             });
     }, [order, search, limit]);
 
-    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid
+    // Calcula o tamanho da imagem do produto de acordo com o tamanho da div products-grid. Também pega as imagens de reforma
     useEffect(() => {
         let largura = document.getElementById('products-grid')?.clientWidth;
         if(largura !== undefined)
-            largura = (largura - 72)/4;
+        {
+            if(largura <= 500)
+                largura = (largura - 24)/2;
+            else if(largura > 500 && largura <= 650)
+                largura = (largura - 48)/3;
+            else if(largura > 650)
+                largura = (largura - 72)/4;
+        }
         else
             largura = 264;
             
         setImageWidth(largura)
+
     }, [])
 
     // Atualiza a próxima página de produtos

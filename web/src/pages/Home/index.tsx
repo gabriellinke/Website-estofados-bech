@@ -62,9 +62,11 @@ const Home = () =>
             else
                 setMobile(true);
 
-            if(largura <= 425)
+            if(largura <= 500)
                 largura = (largura - 24)/2;
-            else if(largura > 425)
+            else if(largura > 500 && largura <= 650)
+                largura = (largura - 48)/3;
+            else if(largura > 650)
                 largura = (largura - 72)/4;
         }
         else
