@@ -167,6 +167,23 @@ const Cart = () =>
             );
     }
 
+    // Redireciona o usuário para a página de compra
+    function handleSubmit(event: FormEvent<HTMLFormElement>)
+    {
+        event.preventDefault();
+    
+        localStorage.setItem('@EB:id', String(idInput));
+        localStorage.setItem('@EB:quantity', String(quantityInput));
+        try{
+            history.push('/buying')
+        }
+        catch
+        {
+            history.push('/')
+            console.log("Ocorreu um erro no submit do Checkout")
+        }
+    }
+
     // Se o carrinho estiver vazio vai mostrar uma mensagem. Se não estiver, vai mostrar o carrinho
     function showCart()
     {
@@ -245,9 +262,7 @@ const Cart = () =>
                             </div>
                         </div>
                     </div>
-                    <form action="/buying" method="GET" id="form1">
-                        <input type="hidden" name="id" value={idInput} />
-                        <input type="hidden" name="quantity" value={quantityInput} />
+                    <form action="/buying" method="GET" id="form1" onSubmit={handleSubmit}>
                         <button type="submit">Continuar a compra</button>
                     </form>
                 </main>
