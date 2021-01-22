@@ -12,6 +12,7 @@ import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
 
 import './styles.css';  //Importa o css
+import { assert } from 'console';
 
 interface CheckoutPostData
 {
@@ -202,12 +203,13 @@ const Checkout = () =>
     const [disabled, setDisabled] = useState<boolean>(true); // Habilita/desabilita o botão de Pagar com Mercado Pago
     const [frete, setFrete] = useState<number>(0);  // Salva o custo do frete
     const [loadingConfirm, setLoadingConfirm] = useState<boolean>(false); // Diz se precisa ou não mostrar animação de carregamento
+    const [valuesData, setValuesData] = useState<FormValues>(); // Salva os inputs
     const { user } = useAuth(); // Pega os dados do usuário
 
      // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
     useEffect(() => {
         if(checkoutData)
-            if(!(frete>0)) alert("Erro ao calcular o frete");
+            if(frete<=0) console.log("Erro ao calcular o frete");
             else
                 api.post('checkout/data', checkoutData)
                     .then(response => {
@@ -351,34 +353,34 @@ const Checkout = () =>
 
                             // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
                             setCheckoutData({
-                            product_id,
-                            productName,
-                            quantity,
-                            price,
-                            freightPrice,
-                        
-                            name,
-                            surname,
-                            email,
-                            area_code,
-                            phone,
-                            cpf,
-                        
-                            cep,
-                            state,
-                            city,
-                            neighborhood,
-                            street,
-                            number,
-                            adjunct,
-                        
-                            url,
-                            checkout_id,
-        
-                            userId,
-                            userName,
-                            userSurname,
-                            userEmail,
+                                product_id,
+                                productName,
+                                quantity,
+                                price,
+                                freightPrice,
+                            
+                                name,
+                                surname,
+                                email,
+                                area_code,
+                                phone,
+                                cpf,
+                            
+                                cep,
+                                state,
+                                city,
+                                neighborhood,
+                                street,
+                                number,
+                                adjunct,
+                            
+                                url,
+                                checkout_id,
+            
+                                userId,
+                                userName,
+                                userSurname,
+                                userEmail,
                             })
 
                             localStorage.setItem('@EB:checkoutData', "");
@@ -393,30 +395,37 @@ const Checkout = () =>
         }
     }, [notAuthorized])
 
-    // Ação feita ao confirmar os dados
-    const handleSubmit = (values: FormValues): void =>
-    {
-        setLoadingConfirm(true);    // Desativo o loading no momento que vou liberar o botão
-        // Pega os dados dos inputs
-        let {   
-            name,
-            surname,
-            email,
-            area_code,
-            phone,
-            cpf,
+    useEffect(() => {
+        let name = "";
+        let surname = "";
+        let email = "";
+        let area_code = "";
+        let phone = "0";
+        let cpf = "";
+        let cep = "";
+        let state = "";
+        let city = "";
+        let neighborhood = "";
+        let street = "";
+        let number = "";
+        let adjunct = "";
 
-            cep,
-            state,
-            city,
-            neighborhood,
-            street,
-            number,
-            adjunct, 
-        } = values;
-
-        let freightPrice = calcularFrete(cep);
-        setFrete(freightPrice);
+        if(valuesData)
+        {
+            name = valuesData.name;
+            surname = valuesData.surname;
+            email = valuesData.email;
+            area_code = valuesData.area_code;
+            phone = valuesData.phone;
+            cpf = valuesData.cpf;
+            cep = valuesData.cep;
+            state = valuesData.state;
+            city = valuesData.city;
+            neighborhood = valuesData.neighborhood;
+            street = valuesData.street;
+            number = valuesData.number;
+            adjunct = valuesData. adjunct;
+        }
 
         // Pega os dados do usuário que está realizando a compra
         let userNotNull:User = {
@@ -449,93 +458,103 @@ const Checkout = () =>
 
         // Salva esses dados, para caso de algum problema de autorização
         setCheckoutPostData({
-            id, price, freightPrice, productName, quantity, condition,
+            id, price, freightPrice: frete, productName, quantity, condition,
             name, surname, email, phone: parseInt(phone), cpf, area_code,
             cep, state, city, neighborhood, street, number, adjunct,
             userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
         })
 
         // Dá um post para criar uma preference do Mercado Pago
-        api.post('checkout', {
-            id, price, freightPrice, productName, quantity, condition,
-            name, surname, email, phone: parseInt(phone), cpf, area_code,
-            cep, state, city, neighborhood, street, number, adjunct,
-            userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
-        })
-            .then(response => {
-                // Seta o link do botão e consequentemente libera o seu uso
-                setLink(response.data.checkoutInfo.url);
+        if(frete > 0)
+            api.post('checkout', {
+                id, price, freightPrice: frete, productName, quantity, condition,
+                name, surname, email, phone: parseInt(phone), cpf, area_code,
+                cep, state, city, neighborhood, street, number, adjunct,
+                userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
+            })
+                .then(response => {
+                    // Seta o link do botão e consequentemente libera o seu uso
+                    setLink(response.data.checkoutInfo.url);
 
-                const {
-                    product_id,
-                    productName,
-                    quantity,
-                    price,
-                    freightPrice,
-            
-                    name,
-                    surname,
-                    email,
-                    area_code,
-                    phone,
-                    cpf,
-            
-                    cep,
-                    state,
-                    city,
-                    neighborhood,
-                    street,
-                    number,
-                    adjunct,
-            
-                    url,
-                    checkout_id,
+                    const {
+                        product_id,
+                        productName,
+                        quantity,
+                        price,
+                        freightPrice,
+                
+                        name,
+                        surname,
+                        email,
+                        area_code,
+                        phone,
+                        cpf,
+                
+                        cep,
+                        state,
+                        city,
+                        neighborhood,
+                        street,
+                        number,
+                        adjunct,
+                
+                        url,
+                        checkout_id,
 
-                    userId,
-                    userName,
-                    userSurname,
-                    userEmail,
-                } = response.data.checkoutInfo;
+                        userId,
+                        userName,
+                        userSurname,
+                        userEmail,
+                    } = response.data.checkoutInfo;
 
-                // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
-                setCheckoutData({
-                product_id,
-                productName,
-                quantity,
-                price,
-                freightPrice,
-            
-                name,
-                surname,
-                email,
-                area_code,
-                phone,
-                cpf,
-            
-                cep,
-                state,
-                city,
-                neighborhood,
-                street,
-                number,
-                adjunct,
-            
-                url,
-                checkout_id,
+                    // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
+                    setCheckoutData({
+                        product_id,
+                        productName,
+                        quantity,
+                        price,
+                        freightPrice,
+                    
+                        name,
+                        surname,
+                        email,
+                        area_code,
+                        phone,
+                        cpf,
+                    
+                        cep,
+                        state,
+                        city,
+                        neighborhood,
+                        street,
+                        number,
+                        adjunct,
+                    
+                        url,
+                        checkout_id,
 
-                userId,
-                userName,
-                userSurname,
-                userEmail,
-                })
+                        userId,
+                        userName,
+                        userSurname,
+                        userEmail,
+                    })
 
-                localStorage.setItem('@EB:checkoutData', "");
-                localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
-        })
-        .catch(err => {
-            console.log(err);
-            setNotAuthorized(1);
-        })
+                    localStorage.setItem('@EB:checkoutData', "");
+                    localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
+            })
+            .catch(err => {
+                console.log(err);
+                setNotAuthorized(1);
+            })
+
+    }, [frete])
+
+    // Ação feita ao confirmar os dados
+    const handleSubmit = (values: FormValues): void =>
+    {
+        setLoadingConfirm(true);    // Desativo o loading no momento que vou liberar o botão
+        setValuesData(values);
+        calcularFrete(values.cep);
     }
 
     function calcularFrete(cep: string) {  
@@ -575,7 +594,7 @@ const Checkout = () =>
                 const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
                 const freightPrice = cargas * parseFloat(freight.replace(",", "."));
                 totalFreight = freightPrice;
-                // setFrete(freightPrice);
+                setFrete(totalFreight);
                 console.log("cargas: ", cargas, 'frete:', freightPrice, 'dimensao:', dimensao);
 
             })
@@ -606,7 +625,7 @@ const Checkout = () =>
                 const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
                 const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
                 totalFreight += freightPrice;
-                // setFrete(totalFreight);
+                setFrete(totalFreight);
                 console.log('frete cargas completas:', freightPrice);
             })
 
@@ -629,7 +648,7 @@ const Checkout = () =>
                 const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
                 const freightPrice = parseFloat(freight.replace(",", "."));
                 totalFreight += freightPrice;
-                // setFrete(totalFreight);
+                setFrete(totalFreight);
                 console.log('frete restante:', freightPrice);
             })
         }

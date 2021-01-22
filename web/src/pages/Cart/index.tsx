@@ -322,8 +322,7 @@ const Cart = () =>
     {
         setLoadingFrete(true)
         event.preventDefault();
-        console.log(calculoFrete());
-        setValorFrete(calculoFrete());
+        calculoFrete();
     }
 
     function calculoFrete() {  
@@ -425,7 +424,6 @@ const Cart = () =>
                 setLoadingFrete(false);
             })
         }
-        return totalFreight;
     }
     
     // Mostra animação de carregamento
