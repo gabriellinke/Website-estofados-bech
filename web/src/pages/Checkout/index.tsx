@@ -204,7 +204,7 @@ const Checkout = () =>
     const [loadingConfirm, setLoadingConfirm] = useState<boolean>(false); // Diz se precisa ou não mostrar animação de carregamento
     const { user } = useAuth(); // Pega os dados do usuário
 
-    // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
+     // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
     useEffect(() => {
         api.post('checkout/data', checkoutData)
             .then(response => {
@@ -411,110 +411,71 @@ const Checkout = () =>
             adjunct, 
         } = values;
 
-        let ajax = new Ajax();
-        // Precisa fazer um cálculo real, com todos os produtos levados em conta
-        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +'&sCepOrigem='+ "89870000" +'&sCepDestino='+ cep +'&nVlPeso='+products[0]?.peso+'&nCdFormato='+products[0]?.formato+'&nVlComprimento='+products[0]?.comprimento+'&nVlAltura='+products[0]?.altura+'&nVlLargura='+products[0]?.largura+'&nVlDiametro='+products[0]?.diametro+'&sCdMaoPropria='+ "N" +'&nVlValorDeclarado='+0+'&sCdAvisoRecebimento='+"N"+'%20HTTP/1.1',
-        (status:number, response:string) => {
-            // Calcula o frete e coloca numa variável
-            const freteInfo = (JSON.stringify(response));
-            const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
-            const freightPrice = parseFloat(freight.replace(",", "."));
-            setFrete(freightPrice)
+        let freightPrice = calcularFrete(cep);
+        setFrete(freightPrice);
 
-            // Pega os dados do usuário que está realizando a compra
-            let userNotNull:User = {
-                id: 0,
-                name: "Valor padrão",
-                surname: "Valor padrão",
-                email: "Valor padrão",
-                admin: false,
-            };
-            if(user != null)
-                userNotNull = user;
+        // Pega os dados do usuário que está realizando a compra
+        let userNotNull:User = {
+            id: 0,
+            name: "Valor padrão",
+            surname: "Valor padrão",
+            email: "Valor padrão",
+            admin: false,
+        };
+        if(user != null)
+            userNotNull = user;
 
-            // Concatena os items em uma string, separando-os por @
-            let id="", price="", productName="", quantity="", condition="";
-            for(let i of totalQuantity)
-            {
-                id += ids[i] + "@"
-                price += prices[i] + "@"
-                productName += productNames[i] + "@"
-                quantity += quantitys[i] + "@"
-                condition += conditions[i] + "@"
-            }
+        // Concatena os items em uma string, separando-os por @
+        let id="", price="", productName="", quantity="", condition="";
+        for(let i of totalQuantity)
+        {
+            id += ids[i] + "@"
+            price += prices[i] + "@"
+            productName += productNames[i] + "@"
+            quantity += quantitys[i] + "@"
+            condition += conditions[i] + "@"
+        }
 
-            // Remove o último @
-            id = id.substring(0,(id.length - 1));
-            price = price.substring(0,(price.length - 1));
-            productName = productName.substring(0,(productName.length - 1));
-            quantity = quantity.substring(0,(quantity.length - 1));
-            condition = condition.substring(0,(condition.length - 1));
+        // Remove o último @
+        id = id.substring(0,(id.length - 1));
+        price = price.substring(0,(price.length - 1));
+        productName = productName.substring(0,(productName.length - 1));
+        quantity = quantity.substring(0,(quantity.length - 1));
+        condition = condition.substring(0,(condition.length - 1));
 
-            // Salva esses dados, para caso de algum problema de autorização
-            setCheckoutPostData({
-                id, price, freightPrice, productName, quantity, condition,
-                name, surname, email, phone: parseInt(phone), cpf, area_code,
-                cep, state, city, neighborhood, street, number, adjunct,
-                userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
-            })
+        // Salva esses dados, para caso de algum problema de autorização
+        setCheckoutPostData({
+            id, price, freightPrice, productName, quantity, condition,
+            name, surname, email, phone: parseInt(phone), cpf, area_code,
+            cep, state, city, neighborhood, street, number, adjunct,
+            userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
+        })
 
-            // Dá um post para criar uma preference do Mercado Pago
-            api.post('checkout', {
-                id, price, freightPrice, productName, quantity, condition,
-                name, surname, email, phone: parseInt(phone), cpf, area_code,
-                cep, state, city, neighborhood, street, number, adjunct,
-                userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
-            })
-                .then(response => {
-                    // Seta o link do botão e consequentemente libera o seu uso
-                    setLink(response.data.checkoutInfo.url);
-    
-                    const {
-                        product_id,
-                        productName,
-                        quantity,
-                        price,
-                        freightPrice,
-                  
-                        name,
-                        surname,
-                        email,
-                        area_code,
-                        phone,
-                        cpf,
-                  
-                        cep,
-                        state,
-                        city,
-                        neighborhood,
-                        street,
-                        number,
-                        adjunct,
-                  
-                        url,
-                        checkout_id,
+        // Dá um post para criar uma preference do Mercado Pago
+        api.post('checkout', {
+            id, price, freightPrice, productName, quantity, condition,
+            name, surname, email, phone: parseInt(phone), cpf, area_code,
+            cep, state, city, neighborhood, street, number, adjunct,
+            userId: userNotNull.id, userName: userNotNull.name, userSurname: userNotNull.surname, userEmail: userNotNull.email
+        })
+            .then(response => {
+                // Seta o link do botão e consequentemente libera o seu uso
+                setLink(response.data.checkoutInfo.url);
 
-                        userId,
-                        userName,
-                        userSurname,
-                        userEmail,
-                      } = response.data.checkoutInfo;
-
-                    // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
-                    setCheckoutData({
+                const {
                     product_id,
                     productName,
                     quantity,
                     price,
                     freightPrice,
-                
+            
                     name,
                     surname,
                     email,
                     area_code,
                     phone,
                     cpf,
-                
+            
                     cep,
                     state,
                     city,
@@ -522,7 +483,7 @@ const Checkout = () =>
                     street,
                     number,
                     adjunct,
-                
+            
                     url,
                     checkout_id,
 
@@ -530,16 +491,145 @@ const Checkout = () =>
                     userName,
                     userSurname,
                     userEmail,
-                    })
+                } = response.data.checkoutInfo;
 
-                    localStorage.setItem('@EB:checkoutData', "");
-                    localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
-            })
-            .catch(err => {
-                console.log(err);
-                setNotAuthorized(1);
-            })
+                // Salva os dados da preference e do comprador para que os dados possam ser salvos no banco de dados
+                setCheckoutData({
+                product_id,
+                productName,
+                quantity,
+                price,
+                freightPrice,
+            
+                name,
+                surname,
+                email,
+                area_code,
+                phone,
+                cpf,
+            
+                cep,
+                state,
+                city,
+                neighborhood,
+                street,
+                number,
+                adjunct,
+            
+                url,
+                checkout_id,
+
+                userId,
+                userName,
+                userSurname,
+                userEmail,
+                })
+
+                localStorage.setItem('@EB:checkoutData', "");
+                localStorage.setItem('@EB:checkoutData', JSON.stringify(response.data.checkoutInfo));
         })
+        .catch(err => {
+            console.log(err);
+            setNotAuthorized(1);
+        })
+    }
+
+    function calcularFrete(cep: string) {  
+        let volume = 0;
+        let peso = 0;
+        let totalFreight = 0;
+
+        for(let i=0; i<products.length; i++)
+        {
+            volume += products[i].altura * products[i].largura * products[i].comprimento * quantitys[i];
+            peso += quantitys[i] * products[i].peso;
+        }
+
+        //Cargas limitadas pelo peso
+        if(peso/(Math.max(1,Math.floor(volume/216000))) > 30)
+        {
+            let cargas = Math.ceil(peso/30);
+            let dimensao = Math.cbrt(volume)/cargas;
+
+            let ajax = new Ajax();
+            // Precisa fazer um cálculo real, com todos os produtos levados em conta
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cep +
+                '&nVlPeso='+peso/cargas+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(dimensao, 15)+
+                '&nVlAltura='+Math.max(dimensao, 15)+
+                '&nVlLargura='+Math.max(dimensao, 15)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = cargas * parseFloat(freight.replace(",", "."));
+                totalFreight = freightPrice;
+                // setFrete(freightPrice);
+                console.log("cargas: ", cargas, 'frete:', freightPrice, 'dimensao:', dimensao);
+
+            })
+        }
+        else //cargas limitadas pelo volume
+        {
+            let cargasCompletas = Math.floor(volume/216000);
+            let restante = volume%216000;
+
+            let ajax = new Ajax();
+            // Requisição de cargas completas
+            cargasCompletas > 0 &&
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cep +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+60+
+                '&nVlAltura='+60+
+                '&nVlLargura='+60+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                // setFrete(totalFreight);
+                console.log('frete cargas completas:', freightPrice);
+            })
+
+            // Requisição para o volume restante
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cep +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlAltura='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlLargura='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                // setFrete(totalFreight);
+                console.log('frete restante:', freightPrice);
+            })
+        }
+        return totalFreight;
     }
 
     // Mostra as animações de loading

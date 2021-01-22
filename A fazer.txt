@@ -92,7 +92,7 @@ Ir para Whatsapp através do site						OK
 Fazer o campo de mensagem ser um textarea				OK
 
 Fazer uma proporção pro tamanho da imagem do produto			OK ESTUDOS
-Fazer responsividade
+Fazer responsividade							OK ESTUDOS
 	Comprar								OK
 	Home/pesquisa/categorias					OK ESTUDOS um pouco estranho 500~650
 	Termos								OK ESTUDOS
@@ -102,7 +102,7 @@ Fazer responsividade
 Escrever política de privacidade.					OK ESTUDOS
 Escrever termos de uso.							OK ESTUDOS
 
-Mexer na parte de frete
+Mexer na parte de frete							OK ESTUDOS - Cálculos somente para formato 1
 Fazer o cálculo do frete pelo carrinho
 Mudar o frete no checkout: Tem que levar em conta a quantidade de produtos
 Frete tem que ser maior que 0 para liberar a compra

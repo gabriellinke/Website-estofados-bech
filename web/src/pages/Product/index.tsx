@@ -158,8 +158,14 @@ const Product = () =>
     {
         setLoadingFrete(true)
         event.preventDefault();
+
+        let volume = frete.largura * frete.altura * frete.comprimento * quantity;
+        let largura = Math.min(Math.max(Math.cbrt(volume), 10), 100);
+        let comprimento = Math.min(Math.max(Math.cbrt(volume), 15), 100);
+        let altura = Math.min(Math.max(Math.cbrt(volume), 1), 100);
+
         let ajax = new Ajax();
-        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
+        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+(frete.peso*quantity)+'&nCdFormato='+frete.formato+'&nVlComprimento='+comprimento+'&nVlAltura='+altura+'&nVlLargura='+largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
         (status:number, response:string) => {
             setFreteInfo(JSON.stringify(response));
             setLoadingFrete(false);
