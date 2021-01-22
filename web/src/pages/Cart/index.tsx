@@ -293,28 +293,6 @@ const Cart = () =>
     const [mostrarFrete, setMostrarFrete] = useState<string>("");   //Diz se é preciso mostrar o frete
     const [loadingFrete, setLoadingFrete] = useState<boolean>(false);   //  Loading do frete
 
-    // Precisa configurar para cada tamanho de produto
-    const frete:FreteInfo = {
-        cdServico: "04510", //SEDEX 04014 -   PAC 04510
-        CepOrigem: 89870000,
-        CepDestino: cepDestino,
-        // peso: (product?.peso !== undefined) ? product.peso : 5,
-        // formato: (product?.formato !== undefined) ? product.formato : 1,
-        // comprimento: (product?.comprimento !== undefined) ? product.comprimento : 16,
-        // altura: (product?.altura !== undefined) ? product.altura : 2,
-        // largura: (product?.largura !== undefined) ? product.largura : 11,
-        // diametro: (product?.diametro !== undefined) ? product.diametro : 5,
-        peso: 2,
-        formato: 1,
-        comprimento: 16,
-        altura: 2,
-        largura: 11,
-        diametro:  5,
-        cdMaoPropria: "N",
-        valorDeclarado: 0,
-        avisoRecebimento: "N",
-    }
-
     // Quando as informações do frete são atualizadas, armazena o novo valor prazo do frete e mostra o preço e prazo
     useEffect(() => {
         setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
@@ -344,20 +322,112 @@ const Cart = () =>
     {
         setLoadingFrete(true)
         event.preventDefault();
-        let ajax = new Ajax();
-        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+frete.peso+'&nCdFormato='+frete.formato+'&nVlComprimento='+frete.comprimento+'&nVlAltura='+frete.altura+'&nVlLargura='+frete.largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
-        (status:number, response:string) => {
-            setFreteInfo(JSON.stringify(response));
-            const freteInfo = (JSON.stringify(response));
-            const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
-            const freightPrice = parseFloat(freight.replace(",", "."));
-            setValorFrete(freightPrice)
-
-
-            setLoadingFrete(false);
-        })
+        console.log(calculoFrete());
+        setValorFrete(calculoFrete());
     }
 
+    function calculoFrete() {  
+        let volume = 0;
+        let peso = 0;
+        let totalFreight = 0;
+
+        for(let i=0; i<products.length; i++)
+        {
+            volume += products[i].altura * products[i].largura * products[i].comprimento * productsQuantity[i].quantity;
+            peso += productsQuantity[i].quantity * products[i].peso;
+        }
+
+        //Cargas limitadas pelo peso
+        if(peso/(Math.max(1,Math.floor(volume/216000))) > 30)
+        {
+            let cargas = Math.ceil(peso/30);
+            let dimensao = Math.cbrt(volume)/cargas;
+
+            let ajax = new Ajax();
+            // Precisa fazer um cálculo real, com todos os produtos levados em conta
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/cargas+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(dimensao, 15)+
+                '&nVlAltura='+Math.max(dimensao, 1)+
+                '&nVlLargura='+Math.max(dimensao, 10)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                setFreteInfo(JSON.stringify(response));
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = cargas * parseFloat(freight.replace(",", "."));
+                totalFreight = freightPrice;
+                console.log("cargas: ", cargas, 'frete:', freightPrice, 'dimensao:', dimensao);
+                setLoadingFrete(false);
+                setValorFrete(totalFreight);
+            })
+        }
+        else //cargas limitadas pelo volume
+        {
+            let cargasCompletas = Math.floor(volume/216000);
+            let restante = volume%216000;
+
+            let ajax = new Ajax();
+            // Requisição de cargas completas
+            cargasCompletas > 0 &&
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+60+
+                '&nVlAltura='+60+
+                '&nVlLargura='+60+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                setFreteInfo(JSON.stringify(response));
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                setValorFrete(totalFreight);
+                console.log('frete cargas completas:', freightPrice);
+            })
+
+            // Requisição para o volume restante
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlAltura='+Math.max(Math.cbrt(restante), 1)+
+                '&nVlLargura='+Math.max(Math.cbrt(restante), 10)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                setFreteInfo(JSON.stringify(response));
+                const freteInfo = (JSON.stringify(response));
+                const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
+                const freightPrice = parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                setValorFrete(totalFreight);
+                console.log('frete do restante:', freightPrice);
+                setLoadingFrete(false);
+            })
+        }
+        return totalFreight;
+    }
+    
     // Mostra animação de carregamento
     function loadingAnimationFrete()
     {

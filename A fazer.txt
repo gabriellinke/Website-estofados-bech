@@ -30,7 +30,7 @@ Configurar botão adicionar ao carrinho na página de detalhes		OK
 Mostrar itens no carrinho						OK
 Fazer CSS do carrinho							OK
 Permitir adicionar/remover pelo carrinho					OK
-Calcular frete pelo carrinho						ALFA OK
+Calcular frete pelo carrinho						OK
 Fazer a compra através do carrinho					OK
 Fazer página de carrinho vazio						OK
 
@@ -97,15 +97,14 @@ Fazer responsividade							OK ESTUDOS
 	Home/pesquisa/categorias					OK ESTUDOS um pouco estranho 500~650
 	Termos								OK ESTUDOS
 	Politica privacidade						OK ESTUDOS
-	
 
 Escrever política de privacidade.					OK ESTUDOS
 Escrever termos de uso.							OK ESTUDOS
 
-Mexer na parte de frete							OK ESTUDOS - Cálculos somente para formato 1
-Fazer o cálculo do frete pelo carrinho
-Mudar o frete no checkout: Tem que levar em conta a quantidade de produtos
-Frete tem que ser maior que 0 para liberar a compra
+Mexer na parte de frete							OK ESTUDOS - Cálculos somente para formato 1 usando volume
+Fazer o cálculo do frete pelo carrinho					OK
+Mudar o frete no checkout: Tem que levar em conta a quantidade de produtos OK
+Frete tem que ser maior que 0 para liberar a compra			OK
 
 Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy
 

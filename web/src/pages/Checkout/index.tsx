@@ -206,12 +206,16 @@ const Checkout = () =>
 
      // Quando o usuário confirmar seus dados, vai ser realizado um POST para a API salvar os dados no BD e vai habilitar o botão de pagamento
     useEffect(() => {
-        api.post('checkout/data', checkoutData)
-            .then(response => {
-                history.push('/buying/confirm');
-                setLoadingConfirm(false);
-                setDisabled(false);
-            })
+        if(checkoutData)
+            if(!(frete>0)) alert("Erro ao calcular o frete");
+            else
+                api.post('checkout/data', checkoutData)
+                    .then(response => {
+                        history.push('/buying/confirm');
+                        setLoadingConfirm(false);
+                        setDisabled(false);
+                    })
+        setLoadingConfirm(false);
     }, [checkoutData])
 
     // Ao entrar na página carrega os dados da URL, o id do produto e a quantidade de produtos que o usuário quer comprar
@@ -559,8 +563,8 @@ const Checkout = () =>
                 '&nVlPeso='+peso/cargas+
                 '&nCdFormato='+1+
                 '&nVlComprimento='+Math.max(dimensao, 15)+
-                '&nVlAltura='+Math.max(dimensao, 15)+
-                '&nVlLargura='+Math.max(dimensao, 15)+
+                '&nVlAltura='+Math.max(dimensao, 1)+
+                '&nVlLargura='+Math.max(dimensao, 10)+
                 '&nVlDiametro='+10+
                 '&sCdMaoPropria='+ "N" +
                 '&nVlValorDeclarado='+0+
@@ -613,8 +617,8 @@ const Checkout = () =>
                 '&nVlPeso='+peso/(cargasCompletas+1)+
                 '&nCdFormato='+1+
                 '&nVlComprimento='+Math.max(Math.cbrt(restante), 15)+
-                '&nVlAltura='+Math.max(Math.cbrt(restante), 15)+
-                '&nVlLargura='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlAltura='+Math.max(Math.cbrt(restante), 1)+
+                '&nVlLargura='+Math.max(Math.cbrt(restante), 10)+
                 '&nVlDiametro='+10+
                 '&sCdMaoPropria='+ "N" +
                 '&nVlValorDeclarado='+0+
