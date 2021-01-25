@@ -180,6 +180,11 @@ const Header: React.FC<HeaderProps> = (props) =>
                             {categories[3].category.replace(/\w/, (c:string) => c.toUpperCase())}
                         </div>
                     </Link>
+                    <Link to={`/category/${categories[4].category}`}>
+                        <div className="third-categorie">
+                            {categories[4].category.replace(/\w/, (c:string) => c.toUpperCase())}
+                        </div>
+                    </Link>
                 </div>
             );
         }
