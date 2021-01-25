@@ -86,6 +86,10 @@ const Contact: React.FC = () =>
                 {
                     setSituation("show");
                     setTimeout(() => {
+                        values.email = '';
+                        values.name = '';
+                        values.phone = '';
+                        setMessage('');
                         setSituation("hide");
                     }, 2000)
                 }
@@ -178,6 +182,7 @@ const Contact: React.FC = () =>
                                                 resize: 'none',
                                             }}
                                             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => handleTextAreaChange(event)}
+                                            value={message}
                                             placeholder="Escreva sua mensagem" 
                                             name="message"
                                             required={true}

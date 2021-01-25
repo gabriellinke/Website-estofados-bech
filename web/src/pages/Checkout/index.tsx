@@ -12,7 +12,6 @@ import Footer from '../../partials/Footer/Footer';
 import load from '../../assets/load2.gif';
 
 import './styles.css';  //Importa o css
-import { assert } from 'console';
 
 interface CheckoutPostData
 {
@@ -555,6 +554,7 @@ const Checkout = () =>
         setLoadingConfirm(true);    // Desativo o loading no momento que vou liberar o botão
         setValuesData(values);
         calcularFrete(values.cep);
+        // Após setar o frete é ativado o useEffect
     }
 
     function calcularFrete(cep: string) {  
@@ -655,15 +655,6 @@ const Checkout = () =>
         return totalFreight;
     }
 
-    // Mostra as animações de loading
-    function loading()
-    {
-        if(loadingConfirm)
-        return(
-            <img src={load} alt="Carregando" width="52.4" height="52.4"/>
-        );
-    }
-
     return(
         <div id="page-checkout">
             <Header />
@@ -708,7 +699,7 @@ const Checkout = () =>
 
                                                 <div className="confirm">
                                                     <button className="normal" type="submit">Confirmar dados</button>
-                                                    {loading()}
+                                                    {loadingConfirm && <img src={load} alt="Carregando" width="52.4" height="52.4"/>}
                                                 </div>
                                             </Form>
                                         </div>
