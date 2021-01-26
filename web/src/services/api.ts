@@ -4,8 +4,8 @@ import axios from 'axios';
 // Assim, se for mudada a rota do projeto, é só mudar a URL base, não precisa mudar em todos os lugares em que foi usada alguma rota
 
 const api = axios.create({
-    baseURL: 'http://localhost:3333/'
-    // baseURL: 'http://estofadosbech-com-br.umbler.net/'
+    // baseURL: 'http://localhost:3333/'
+    baseURL: 'https://estofados-bech.herokuapp.com/'
 });
 
 export default api;

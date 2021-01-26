@@ -155,7 +155,7 @@ const Contact: React.FC = () =>
                                 <span><FiInstagram size="60"/></span>
                                 Instagram
                             </a>
-                            <a target='blank' href="https://wa.me/5549988186614" className="whatsapp">
+                            <a target='blank' href="https://api.whatsapp.com/send?phone=5549988607303&text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20criador%20do%20site%20da%20Estofados%20Bech" className="whatsapp">
                                 <span><IoLogoWhatsapp size="60"/></span>
                                 WhatsApp
                             </a>
