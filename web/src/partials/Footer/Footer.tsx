@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = (props) =>
     <footer id="Footer">
         <div className="info">
             <div className="contato">
-                <Link to="">Contato</Link>
+                <Link to="/contato">Contato</Link>
                 <a target='blank' href="https://www.facebook.com/estofadosbech" className="icone">
                     Facebook
                     <span> < AiFillFacebook size="35"/> </span>
