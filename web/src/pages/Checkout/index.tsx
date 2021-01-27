@@ -595,7 +595,6 @@ const Checkout = () =>
                 const freightPrice = cargas * parseFloat(freight.replace(",", "."));
                 totalFreight = freightPrice;
                 setFrete(totalFreight);
-                console.log("cargas: ", cargas, 'frete:', freightPrice, 'dimensao:', dimensao);
 
             })
         }
@@ -626,7 +625,6 @@ const Checkout = () =>
                 const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
                 totalFreight += freightPrice;
                 setFrete(totalFreight);
-                console.log('frete cargas completas:', freightPrice);
             })
 
             // Requisição para o volume restante

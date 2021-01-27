@@ -112,17 +112,6 @@ const Product = () =>
             })
     }, [id])
 
-    // Quando as informações do frete são atualizadas, armazena os novos valores de preço e prazo do frete e mostra eles
-    useEffect(() => {
-        setValorFrete(freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
-        setPrazoFrete(freteInfo.substring(freteInfo.indexOf('<PrazoEntrega>')+14, freteInfo.indexOf('</PrazoEntrega>')));
-
-        if(parseInt(prazoFrete) > 0)
-            setMostrarFrete("show")
-        else if(parseInt(prazoFrete) === 0)
-            setMostrarFrete("error")
-    }, [calcularFrete])
-
     // Disponibiliza a quantidade de unidades que podem ser compradas do produto
     useEffect(() => {
         var vetor = [];
@@ -153,23 +142,127 @@ const Product = () =>
         return string.replace(/[^0-9]/g,'');
     }
 
+
+    function calculoFrete() {  
+        
+    }
+
+
+
     // Calcula o frete com os dados informados e mostra o frete
     function calcularFrete(event: FormEvent<HTMLFormElement>)
     {
         setLoadingFrete(true)
         event.preventDefault();
-
         let volume = frete.largura * frete.altura * frete.comprimento * quantity;
-        let largura = Math.min(Math.max(Math.cbrt(volume), 10), 100);
-        let comprimento = Math.min(Math.max(Math.cbrt(volume), 15), 100);
-        let altura = Math.min(Math.max(Math.cbrt(volume), 1), 100);
+        let peso = frete.peso * quantity;
+        let totalFreight = 0;
+        
+        //Cargas limitadas pelo peso
+        if(peso/(Math.max(1,Math.floor(volume/216000))) > 30)
+        {
+            let cargas = Math.ceil(peso/30);
+            let dimensao = Math.cbrt(volume)/cargas;
 
-        let ajax = new Ajax();
-        ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+frete.cdServico +'&sCepOrigem='+ frete.CepOrigem+'&sCepDestino='+frete.CepDestino+'&nVlPeso='+(frete.peso*quantity)+'&nCdFormato='+frete.formato+'&nVlComprimento='+comprimento+'&nVlAltura='+altura+'&nVlLargura='+largura+'&nVlDiametro='+frete.diametro+'&sCdMaoPropria='+frete.cdMaoPropria+'&nVlValorDeclarado='+frete.valorDeclarado+'&sCdAvisoRecebimento='+frete.avisoRecebimento+'%20HTTP/1.1',
-        (status:number, response:string) => {
-            setFreteInfo(JSON.stringify(response));
-            setLoadingFrete(false);
-        })
+            let ajax = new Ajax();
+            // Precisa fazer um cálculo real, com todos os produtos levados em conta
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/cargas+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(dimensao, 15)+
+                '&nVlAltura='+Math.max(dimensao, 1)+
+                '&nVlLargura='+Math.max(dimensao, 10)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freightInfo = (JSON.stringify(response));
+                setFreteInfo(freightInfo);
+                setLoadingFrete(false);
+
+                const freight = (freightInfo.substring(freightInfo.indexOf('<Valor>')+7, freightInfo.indexOf('</Valor>')));
+                const freightPrice = cargas * parseFloat(freight.replace(",", "."));
+                totalFreight = freightPrice;
+                setValorFrete(totalFreight.toFixed(2).toString());
+
+                const deadline = freightInfo.substring(freightInfo.indexOf('<PrazoEntrega>')+14, freightInfo.indexOf('</PrazoEntrega>'))
+                setPrazoFrete(deadline);
+        
+                if(parseInt(deadline) > 0)
+                    setMostrarFrete("show")
+                else if(parseInt(deadline) === 0)
+                    setMostrarFrete("error")
+            })
+        }
+        else //cargas limitadas pelo volume
+        {
+            let cargasCompletas = Math.floor(volume/216000);
+            let restante = volume%216000;
+
+            let ajax = new Ajax();
+            // Requisição de cargas completas
+            cargasCompletas > 0 &&
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+60+
+                '&nVlAltura='+60+
+                '&nVlLargura='+60+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freightInfo = (JSON.stringify(response));
+                setFreteInfo(freightInfo);
+
+                const freight = (freightInfo.substring(freightInfo.indexOf('<Valor>')+7, freightInfo.indexOf('</Valor>')));
+                const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                setValorFrete(totalFreight.toFixed(2).toString());
+            })
+
+            // Requisição para o volume restante
+            ajax.httpGet('http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx/CalcPrecoPrazo?nCdEmpresa=&sDsSenha=&nCdServico='+ "04510" +
+                '&sCepOrigem='+ "89870000" +
+                '&sCepDestino='+ cepDestino +
+                '&nVlPeso='+peso/(cargasCompletas+1)+
+                '&nCdFormato='+1+
+                '&nVlComprimento='+Math.max(Math.cbrt(restante), 15)+
+                '&nVlAltura='+Math.max(Math.cbrt(restante), 1)+
+                '&nVlLargura='+Math.max(Math.cbrt(restante), 10)+
+                '&nVlDiametro='+10+
+                '&sCdMaoPropria='+ "N" +
+                '&nVlValorDeclarado='+0+
+                '&sCdAvisoRecebimento='+"N" +'%20HTTP/1.1',
+            (status:number, response:string) => 
+            {
+                const freightInfo = (JSON.stringify(response));
+                setFreteInfo(freightInfo);
+                setLoadingFrete(false);
+
+                const freight = (freightInfo.substring(freightInfo.indexOf('<Valor>')+7, freightInfo.indexOf('</Valor>')));
+                const freightPrice = parseFloat(freight.replace(",", "."));
+                totalFreight += freightPrice;
+                setValorFrete(totalFreight.toFixed(2).toString());
+
+                const deadline = freightInfo.substring(freightInfo.indexOf('<PrazoEntrega>')+14, freightInfo.indexOf('</PrazoEntrega>'))
+                setPrazoFrete(deadline);
+        
+                if(parseInt(deadline) > 0)
+                    setMostrarFrete("show")
+                else if(parseInt(deadline) === 0)
+                    setMostrarFrete("error")
+
+            })
+        }
     }
 
     // Mostra animação de carregamento

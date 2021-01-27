@@ -363,7 +363,6 @@ const Cart = () =>
                 const freight = (freteInfo.substring(freteInfo.indexOf('<Valor>')+7, freteInfo.indexOf('</Valor>')));
                 const freightPrice = cargas * parseFloat(freight.replace(",", "."));
                 totalFreight = freightPrice;
-                console.log("cargas: ", cargas, 'frete:', freightPrice, 'dimensao:', dimensao);
                 setLoadingFrete(false);
                 setValorFrete(totalFreight);
             })
@@ -396,7 +395,6 @@ const Cart = () =>
                 const freightPrice = cargasCompletas * parseFloat(freight.replace(",", "."));
                 totalFreight += freightPrice;
                 setValorFrete(totalFreight);
-                console.log('frete cargas completas:', freightPrice);
             })
 
             // Requisição para o volume restante
@@ -420,7 +418,6 @@ const Cart = () =>
                 const freightPrice = parseFloat(freight.replace(",", "."));
                 totalFreight += freightPrice;
                 setValorFrete(totalFreight);
-                console.log('frete do restante:', freightPrice);
                 setLoadingFrete(false);
             })
         }
