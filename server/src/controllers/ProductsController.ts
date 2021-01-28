@@ -38,7 +38,9 @@ class ProductsController
         };
 
         const insertedProduct = await knex('products').insert(product);
-        const product_id = insertedProduct[0];
+        // const product_id = insertedProduct[0];   //Funciona em sqlite, mas não no postgres
+        const productInserted = await knex('products').where('name', product.name);
+        const product_id = productInserted[0].id;
 
         return response.json({
             product_id,
