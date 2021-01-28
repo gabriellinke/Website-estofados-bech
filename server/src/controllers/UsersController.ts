@@ -3,7 +3,9 @@ import knex from '../database/connection';
 import jsSHA from 'jssha'
 import jwt from 'jsonwebtoken'
 
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 require("dotenv").config();
 
 interface User{
@@ -170,13 +172,27 @@ class UsersController
 
         if(resposta)
         {
+            const oauth2Client = new OAuth2(
+                process.env.CLIENT_ID, // HARD CODED
+                process.env.CLIENT_SECRET, // Client Secret        // HARD CODED
+                "https://developers.google.com/oauthplayground" // Redirect URL
+           );
+    
+            oauth2Client.setCredentials({
+                fresh_token: process.env.CLIENT_REFRESH_TOKEN // HARD CODED
+            });
+            const accessToken = oauth2Client.getAccessToken();
+    
+            //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
             let transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 465,
-                secure: true,
+                service: "gmail",
                 auth: {
+                    type: "OAuth2",
                     user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASSWORD
+                    clientId: process.env.CLIENT_ID,
+                    clientSecret: process.env.CLIENT_SECRET,
+                    refreshToken: process.env.CLIENT_REFRESH_TOKEN,
+                    accessToken: accessToken,
                 },
                 tls: { rejectUnauthorized: false }
             });
@@ -274,13 +290,27 @@ class UsersController
         }= request.body;
 
         //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
+        const oauth2Client = new OAuth2(
+            process.env.CLIENT_ID, // HARD CODED
+            process.env.CLIENT_SECRET, // Client Secret        // HARD CODED
+            "https://developers.google.com/oauthplayground" // Redirect URL
+       );
+
+        oauth2Client.setCredentials({
+            fresh_token: process.env.CLIENT_REFRESH_TOKEN // HARD CODED
+        });
+        const accessToken = oauth2Client.getAccessToken();
+
+        //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
         let transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            service: "gmail",
             auth: {
+                type: "OAuth2",
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.CLIENT_REFRESH_TOKEN,
+                accessToken: accessToken,
             },
             tls: { rejectUnauthorized: false }
         });

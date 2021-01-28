@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 import nodemailer from 'nodemailer'
-
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 class CheckoutController
 {
     // Cria uma tabela com os dados do comprador e envia esses dados por email para ter um controle
@@ -72,15 +73,28 @@ class CheckoutController
         console.log(data);
         const insertedData = await knex('checkout_data').insert(data);
         // const data_id = insertedData[0];
+        
+        const oauth2Client = new OAuth2(
+            process.env.CLIENT_ID, // HARD CODED
+            process.env.CLIENT_SECRET, // Client Secret        // HARD CODED
+            "https://developers.google.com/oauthplayground" // Redirect URL
+       );
+
+        oauth2Client.setCredentials({
+            fresh_token: process.env.CLIENT_REFRESH_TOKEN // HARD CODED
+        });
+        const accessToken = oauth2Client.getAccessToken();
 
         //ENVIAR EMAIL COM OS DADOS DO COMPRADOR E DO PRODUTO COMPRADO
         let transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            service: "gmail",
             auth: {
+                type: "OAuth2",
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASSWORD
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.CLIENT_REFRESH_TOKEN,
+                accessToken: accessToken,
             },
             tls: { rejectUnauthorized: false }
         });
