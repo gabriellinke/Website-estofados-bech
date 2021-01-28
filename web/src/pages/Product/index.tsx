@@ -142,13 +142,6 @@ const Product = () =>
         return string.replace(/[^0-9]/g,'');
     }
 
-
-    function calculoFrete() {  
-        
-    }
-
-
-
     // Calcula o frete com os dados informados e mostra o frete
     function calcularFrete(event: FormEvent<HTMLFormElement>)
     {

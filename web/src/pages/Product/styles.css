@@ -512,4 +512,14 @@
     {
         margin-bottom: 8px;
     }
+
+    #product-info .content main .delivery .delivery-data .day
+    {
+        margin-right: 24px;
+    }
+
+    #product-info .content main .delivery .delivery-data .type
+    {
+        margin-right: 24px;
+    }
 }
