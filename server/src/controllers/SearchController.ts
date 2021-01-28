@@ -12,7 +12,7 @@ class SearchController
             return response.json([])
         }
 
-        const searchString = search?.toString();
+        const searchString = (search?.toString())?.toLowerCase();
         let products:any;
         if(searchString != undefined)
         {
