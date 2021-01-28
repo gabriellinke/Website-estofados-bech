@@ -57,9 +57,11 @@ class ProductsController
             id
         } = request.body;
 
+        const removedDescriptions = await knex('descriptions').where('product_id', id).del();
         const removedProduct = await knex('products').where('id', id).del();
 
         return response.json({
+            removedDescriptions,
             removedProduct
         })
     }
