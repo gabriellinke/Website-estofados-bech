@@ -238,7 +238,7 @@ class ProductsController
         if(order === '10')
         {
             products.sort(function (a, b) {
-                return (a.price < b.price) ? 1 : ((b.price < a.price) ? -1 : 0);
+                return (parseFloat(a.price) < parseFloat(b.price)) ? 1 : ((parseFloat(b.price)< parseFloat(a.price)) ? -1 : 0);
             });
         }
 
@@ -246,7 +246,7 @@ class ProductsController
         else if(order === '01')
         {            
             products.sort(function (a, b) {
-                return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);
+                return (parseFloat(a.price) > parseFloat(b.price)) ? 1 : ((parseFloat(b.price) > parseFloat(a.price)) ? -1 : 0);
             });
         }
 

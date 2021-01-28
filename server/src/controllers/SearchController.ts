@@ -16,7 +16,7 @@ class SearchController
         let products:any;
         if(searchString != undefined)
         {
-            products = await knex('products').where('name', 'like', `%${searchString}%`);
+            products = await knex('products').whereRaw(`LOWER(name) LIKE ?`, [`%${searchString}%`]);
         }
 
         const order = request.query.order;  // Tipo de ordenamento

@@ -106,46 +106,51 @@ Fazer o cálculo do frete pelo carrinho					OK
 Mudar o frete no checkout: Tem que levar em conta a quantidade de produtos OK
 Frete tem que ser maior que 0 para liberar a compra			OK
 
+Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy	OK
+Verificar todas funções no celular												OK
+Fazer merge das versões em deploy e da versão local										
+
+VERIFICAR: 
+Criar conta 								OK
+Visualizar Termos e Políticas 						OK
+Esqueci minha senha usando o email					OK
+Login									OK
+Quem Somos: Imagem, texto e mapa						OK
+Contato: Redes sociais, mensagem						OK
+Home: Imagens reforma, categorias, pesquisa, card produtos, ordenação, botões de paginação	OK
+Categorias 								OK
+Cálculo do frete: Product, Cart e Checkout				OK
+Compra: Carrinho, Card							OK
+Novo produto								OK
+Modificar produto: valor, quantidade, parcelas, imagens, descrições	OK
+Excluir produto								OK
+Na página do Usuário: realizar todas ações do menu			OK
+Na página do Admin: realizar todas ações do menu				OK
+
+ARRUMAR:
+
+Verificar filtros por preço						OK
+Configurar Variáveis do sistema						OK
+Pesquisa na barra de pesquisa						OK
+Link de contato no footer						OK	
+Login email								OK
+Problema na compra: variável declarada errado				OK
+Após cadastrar produto vai para página ERRADA				OK
+Produtos com descrição não podiam ser excluídos				OK
 
 
-A Malha de Algodão é um tecido resistente e com boa elasticidade. Perfeito para a confecção de peças para o dia a dia, devido ao seu conforto. Crie camisetas, calças, vestidos, saias e demais peças.
+Client ID 893426397849-godrifrpfegqsa4cjbo3848nmsvcso97.apps.googleusercontent.com
 
-2 n tem
+Client Secret 5Rff5In1oDKOK96AO49MPEdo
 
-A Mescla de Lã é um tecido mais fino que a lã batida, sendo indicada para a criação de conjuntos, blazers, calças e saias para temperaturas não tão frias. Sua aparência se encaixa tanto no estilo casual como no social. Por possuir caimento maleável, pode ser utilizada em modelagens retas e evasê. Apesar de seu toque levemente áspero, é bastante confortável e resistente.
+Refresh Token: 1//04mwrACUbCm48CgYIARAAGAQSNgF-L9IrNZHujPvxO9tABbE7KB2WCxxNfbaMUjXCSjtsf3L8GIQba4U2uoB1vHrKWSd88Zhxag
 
-É um tecido felpudo que é utilizada principalmente na confecção de casacos, coletes e sobretudos, mas pode ser usada também em golas, punhos, barras de outras peças, como um detalhe decorativo. Por ser um tecido grosso e de caimento médio, é melhor empregado em modelagens retas ou evasê.
-
-Tapete produzido com tramas de algodão em um trançado de cores neutras. De construção retangular e acabamento arrematado, o modelo é fácil de lavar e traz um toque de sustentabilidade ao ambiente. Conforto e estilo para uma decoração super clean.
-
-Em modelagem retangular, o tapete Signature é moderno e charmoso. Com padronagem diferenciada, a peça promete complementar a decoração da sua sala com um toque de personalidade. Aposte!
-
-A coleção supreme traz interessantes composições para a decoração da sua casa. Brincando com formas orgânicas, como os delicados arabescos, e as modernas formas geométricas, combinadas com as cores bege, azul e cinza, esta coleção é a escolha certeira para dar um toque moderno à sua sala ou quarto.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Verificar se todas as funções estão funcionando, pois podem ter surgido alguns bugs com a mudança do banco de dados e com o deploy
 
 Fazer a parte do Mercado Pago com a conta real. Também verificar as respostas quando for utilizado um usuário de verdade. Ver se o pagamento com boleto retorna o payer depois de confirmado
 Quando tudo estiver pronto, tirar a opção de criar conta admin
 Deploy definitivo, com tudo no github, sabendo certinho como funciona
+
+https://medium.com/@nickroach_50526/sending-emails-with-node-js-using-smtp-gmail-and-oauth2-316fe9c790a1 	Enviar emails usando OAuth2: 
 
 https://suporte.boxloja.pro/ ALGUMAS COISAS SOBRE E-COMMERCE PARA LER
 
