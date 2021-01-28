@@ -11,7 +11,12 @@ const connection = knex({
         filename: path.resolve(__dirname, 'database.sqlite')
     },
     // client: 'pg',
-    // connection: process.env.DATABASE_URL,
+    // connection: {
+    //     connectionString: process.env.DATABASE_URL,
+    //     ssl: {
+    //         rejectUnauthorized: false
+    //     }
+    // },
     // client: 'mysql',
     // connection: {
     //     host: 'mysql669.umbler.com',

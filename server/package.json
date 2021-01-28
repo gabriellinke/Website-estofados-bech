@@ -7,6 +7,8 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/src/server.js",
     "dev": "ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
+    "deploy_knex:seed": "knex --knexfile dist/knexfile.js seed:run",
+    "deploy_knex:migrate": "knex --knexfile dist/knexfile.js migrate:latest",
     "knex:seed": "knex --knexfile knexfile.ts seed:run",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
   },

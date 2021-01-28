@@ -18,7 +18,12 @@ module.exports = {
     //     database: "bancotesteeb",
     // },
     // client: 'pg',
-    // connection: process.env.DATABASE_URL,
+    // connection: {
+    //     connectionString: process.env.DATABASE_URL,
+    //     ssl: {
+    //         rejectUnauthorized: false
+    //     }
+    // },
     client: 'sqlite3',
     connection: {
         filename: path.resolve(__dirname, 'src', 'database', 'database.sqlite')
