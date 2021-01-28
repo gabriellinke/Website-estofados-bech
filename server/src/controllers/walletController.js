@@ -1,4 +1,4 @@
-exports.walletbutton = async (req, res, next) => {
+let exports.walletbutton = async (req, res, next) => {
 
   console.log(req.body)
   const mercadopago = require("mercadopago");
@@ -38,11 +38,11 @@ exports.walletbutton = async (req, res, next) => {
   } = req.body;
 
   // Os parâmetros virão em uma string, com os valores separados por @
-  vetorId = id.split("@")
-  vetorNome = productName.split("@")
-  vetorQuantidade = quantity.toString().split("@")
-  vetorPreco = price.toString().split("@")
-  vetorParcelas = condition.toString().split("@")
+  let vetorId = id.split("@")
+  let vetorNome = productName.split("@")
+  let vetorQuantidade = quantity.toString().split("@")
+  let vetorPreco = price.toString().split("@")
+  let vetorParcelas = condition.toString().split("@")
 
   let itemsArray = [{
     id: 0,
