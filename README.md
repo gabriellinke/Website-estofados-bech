@@ -11,12 +11,22 @@
 </p>
 
 <p align="center">
-  <img alt="Design do projeto" width="650px" src="https://user-images.githubusercontent.com/51447706/106284149-951bc500-6221-11eb-90a0-0bc43327d2f7.png" />
+  <img alt="Design do projeto" width="650px" src="https://user-images.githubusercontent.com/51447706/106307816-94455c00-623e-11eb-82ed-a02a1c8f2383.png" />
 </p>
 
 ## :bookmark: Sobre
+<p>
+ O website da Estofados Bech é um e-commerce desenvolvido a fim de estudos. Nele é possível realizar a compra de diversos artigos vendidos pela Loja e Estofados Bech, tais como sofás, cadeiras e tecidos. O pagamento é realizado através do Mercado Pago, e a única ação que necessita ser feita antes da compra é a criação de uma conta no website.
+</p>
+
+## :hourglass_flowing_sand: História
+<p>
+Este site foi desenvolvido em 2020 durante a pandemia do coronavírus. Como eu estava com tempo livre, pois as aulas estavam paralisadas, resolvi estudar um pouco sobre desenvolvimento web. Então, após estudar o básico sobre ReactJS e Node.js, surgiu a ideia de criar um e-commerce, com o intuito de me desafiar e tentar desenvolver novas habilidades. O site começou a ser desenvolvido sob o nome de "Meu Website" porém, após comentar com um amigo que eu estava desenvolvendo um e-commerce, ele sugeriu que eu tentasse desenvolver um website para a loja da família dele, a Estofados Bech. De início já gostei da ideia, pois não precisaria desenvolver algo tão genérico, e no fim talvez o trabalho pudesse ser aproveitado e utilizado numa aplicação real. Entretanto, atualmente o website serve apenas a fim de estudos. 
+</p>
 
 ## :eyes: Versão demo
+
+Atualmente o website tem uma versão de demonstração, com o seu back-end hospedado no Heroku e o front-end hospedado na Netlify. Para testar essa versão basta acessar o site <a target="blank" href="https://estofadosbech.gabriellinke.tech">https://estofadosbech.gabriellinke.tech</a>. Para ter acesso a uma conta com permissões de administrador, entre em contato com o desenvolvedor. Uma explicação sobre o funcionamento pode ser encontrada a seguir.
 
 ## :gear: Funcionamento
 
