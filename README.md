@@ -150,6 +150,36 @@ Para facilitar o contato do usuário com a loja, a página de contato dispõe de
    Figura 12: Demonstração de como a mensagem é recebida no email do administrador.
 </p>
 
+<p>
+A próxima navegação é em procura dos produtos, e ela começa na Home page. Ao entrar na Home page é possível observar imagens de reformas de estofados feitas pela Estofados Bech. O usuário pode pedir uma reforma entrando em contato com a loja. Abaixo das imagens de reformas, podem ser encontrados todos os produtos cadastrados no website. Estes podem ser ordenados por ordem alfabética ou por ordem de preço.
+</p>
+
+<p align="center">
+  <img alt="Produtos na Home page" width="450px" src="https://user-images.githubusercontent.com/51447706/106472590-96e3c380-6481-11eb-8f5f-438b4f9fbf45.png" />
+</p>
+<p align="center">
+   Figura 13: Produtos na Home page.
+</p>
+
+<p>
+Além de encontrar os produtos pela Home page também é possível filtrar a busca por produtos, e para isso existem dois métodos. O primeiro deles é encontrando os produtos através das categorias, que podem ser localizadas na parte inferior do cabeçalho. Ademais, também existe a possibilidade de realizar a busca por um produto utilizando a barra de pesquisa, localizada na parte central do cabeçalho.
+</p>
+
+<p align="center">
+  <img alt="Categoria de cadeiras" width="450px" src="https://user-images.githubusercontent.com/51447706/106474112-538a5480-6483-11eb-9883-8b0e39c200d0.png" />
+</p>
+<p align="center">
+   Figura 14: Categoria de cadeiras.
+</p>
+
+<p align="center">
+  <img alt="Pesquisa por preta" width="450px" src="https://user-images.githubusercontent.com/51447706/106474120-54bb8180-6483-11eb-9ad9-fbb5a3e446fa.png" />
+</p>
+<p align="center">
+   Figura 15: Resultado da pesquisa por preta.
+</p>
+
+
 ## :hammer: Funcionamento para o administrador
 
 
