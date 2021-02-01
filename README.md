@@ -317,6 +317,41 @@ Em alguns instantes o pagamento é aprovado e após alguns segundos o usuário �
 
 ### :clipboard: Menu do usuário
 
+<p>
+O menu do usuário é o local onde o usuário pode verificar o andamento das suas compras e também alterar sua senha. Ele pode ser acessado clicando na imagem do usuário, ao lado do ícone de carrinho, no canto superior direito.
+</p>
+
+<p align="center">
+  <img alt="Menu do usuário." width="450px" src="https://user-images.githubusercontent.com/51447706/106516098-5867fc00-64b5-11eb-9343-d0700150b6ba.png"/>
+</p>
+<p align="center">
+   Figura 29: Ícone para acessar o menu do usuário.
+</p>
+
+<p>
+Ao abrir o menu, o usuário tem três opções para navegar: a primeira delas é a de Acompanhar compras, onde o usuário pode verificar suas últimas compras e obter o código de rastreamento dos correios. A segunda é o Histórico de compras, onde o usuário pode observar todas as compras já realizadas no site, bem como a data da compra. A última das opções é a de Alterar senha, onde a única informação necessária para realizar a alteração é a senha atual.
+</p>
+
+<p align="center">
+  <img alt="Acompanhar compra" width="450px" src="https://user-images.githubusercontent.com/51447706/106516841-679b7980-64b6-11eb-97ce-7cfeb3b574bd.png"/>
+</p>
+<p align="center">
+   Figura 30: Página para acompanhar compra.
+</p>
+
+<p align="center">
+  <img alt="Histórico de compra" width="450px" src="https://user-images.githubusercontent.com/51447706/106516844-68341000-64b6-11eb-931e-b843701331db.png"/>
+</p>
+<p align="center">
+   Figura 31: Página do histórico de compra.
+</p>
+
+<p align="center">
+  <img alt="Alterar senha" width="450px" src="https://user-images.githubusercontent.com/51447706/106516847-68cca680-64b6-11eb-8c8c-9d2341620c11.png"/>
+</p>
+<p align="center">
+   Figura 32: Página para alterar senha.
+</p>
 
 ## :hammer: Funcionamento para o administrador
 
