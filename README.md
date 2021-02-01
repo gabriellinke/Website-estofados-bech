@@ -107,6 +107,49 @@ Em alguns instantes, um email para recuperação da senha será enviado para o e
 
 ### :arrows_counterclockwise: Navegação
 
+<p>
+Existem diversas formas de navegação pelo site, e a primeira a ser mostrada é a navegação através do cabeçalho. No canto superior esquerdo existem 3 botões: o botão de "Home", que faz com que o usuário seja redirecionado para a Home, o botão de "Quem somos" que redireciona o usuário para uma página que mostra uma imagem, a localização e um breve texto sobre a loja, e o botão de "Contato", que redireciona para uma página com informações de contato, links para as redes sociais e um formulário para envio de mensagens.
+</p>
+
+<p align="center">
+  <img alt="Botões para navegação" width="450px" src="https://user-images.githubusercontent.com/51447706/106467836-f343e480-647b-11eb-850b-885bc992fa41.png" />
+</p>
+<p align="center">
+   Figura 8: Botões para navegação.
+</p>
+
+<p align="center">
+  <img alt="Página de Quem somos" width="450px" src="https://user-images.githubusercontent.com/51447706/106467196-115d1500-647b-11eb-86f8-e28bca3f3276.png" />
+</p>
+<p align="center">
+   Figura 9: Página de Quem somos.
+</p>
+
+<p align="center">
+  <img alt="Página de Contato" width="450px" src="https://user-images.githubusercontent.com/51447706/106467195-102be800-647b-11eb-8c5f-afcf93c2a165.png" />
+</p>
+<p align="center">
+   Figura 10: Página de Contato.
+</p>
+
+<p>
+Para facilitar o contato do usuário com a loja, a página de contato dispõe de um formulário para envio de mensagens. Assim, o usuário pode mandar uma mensagem para a loja sem precisar sair do website. Para isso, basta preencher o seu nome, um email para onde pode ser enviada uma resposta, opcionalmente um telefone para contato e a mensagem em si.
+</p>
+
+<p align="center">
+  <img alt="Enviar mensagem através do formulário" width="450px" src="https://user-images.githubusercontent.com/51447706/106469537-2edfae00-647e-11eb-9a1d-57e0d4940607.png" />
+</p>
+<p align="center">
+   Figura 11: Formulário para envio de mensagens através do site.
+</p>
+
+<p align="center">
+  <img alt="Mensagem recebida no email" width="450px" src="https://user-images.githubusercontent.com/51447706/106469648-5171c700-647e-11eb-9271-0827a77eb34f.png" />
+</p>
+<p align="center">
+   Figura 12: Demonstração de como a mensagem é recebida no email do administrador.
+</p>
+
 ## :hammer: Funcionamento para o administrador
 
 
