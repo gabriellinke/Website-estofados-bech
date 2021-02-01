@@ -30,6 +30,86 @@ Atualmente o website tem uma versão de demonstração, com o seu back-end hospe
 
 ## :gear: Funcionamento
 
+Esta seção é destinada para explicar o funcionamento do Website. Ela será dividida em duas sub-seções, mostrando o website na perspectiva de um usuário e na perspectiva do administrador do Website.
+
+## :man: Funcionamento para o usuário
+
+### :name_badge: Conta
+
+<p>
+Ao acessar o website, o usuário se depara com a Home page. Ele pode navegar livremente pelo site, entretanto, sem ter criado uma conta ele não será capaz de fazer compras. Para criar a conta basta utilizar o botão "Cadastre-se ou faça seu login" que se encontra no canto superior direito da tela.
+</p>
+  
+<p align="center">
+  <img alt="Cadastro e login" width="450px" src="https://user-images.githubusercontent.com/51447706/106460957-e078e200-6472-11eb-9926-73412634e22c.png" />
+</p>
+<p align="center">
+  Figura 1: Cadastre-se ou faça seu login.
+</p>
+
+<p>
+Após clicar no botão, o usuário é redirecionado para a página de login. Se ele já tiver uma conta, basta inserir seu email e senha para realizar o login. No entanto, se ele ainda não tem uma conta cadastrada no website, basta clicar no botão "Criar conta".
+</p>
+
+<p align="center">
+  <img alt="Criar conta" width="450px" src="https://user-images.githubusercontent.com/51447706/106461595-bd9afd80-6473-11eb-8052-a767f9c08b5f.png" />
+</p>
+<p align="center">
+   Figura 2: Tela de login com botão para criar conta.
+</p>
+
+<p>
+Na nova página que se abre, o usuário precisa preencher seus dados e após isso clicar no botão de "Cadastrar-se". É importante salientar que ao realizar o cadastro o usuário está concordando com os Termos de uso e a Política de privacidade do website, que podem ser acessados através dos links presentes abaixo do formulário de cadastro.
+</p>
+
+<p align="center">
+  <img alt="Cadastro" width="450px" src="https://user-images.githubusercontent.com/51447706/106462517-fb4c5600-6474-11eb-921d-0111c47dadc7.png" />
+</p>
+<p align="center">
+   Figura 3: Tela de cadastro.
+</p>
+
+<p>
+Agora, com a conta cadastrada, é possível realizar o login. Entretanto, não será possível fazer login se o usuário tiver esquecido da sua senha. Para estes casos existe o botão de "Esqueci minha senha". Ao clicar nele, o usuário é redirecionado para uma página onde ele deve inserir seu email e pedir a sua recuperação de senha.  
+</p>
+
+<p align="center">
+  <img alt="Esqueci minha senha" width="450px" src="https://user-images.githubusercontent.com/51447706/106463353-11a6e180-6476-11eb-8c96-2a6444035ef4.png" />
+</p>
+<p align="center">
+   Figura 4: Botão "Esqueci minha senha".
+</p>
+
+<p align="center">
+  <img alt="Recuperação de senha" width="450px" src="https://user-images.githubusercontent.com/51447706/106463355-12d80e80-6476-11eb-8245-dcd74a9db090.png" />
+</p>
+<p align="center">
+   Figura 5: Formulário para recuperação de senha
+</p>
+
+<p>
+Em alguns instantes, um email para recuperação da senha será enviado para o endereço de email informado no formulário. Esse email contém um link, que leva o usuário a uma página em que ele pode redefinir sua senha. 
+</p>
+
+<p align="center">
+  <img alt="Email para recuperação de senha" width="450px" src="https://user-images.githubusercontent.com/51447706/106464226-1d46d800-6477-11eb-8027-6fda94fd09b8.png" />
+</p>
+<p align="center">
+   Figura 6: Email para recuperação de senha.
+</p>
+
+<p align="center">
+  <img alt="Formulário para alterar senha" width="450px" src="https://user-images.githubusercontent.com/51447706/106464232-2172f580-6477-11eb-91bd-32f1d248f62b.png" />
+</p>
+<p align="center">
+   Figura 7: Formulário para alterar senha.
+</p>
+
+### :arrows_counterclockwise: Navegação
+
+## :hammer: Funcionamento para o administrador
+
+
 ## 💻 Como Executar
 
 - ### **Pré-requisitos**
