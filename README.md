@@ -179,6 +179,144 @@ Além de encontrar os produtos pela Home page também é possível filtrar a bus
    Figura 15: Resultado da pesquisa por preta.
 </p>
 
+### :credit_card: Compras
+
+<p>
+Após o usuário realizar as pesquisas e encontrar os produtos que deseja comprar, está na hora de iniciar as compras!
+</p>
+<p>
+Para isso, o usuário primeiramente precisa clicar sobre o produto em que ele está interessado. Então, se abrirá a página de informações do produto. Nela o usuário pode visualizar todas as fotos do produto, a descrição do produto, e quantas unidades estão no estoque. Nessa página também há uma área onde o usuário pode inserir seu CEP e calcular o preço do frete daquele produto. Além disso, também estão presentes nessa página os botões para adicionar o produto ao carrinho e de continuar a compra. 
+</p>
+
+<p align="center">
+  <img alt="Página do produto" width="450px" src="https://user-images.githubusercontent.com/51447706/106498644-55154600-649e-11eb-9cc8-c1088568916d.png" />
+</p>
+<p align="center">
+   Figura 16: Página do produto.
+</p>
+
+<p>
+Se, na página do produto, o usuário clicar em "Adicionar ao carrinho" o produto será adicionado ao carrinho, que pode ser acessado clicando no ícone de carrinho, no canto superior direito da tela. 
+</p>
+
+<p align="center">
+  <img alt="Acessar carrinho" width="450px" src="https://user-images.githubusercontent.com/51447706/106499475-6874e100-649f-11eb-91e9-8651b9a0c357.png" />
+</p>
+<p align="center">
+   Figura 17: Ícone para acessar o carrinho e botão para adicionar produto ao carrinho.
+</p>
+
+<p>
+Agora no carrinho, o usuário pode modificar a quantidade que ele deseja comprar, assim como pode remover o produto do carrinho. O carrinho pode ter um número ilimitado de produtos.
+</p>
+
+<p align="center">
+  <img alt="Carrinho" width="450px" src="https://user-images.githubusercontent.com/51447706/106500142-3c0d9480-64a0-11eb-9284-f800a9f469c6.png" />
+</p>
+<p align="center">
+   Figura 18: Carrinho do usuário.
+</p>
+
+<p>
+Após definir os produtos que serão comprados, está na hora de fazer o pedido. É possível comprar apenas um produto, clicando em "Comprar" na página do produto. Porém, se o usuário quiser comprar mais de um produto, basta adicionar todos eles ao carrinho, e clicar em "Continuar a compra".
+</p>
+
+<p align="center">
+  <img alt="Comprando um produto" width="450px" src="https://user-images.githubusercontent.com/51447706/106501289-b7bc1100-64a1-11eb-91eb-bdd5ceb532fc.png" />
+</p>
+<p align="center">
+   Figura 19: Comprando um produto.
+</p>
+
+<p align="center">
+  <img alt="Comprando pelo carrinho" width="450px" src="https://user-images.githubusercontent.com/51447706/106501294-ba1e6b00-64a1-11eb-9912-58cde4db3e7d.png" />
+</p>
+<p align="center">
+   Figura 20: Comprando pelo carrinho.
+</p>
+
+<p>
+O próximo passo é completar um formulário com as informações pessoais e com o endereço de entrega dos produtos. 
+</p>
+<p>
+OBS:
+A compra de produtos no website tem o processamento do pagamento feito através do Mercado Pago, para que assim, o cliente possa ter uma maior segurança no seu pagamento. Atualmente, a conta vinculada para receber os pagamentos é uma conta de testes, dessa forma, para que seja possível simular uma compra, é necessário que o usuário abra o link do Mercado Pago em uma guia anônima ou em um navegador que não tenha nenhuma conta do Mercado Livre logada. Além disso, o email utilizado no formulário deve ser o email de uma conta de testes. Tente utilizar este email: test_user_34678906@testuser.com. Se houver algum problema, contate o desenvolvedor.
+</p>
+
+<p align="center">
+  <img alt="Formulário" width="450px" src="https://user-images.githubusercontent.com/51447706/106503952-10d97400-64a5-11eb-833b-351fbadc0687.png" />
+</p>
+<p align="center">
+   Figura 21: Formulário para realizar a compra.
+</p>
+
+<p>
+Após submeter o formulário, o usuário é redirecionado para uma página onde deve conferir seus dados, os preços dos produtos e o preço do frete, antes de prosseguir para o pagamento.
+</p>
+
+<p align="center">
+  <img alt="Página para confirmação dos dados" width="450px" src="https://user-images.githubusercontent.com/51447706/106503959-120aa100-64a5-11eb-853f-98906f88de43.png"/>
+</p>
+<p align="center">
+   Figura 22: Página para confirmação dos dados.
+</p>
+
+<p>
+Ao clicar em "Pagar com Mercado Pago" o usuário é redirecionado para a página de pagamento do Mercado Pago. Nela estarão disponíveis diversas formas de pagamento. Também é possível que o usuário esteja em um navegador com uma conta do Mercado Livre logada ou tenha completado o formulário com uma conta que não é de testes. Nesse caso, aparecerá uma mensagem de erro, pois a conta vinculada ao Mercado Pago é uma conta de testes.
+</p>
+
+<p align="center">
+  <img alt="Página do Mercado Pago" width="450px" src="https://user-images.githubusercontent.com/51447706/106504926-59456180-64a6-11eb-9778-c39d4b15e671.png"/>
+</p>
+<p align="center">
+   Figura 23: Página do Mercado Pago.
+</p>
+
+<p align="center">
+  <img alt="Página de erro" width="450px" src="https://user-images.githubusercontent.com/51447706/106503963-12a33780-64a5-11eb-832b-9091143a10eb.png"/>
+</p>
+<p align="center">
+   Figura 24: Página de erro.
+</p>
+
+Uma vez na página do Mercado Pago, é necessário escolher uma forma de pagamento. Nesse exemplo será utilizado o pagamento com cartão de crédito. Para testar o pagamento com cartão de crédito, utilize os [cartões de teste](https://www.mercadopago.com.br/developers/pt/guides/online-payments/checkout-pro/test-integration#bookmark_cart%C3%B5es_de_teste) do Mercado Pago.
+
+Após selecionar o cartão como método de pagamento, preencha as informações com um cartão de teste. Após isso, continue o preenchimento dos formulários, confirme os dados e faça o pagamento
+
+<p align="center">
+  <img alt="Informações do cartão" width="450px" src="https://user-images.githubusercontent.com/51447706/106507169-6adc3880-64a9-11eb-8930-9876df532b6c.png"/>
+</p>
+<p align="center">
+   Figura 25: Preenchendo o formulário com os dados do cartão.
+</p>
+
+<p align="center">
+  <img alt="Confirmando pagamento" width="450px" src="https://user-images.githubusercontent.com/51447706/106507152-66178480-64a9-11eb-83ea-8fcff1855356.png"/>
+</p>
+<p align="center">
+   Figura 26: Confirmando pagamento.
+</p>
+
+<p>
+Em alguns instantes o pagamento é aprovado e após alguns segundos o usuário é redirecionado de volta para o site da Estofados Bech. Após voltar para o site, há uma explicação de como o usuário poderá acompanhar a sua compra pelo site. 
+</p>
+
+<p align="center">
+  <img alt="Pagamento aprovado" width="450px" src="https://user-images.githubusercontent.com/51447706/106507184-70d21980-64a9-11eb-88b8-39bb2dea367d.png"/>
+</p>
+<p align="center">
+   Figura 27: Pagamento aprovado.
+</p>
+
+<p align="center">
+  <img alt="Procedimentos após a compra" width="450px" src="https://user-images.githubusercontent.com/51447706/106508594-5b5def00-64ab-11eb-92e7-78ed91b47fc1.png"/>
+</p>
+<p align="center">
+   Figura 28: Procedimentos após a compra.
+</p>
+
+### :clipboard: Menu do usuário
+
 
 ## :hammer: Funcionamento para o administrador
 
@@ -228,4 +366,4 @@ Acesse http://localhost:3000/ e veja o resultado.
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
 
 ---
-<sup>Projeto desenvolvido por Gabriel Henrique Linke</sup>
+<sup>Projeto desenvolvido exclusivamente por Gabriel Henrique Linke</sup>
