@@ -393,6 +393,99 @@ Além disso, também é possível alterar as informações de um produto já cad
    Figura 36: Modificando produto: parte 2.
 </p>
 
+### :credit_card: Fluxo de compras
+
+<p>
+Quando um usuário concluir uma compra, um email será recebido. Esse email engloba as informações do comprador, além de conter o endereço onde o produto deve ser entregue. É importante salientar que, antes de enviar o produto, é necessário verificar a compra no Mercado Pago, pois pode ser que o pagamento ainda não tenha sido aprovado.
+</p>
+
+<p align="center">
+  <img alt="Informações da compra" width="450px" src="https://user-images.githubusercontent.com/51447706/106601740-c73b6880-653a-11eb-8c1d-62a1a65cf561.png"/>
+</p>
+<p align="center">
+   Figura 37: Email informando sobre uma possível compra.
+</p>
+
+<p>
+Para verificar o andamento das compras, primeiro é necessário logar no Mercado Pago. Após ter efetuado o login, se abrirá a página de Atividades, onde constam todos os pedidos. Além dos pedidos, também é possível verificar o status do pagamento, se está pendente ou se foi aprovado. Ao clicar sobre um pedido com pagamento pendente, é possível observar todas as informações da compra, entretanto, há um aviso para não enviar o produto antes do pagamento ter sido aprovado. Ao clicar em um produto com o pagamento já aprovado, é possível observar os detalhes do pedido, além do email do comprador. Com esses dados em conjunto com os do email, já é possível fazer o envio dos produtos.
+</p>
+
+
+<p align="center">
+  <img alt="Página de Atividades " width="450px" src="https://user-images.githubusercontent.com/51447706/106602389-af181900-653b-11eb-8241-dca8a3550689.png"/>
+</p>
+<p align="center">
+   Figura 38: Página de Atividades contendo todos os pedidos.
+</p>
+
+<p align="center">
+  <img alt="Pedido com pagamento pendente" width="450px" src="https://user-images.githubusercontent.com/51447706/106602385-ae7f8280-653b-11eb-8364-6a345f2f1922.png"/>
+</p>
+<p align="center">
+   Figura 39: Detalhes de um pedido com pagamento pendente.
+</p>
+
+<p align="center">
+  <img alt="Pedido com pagamento aprovado" width="450px" src="https://user-images.githubusercontent.com/51447706/106602379-ad4e5580-653b-11eb-80fa-19ea2897214a.png"/>
+</p>
+<p align="center">
+   Figura 40: Detalhes de um pedido com pagamento aprovado.
+</p>
+
+<p>
+Assim que o pagamento tiver sido aprovado, é necessário iniciar o processo de envio. Para isso, o administrador verifica o email do processo de compra e separa os produtos que foram comprados. Após isso, é preciso o deslocamento até uma agência dos correios. Lá os objetos deverão ser postados com destino ao endereço presente no email. Após a postagem, o código de rastreamento deve ser guardado para os próximos procedimentos.
+</p>
+
+<p>
+O próximo passo é informar o comprador que os objetos estão a caminho. Para isso, o administrador deve enviar um email para o endereço de email que o usuário deixou como contato, informando que a compra está a caminho e deixando a disposição o código de rastreamento. Além disso, é necessário cadastrar a compra no website, para que o usuário também possa ter acesso a esses dados através do site. Para realizar essa ação, o administrador precisa clicar no ícone para abrir o menu do usuário. Então, ele deve dirigir-se à aba de "Cadastrar produto para acompanhamento". Uma vez nessa página, ele cadastra os produtos usando o email da conta do usuário, a data da compra, o código de rastreamento, o id do produto e a quantidade comprada (todos esses dados estão presentes no email da compra). Nesse mesmo menu também é possível "Listar produtos em acompanhamento de um usuário". Para usar essa opção basta inserir o email do usuário, fazendo com que todas as compras realizadas por ele sejam listadas. Se houver algum erro no cadastro, também é possível excluí-lo através desta página. Após isso, o último procedimento a ser feito é acessar as páginas dos produtos vendidos e atualizar o número de produtos disponíveis.
+</p>
+
+<p align="center">
+  <img alt="Menu" width="450px" src="https://user-images.githubusercontent.com/51447706/106606478-f1902480-6540-11eb-8162-080465b7f397.png"/>
+</p>
+<p align="center">
+   Figura 41: Ícone para acessar o menu do usuário.
+</p>
+
+<p align="center">
+  <img alt="Acompanhamento" width="450px" src="https://user-images.githubusercontent.com/51447706/106606468-ee953400-6540-11eb-867e-a0ad46263ea1.png"/>
+</p>
+<p align="center">
+   Figura 42: Cadastrar produto para acompanhamento.
+</p>
+
+<p align="center">
+  <img alt="Listar produtos" width="450px" src="https://user-images.githubusercontent.com/51447706/106606472-efc66100-6540-11eb-8d64-1dc23f0a24f9.png"/>
+</p>
+<p align="center">
+   Figura 43: Listar produtos em acompanhamento.
+</p>
+
+### :clipboard: Outros campos do menu
+
+
+<p>
+Além do que foi listado acima, o menu de usuário de uma conta de administrador ainda possui mais opções. Uma delas é a de consultar os dados do comprador através do código da compra do Mercado Pago. Esse recurso pode ser utilizado para confirmar alguns dados (como atualmente são utilizadas contas de teste, os dados de CPF e telefone são fixos).
+</p>
+
+<p align="center">
+  <img alt="Dados do comprador" width="450px" src="https://user-images.githubusercontent.com/51447706/106607892-92331400-6542-11eb-9ac4-00330bb79c53.png"/>
+</p>
+<p align="center">
+   Figura 44: Página para consultar os dados do comprador.
+</p>
+
+<p>
+Como última opção do menu está a opção de modificar as imagens da home. Ela é utilizada para adicionar ou remover as imagens das reformas de estofados que são mostradas na home. A opção foi criada para que as imagens possam ser dinâmicas, sendo adicionadas as imagens das novas reformas e removidas as que não são mais pertinentes.
+</p>
+
+<p align="center">
+  <img alt="Imagens reforma" width="450px" src="https://user-images.githubusercontent.com/51447706/106608889-b2170780-6543-11eb-9437-8828a4b52365.png"/>
+</p>
+<p align="center">
+   Figura 45: Página para alteração das imagens de reformas.
+</p>
+
 ## 💻 Como Executar
 
 - ### **Pré-requisitos**
