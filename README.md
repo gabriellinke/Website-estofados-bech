@@ -55,7 +55,7 @@ Após clicar no botão, o usuário é redirecionado para a página de login. Se 
   <img alt="Criar conta" width="450px" src="https://user-images.githubusercontent.com/51447706/106461595-bd9afd80-6473-11eb-8052-a767f9c08b5f.png" />
 </p>
 <p align="center">
-   Figura 2: Tela de login com botão para criar conta.
+   Figura 2: Página de login com botão para criar conta.
 </p>
 
 <p>
@@ -66,7 +66,7 @@ Na nova página que se abre, o usuário precisa preencher seus dados e após iss
   <img alt="Cadastro" width="450px" src="https://user-images.githubusercontent.com/51447706/106462517-fb4c5600-6474-11eb-921d-0111c47dadc7.png" />
 </p>
 <p align="center">
-   Figura 3: Tela de cadastro.
+   Figura 3: Página de cadastro.
 </p>
 
 <p>
