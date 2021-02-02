@@ -355,6 +355,43 @@ Ao abrir o menu, o usuário tem três opções para navegar: a primeira delas é
 
 ## :hammer: Funcionamento para o administrador
 
+### :handbag: Produtos
+
+<p>
+Ao logar no site com uma conta de administrador, novas funções são liberadas. A primeira delas é a de criar produtos. Para isso, o administrador precisa clicar no ícone de "Novo produto" presente no cabeçalho. Então, ele será redirecionado para a página de cadastro do produto. Nessa página, é necessário preencher os principais dados do produto, como o nome o valor e a quantidade, adicionar uma foto do produto, além de ter que inserir as dimensões do produto, para que assim seja possível fazer o cálculo do frete.
+</p>
+
+<p align="center">
+  <img alt="Botão para criar produto" width="450px" src="https://user-images.githubusercontent.com/51447706/106599416-c8b76180-6537-11eb-95c8-01bc446da4a4.png"/>
+</p>
+<p align="center">
+   Figura 33: Botão para criar produto.
+</p>
+
+<p align="center">
+  <img alt="Criação de produtos." width="450px" src="https://user-images.githubusercontent.com/51447706/106597806-afadb100-6535-11eb-90c6-4bf184341f21.png"/>
+</p>
+<p align="center">
+   Figura 34: Formulário para criação de produtos.
+</p>
+
+<p>
+Além disso, também é possível alterar as informações de um produto já cadastrado. Para isso, basta clicar sobre o produto que se deseja alterar. Então, na página que se abre, é possível adicionar e remover fotos do produto, adicionar e remover descrições, alterar o nome, preço, quantidade disponível e quantidade de parcelas permitidas no cartão. Também há a possibilidade de excluir o produto.
+</p>
+
+<p align="center">
+  <img alt="Modificando produto" width="450px" src="https://user-images.githubusercontent.com/51447706/106597809-b1777480-6535-11eb-806f-7f15023658cd.png"/>
+</p>
+<p align="center">
+   Figura 35: Modificando produto.
+</p>
+
+<p align="center">
+  <img alt="Modificando produto" width="450px" src="https://user-images.githubusercontent.com/51447706/106597813-b2100b00-6535-11eb-9d06-f6b2aa8af66c.png"/>
+</p>
+<p align="center">
+   Figura 36: Modificando produto: parte 2.
+</p>
 
 ## 💻 Como Executar
 
