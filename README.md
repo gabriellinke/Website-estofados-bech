@@ -358,7 +358,7 @@ Ao abrir o menu, o usuário tem três opções para navegar: a primeira delas é
 ### :handbag: Produtos
 
 <p>
-Ao logar no site com uma conta de administrador, novas funções são liberadas. A primeira delas é a de criar produtos. Para isso, o administrador precisa clicar no ícone de "Novo produto" presente no cabeçalho. Então, ele será redirecionado para a página de cadastro do produto. Nessa página, é necessário preencher os principais dados do produto, como o nome o valor e a quantidade, adicionar uma foto do produto, além de ter que inserir as dimensões do produto, para que assim seja possível fazer o cálculo do frete.
+Ao logar no site com uma conta de administrador, novas funções são liberadas. A primeira delas é a de cadastrar produtos. Para isso, o administrador precisa clicar no ícone de "Novo produto" presente no cabeçalho. Então, ele será redirecionado para a página de cadastro do produto. Nessa página, é necessário preencher os principais dados do produto, como o nome o valor e a quantidade, adicionar uma foto do produto, além de ter que inserir as dimensões do produto, para que assim seja possível fazer o cálculo do frete.
 </p>
 
 <p align="center">
