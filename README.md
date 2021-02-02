@@ -372,7 +372,7 @@ Ao logar no site com uma conta de administrador, novas funções são liberadas.
   <img alt="Criação de produtos." width="450px" src="https://user-images.githubusercontent.com/51447706/106597806-afadb100-6535-11eb-90c6-4bf184341f21.png"/>
 </p>
 <p align="center">
-   Figura 34: Formulário para criação de produtos.
+   Figura 34: Formulário para cadastro de produtos.
 </p>
 
 <p>
