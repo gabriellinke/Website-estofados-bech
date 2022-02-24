@@ -26,7 +26,7 @@ Este site foi desenvolvido em 2020 durante a pandemia do coronavírus. Como eu e
 
 ## :eyes: Versão demo
 
-Atualmente o website tem uma versão de demonstração, com o seu back-end hospedado no Heroku e o front-end hospedado na Netlify. Para testar essa versão basta acessar o site <a target="blank" href="https://estofadosbech.gabriellinke.tech">https://estofadosbech.gabriellinke.tech</a>. Para ter acesso a uma conta com permissões de administrador, entre em contato com o desenvolvedor. Uma explicação sobre o funcionamento pode ser encontrada a seguir.
+Atualmente o website tem uma versão de demonstração, com o seu back-end hospedado no Heroku e o front-end hospedado na Netlify. Para testar essa versão basta acessar o site <a target="blank" href="https://estofadosbech.gabriellinke.dev.br">https://estofadosbech.gabriellinke.dev.br</a>. Para ter acesso a uma conta com permissões de administrador, entre em contato com o desenvolvedor. Uma explicação sobre o funcionamento pode ser encontrada a seguir.
 
 ## :gear: Funcionamento
 
